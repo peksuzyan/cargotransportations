@@ -1,0 +1,7 @@
+# This file contains a set of project files for excluding out of version control
+
+# Exclude compiled classes
+/target
+# Exclude files of IDE environment
+/.idea
+cargotransportations.iml
