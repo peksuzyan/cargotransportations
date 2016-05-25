@@ -3,18 +3,20 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.gmail.eksuzyan.pavel</groupId>
-    <artifactId>cargotransportations</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>webinterfacelayer</artifactId>
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
 
-    <modules>
-        <module>daolayer</module>
-        <module>servicelayer</module>
-        <module>webinterfacelayer</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>com.gmail.eksuzyan.pavel</groupId>
+            <artifactId>servicelayer</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
     <build>
-        <finalName>cargotransportations</finalName>
+        <finalName>webinterfacelayer</finalName>
     </build>
 
 </project>
