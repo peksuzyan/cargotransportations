@@ -17,6 +17,7 @@
 
     <build>
         <finalName>servicelayer</finalName>
+        <sourceDirectory>src/com/gmail/eksuzyan/pavel/service/core</sourceDirectory>
     </build>
 
 </project>

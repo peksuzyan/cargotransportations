@@ -7,4 +7,4 @@
 
 # Exclude files of IDE environment
 /.idea
-cargotransportations.iml
+*.iml
