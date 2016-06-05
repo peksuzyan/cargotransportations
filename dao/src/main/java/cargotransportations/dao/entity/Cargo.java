@@ -13,7 +13,7 @@ public class Cargo implements Serializable {
     private String name;
     private double weight;
     private CargoStatus status;
-    private Entry entry;
+    private OrderEntry orderEntry;
 
     public Cargo() {}
 
@@ -40,9 +40,9 @@ public class Cargo implements Serializable {
     }
 
     @OneToOne
-    @JoinColumn(name = "entry_id")
-    public Entry getEntry() {
-        return entry;
+    @JoinColumn(name = "order_entry_id")
+    public OrderEntry getOrderEntry() {
+        return orderEntry;
     }
 
     public void setId(int id) {
@@ -61,7 +61,7 @@ public class Cargo implements Serializable {
         this.status = status;
     }
 
-    public void setEntry(Entry entry) {
-        this.entry = entry;
+    public void setOrderEntry(OrderEntry orderEntry) {
+        this.orderEntry = orderEntry;
     }
 }

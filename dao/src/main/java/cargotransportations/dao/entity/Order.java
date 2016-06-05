@@ -9,7 +9,7 @@ public class Order {
 
     private int id;
     private boolean active;
-    private List<Entry> entries;
+    private List<OrderEntry> orderEntries;
     private Truck truck;
     private List<Driver> drivers;
 
@@ -27,9 +27,9 @@ public class Order {
         return active;
     }
 
-    @OneToMany(mappedBy = "order")
-    public List<Entry> getEntries() {
-        return entries;
+    @OneToMany(mappedBy = "order", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    public List<OrderEntry> getOrderEntries() {
+        return orderEntries;
     }
 
     @OneToOne
@@ -51,8 +51,8 @@ public class Order {
         this.active = active;
     }
 
-    public void setEntries(List<Entry> entries) {
-        this.entries = entries;
+    public void setOrderEntries(List<OrderEntry> orderEntries) {
+        this.orderEntries = orderEntries;
     }
 
     public void setTruck(Truck truck) {
