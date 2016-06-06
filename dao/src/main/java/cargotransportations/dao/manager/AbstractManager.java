@@ -5,11 +5,7 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 public abstract class AbstractManager<T> implements Manager<T> {
-    private EntityManager entityManager;
-
-    public AbstractManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
-    }
+    private EntityManager entityManager = EntityManagerGenerator.getNewEntityManager();
 
     public abstract Class<T> getItemClass();
 

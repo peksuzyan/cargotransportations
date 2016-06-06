@@ -2,13 +2,7 @@ package cargotransportations.dao.manager;
 
 import cargotransportations.dao.entity.Truck;
 
-import javax.persistence.EntityManager;
-
 public class TruckManager extends AbstractManager<Truck> {
-
-    public TruckManager(EntityManager entityManager) {
-        super(entityManager);
-    }
 
     @Override
     public Class<Truck> getItemClass() {
@@ -25,5 +19,12 @@ public class TruckManager extends AbstractManager<Truck> {
         truck.setActive(true);
         getEntityManager().getTransaction().commit();
         return truck;
+    }
+
+    public void updateActive(int truckId, boolean active) {
+        Truck truck = read(truckId);
+        getEntityManager().getTransaction().begin();
+        truck.setActive(active);
+        getEntityManager().getTransaction().commit();
     }
 }

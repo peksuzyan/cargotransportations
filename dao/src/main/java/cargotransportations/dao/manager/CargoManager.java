@@ -8,10 +8,6 @@ import javax.persistence.EntityManager;
 
 public class CargoManager extends AbstractManager<Cargo> {
 
-    public CargoManager(EntityManager entityManager) {
-        super(entityManager);
-    }
-
     @Override
     public Class<Cargo> getItemClass() {
         return Cargo.class;
@@ -26,5 +22,15 @@ public class CargoManager extends AbstractManager<Cargo> {
         cargo.setStatus(CargoStatus.PREPARED);
         getEntityManager().getTransaction().commit();
         return cargo;
+    }
+
+    public void update(int cargoId, String name, double weight, CargoStatus status, OrderEntry orderEntry) {
+        Cargo cargo = read(cargoId);
+        getEntityManager().getTransaction().begin();
+        cargo.setName(name);
+        cargo.setWeight(weight);
+        cargo.setOrderEntry(orderEntry);
+        cargo.setStatus(status);
+        getEntityManager().getTransaction().commit();
     }
 }

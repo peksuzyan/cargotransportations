@@ -4,14 +4,9 @@ import cargotransportations.dao.entity.Driver;
 import cargotransportations.dao.entity.Order;
 import cargotransportations.dao.entity.OrderEntry;
 
-import javax.persistence.EntityManager;
 import java.util.ArrayList;
 
 public class OrderManager extends AbstractManager<Order> {
-
-    public OrderManager(EntityManager entityManager) {
-        super(entityManager);
-    }
 
     @Override
     public Class<Order> getItemClass() {

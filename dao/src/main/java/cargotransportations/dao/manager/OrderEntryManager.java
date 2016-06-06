@@ -3,13 +3,7 @@ package cargotransportations.dao.manager;
 import cargotransportations.dao.entity.OrderEntry;
 import cargotransportations.dao.entity.Order;
 
-import javax.persistence.EntityManager;
-
 public class OrderEntryManager extends AbstractManager<OrderEntry> {
-
-    public OrderEntryManager(EntityManager entityManager) {
-        super(entityManager);
-    }
 
     @Override
     public Class<OrderEntry> getItemClass() {
@@ -24,5 +18,13 @@ public class OrderEntryManager extends AbstractManager<OrderEntry> {
         orderEntry.setOrder(order);
         getEntityManager().getTransaction().commit();
         return orderEntry;
+    }
+
+    public void update(int orderEntryId, String departureCity, String arrivalCity) {
+        OrderEntry orderEntry = read(orderEntryId);
+        getEntityManager().getTransaction().begin();
+        orderEntry.setDepartureCity(departureCity);
+        orderEntry.setArrivalCity(arrivalCity);
+        getEntityManager().getTransaction().commit();
     }
 }

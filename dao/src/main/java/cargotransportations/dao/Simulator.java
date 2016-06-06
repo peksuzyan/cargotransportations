@@ -32,6 +32,7 @@ public class Simulator {
     }
 
     private static void createCascadeOrder(String name, double weight, String departureCity, String arrivalCity) {
+        /*
         EntityManager entityManager = emf.createEntityManager();
         CargoManager cargoManager = new CargoManager(entityManager);
         OrderEntryManager orderEntryManager = new OrderEntryManager(entityManager);
@@ -47,5 +48,6 @@ public class Simulator {
             order.setCargoEntries(new ArrayList<OrderEntry>());
             order.getCargoEntries().add(orderEntry);
         }
+        */
     }
 }
