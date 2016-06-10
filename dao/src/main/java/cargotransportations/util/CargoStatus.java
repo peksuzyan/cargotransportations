@@ -1,4 +1,4 @@
-package cargotransportations.dao.util;
+package cargotransportations.util;
 
 public enum CargoStatus {
     PREPARED,

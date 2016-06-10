@@ -1,4 +1,4 @@
-package cargotransportations.dao.entity;
+package cargotransportations.entity;
 
 import javax.persistence.*;
 

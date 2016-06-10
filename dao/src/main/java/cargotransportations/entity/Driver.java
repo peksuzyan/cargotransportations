@@ -1,6 +1,6 @@
-package cargotransportations.dao.entity;
+package cargotransportations.entity;
 
-import cargotransportations.dao.util.DriverStatus;
+import cargotransportations.util.DriverStatus;
 
 import javax.persistence.*;
 
@@ -15,7 +15,6 @@ public class Driver {
     private DriverStatus status;
     private String city;
     private Truck truck;
-    private Order order;
 
     public Driver() {}
 
@@ -57,12 +56,6 @@ public class Driver {
         return truck;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    public Order getOrder() {
-        return order;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -89,9 +82,5 @@ public class Driver {
 
     public void setTruck(Truck truck) {
         this.truck = truck;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 }

@@ -1,6 +1,7 @@
-package cargotransportations.dao.entity;
+package cargotransportations.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -9,9 +10,10 @@ public class Order {
 
     private int id;
     private boolean active;
-    private List<OrderEntry> orderEntries;
+    private List<Cargo> cargoes;
     private Truck truck;
     private List<Driver> drivers;
+    private Date creationDate;
 
     public Order() {}
 
@@ -27,9 +29,10 @@ public class Order {
         return active;
     }
 
-    @OneToMany(mappedBy = "order", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    public List<OrderEntry> getOrderEntries() {
-        return orderEntries;
+    @OneToMany
+    @JoinColumn(name = "order_id")
+    public List<Cargo> getCargoes() {
+        return cargoes;
     }
 
     @OneToOne
@@ -38,9 +41,15 @@ public class Order {
         return truck;
     }
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany
+    @JoinColumn(name = "order_id")
     public List<Driver> getDrivers() {
         return drivers;
+    }
+
+    @Column(name = "creation_date")
+    public Date getCreationDate() {
+        return creationDate;
     }
 
     public void setId(int id) {
@@ -51,8 +60,8 @@ public class Order {
         this.active = active;
     }
 
-    public void setOrderEntries(List<OrderEntry> orderEntries) {
-        this.orderEntries = orderEntries;
+    public void setCargoes(List<Cargo> cargoes) {
+        this.cargoes = cargoes;
     }
 
     public void setTruck(Truck truck) {
@@ -61,5 +70,9 @@ public class Order {
 
     public void setDrivers(List<Driver> drivers) {
         this.drivers = drivers;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 }

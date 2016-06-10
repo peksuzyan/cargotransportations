@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="testpage.css">
+    </head>
+    <body>
+    <div class="section">
+        <div class="header">
+            <h1>Cargo Transportations Company</h1>
+            <h3>Administration Console</h3>
+        </div>
+        <div class="nav">
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="">Drivers</a></li>
+                <li><a href="">Trucks</a></li>
+                <li><a href="">Orders</a></li>
+                <li><a href="">Cargoes</a></li>
+                <li><a href="">Routes</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <div>
+                <h4>Hello, World!</h4>
+                <form method="post" action="DriversViewer.do">
+                    <input type="submit" value="Show Drivers">
+                </form>
+            </div>
+        </div>
+        <div class="footer">
+            <div id="date_time"></div>
+        </div>
+    </div>
+    </body>
+
+    <script>
+       document.getElementById("date_time").innerHTML = Date();
+    </script>
+</html>
