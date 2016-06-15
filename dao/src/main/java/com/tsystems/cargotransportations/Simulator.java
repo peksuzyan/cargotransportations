@@ -35,7 +35,7 @@ public class Simulator {
         orderDao.delete(order);
         truckDao.delete(truck);*/
 /*        createDriverOrderTruck();
-        createDriver();*/
+        createTruck();*/
 
 
         //System.out.println(DaoGenerator.getMaxId());

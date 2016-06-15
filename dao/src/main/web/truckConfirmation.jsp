@@ -7,7 +7,7 @@
         <span style="color: darkgreen"><c:out value="${success_message}" /></span>
         <span style="color: darkred"><c:out value="${error_message}" /></span>
         <br />
-        <span><a href="driverServlet?action=refresh">OK</a></span>
+        <span><a href="truckServlet?action=refresh">OK</a></span>
         <c:remove var="success_message" scope="session" />
         <c:remove var="error_message" scope="session" />
     </body>

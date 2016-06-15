@@ -38,4 +38,45 @@ public class ParamConstant {
      * Necessary for setting or getting drivers list by param name.
      */
     public static final String DRIVERS_LIST_PARAM = "drivers";
+
+    /**
+     * Necessary for setting success message about an operation status by param name.
+     */
+    public static final String SUCCESS_MESSAGE_PARAM = "success_message";
+
+    /**
+     * Necessary for setting error message about an operation status by param name.
+     */
+    public static final String ERROR_MESSAGE_PARAM = "error_message";
+
+    /**
+     * Necessary for setting or getting trucks list by param name.
+     */
+    public static final String TRUCKS_LIST_PARAM = "trucks";
+
+    /**
+     * Necessary for setting or getting truck number by param name.
+     */
+    public static final String TRUCK_NUMBER_PARAM = "truck_number";
+
+    /**
+     * Necessary for setting or getting truck object by param name.
+     */
+    public static final String TRUCK_PARAM = "truck";
+
+    /**
+     * Necessary for setting or getting count of people by param name.
+     */
+    public static final String PEOPLE_PARAM = "people";
+
+    /**
+     * Necessary for setting or getting active by param name.
+     */
+    public static final String ACTIVE_PARAM = "active";
+
+    /**
+     * Necessary for setting or getting active by param name.
+     */
+    public static final String CAPACITY_PARAM = "capacity";
+
 }

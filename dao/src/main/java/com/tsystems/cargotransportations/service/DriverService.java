@@ -44,9 +44,9 @@ public interface DriverService {
     List<Driver> getAllDrivers();
 
     /**
-     * Gets all drivers that suitable for assigning of the order given by @param.
+     * Gets all drivers that suitable for assigning of the order given order number.
      * @param orderNumber order number
      * @return drivers list
      */
-    List<Driver> getSuitableDrivers(int orderNumber);
+    List<Driver> getSuitableDriversByOrder(int orderNumber);
 }

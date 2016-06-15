@@ -15,14 +15,14 @@ public class ActionConstant {
     public static final String ADD_ACTION = "add";
 
     /**
-     * Client needs to perform a new entity creating.
-     */
-    public static final String PERFORM_ADDING_ACTION = "perform_adding";
-
-    /**
      * Client needs to edit an entity.
      */
     public static final String EDIT_ACTION = "edit";
+
+    /**
+     * Client needs to perform a new entity creating.
+     */
+    public static final String PERFORM_ADDING_ACTION = "perform_adding";
 
     /**
      * Client needs to perform an entity editing.
@@ -32,5 +32,10 @@ public class ActionConstant {
     /**
      * Client needs to delete an entity.
      */
-    public static final String DELETE_ACTION = "delete";
+    public static final String PERFORM_DELETING_ACTION = "perform_deleting";
+
+    /**
+     * Client doesn't need to do anything with an entity.
+     */
+    public static final String NOTHING_ACTION = "";
 }

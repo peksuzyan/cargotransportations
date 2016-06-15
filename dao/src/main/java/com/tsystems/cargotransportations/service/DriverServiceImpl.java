@@ -10,7 +10,9 @@ import java.util.List;
  * Implements business-logic operations that bound with driver.
  */
 public class DriverServiceImpl implements DriverService {
-
+    /**
+     * Instance of implementation of DriverDao class.
+     */
     private DriverDao driverDao = new DriverDaoImpl();
 
     @Override
@@ -56,7 +58,7 @@ public class DriverServiceImpl implements DriverService {
 
 
     @Override
-    public List<Driver> getSuitableDrivers(int orderNumber) {
+    public List<Driver> getSuitableDriversByOrder(int orderNumber) {
         // It's need to implement.
         return null;
     }

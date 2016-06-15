@@ -28,9 +28,19 @@
                     <td><c:out value="${driver.city}" /></td>
                     <td><c:out value="${driver.truck}" /></td>
                     <td><a href="driverServlet?action=edit&driver_number=${driver.number}">Edit</a></td>
-                    <td><a href="driverServlet?action=delete&driver_number=${driver.number}">Delete</a></td>
+                    <td>
+                        <form action="driverServlet" method="post">
+                            <input type="text" name="action" value="perform_deleting" hidden />
+                            <input type="text" name="driver_number" value=${driver.number} hidden />
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
                 </tr>
             </c:forEach>
         </table>
+        <span style="color: darkgreen"><c:out value="${success_message}" /></span>
+        <span style="color: darkred"><c:out value="${error_message}" /></span>
+        <c:remove var="success_message" scope="session" />
+        <c:remove var="error_message" scope="session" />
     </body>
 </html>

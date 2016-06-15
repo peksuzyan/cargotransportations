@@ -4,44 +4,36 @@
 <!DOCTYPE html>
 <html>
     <body>
-        <form action="driverServlet" method="post">
+        <form action="truckServlet" method="post">
             <c:if test="${action eq 'add'}"><input name="action" value="perform_adding" hidden /></c:if>
             <c:if test="${action eq 'edit'}"><input name="action" value="perform_editing" hidden /></c:if>
             <table>
                 <tr>
                     <td>Number:</td>
-                    <td><input type="text" value="${driver.number}" readonly
-                               <c:if test="${action eq 'edit'}">name="driver_number"</c:if>/> </td>
+                    <td><input type="text" name="truck_number" value="${truck.number}"
+                               <c:if test="${action eq 'edit'}">readonly</c:if>/> </td>
                 </tr>
                 <tr>
-                    <td>First Name:</td>
-                    <td><input type="text" name="first_name" value="${driver.firstName}" /> </td>
+                    <td>People:</td>
+                    <td><input type="text" name="people" value="${truck.people}" /> </td>
                 </tr>
                 <tr>
-                    <td>Last Name:</td>
-                    <td><input type="text" name="last_name" value="${driver.lastName}" /> </td>
+                    <td>Active:</td>
+                    <td><input type="text" name="active" value="${truck.active}" /> </td>
                 </tr>
                 <tr>
-                    <td>Hours:</td>
-                    <td><input type="text" value="${driver.hours}" readonly /> </td>
-                </tr>
-                <tr>
-                    <td>Status:</td>
-                    <td><input type="text" value="${driver.status}" readonly /> </td>
+                    <td>Capacity:</td>
+                    <td><input type="text" name="capacity" value="${truck.capacity}"  /> </td>
                 </tr>
                 <tr>
                     <td>City:</td>
-                    <td><input type="text" value="${driver.city}"
+                    <td><input type="text" value="${truck.city}"
                                <c:if test="${action eq 'add'}">name="city"</c:if>
                                <c:if test="${action ne 'add'}">readonly</c:if> /> </td>
                 </tr>
-                <tr>
-                    <td>Truck:</td>
-                    <td><input type="text" value="${driver.truck}" readonly /> </td>
-                </tr>
             </table>
             <input type="submit" value="Save"/>
-            <span><a href="driverServlet?action=refresh">Cancel</a></span>
+            <span><a href="truckServlet?action=refresh">Cancel</a></span>
         </form>
         <span style="color: darkgreen"><c:out value="${success_message}" /></span>
         <span style="color: darkred"><c:out value="${error_message}" /></span>

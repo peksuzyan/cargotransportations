@@ -14,4 +14,14 @@
         <url-pattern>/driverServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>truckServlet</servlet-name>
+        <servlet-class>com.tsystems.cargotransportations.presentation.TruckServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>truckServlet</servlet-name>
+        <url-pattern>/truckServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>
