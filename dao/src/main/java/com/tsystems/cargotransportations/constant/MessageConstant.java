@@ -5,14 +5,19 @@ package com.tsystems.cargotransportations.constant;
  */
 public class MessageConstant {
     /**
-     * String representation of driver entity.
+     * String representation of driver classname.
      */
     private static final String DRIVER = "driver";
 
     /**
-     * String representation of truck entity.
+     * String representation of truck classname.
      */
     private static final String TRUCK = "truck";
+
+    /**
+     * String representation of cargo classname.
+     */
+    private static final String CARGO = "cargo";
 
     /**
      * Pattern for representing of success messages after operations over the entity.
@@ -58,6 +63,26 @@ public class MessageConstant {
      * Message represents when truck is deleted.
      */
     public static final String TRUCK_IS_DELETED = String.format(OPERATION_OVER_ENTITY, TRUCK, "deleted");
+
+    /**
+     * Message represents when cargo is created.
+     */
+    public static final String CARGO_IS_CREATED = String.format(OPERATION_OVER_ENTITY, CARGO, "created");
+
+    /**
+     * Message represents when cargo is edited.
+     */
+    public static final String CARGO_IS_EDITED = String.format(OPERATION_OVER_ENTITY, CARGO, "edited");
+
+    /**
+     * Message represents when cargo is deleted.
+     */
+    public static final String CARGO_IS_DELETED = String.format(OPERATION_OVER_ENTITY, CARGO, "deleted");
+
+    /**
+     * Message represents when cargo is not found.
+     */
+    public static final String CARGO_IS_NOT_FOUND = String.format(ENTITY_IS_NOT_FOUND, CARGO);
 
     /**
      * Message represents when passed data aren't correct.

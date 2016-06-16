@@ -24,4 +24,14 @@
         <url-pattern>/truckServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>cargoServlet</servlet-name>
+        <servlet-class>com.tsystems.cargotransportations.presentation.CargoServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>cargoServlet</servlet-name>
+        <url-pattern>/cargoServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>

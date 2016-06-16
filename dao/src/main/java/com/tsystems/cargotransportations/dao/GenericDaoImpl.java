@@ -18,7 +18,7 @@ class GenericDaoImpl<T> implements GenericDao<T> {
     }
 
     /**
-     * Gets instance of EntityManager performed by EntityManagerFactory.
+     * Gets instance of EntityManager produced by EntityManagerFactory.
      * @return entityManager
      */
     EntityManager getLazyEntityManager() {

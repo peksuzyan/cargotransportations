@@ -3,17 +3,47 @@ package com.tsystems.cargotransportations.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * Basic class that represents a cargo entity.
+ */
 @Entity
 @Table(uniqueConstraints =
     @UniqueConstraint(columnNames = {"departure_city", "arrival_city"}))
 public class Cargo implements Serializable {
 
+    /**
+     * Identifier of a cargo.
+     */
     private int id;
+
+    /**
+     * Unique personal number of a cargo.
+     */
     private int number;
+
+    /**
+     * Ordinary name of a cargo for representing to user.
+     */
     private String name;
+
+    /**
+     * Weight of a cargo.
+     */
     private double weight;
+
+    /**
+     * City where is cargo has to departure.
+     */
     private String departureCity;
+
+    /**
+     * City where is cargo has to arrival.
+     */
     private String arrivalCity;
+
+    /**
+     * Represents current delivery status of a cargo.
+     */
     private CargoStatus status;
 
     public Cargo() {}

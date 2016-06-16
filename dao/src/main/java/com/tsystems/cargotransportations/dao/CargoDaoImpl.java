@@ -4,12 +4,16 @@ import com.tsystems.cargotransportations.entity.Cargo;
 
 import java.util.List;
 
+/**
+ * Specific DAO implementation for cargoes management.
+ */
 public class CargoDaoImpl extends GenericDaoImpl<Cargo> implements CargoDao {
 
     public CargoDaoImpl() {
         super(Cargo.class);
     }
 
+    @Override
     public Cargo getByNumber(int number) {
         String query = String.format(
                 "FROM %s WHERE number = %d", Cargo.class.getSimpleName(), number);

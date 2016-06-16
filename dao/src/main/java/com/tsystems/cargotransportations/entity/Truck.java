@@ -3,14 +3,40 @@ package com.tsystems.cargotransportations.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * Basic class that represents a truck entity.
+ */
 @Entity
 public class Truck implements Serializable {
 
+    /**
+     * Identifier of a truck.
+     */
     private int id;
+
+    /**
+     * Unique personal number of a truck.
+     */
     private String number;
+
+    /**
+     * Represents how many people can to work together in a given truck.
+     */
     private int people;
+
+    /**
+     * Represents may be a truck is used now.
+     */
     private boolean active;
+
+    /**
+     * Total capacity of a truck.
+     */
     private double capacity;
+
+    /**
+     * City where is a truck now.
+     */
     private String city;
 
     public Truck() {}

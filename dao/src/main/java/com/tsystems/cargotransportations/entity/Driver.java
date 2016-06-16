@@ -3,16 +3,50 @@ package com.tsystems.cargotransportations.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 
+/**
+ * Basic class that represents a driver entity.
+ */
 @Entity
 public class Driver implements Serializable {
 
+    /**
+     * Identifier of a driver.
+     */
     private int id;
+
+    /**
+     * Unique personal number of a driver.
+     */
     private int number;
+
+    /**
+     * Ordinary first name of a driver.
+     */
     private String firstName;
+
+    /**
+     * Ordinary last name of a driver.
+     */
     private String lastName;
+
+    /**
+     * Represents how many time driver has worked already.
+     */
     private int hours;
+
+    /**
+     * Represents current status of a driver.
+     */
     private DriverStatus status;
+
+    /**
+     * City where is a driver now.
+     */
     private String city;
+
+    /**
+     * Current truck assigned to a driver.
+     */
     private Truck truck;
 
     public Driver() {}
@@ -45,7 +79,7 @@ public class Driver implements Serializable {
     }
 
     @Column(name = "status")
-        @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     public DriverStatus getStatus() {
         return status;
     }

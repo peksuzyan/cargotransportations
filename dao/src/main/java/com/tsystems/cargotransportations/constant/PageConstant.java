@@ -33,4 +33,19 @@ public class PageConstant {
      * Refers to truck confirmation page.
      */
     public static final String TRUCK_CONFIRMATION_PAGE = "/truckConfirmation.jsp";
+
+    /**
+     * Refers to cargoes list page.
+     */
+    public static final String CARGOES_LIST_PAGE = "/cargoesList.jsp";
+
+    /**
+     * Refers to cargo registration page.
+     */
+    public static final String CARGO_REGISTRATION_PAGE = "/cargoRegistration.jsp";
+
+    /**
+     * Refers to cargo confirmation page.
+     */
+    public static final String CARGO_CONFIRMATION_PAGE = "/cargoConfirmation.jsp";
 }

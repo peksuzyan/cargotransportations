@@ -21,7 +21,7 @@ import static com.tsystems.cargotransportations.constant.ParamConstant.*;
  */
 public class TruckServlet extends HttpServlet {
     /**
-     * Instance of implementation of TruckService class.
+     * Implementation instance of TruckService class.
      */
     private TruckService truckService = new TruckServiceImpl();
 

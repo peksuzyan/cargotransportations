@@ -10,6 +10,11 @@ public class ParamConstant {
     public static final String ACTION_PARAM = "action";
 
     /**
+     * Necessary for setting or getting name by param name.
+     */
+    public static final String NAME_PARAM = "name";
+
+    /**
      * Necessary for setting or getting first name by param name.
      */
     public static final String FIRST_NAME_PARAM = "first_name";
@@ -23,6 +28,16 @@ public class ParamConstant {
      * Necessary for setting or getting city by param name.
      */
     public static final String CITY_PARAM = "city";
+
+    /**
+     * Necessary for setting or getting departure city by param name.
+     */
+    public static final String DEPARTURE_CITY_PARAM = "departure_city";
+
+    /**
+     * Necessary for setting or getting arrival city by param name.
+     */
+    public static final String ARRIVAL_CITY_PARAM = "arrival_city";
 
     /**
      * Necessary for setting or getting driver number by param name.
@@ -78,5 +93,25 @@ public class ParamConstant {
      * Necessary for setting or getting active by param name.
      */
     public static final String CAPACITY_PARAM = "capacity";
+
+    /**
+     * Necessary for setting or getting cargoes list by param name.
+     */
+    public static final String CARGOES_LIST_PARAM = "cargoes";
+
+    /**
+     * Necessary for setting or getting cargo number by param name.
+     */
+    public static final String CARGO_NUMBER_PARAM = "cargo_number";
+
+    /**
+     * Necessary for setting or getting driver object by param name.
+     */
+    public static final String CARGO_PARAM = "cargo";
+
+    /**
+     * Necessary for setting or getting weight by param name.
+     */
+    public static final String WEIGHT_PARAM = "weight";
 
 }

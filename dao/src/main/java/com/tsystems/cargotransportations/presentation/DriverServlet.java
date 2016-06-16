@@ -21,16 +21,15 @@ import static com.tsystems.cargotransportations.constant.ParamConstant.*;
  */
 public class DriverServlet extends HttpServlet {
     /**
-     * Instance of implementation of DriverService class.
+     * Implementation instance of DriverService class.
      */
     private DriverService driverService = new DriverServiceImpl();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String actionParam = request.getParameter(ACTION_PARAM);
-        String action = (actionParam == null ? NOTHING_ACTION : actionParam);
-        switch (action) {
+        String actionParam = getActionParam(request);
+        switch (actionParam) {
             case REFRESH_ACTION: {
                 request.setAttribute(DRIVERS_LIST_PARAM, driverService.getAllDrivers());
                 getServletContext().getRequestDispatcher(DRIVERS_LIST_PAGE).forward(request, response);
@@ -65,9 +64,8 @@ public class DriverServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String actionParam = request.getParameter(ACTION_PARAM);
-        String action = (actionParam == null ? NOTHING_ACTION : actionParam);
-        switch (action) {
+        String actionParam = getActionParam(request);
+        switch (actionParam) {
             case PERFORM_ADDING_ACTION: {
                 String firstNameParam = request.getParameter(FIRST_NAME_PARAM);
                 String lastNameParam = request.getParameter(LAST_NAME_PARAM);
@@ -112,5 +110,10 @@ public class DriverServlet extends HttpServlet {
             }
             break;
         }
+    }
+
+    private String getActionParam(HttpServletRequest request) {
+        String actionParam = request.getParameter(ACTION_PARAM);
+        return (actionParam == null ? NOTHING_ACTION : actionParam);
     }
 }
