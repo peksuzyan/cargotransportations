@@ -57,4 +57,9 @@ public class CargoServiceImpl implements CargoService {
     public List<Cargo> getAllCargoes() {
         return cargoDao.getAll();
     }
+
+    @Override
+    public List<Cargo> getSuitableCargoesByOrder(int orderNumber) {
+        return null;
+    }
 }

@@ -59,7 +59,6 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public List<Driver> getSuitableDriversByOrder(int orderNumber) {
-        // It's need to implement.
         return null;
     }
 }

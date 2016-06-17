@@ -4,12 +4,16 @@ import com.tsystems.cargotransportations.entity.Order;
 
 import java.util.List;
 
+/**
+ * Specific DAO implementation for orders management.
+ */
 public class OrderDaoImpl extends GenericDaoImpl<Order> implements OrderDao {
 
     public OrderDaoImpl() {
         super(Order.class);
     }
 
+    @Override
     public Order getByNumber(int number) {
         String query = String.format(
                 "FROM %s WHERE number = %d", Order.class.getSimpleName(), number);

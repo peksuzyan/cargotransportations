@@ -43,4 +43,11 @@ public interface CargoService {
      * @return cargoes list
      */
     List<Cargo> getAllCargoes();
+
+    /**
+     * Gets all cargoes that suitable for assigning of the order given order number.
+     * @param orderNumber order number
+     * @return cargoes list
+     */
+    List<Cargo> getSuitableCargoesByOrder(int orderNumber);
 }

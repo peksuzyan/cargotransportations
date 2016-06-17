@@ -4,7 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import static com.tsystems.cargotransportations.constant.ConfConstant.UNIT_NAME;
+import static com.tsystems.cargotransportations.constant.ConfConstants.UNIT_NAME;
 
 // TODO
 public class DaoUtils {

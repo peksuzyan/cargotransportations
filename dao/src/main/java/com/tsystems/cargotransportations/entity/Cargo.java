@@ -81,6 +81,11 @@ public class Cargo implements Serializable {
         return departureCity;
     }
 
+    /**
+     * Gets arrivalCity.
+     *
+     * @return arrivalCity arrivalCity
+     */
     @Column(name = "arrival_city")
     public String getArrivalCity() {
         return arrivalCity;
@@ -106,11 +111,16 @@ public class Cargo implements Serializable {
         this.status = status;
     }
 
-    public void setDepartureCity(String departureCity) {
-        this.departureCity = departureCity;
-    }
-
     public void setArrivalCity(String arrivalCity) {
         this.arrivalCity = arrivalCity;
+    }
+
+    /**
+     * Sets departureCity.
+     *
+     * @param departureCity departureCity
+     */
+    public void setDepartureCity(String departureCity) {
+        this.departureCity = departureCity;
     }
 }

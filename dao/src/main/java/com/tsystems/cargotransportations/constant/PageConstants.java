@@ -3,7 +3,7 @@ package com.tsystems.cargotransportations.constant;
 /**
  * Contains all links on pages of the application.
  */
-public class PageConstant {
+public class PageConstants {
     /**
      * Refers to drivers list page.
      */
@@ -48,4 +48,19 @@ public class PageConstant {
      * Refers to cargo confirmation page.
      */
     public static final String CARGO_CONFIRMATION_PAGE = "/cargoConfirmation.jsp";
+
+    /**
+     * Refers to orders list page.
+     */
+    public static final String ORDERS_LIST_PAGE = "/ordersList.jsp";
+
+    /**
+     * Refers to order registration page.
+     */
+    public static final String ORDER_REGISTRATION_PAGE = "/orderRegistration.jsp";
+
+    /**
+     * Refers to order confirmation page.
+     */
+    public static final String ORDER_CONFIRMATION_PAGE = "/orderConfirmation.jsp";
 }

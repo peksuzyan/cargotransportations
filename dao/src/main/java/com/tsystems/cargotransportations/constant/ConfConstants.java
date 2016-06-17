@@ -3,7 +3,7 @@ package com.tsystems.cargotransportations.constant;
 /**
  * Contains all specific properties of application environment.
  */
-public class ConfConstant {
+public class ConfConstants {
     /**
      * The name of persistence-unit that given by persistence.xml.
      */

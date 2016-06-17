@@ -5,16 +5,46 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Basic class that represents an order entity.
+ */
 @Entity
 @Table(name = "Orders")
 public class Order implements Serializable {
 
+    /**
+     * Identifier of an order.
+     */
     private int id;
+
+    /**
+     * Unique personal number of an order.
+     */
     private int number;
+
+    /**
+     * Represents that can whether be an order is used yet.
+     */
     private boolean active;
+
+    /**
+     * Represents which of cargoes include to the order.
+     */
     private List<Cargo> cargoes;
+
+    /**
+     * Represents a truck that performs this order.
+     */
     private Truck truck;
+
+    /**
+     * Represents a list of drivers that perform this order.
+     */
     private List<Driver> drivers;
+
+    /**
+     * Date when this order was created.
+     */
     private Date creationDate;
 
     public Order() {}

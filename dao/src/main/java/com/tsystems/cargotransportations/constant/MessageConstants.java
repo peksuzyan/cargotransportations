@@ -3,7 +3,7 @@ package com.tsystems.cargotransportations.constant;
 /**
  * Contains all messages are performed by known reasons/exceptions.
  */
-public class MessageConstant {
+public class MessageConstants {
     /**
      * String representation of driver classname.
      */
@@ -18,6 +18,11 @@ public class MessageConstant {
      * String representation of cargo classname.
      */
     private static final String CARGO = "cargo";
+
+    /**
+     * String representation of order classname.
+     */
+    private static final String ORDER = "order";
 
     /**
      * Pattern for representing of success messages after operations over the entity.
@@ -50,21 +55,6 @@ public class MessageConstant {
     public static final String DRIVER_IS_NOT_FOUND = String.format(ENTITY_IS_NOT_FOUND, DRIVER);
 
     /**
-     * Message represents when truck is created.
-     */
-    public static final String TRUCK_IS_CREATED = String.format(OPERATION_OVER_ENTITY, TRUCK, "created");
-
-    /**
-     * Message represents when truck is edited.
-     */
-    public static final String TRUCK_IS_EDITED = String.format(OPERATION_OVER_ENTITY, TRUCK, "edited");
-
-    /**
-     * Message represents when truck is deleted.
-     */
-    public static final String TRUCK_IS_DELETED = String.format(OPERATION_OVER_ENTITY, TRUCK, "deleted");
-
-    /**
      * Message represents when cargo is created.
      */
     public static final String CARGO_IS_CREATED = String.format(OPERATION_OVER_ENTITY, CARGO, "created");
@@ -83,6 +73,41 @@ public class MessageConstant {
      * Message represents when cargo is not found.
      */
     public static final String CARGO_IS_NOT_FOUND = String.format(ENTITY_IS_NOT_FOUND, CARGO);
+
+    /**
+     * Message represents when order is created.
+     */
+    public static final String ORDER_IS_CREATED = String.format(OPERATION_OVER_ENTITY, ORDER, "created");
+
+    /**
+     * Message represents when order is deleted.
+     */
+    public static final String ORDER_IS_DELETED = String.format(OPERATION_OVER_ENTITY, ORDER, "deleted");
+
+    /**
+     * Message represents when order is not found.
+     */
+    public static final String ORDER_IS_NOT_FOUND = String.format(ENTITY_IS_NOT_FOUND, ORDER);
+
+    /**
+     * Message represents when order is sent to performing.
+     */
+    public static final String ORDER_IS_PERFORMING = "Order is sent to performing!";
+
+    /**
+     * Message represents when truck is created.
+     */
+    public static final String TRUCK_IS_CREATED = String.format(OPERATION_OVER_ENTITY, TRUCK, "created");
+
+    /**
+     * Message represents when truck is edited.
+     */
+    public static final String TRUCK_IS_EDITED = String.format(OPERATION_OVER_ENTITY, TRUCK, "edited");
+
+    /**
+     * Message represents when truck is deleted.
+     */
+    public static final String TRUCK_IS_DELETED = String.format(OPERATION_OVER_ENTITY, TRUCK, "deleted");
 
     /**
      * Message represents when passed data aren't correct.

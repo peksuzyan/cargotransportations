@@ -3,7 +3,7 @@ package com.tsystems.cargotransportations.constant;
 /**
  * Contains all params names that are used for parse client requests.
  */
-public class ParamConstant {
+public class ParamConstants {
     /**
      * Necessary for setting or getting type of an action by param name.
      */
@@ -105,7 +105,7 @@ public class ParamConstant {
     public static final String CARGO_NUMBER_PARAM = "cargo_number";
 
     /**
-     * Necessary for setting or getting driver object by param name.
+     * Necessary for setting or getting cargo object by param name.
      */
     public static final String CARGO_PARAM = "cargo";
 
@@ -113,5 +113,35 @@ public class ParamConstant {
      * Necessary for setting or getting weight by param name.
      */
     public static final String WEIGHT_PARAM = "weight";
+
+    /**
+     * Necessary for setting or getting orders list by param name.
+     */
+    public static final String ORDERS_LIST_PARAM = "orders";
+
+    /**
+     * Necessary for setting or getting order number by param name.
+     */
+    public static final String ORDER_NUMBER_PARAM = "order_number";
+
+    /**
+     * Necessary for setting or getting order object by param name.
+     */
+    public static final String ORDER_PARAM = "order";
+
+    /**
+     * Necessary for setting or getting suitable trucks list by param name.
+     */
+    public static final String SUITABLE_TRUCKS_LIST_PARAM = "suitable_trucks";
+
+    /**
+     * Necessary for setting or getting suitable trucks list by param name.
+     */
+    public static final String SUITABLE_CARGOES_LIST_PARAM = "suitable_cargoes";
+
+    /**
+     * Necessary for setting or getting suitable trucks list by param name.
+     */
+    public static final String SUITABLE_DRIVERS_LIST_PARAM = "suitable_drivers";
 
 }

@@ -1,5 +1,76 @@
 package com.tsystems.cargotransportations.service;
 
-public interface OrderService {
+import com.tsystems.cargotransportations.entity.Order;
 
+import java.util.List;
+
+/**
+ * Contains business-logic operations that bound with order.
+ */
+public interface OrderService {
+    /**
+     * Gets order by number.
+     * @param orderNumber order number
+     * @return order
+     */
+    Order getByNumber(int orderNumber);
+
+    /**
+     * Deletes order by number.
+     * @param orderNumber order number
+     */
+    void deleteByNumber(int orderNumber);
+
+    /**
+     * Creates a new order.
+     */
+    void createOrder();
+
+    /**
+     * Adds a cargo by number to list of cargoes in an order.
+     * @param cargoNumber cargo number
+     */
+    void addCargoByNumber(int orderNumber, int cargoNumber);
+
+    /**
+     * Adds a driver by number to list of drivers in an order.
+     * @param driverNumber driver number
+     */
+    void addDriverByNumber(int orderNumber, int driverNumber);
+
+    /**
+     * Assigns a truck by number for an order.
+     * @param truckNumber truck number
+     */
+    void assignTruckByNumber(int orderNumber, String truckNumber);
+
+    /**
+     * Excludes a cargo from a cargoes list of an order.
+     * @param cargoNumber cargo number
+     */
+    void excludeCargoByNumber(int orderNumber, int cargoNumber);
+
+    /**
+     * Excludes a driver from a drivers list of an order.
+     * @param driverNumber driver number
+     */
+    void excludeDriverByNumber(int orderNumber, int driverNumber);
+
+    /**
+     * Refuses truck from an order.
+     * @param orderNumber order number
+     */
+    void refuseTruck(int orderNumber);
+
+    /**
+     * Gets a list of all existing orders.
+     * @return orders list
+     */
+    List<Order> getAllOrders();
+
+    /**
+     * Sends an order to performing by drivers on the truck.
+     * @param orderNumber order number
+     */
+    void sendOrderToPerforming(int orderNumber);
 }

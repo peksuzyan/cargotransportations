@@ -59,7 +59,6 @@ public class TruckServiceImpl implements TruckService {
 
     @Override
     public List<Truck> getSuitableTrucksByOrder(int orderNumber) {
-        // It's need to implement.
         return null;
     }
 }

@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.tsystems.cargotransportations.constant.ActionConstant.*;
-import static com.tsystems.cargotransportations.constant.MessageConstant.*;
-import static com.tsystems.cargotransportations.constant.PageConstant.DRIVERS_LIST_PAGE;
-import static com.tsystems.cargotransportations.constant.PageConstant.DRIVER_CONFIRMATION_PAGE;
-import static com.tsystems.cargotransportations.constant.PageConstant.DRIVER_REGISTRATION_PAGE;
-import static com.tsystems.cargotransportations.constant.ParamConstant.*;
+import static com.tsystems.cargotransportations.constant.ActionConstants.*;
+import static com.tsystems.cargotransportations.constant.MessageConstants.*;
+import static com.tsystems.cargotransportations.constant.PageConstants.DRIVERS_LIST_PAGE;
+import static com.tsystems.cargotransportations.constant.PageConstants.DRIVER_CONFIRMATION_PAGE;
+import static com.tsystems.cargotransportations.constant.PageConstants.DRIVER_REGISTRATION_PAGE;
+import static com.tsystems.cargotransportations.constant.ParamConstants.*;
 
 /**
  * Processes all client requests that relate to driver entity.

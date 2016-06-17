@@ -9,12 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.tsystems.cargotransportations.constant.ActionConstant.*;
-import static com.tsystems.cargotransportations.constant.MessageConstant.*;
-import static com.tsystems.cargotransportations.constant.PageConstant.CARGO_CONFIRMATION_PAGE;
-import static com.tsystems.cargotransportations.constant.PageConstant.CARGOES_LIST_PAGE;
-import static com.tsystems.cargotransportations.constant.PageConstant.CARGO_REGISTRATION_PAGE;
-import static com.tsystems.cargotransportations.constant.ParamConstant.*;
+import static com.tsystems.cargotransportations.constant.ActionConstants.*;
+import static com.tsystems.cargotransportations.constant.MessageConstants.*;
+import static com.tsystems.cargotransportations.constant.PageConstants.CARGO_CONFIRMATION_PAGE;
+import static com.tsystems.cargotransportations.constant.PageConstants.CARGOES_LIST_PAGE;
+import static com.tsystems.cargotransportations.constant.PageConstants.CARGO_REGISTRATION_PAGE;
+import static com.tsystems.cargotransportations.constant.ParamConstants.*;
 
 /**
  * Processes all client requests that relate to cargo entity.
