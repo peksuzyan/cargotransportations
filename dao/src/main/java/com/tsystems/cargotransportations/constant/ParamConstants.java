@@ -164,5 +164,18 @@ public class ParamConstants {
      */
     public static final String RETURN_ADDRESS_PARAM = "return_address";
 
+    /**
+     * Necessary for setting or getting user name by param name.
+     */
+    public static final String USER_NAME_PARAM = "user_name";
 
+    /**
+     * Necessary for setting or getting user password by param name.
+     */
+    public static final String USER_PASSWORD_PARAM = "user_password";
+
+    /**
+     * Necessary for setting or getting user role by param name.
+     */
+    public static final String USER_ROLE_PARAM = "user_role";
 }

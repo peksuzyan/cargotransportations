@@ -7,7 +7,7 @@
             <a class="navbar-brand" href="#">Cargotransportations</a>
         </div>
         <ul class="nav navbar-nav">
-            <li><a href="index.jsp">Home</a></li>
+            <li><a href="login.jsp">Home</a></li>
             <li><a href="driverServlet?action=refresh">Drivers</a></li>
             <li><a href="truckServlet?action=refresh">Trucks</a></li>
             <li><a href="cargoServlet?action=refresh">Cargoes</a></li>

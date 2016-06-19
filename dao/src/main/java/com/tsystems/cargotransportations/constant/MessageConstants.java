@@ -144,4 +144,9 @@ public class MessageConstants {
      */
     public static final String ACTION_IS_NOT_EXISTED = "The action isn't existed!";
 
+    /**
+     * Message represents when user didn't pass an authentication.
+     */
+    public static final String WRONG_USERNAME_OR_PASSWORD = "Either user name or password is wrong.";
+
 }

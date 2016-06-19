@@ -5,6 +5,21 @@ package com.tsystems.cargotransportations.constant;
  */
 public class PageConstants {
     /**
+     * Refers to login page.
+     */
+    public static final String LOGIN_PAGE = "/login.jsp";
+
+    /**
+     * Refers to welcome admin page.
+     */
+    public static final String WELCOME_ADMIN_PAGE = "/admin/index.jsp";
+
+    /**
+     * Refers to welcome user page.
+     */
+    public static final String WELCOME_USER_PAGE = "/user/index.jsp";
+
+    /**
      * Refers to drivers list page.
      */
     public static final String DRIVERS_LIST_PAGE = "/driversList.jsp";
