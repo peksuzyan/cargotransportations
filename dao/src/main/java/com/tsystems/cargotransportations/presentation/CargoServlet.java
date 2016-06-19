@@ -4,14 +4,13 @@ import com.tsystems.cargotransportations.service.CargoService;
 import com.tsystems.cargotransportations.service.CargoServiceImpl;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import static com.tsystems.cargotransportations.constant.ActionConstants.*;
 import static com.tsystems.cargotransportations.constant.MessageConstants.*;
-import static com.tsystems.cargotransportations.constant.PageConstants.CARGO_CONFIRMATION_PAGE;
+import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_PAGE;
 import static com.tsystems.cargotransportations.constant.PageConstants.CARGOES_LIST_PAGE;
 import static com.tsystems.cargotransportations.constant.PageConstants.CARGO_REGISTRATION_PAGE;
 import static com.tsystems.cargotransportations.constant.ParamConstants.*;
@@ -19,7 +18,7 @@ import static com.tsystems.cargotransportations.constant.ParamConstants.*;
 /**
  * Processes all client requests that relate to cargo entity.
  */
-public class CargoServlet extends HttpServlet {
+public class CargoServlet extends EntityServlet {
     /**
      * Implementation instance of CargoService class.
      */
@@ -55,7 +54,7 @@ public class CargoServlet extends HttpServlet {
             break;
             default: {
                 request.getSession().setAttribute(ERROR_MESSAGE_PARAM, ACTION_IS_NOT_EXISTED);
-                response.sendRedirect(request.getContextPath() + CARGO_CONFIRMATION_PAGE);
+                response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
             }
             break;
         }
@@ -75,7 +74,7 @@ public class CargoServlet extends HttpServlet {
                     double weight = Double.parseDouble(weightParam);
                     cargoService.createCargo(nameParam, weight, departureCityParam, arrivalCityParam);
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, CARGO_IS_CREATED);
-                    response.sendRedirect(request.getContextPath() + CARGO_CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
                 } catch (NumberFormatException ex) {
                     request.getSession().setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     response.sendRedirect(request.getContextPath() + CARGO_REGISTRATION_PAGE);
@@ -91,7 +90,7 @@ public class CargoServlet extends HttpServlet {
                     double weight = Double.parseDouble(weightParam);
                     cargoService.changeByNumber(cargoNumber, nameParam, weight);
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, CARGO_IS_EDITED);
-                    response.sendRedirect(request.getContextPath() + CARGO_CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
                 } catch (NumberFormatException ex) {
                     request.getSession().setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     response.sendRedirect(request.getContextPath() + CARGO_REGISTRATION_PAGE);
@@ -104,7 +103,7 @@ public class CargoServlet extends HttpServlet {
                     int cargoNumber = Integer.parseInt(cargoNumberParam);
                     cargoService.deleteByNumber(cargoNumber);
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, CARGO_IS_DELETED);
-                    response.sendRedirect(request.getContextPath() + CARGO_CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
                 } catch (NumberFormatException ex) {
                     request.getSession().setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     response.sendRedirect(request.getContextPath() + CARGO_REGISTRATION_PAGE);
@@ -113,14 +112,9 @@ public class CargoServlet extends HttpServlet {
             break;
             default: {
                 request.getSession().setAttribute(ERROR_MESSAGE_PARAM, ACTION_IS_NOT_EXISTED);
-                response.sendRedirect(request.getContextPath() + CARGO_CONFIRMATION_PAGE);
+                response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
             }
             break;
         }
-    }
-
-    private String getActionParam(HttpServletRequest request) {
-        String actionParam = request.getParameter(ACTION_PARAM);
-        return (actionParam == null ? NOTHING_ACTION : actionParam);
     }
 }

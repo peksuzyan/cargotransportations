@@ -4,7 +4,6 @@ import com.tsystems.cargotransportations.service.DriverService;
 import com.tsystems.cargotransportations.service.DriverServiceImpl;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -12,14 +11,14 @@ import java.io.IOException;
 import static com.tsystems.cargotransportations.constant.ActionConstants.*;
 import static com.tsystems.cargotransportations.constant.MessageConstants.*;
 import static com.tsystems.cargotransportations.constant.PageConstants.DRIVERS_LIST_PAGE;
-import static com.tsystems.cargotransportations.constant.PageConstants.DRIVER_CONFIRMATION_PAGE;
+import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_PAGE;
 import static com.tsystems.cargotransportations.constant.PageConstants.DRIVER_REGISTRATION_PAGE;
 import static com.tsystems.cargotransportations.constant.ParamConstants.*;
 
 /**
  * Processes all client requests that relate to driver entity.
  */
-public class DriverServlet extends HttpServlet {
+public class DriverServlet extends EntityServlet {
     /**
      * Implementation instance of DriverService class.
      */
@@ -55,7 +54,7 @@ public class DriverServlet extends HttpServlet {
             break;
             default: {
                 request.getSession().setAttribute(ERROR_MESSAGE_PARAM, ACTION_IS_NOT_EXISTED);
-                response.sendRedirect(request.getContextPath() + DRIVER_CONFIRMATION_PAGE);
+                response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
             }
             break;
         }
@@ -72,7 +71,7 @@ public class DriverServlet extends HttpServlet {
                 String cityParam = request.getParameter(CITY_PARAM);
                 driverService.createDriver(firstNameParam, lastNameParam, cityParam);
                 request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, DRIVER_IS_CREATED);
-                response.sendRedirect(request.getContextPath() + DRIVER_CONFIRMATION_PAGE);
+                response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
             }
             break;
             case PERFORM_EDITING_ACTION: {
@@ -83,10 +82,10 @@ public class DriverServlet extends HttpServlet {
                     int driverNumber = Integer.parseInt(driverNumberParam);
                     driverService.changeByNumber(driverNumber, firstNameParam, lastNameParam);
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, DRIVER_IS_EDITED);
-                    response.sendRedirect(request.getContextPath() + DRIVER_CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
                 } catch (NumberFormatException ex) {
                     request.getSession().setAttribute(ERROR_MESSAGE_PARAM, DRIVER_IS_NOT_FOUND);
-                    response.sendRedirect(request.getContextPath() + DRIVER_CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
                 }
             }
             break;
@@ -97,23 +96,18 @@ public class DriverServlet extends HttpServlet {
                     driverService.deleteByNumber(driverNumber);
                     request.setAttribute(DRIVERS_LIST_PARAM, driverService.getAllDrivers());
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, DRIVER_IS_DELETED);
-                    response.sendRedirect(request.getContextPath() + DRIVER_CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
                 } catch (NumberFormatException ex) {
                     request.getSession().setAttribute(ERROR_MESSAGE_PARAM, DRIVER_IS_NOT_FOUND);
-                    response.sendRedirect(request.getContextPath() + DRIVER_CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
                 }
             }
             break;
             default: {
                 request.getSession().setAttribute(ERROR_MESSAGE_PARAM, ACTION_IS_NOT_EXISTED);
-                response.sendRedirect(request.getContextPath() + DRIVER_CONFIRMATION_PAGE);
+                response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
             }
             break;
         }
-    }
-
-    private String getActionParam(HttpServletRequest request) {
-        String actionParam = request.getParameter(ACTION_PARAM);
-        return (actionParam == null ? NOTHING_ACTION : actionParam);
     }
 }

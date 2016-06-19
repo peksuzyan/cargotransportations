@@ -4,7 +4,6 @@ import com.tsystems.cargotransportations.service.TruckService;
 import com.tsystems.cargotransportations.service.TruckServiceImpl;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -12,14 +11,14 @@ import java.io.IOException;
 import static com.tsystems.cargotransportations.constant.ActionConstants.*;
 import static com.tsystems.cargotransportations.constant.MessageConstants.*;
 import static com.tsystems.cargotransportations.constant.PageConstants.TRUCKS_LIST_PAGE;
-import static com.tsystems.cargotransportations.constant.PageConstants.TRUCK_CONFIRMATION_PAGE;
+import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_PAGE;
 import static com.tsystems.cargotransportations.constant.PageConstants.TRUCK_REGISTRATION_PAGE;
 import static com.tsystems.cargotransportations.constant.ParamConstants.*;
 
 /**
  * Processes all client requests that relate to truck entity.
  */
-public class TruckServlet extends HttpServlet {
+public class TruckServlet extends EntityServlet {
     /**
      * Implementation instance of TruckService class.
      */
@@ -28,8 +27,7 @@ public class TruckServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String actionParam = request.getParameter(ACTION_PARAM);
-        String action = (actionParam == null ? NOTHING_ACTION : actionParam);
+        String action = getActionParam(request);
         switch (action) {
             case REFRESH_ACTION: {
                 request.setAttribute(TRUCKS_LIST_PARAM, truckService.getAllTrucks());
@@ -50,7 +48,7 @@ public class TruckServlet extends HttpServlet {
             break;
             default: {
                 request.getSession().setAttribute(ERROR_MESSAGE_PARAM, ACTION_IS_NOT_EXISTED);
-                response.sendRedirect(request.getContextPath() + TRUCK_CONFIRMATION_PAGE);
+                response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
             }
             break;
         }
@@ -74,7 +72,7 @@ public class TruckServlet extends HttpServlet {
                     double capacity = Double.parseDouble(capacityParam);
                     truckService.createTruck(truckNumberParam, people, active, capacity, cityParam);
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, TRUCK_IS_CREATED);
-                    response.sendRedirect(request.getContextPath() + TRUCK_CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
                 } catch (NumberFormatException ex) {
                     request.getSession().setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     response.sendRedirect(request.getContextPath() + TRUCK_REGISTRATION_PAGE);
@@ -92,7 +90,7 @@ public class TruckServlet extends HttpServlet {
                     double capacity = Double.parseDouble(capacityParam);
                     truckService.changeByNumber(truckNumberParam, people, active, capacity);
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, TRUCK_IS_EDITED);
-                    response.sendRedirect(request.getContextPath() + TRUCK_CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
                 } catch (NumberFormatException ex) {
                     request.getSession().setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     response.sendRedirect(request.getContextPath() + TRUCK_REGISTRATION_PAGE);
@@ -103,12 +101,12 @@ public class TruckServlet extends HttpServlet {
                 String truckNumberParam = request.getParameter(TRUCK_NUMBER_PARAM);
                 truckService.deleteByNumber(truckNumberParam);
                 request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, TRUCK_IS_DELETED);
-                response.sendRedirect(request.getContextPath() + TRUCK_CONFIRMATION_PAGE);
+                response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
             }
             break;
             default: {
                 request.getSession().setAttribute(ERROR_MESSAGE_PARAM, ACTION_IS_NOT_EXISTED);
-                response.sendRedirect(request.getContextPath() + TRUCK_CONFIRMATION_PAGE);
+                response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
             } break;
         }
     }
