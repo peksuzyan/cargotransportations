@@ -25,7 +25,7 @@ public class Order implements Serializable {
     /**
      * Represents that can whether be an order is used yet.
      */
-    private boolean active;
+    private OrderStatus status;
 
     /**
      * Represents which of cargoes include to the order.
@@ -41,6 +41,11 @@ public class Order implements Serializable {
      * Represents a list of drivers that perform this order.
      */
     private List<Driver> drivers;
+
+    /**
+     * Represents a route that is followed by truck.
+     */
+    private Route route;
 
     /**
      * Date when this order was created.
@@ -61,9 +66,15 @@ public class Order implements Serializable {
         return number;
     }
 
-    @Column(name = "active")
-    public boolean isActive() {
-        return active;
+    /**
+     * Gets status.
+     *
+     * @return status status
+     */
+    @Column(name = "status")
+    @Enumerated(value = EnumType.STRING)
+    public OrderStatus getStatus() {
+        return status;
     }
 
     @OneToMany
@@ -89,6 +100,17 @@ public class Order implements Serializable {
         return creationDate;
     }
 
+    /**
+     * Gets route.
+     *
+     * @return route route
+     */
+    @OneToOne
+    @JoinColumn(name = "route_id")
+    public Route getRoute() {
+        return route;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -97,8 +119,13 @@ public class Order implements Serializable {
         this.number = number;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    /**
+     * Sets status.
+     *
+     * @param status status
+     */
+    public void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
     public void setCargoes(List<Cargo> cargoes) {
@@ -115,5 +142,14 @@ public class Order implements Serializable {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    /**
+     * Sets route.
+     *
+     * @param route route
+     */
+    public void setRoute(Route route) {
+        this.route = route;
     }
 }

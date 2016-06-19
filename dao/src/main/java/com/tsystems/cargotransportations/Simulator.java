@@ -1,10 +1,7 @@
 package com.tsystems.cargotransportations;
 
 import com.tsystems.cargotransportations.dao.*;
-import com.tsystems.cargotransportations.entity.Driver;
-import com.tsystems.cargotransportations.entity.Order;
-import com.tsystems.cargotransportations.entity.Truck;
-import com.tsystems.cargotransportations.entity.DriverStatus;
+import com.tsystems.cargotransportations.entity.*;
 import com.tsystems.cargotransportations.service.DriverService;
 import com.tsystems.cargotransportations.service.DriverServiceImpl;
 
@@ -103,7 +100,7 @@ public class Simulator {
             truckDao.update(truck);
 
             Order order = new Order();
-            order.setActive(true);
+            order.setStatus(OrderStatus.OPEN);
             order.setCreationDate(new Date());
             //order.setNumber(orderDao.getLastId() + 1);
             orderDao.update(order);

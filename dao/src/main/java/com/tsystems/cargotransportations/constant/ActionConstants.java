@@ -65,6 +65,16 @@ public class ActionConstants {
     public static final String PERFORM_TRUCK_REFUSING_ACTION = "perform_truck_refusing";
 
     /**
+     * Client needs to perform a route assigning to an entity.
+     */
+    public static final String PERFORM_ROUTE_ASSIGNING_ACTION = "perform_route_assigning";
+
+    /**
+     * Client needs to perform a route refusing from an entity.
+     */
+    public static final String PERFORM_ROUTE_REFUSING_ACTION = "perform_route_refusing";
+
+    /**
      * Client needs to perform an order processing.
      */
     public static final String PERFORM_ORDER_PROCESSING_ACTION = "perform_order_processing";

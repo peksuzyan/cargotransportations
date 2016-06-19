@@ -15,11 +15,6 @@ public class PageConstants {
     public static final String DRIVER_REGISTRATION_PAGE = "/driverRegistration.jsp";
 
     /**
-     * Refers to driver confirmation page.
-     */
-    public static final String DRIVER_CONFIRMATION_PAGE = "/driverConfirmation.jsp";
-
-    /**
      * Refers to trucks list page.
      */
     public static final String TRUCKS_LIST_PAGE = "/trucksList.jsp";
@@ -28,11 +23,6 @@ public class PageConstants {
      * Refers to truck registration page.
      */
     public static final String TRUCK_REGISTRATION_PAGE = "/truckRegistration.jsp";
-
-    /**
-     * Refers to truck confirmation page.
-     */
-    public static final String TRUCK_CONFIRMATION_PAGE = "/truckConfirmation.jsp";
 
     /**
      * Refers to cargoes list page.
@@ -45,11 +35,6 @@ public class PageConstants {
     public static final String CARGO_REGISTRATION_PAGE = "/cargoRegistration.jsp";
 
     /**
-     * Refers to cargo confirmation page.
-     */
-    public static final String CARGO_CONFIRMATION_PAGE = "/cargoConfirmation.jsp";
-
-    /**
      * Refers to orders list page.
      */
     public static final String ORDERS_LIST_PAGE = "/ordersList.jsp";
@@ -60,7 +45,17 @@ public class PageConstants {
     public static final String ORDER_REGISTRATION_PAGE = "/orderRegistration.jsp";
 
     /**
-     * Refers to order confirmation page.
+     * Refers to routes list page.
      */
-    public static final String ORDER_CONFIRMATION_PAGE = "/orderConfirmation.jsp";
+    public static final String ROUTES_LIST_PAGE = "/routesList.jsp";
+
+    /**
+     * Refers to route registration page.
+     */
+    public static final String ROUTE_REGISTRATION_PAGE = "/routeRegistration.jsp";
+
+    /**
+     * Refers to confirmation page.
+     */
+    public static final String CONFIRMATION_PAGE = "/confirmation.jsp";
 }

@@ -50,4 +50,6 @@ class GenericDaoImpl<T> implements GenericDao<T> {
         String query = String.format("FROM %s", genericClass.getSimpleName());
         return getLazyEntityManager().createQuery(query, genericClass).getResultList();
     }
+
+
 }

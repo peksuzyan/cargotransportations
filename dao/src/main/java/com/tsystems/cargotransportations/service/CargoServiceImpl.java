@@ -59,7 +59,7 @@ public class CargoServiceImpl implements CargoService {
     }
 
     @Override
-    public List<Cargo> getSuitableCargoesByOrder(int orderNumber) {
-        return null;
+    public List<Cargo> getAllByStatus(CargoStatus status) {
+        return cargoDao.getAllByStatus(status);
     }
 }

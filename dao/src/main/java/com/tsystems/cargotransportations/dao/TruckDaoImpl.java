@@ -21,14 +21,13 @@ public class TruckDaoImpl extends GenericDaoImpl<Truck> implements TruckDao {
         return trucks.size() != 0 ? trucks.get(0) : null;
     }
 
-    /*
-    public List<Truck> getAppropriatedTrucks() {
+    @Override
+    public List<Truck> getActiveAndFreeTrucks() {
         String query =
                 "SELECT t FROM Truck t " +
-                "LEFT JOIN Order o ON t = o.truck " +
+                "JOIN Order AS o ON t.id = o.truck.id " +
                 "WHERE t.active = true AND " +
-                        "(t.order IS NULL OR o.active = false)";
-        return null;//entityManager.createQuery(query, Truck.class).getResultList();
+                        "(o.truck IS NULL OR o.status = 'DONE')";
+        return getLazyEntityManager().createQuery(query, Truck.class).getResultList();
     }
-    */
 }

@@ -1,5 +1,6 @@
 package com.tsystems.cargotransportations.presentation;
 
+import com.tsystems.cargotransportations.entity.Cargo;
 import com.tsystems.cargotransportations.service.CargoService;
 import com.tsystems.cargotransportations.service.CargoServiceImpl;
 
@@ -18,7 +19,7 @@ import static com.tsystems.cargotransportations.constant.ParamConstants.*;
 /**
  * Processes all client requests that relate to cargo entity.
  */
-public class CargoServlet extends EntityServlet {
+public class CargoServlet extends EntityServlet<Cargo> {
     /**
      * Implementation instance of CargoService class.
      */
@@ -30,13 +31,11 @@ public class CargoServlet extends EntityServlet {
         String actionParam = getActionParam(request);
         switch (actionParam) {
             case REFRESH_ACTION: {
-                request.setAttribute(CARGOES_LIST_PARAM, cargoService.getAllCargoes());
-                getServletContext().getRequestDispatcher(CARGOES_LIST_PAGE).forward(request, response);
+                processRefresh(request, response, CARGOES_LIST_PARAM, CARGOES_LIST_PAGE, cargoService.getAllCargoes());
             }
             break;
             case ADD_ACTION: {
-                request.setAttribute(ACTION_PARAM, ADD_ACTION);
-                getServletContext().getRequestDispatcher(CARGO_REGISTRATION_PAGE).forward(request, response);
+                processAdd(request, response, CARGO_REGISTRATION_PAGE);
             }
             break;
             case EDIT_ACTION: {
@@ -48,15 +47,13 @@ public class CargoServlet extends EntityServlet {
                     getServletContext().getRequestDispatcher(CARGO_REGISTRATION_PAGE).forward(request, response);
                 } catch (NumberFormatException ex) {
                     request.setAttribute(ERROR_MESSAGE_PARAM, CARGO_IS_NOT_FOUND);
-                    getServletContext().getRequestDispatcher(CARGOES_LIST_PAGE).forward(request, response);
+                    response.sendRedirect(request.getContextPath() + CARGOES_LIST_PAGE);
                 }
             }
             break;
             default: {
-                request.getSession().setAttribute(ERROR_MESSAGE_PARAM, ACTION_IS_NOT_EXISTED);
-                response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                processDefault(request, response);
             }
-            break;
         }
     }
 
@@ -76,8 +73,8 @@ public class CargoServlet extends EntityServlet {
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, CARGO_IS_CREATED);
                     response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
                 } catch (NumberFormatException ex) {
-                    request.getSession().setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
-                    response.sendRedirect(request.getContextPath() + CARGO_REGISTRATION_PAGE);
+                    request.setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
+                    response.sendRedirect(request.getContextPath() + CARGOES_LIST_PAGE);
                 }
             }
             break;
@@ -92,8 +89,8 @@ public class CargoServlet extends EntityServlet {
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, CARGO_IS_EDITED);
                     response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
                 } catch (NumberFormatException ex) {
-                    request.getSession().setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
-                    response.sendRedirect(request.getContextPath() + CARGO_REGISTRATION_PAGE);
+                    request.setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
+                    response.sendRedirect(request.getContextPath() + CARGOES_LIST_PAGE);
                 }
             }
             break;
@@ -106,15 +103,13 @@ public class CargoServlet extends EntityServlet {
                     response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
                 } catch (NumberFormatException ex) {
                     request.getSession().setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
-                    response.sendRedirect(request.getContextPath() + CARGO_REGISTRATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CARGOES_LIST_PAGE);
                 }
             }
             break;
             default: {
-                request.getSession().setAttribute(ERROR_MESSAGE_PARAM, ACTION_IS_NOT_EXISTED);
-                response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                processDefault(request, response);
             }
-            break;
         }
     }
 }

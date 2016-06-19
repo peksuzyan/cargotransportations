@@ -1,5 +1,6 @@
 package com.tsystems.cargotransportations.presentation;
 
+import com.tsystems.cargotransportations.entity.Driver;
 import com.tsystems.cargotransportations.service.DriverService;
 import com.tsystems.cargotransportations.service.DriverServiceImpl;
 
@@ -18,7 +19,7 @@ import static com.tsystems.cargotransportations.constant.ParamConstants.*;
 /**
  * Processes all client requests that relate to driver entity.
  */
-public class DriverServlet extends EntityServlet {
+public class DriverServlet extends EntityServlet<Driver> {
     /**
      * Implementation instance of DriverService class.
      */
@@ -28,15 +29,14 @@ public class DriverServlet extends EntityServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String actionParam = getActionParam(request);
+        request.getSession();
         switch (actionParam) {
             case REFRESH_ACTION: {
-                request.setAttribute(DRIVERS_LIST_PARAM, driverService.getAllDrivers());
-                getServletContext().getRequestDispatcher(DRIVERS_LIST_PAGE).forward(request, response);
+                processRefresh(request, response, DRIVERS_LIST_PARAM, DRIVERS_LIST_PAGE, driverService.getAllDrivers());
             }
             break;
             case ADD_ACTION: {
-                request.setAttribute(ACTION_PARAM, ADD_ACTION);
-                getServletContext().getRequestDispatcher(DRIVER_REGISTRATION_PAGE).forward(request, response);
+                processAdd(request, response, DRIVER_REGISTRATION_PAGE);
             }
             break;
             case EDIT_ACTION: {
@@ -53,10 +53,8 @@ public class DriverServlet extends EntityServlet {
             }
             break;
             default: {
-                request.getSession().setAttribute(ERROR_MESSAGE_PARAM, ACTION_IS_NOT_EXISTED);
-                response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                processDefault(request, response);
             }
-            break;
         }
     }
 
@@ -104,10 +102,8 @@ public class DriverServlet extends EntityServlet {
             }
             break;
             default: {
-                request.getSession().setAttribute(ERROR_MESSAGE_PARAM, ACTION_IS_NOT_EXISTED);
-                response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                processDefault(request, response);
             }
-            break;
         }
     }
 }

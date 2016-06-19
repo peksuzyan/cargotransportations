@@ -31,6 +31,11 @@ public class OrderServiceImpl implements OrderService {
      */
     private TruckDao truckDao = new TruckDaoImpl();
 
+    /**
+     * Instance of implementation of RouteDao class.
+     */
+    private RouteDao routeDao = new RouteDaoImpl();
+
     @Override
     public Order getByNumber(int orderNumber) {
         return orderDao.getByNumber(orderNumber);
@@ -48,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
         DaoUtils.executeInTransaction(() -> {
             Order order = new Order();
             orderDao.create(order);
-            order.setActive(true);
+            order.setStatus(OrderStatus.OPEN);
             order.setCreationDate(new Date());
             order.setNumber(order.getId() + 500);
         });
@@ -91,6 +96,16 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void assignRouteByNumber(int orderNumber, int routeNumber) {
+        final Order order = getByNumber(orderNumber);
+        final Route route = routeDao.getByNumber(routeNumber);
+        DaoUtils.executeInTransaction(() -> {
+            order.setRoute(route);
+            orderDao.update(order);
+        });
+    }
+
+    @Override
     public void excludeCargoByNumber(int orderNumber, int cargoNumber) {
         final Order order = getByNumber(orderNumber);
         final Cargo cargo = cargoDao.getByNumber(cargoNumber);
@@ -124,6 +139,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void refuseRoute(int orderNumber) {
+        final Order order = getByNumber(orderNumber);
+        DaoUtils.executeInTransaction(() -> {
+            order.setRoute(null);
+            orderDao.update(order);
+        });
+    }
+
+    @Override
     public List<Order> getAllOrders() {
         return orderDao.getAll();
     }
@@ -133,7 +157,6 @@ public class OrderServiceImpl implements OrderService {
     public void sendOrderToPerforming(int orderNumber) {
         final Order order = getByNumber(orderNumber);
         DaoUtils.executeInTransaction(() -> {
-            order.setActive(false); // I want to make an active field as enum...
             for (Driver driver : order.getDrivers()) {
                 driver.setStatus(DriverStatus.BUSY);
                 driverDao.update(driver);
@@ -142,6 +165,7 @@ public class OrderServiceImpl implements OrderService {
                 cargo.setStatus(CargoStatus.SHIPPED);
                 cargoDao.update(cargo);
             }
+            order.setStatus(OrderStatus.PERFORMING);
             orderDao.update(order);
         });
     }

@@ -45,6 +45,13 @@ public interface OrderService {
     void assignTruckByNumber(int orderNumber, String truckNumber);
 
     /**
+     * Assigns a route by number for an order.
+     * @param orderNumber order number
+     * @param routeNumber route number
+     */
+    void assignRouteByNumber(int orderNumber, int routeNumber);
+
+    /**
      * Excludes a cargo from a cargoes list of an order.
      * @param cargoNumber cargo number
      */
@@ -63,13 +70,19 @@ public interface OrderService {
     void refuseTruck(int orderNumber);
 
     /**
+     * Refuses route from an order.
+     * @param orderNumber order number
+     */
+    void refuseRoute(int orderNumber);
+
+    /**
      * Gets a list of all existing orders.
      * @return orders list
      */
     List<Order> getAllOrders();
 
     /**
-     * Sends an order to performing by drivers on the truck.
+     * Sends an order to performing by drivers.
      * @param orderNumber order number
      */
     void sendOrderToPerforming(int orderNumber);

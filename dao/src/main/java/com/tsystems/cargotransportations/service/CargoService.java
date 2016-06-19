@@ -1,6 +1,7 @@
 package com.tsystems.cargotransportations.service;
 
 import com.tsystems.cargotransportations.entity.Cargo;
+import com.tsystems.cargotransportations.entity.CargoStatus;
 
 import java.util.List;
 
@@ -45,9 +46,8 @@ public interface CargoService {
     List<Cargo> getAllCargoes();
 
     /**
-     * Gets all cargoes that suitable for assigning of the order given order number.
-     * @param orderNumber order number
+     * Gets all cargoes that have given status.
      * @return cargoes list
      */
-    List<Cargo> getSuitableCargoesByOrder(int orderNumber);
+    List<Cargo> getAllByStatus(CargoStatus status);
 }

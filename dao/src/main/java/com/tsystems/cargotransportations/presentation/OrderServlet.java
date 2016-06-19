@@ -1,6 +1,7 @@
 package com.tsystems.cargotransportations.presentation;
 
 import com.tsystems.cargotransportations.entity.CargoStatus;
+import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.service.*;
 
 import javax.servlet.ServletException;
@@ -18,7 +19,7 @@ import static com.tsystems.cargotransportations.constant.ParamConstants.*;
 /**
  * Processes all client requests that relate to order entity.
  */
-public class OrderServlet extends EntityServlet {
+public class OrderServlet extends EntityServlet<Order> {
     /**
      * Implementation instance of OrderService class.
      */
@@ -50,13 +51,11 @@ public class OrderServlet extends EntityServlet {
         String actionParam = getActionParam(request);
         switch (actionParam) {
             case REFRESH_ACTION: {
-                request.setAttribute(ORDERS_LIST_PARAM, orderService.getAllOrders());
-                getServletContext().getRequestDispatcher(ORDERS_LIST_PAGE).forward(request, response);
+                processRefresh(request, response, ORDERS_LIST_PARAM, ORDERS_LIST_PAGE, orderService.getAllOrders());
             }
             break;
             case ADD_ACTION: {
-                request.setAttribute(ACTION_PARAM, ADD_ACTION);
-                getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
+                processAdd(request, response, ORDER_REGISTRATION_PAGE);
             }
             break;
             case EDIT_ACTION: {
@@ -64,7 +63,7 @@ public class OrderServlet extends EntityServlet {
                     String orderNumberParam = request.getParameter(ORDER_NUMBER_PARAM);
                     int orderNumber = Integer.parseInt(orderNumberParam);
                     setOrderDataAsAttributes(request, orderNumber);
-                    //request.setAttribute(ACTION_PARAM, EDIT_ACTION);
+                    request.setAttribute(ACTION_PARAM, EDIT_ACTION);
                     getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
                 } catch (NumberFormatException ex) {
                     request.setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
@@ -73,8 +72,7 @@ public class OrderServlet extends EntityServlet {
             }
             break;
             default: {
-                request.getSession().setAttribute(ERROR_MESSAGE_PARAM, ACTION_IS_NOT_EXISTED);
-                response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                processDefault(request, response);
             }
             break;
         }
@@ -126,10 +124,11 @@ public class OrderServlet extends EntityServlet {
                     int routeNumber = Integer.parseInt(routeNumberParam);
                     orderService.assignRouteByNumber(orderNumber, routeNumber);
                     setOrderDataAsAttributes(request, orderNumber);
+                    //getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
                     response.sendRedirect(request.getContextPath() + ORDER_REGISTRATION_PAGE);
                 } catch (NumberFormatException ex) {
                     request.setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
-                    getServletContext().getRequestDispatcher(ORDERS_LIST_PAGE).forward(request, response);
+                    getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
                 }
             }
             break;
@@ -227,13 +226,14 @@ public class OrderServlet extends EntityServlet {
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, ORDER_IS_DELETED);
                     response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
                 } catch (NumberFormatException ex) {
-                    request.getSession().setAttribute(ERROR_MESSAGE_PARAM, DRIVER_IS_NOT_FOUND);
+                    request.getSession().setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
                     response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
                 }
             }
             break;
-            default:
-                break;
+            default: {
+                processDefault(request, response);
+            }
         }
     }
 

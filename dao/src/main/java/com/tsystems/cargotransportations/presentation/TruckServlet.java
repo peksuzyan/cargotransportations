@@ -1,5 +1,6 @@
 package com.tsystems.cargotransportations.presentation;
 
+import com.tsystems.cargotransportations.entity.Truck;
 import com.tsystems.cargotransportations.service.TruckService;
 import com.tsystems.cargotransportations.service.TruckServiceImpl;
 
@@ -18,7 +19,7 @@ import static com.tsystems.cargotransportations.constant.ParamConstants.*;
 /**
  * Processes all client requests that relate to truck entity.
  */
-public class TruckServlet extends EntityServlet {
+public class TruckServlet extends EntityServlet<Truck> {
     /**
      * Implementation instance of TruckService class.
      */
@@ -30,13 +31,11 @@ public class TruckServlet extends EntityServlet {
         String action = getActionParam(request);
         switch (action) {
             case REFRESH_ACTION: {
-                request.setAttribute(TRUCKS_LIST_PARAM, truckService.getAllTrucks());
-                getServletContext().getRequestDispatcher(TRUCKS_LIST_PAGE).forward(request, response);
+                processRefresh(request, response, TRUCKS_LIST_PARAM, TRUCKS_LIST_PAGE, truckService.getAllTrucks());
             }
             break;
             case ADD_ACTION: {
-                request.setAttribute(ACTION_PARAM, ADD_ACTION);
-                getServletContext().getRequestDispatcher(TRUCK_REGISTRATION_PAGE).forward(request, response);
+                processAdd(request, response, TRUCK_REGISTRATION_PAGE);
             }
             break;
             case EDIT_ACTION: {
@@ -47,18 +46,15 @@ public class TruckServlet extends EntityServlet {
             }
             break;
             default: {
-                request.getSession().setAttribute(ERROR_MESSAGE_PARAM, ACTION_IS_NOT_EXISTED);
-                response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                processDefault(request, response);
             }
-            break;
         }
     }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String actionParam = request.getParameter(ACTION_PARAM);
-        String action = (actionParam == null ? NOTHING_ACTION : actionParam);
+        String action = getActionParam(request);
         switch (action) {
             case PERFORM_ADDING_ACTION: {
                 try {
@@ -105,9 +101,8 @@ public class TruckServlet extends EntityServlet {
             }
             break;
             default: {
-                request.getSession().setAttribute(ERROR_MESSAGE_PARAM, ACTION_IS_NOT_EXISTED);
-                response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
-            } break;
+                processDefault(request, response);
+            }
         }
     }
 }

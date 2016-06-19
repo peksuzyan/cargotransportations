@@ -25,6 +25,11 @@ public class MessageConstants {
     private static final String ORDER = "order";
 
     /**
+     * String representation of route classname.
+     */
+    private static final String ROUTE = "route";
+
+    /**
      * Pattern for representing of success messages after operations over the entity.
      */
     private static final String OPERATION_OVER_ENTITY = "This %s is %s successfully!";
@@ -93,6 +98,26 @@ public class MessageConstants {
      * Message represents when order is sent to performing.
      */
     public static final String ORDER_IS_PERFORMING = "Order is sent to performing!";
+
+    /**
+     * Message represents when route is created.
+     */
+    public static final String ROUTE_IS_CREATED = String.format(OPERATION_OVER_ENTITY, ROUTE, "created");
+
+    /**
+     * Message represents when route is deleted.
+     */
+    public static final String ROUTE_IS_DELETED = String.format(OPERATION_OVER_ENTITY, ROUTE, "deleted");
+
+    /**
+     * Message represents when this cities count isn't existed.
+     */
+    public static final String CITIES_COUNT_IS_NOT_EXISTED = "This cities count isn't existed!";
+
+    /**
+     * Message represents when route is not found.
+     */
+    public static final String ROUTE_IS_NOT_FOUND = String.format(ENTITY_IS_NOT_FOUND, ROUTE);
 
     /**
      * Message represents when truck is created.

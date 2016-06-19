@@ -2,54 +2,75 @@ package com.tsystems.cargotransportations.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
-@Table(uniqueConstraints =
-        @UniqueConstraint(columnNames = {"source", "destination"}))
 public class Route implements Serializable {
 
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String source;
-    private String destination;
-    private int distance;
+
+    @Column(name = "number", unique = true)
+    private int number;
+
+    @ElementCollection
+    private List<String> cities;
 
     public Route() {}
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    /**
+     * Gets id.
+     *
+     * @return id id
+     */
     public int getId() {
         return id;
     }
 
-    @Column(name = "source")
-    public String getSource() {
-        return source;
+    /**
+     * Gets number.
+     *
+     * @return number number
+     */
+    public int getNumber() {
+        return number;
     }
 
-    @Column(name = "destination")
-    public String getDestination() {
-        return destination;
+    /**
+     * Gets cities.
+     *
+     * @return cities cities
+     */
+    public List<String> getCities() {
+        return cities;
     }
 
-    @Column(name = "distance")
-    public int getDistance() {
-        return distance;
-    }
-
+    /**
+     * Sets id.
+     *
+     * @param id id
+     */
     public void setId(int id) {
         this.id = id;
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    /**
+     * Sets number.
+     *
+     * @param number number
+     */
+    public void setNumber(int number) {
+        this.number = number;
     }
 
-    public void setDestination(String destination) {
-        this.destination = destination;
-    }
-
-    public void setDistance(int distance) {
-        this.distance = distance;
+    /**
+     * Sets cities.
+     *
+     * @param cities cities
+     */
+    public void setCities(List<String> cities) {
+        this.cities = cities;
     }
 }
