@@ -14,7 +14,7 @@ public class DaoUtils {
 
     private DaoUtils() {}
 
-    static EntityManager getEntityManager() {
+    public static EntityManager getEntityManager() {
         if (entityManager == null || !entityManager.isOpen()) {
             entityManager = entityManagerFactory.createEntityManager();
         }

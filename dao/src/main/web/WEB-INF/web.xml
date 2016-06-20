@@ -8,7 +8,7 @@
 
     <filter>
         <filter-name>requestLoggingFilter</filter-name>
-        <filter-class>com.tsystems.cargotransportations.presentation.filter.RequestLoggingFilter</filter-class>
+        <filter-class>com.tsystems.cargotransportations.presentation.filters.RequestLoggingFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>requestLoggingFilter</filter-name>
@@ -17,7 +17,7 @@
 
     <filter>
         <filter-name>authenticationFilter</filter-name>
-        <filter-class>com.tsystems.cargotransportations.presentation.filter.AuthenticationFilter</filter-class>
+        <filter-class>com.tsystems.cargotransportations.presentation.filters.AuthenticationFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>authenticationFilter</filter-name>
@@ -26,7 +26,7 @@
 
     <filter>
         <filter-name>adminFilter</filter-name>
-        <filter-class>com.tsystems.cargotransportations.presentation.filter.AdminFilter</filter-class>
+        <filter-class>com.tsystems.cargotransportations.presentation.filters.AdminFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>adminFilter</filter-name>
@@ -35,7 +35,7 @@
 
     <filter>
         <filter-name>userFilter</filter-name>
-        <filter-class>com.tsystems.cargotransportations.presentation.filter.UserFilter</filter-class>
+        <filter-class>com.tsystems.cargotransportations.presentation.filters.UserFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>userFilter</filter-name>
@@ -46,7 +46,7 @@
 
     <servlet>
         <servlet-name>driverServlet</servlet-name>
-        <servlet-class>com.tsystems.cargotransportations.presentation.DriverServlet</servlet-class>
+        <servlet-class>com.tsystems.cargotransportations.presentation.servlets.DriverServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>driverServlet</servlet-name>
@@ -55,7 +55,7 @@
 
     <servlet>
         <servlet-name>truckServlet</servlet-name>
-        <servlet-class>com.tsystems.cargotransportations.presentation.TruckServlet</servlet-class>
+        <servlet-class>com.tsystems.cargotransportations.presentation.servlets.TruckServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>truckServlet</servlet-name>
@@ -64,7 +64,7 @@
 
     <servlet>
         <servlet-name>cargoServlet</servlet-name>
-        <servlet-class>com.tsystems.cargotransportations.presentation.CargoServlet</servlet-class>
+        <servlet-class>com.tsystems.cargotransportations.presentation.servlets.CargoServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>cargoServlet</servlet-name>
@@ -73,7 +73,7 @@
 
     <servlet>
         <servlet-name>orderServlet</servlet-name>
-        <servlet-class>com.tsystems.cargotransportations.presentation.OrderServlet</servlet-class>
+        <servlet-class>com.tsystems.cargotransportations.presentation.servlets.OrderServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>orderServlet</servlet-name>
@@ -82,7 +82,7 @@
 
     <servlet>
         <servlet-name>routeServlet</servlet-name>
-        <servlet-class>com.tsystems.cargotransportations.presentation.RouteServlet</servlet-class>
+        <servlet-class>com.tsystems.cargotransportations.presentation.servlets.RouteServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>routeServlet</servlet-name>
@@ -91,7 +91,7 @@
 
     <servlet>
         <servlet-name>userServlet</servlet-name>
-        <servlet-class>com.tsystems.cargotransportations.presentation.UserServlet</servlet-class>
+        <servlet-class>com.tsystems.cargotransportations.presentation.servlets.UserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>userServlet</servlet-name>

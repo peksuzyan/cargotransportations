@@ -2,8 +2,8 @@ package com.tsystems.cargotransportations.presentation.authentication;
 
 import com.tsystems.cargotransportations.entity.User;
 import com.tsystems.cargotransportations.entity.UserRole;
-import com.tsystems.cargotransportations.service.UserService;
-import com.tsystems.cargotransportations.service.UserServiceImpl;
+import com.tsystems.cargotransportations.service.abstracts.UserService;
+import com.tsystems.cargotransportations.service.implementations.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
