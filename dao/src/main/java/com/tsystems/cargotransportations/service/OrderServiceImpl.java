@@ -169,4 +169,17 @@ public class OrderServiceImpl implements OrderService {
             orderDao.update(order);
         });
     }
+
+    @Override
+    public Order getPerformingOrderByDriverNumber(int driverNumber) {
+        List<Order> orders = orderDao.getAllByStatus(OrderStatus.PERFORMING);
+        for (Order order : orders) {
+            for (Driver driver : order.getDrivers()) {
+                if (driver.getNumber() == driverNumber) {
+                    return order;
+                }
+            }
+        }
+        return null;
+    }
 }

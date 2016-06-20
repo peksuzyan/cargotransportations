@@ -20,57 +20,83 @@ public class PageConstants {
     public static final String WELCOME_USER_PAGE = "/user/index.jsp";
 
     /**
+     * Refers to admin confirmation page.
+     */
+    public static final String CONFIRMATION_ADMIN_PAGE = "/admin/confirmation.jsp";
+
+    /**
+     * Refers to user confirmation page.
+     */
+    public static final String CONFIRMATION_USER_PAGE = "/user/confirmation.jsp";
+
+    /**
      * Refers to drivers list page.
      */
-    public static final String DRIVERS_LIST_PAGE = "/driversList.jsp";
+    public static final String DRIVERS_LIST_PAGE = "/admin/drivers/driversList.jsp";
 
     /**
      * Refers to driver registration page.
      */
-    public static final String DRIVER_REGISTRATION_PAGE = "/driverRegistration.jsp";
+    public static final String DRIVER_REGISTRATION_PAGE = "/admin/drivers/driverRegistration.jsp";
 
     /**
      * Refers to trucks list page.
      */
-    public static final String TRUCKS_LIST_PAGE = "/trucksList.jsp";
+    public static final String TRUCKS_LIST_PAGE = "/admin/trucks/trucksList.jsp";
 
     /**
      * Refers to truck registration page.
      */
-    public static final String TRUCK_REGISTRATION_PAGE = "/truckRegistration.jsp";
+    public static final String TRUCK_REGISTRATION_PAGE = "/admin/trucks/truckRegistration.jsp";
 
     /**
      * Refers to cargoes list page.
      */
-    public static final String CARGOES_LIST_PAGE = "/cargoesList.jsp";
+    public static final String CARGOES_LIST_PAGE = "/admin/cargoes/cargoesList.jsp";
 
     /**
      * Refers to cargo registration page.
      */
-    public static final String CARGO_REGISTRATION_PAGE = "/cargoRegistration.jsp";
+    public static final String CARGO_REGISTRATION_PAGE = "/admin/cargoes/cargoRegistration.jsp";
 
     /**
      * Refers to orders list page.
      */
-    public static final String ORDERS_LIST_PAGE = "/ordersList.jsp";
+    public static final String ORDERS_LIST_PAGE = "/admin/orders/ordersList.jsp";
 
     /**
      * Refers to order registration page.
      */
-    public static final String ORDER_REGISTRATION_PAGE = "/orderRegistration.jsp";
+    public static final String ORDER_REGISTRATION_PAGE = "/admin/orders/orderRegistration.jsp";
 
     /**
      * Refers to routes list page.
      */
-    public static final String ROUTES_LIST_PAGE = "/routesList.jsp";
+    public static final String ROUTES_LIST_PAGE = "/admin/routes/routesList.jsp";
 
     /**
      * Refers to route registration page.
      */
-    public static final String ROUTE_REGISTRATION_PAGE = "/routeRegistration.jsp";
+    public static final String ROUTE_REGISTRATION_PAGE = "/admin/routes/routeRegistration.jsp";
 
     /**
-     * Refers to confirmation page.
+     * Refers to users list page.
      */
-    public static final String CONFIRMATION_PAGE = "/confirmation.jsp";
+    public static final String USERS_LIST_PAGE = "/admin/users/usersList.jsp";
+
+    /**
+     * Refers to user registration page.
+     */
+    public static final String USER_REGISTRATION_PAGE = "/admin/users/userRegistration.jsp";
+
+    /**
+     * Refers to user assignments page.
+     */
+    public static final String USER_ASSIGNMENTS_PAGE = "/user/assignments/assignments.jsp";
+
+    /**
+     * Refers to user account page.
+     */
+    public static final String USER_ACCOUNT_PAGE = "/user/profile/account.jsp";
+
 }

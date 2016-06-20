@@ -5,7 +5,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css"/>
 </head>
 
 <html>
@@ -31,13 +31,15 @@
                 <div class="col-sm-1"></div>
                 <div class="col-sm-10">
 
-                    <form action="LoginServlet" method="post" class="form-horizontal" role="form">
+                    <form action="loginServlet" method="post" class="form-horizontal" role="form">
                         <div class="form-group">
                             <label class="control-label col-sm-4">Login:</label>
                             <div class="col-sm-4">
                                 <input type="text"
                                        class="form-control"
-                                       placeholder="Enter your username here...">
+                                       placeholder="Enter your username here..."
+                                       name="user_name"
+                                />
                             </div>
                         </div>
                         <div class="form-group">
@@ -45,7 +47,9 @@
                             <div class="col-sm-4">
                                 <input type="password"
                                        class="form-control"
-                                       placeholder="Enter your password here...">
+                                       placeholder="Enter your password here..."
+                                       name="user_password"
+                                />
                             </div>
                         </div>
                         <div class="form-group">

@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAll() {
+    public List<User> getAllUsers() {
         return userDao.getAll();
     }
 
@@ -66,5 +66,14 @@ public class UserServiceImpl implements UserService {
     public boolean isAuthenticatedUser(String name, String password) {
         User user = userDao.getByName(name);
         return user != null && user.getPassword().equals(password);
+    }
+
+    @Override
+    public void changePasswordByName(String name, String password) {
+        DaoUtils.executeInTransaction(() -> {
+            User user = userDao.getByName(name);
+            user.setPassword(password);
+            userDao.update(user);
+        });
     }
 }

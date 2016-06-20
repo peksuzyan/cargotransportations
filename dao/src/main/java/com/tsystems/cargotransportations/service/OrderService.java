@@ -86,4 +86,11 @@ public interface OrderService {
      * @param orderNumber order number
      */
     void sendOrderToPerforming(int orderNumber);
+
+    /**
+     * Gets order with status PERFORMING by unique driver number.
+     * @param driverNumber driver number
+     * @return order
+     */
+    Order getPerformingOrderByDriverNumber(int driverNumber);
 }

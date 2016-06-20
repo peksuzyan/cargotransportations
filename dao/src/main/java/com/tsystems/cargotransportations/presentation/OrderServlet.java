@@ -12,7 +12,7 @@ import java.io.IOException;
 import static com.tsystems.cargotransportations.constant.ActionConstants.*;
 import static com.tsystems.cargotransportations.constant.MessageConstants.*;
 import static com.tsystems.cargotransportations.constant.PageConstants.ORDERS_LIST_PAGE;
-import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_PAGE;
+import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_ADMIN_PAGE;
 import static com.tsystems.cargotransportations.constant.PageConstants.ORDER_REGISTRATION_PAGE;
 import static com.tsystems.cargotransportations.constant.ParamConstants.*;
 
@@ -86,7 +86,7 @@ public class OrderServlet extends EntityServlet<Order> {
             case PERFORM_ADDING_ACTION: {
                 orderService.createOrder();
                 request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, ORDER_IS_CREATED);
-                response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
             }
             break;
             case PERFORM_TRUCK_ASSIGNING_ACTION: {
@@ -210,7 +210,7 @@ public class OrderServlet extends EntityServlet<Order> {
                     int orderNumber = Integer.parseInt(orderNumberParam);
                     orderService.sendOrderToPerforming(orderNumber);
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, ORDER_IS_PERFORMING);
-                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 } catch (NumberFormatException ex) {
                     request.setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
                     getServletContext().getRequestDispatcher(ORDERS_LIST_PAGE).forward(request, response);
@@ -224,10 +224,10 @@ public class OrderServlet extends EntityServlet<Order> {
                     orderService.deleteByNumber(orderNumber);
                     request.setAttribute(ORDERS_LIST_PARAM, orderService.getAllOrders());
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, ORDER_IS_DELETED);
-                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 } catch (NumberFormatException ex) {
                     request.getSession().setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
-                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 }
             }
             break;

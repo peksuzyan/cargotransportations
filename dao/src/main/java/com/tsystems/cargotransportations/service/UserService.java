@@ -22,6 +22,13 @@ public interface UserService {
     void changeByName(String name, String password, UserRole role);
 
     /**
+     * Changes user password.
+     * @param name user name
+     * @param password user password
+     */
+    void changePasswordByName(String name, String password);
+
+    /**
      * Gets user by name.
      * @param name name
      * @return user
@@ -40,7 +47,7 @@ public interface UserService {
      * Gets all users.
      * @return users list
      */
-    List<User> getAll();
+    List<User> getAllUsers();
 
     /**
      * Gets users by role.

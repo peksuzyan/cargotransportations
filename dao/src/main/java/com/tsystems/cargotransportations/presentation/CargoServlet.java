@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import static com.tsystems.cargotransportations.constant.ActionConstants.*;
 import static com.tsystems.cargotransportations.constant.MessageConstants.*;
-import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_PAGE;
+import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_ADMIN_PAGE;
 import static com.tsystems.cargotransportations.constant.PageConstants.CARGOES_LIST_PAGE;
 import static com.tsystems.cargotransportations.constant.PageConstants.CARGO_REGISTRATION_PAGE;
 import static com.tsystems.cargotransportations.constant.ParamConstants.*;
@@ -71,7 +71,7 @@ public class CargoServlet extends EntityServlet<Cargo> {
                     double weight = Double.parseDouble(weightParam);
                     cargoService.createCargo(nameParam, weight, departureCityParam, arrivalCityParam);
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, CARGO_IS_CREATED);
-                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 } catch (NumberFormatException ex) {
                     request.setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     response.sendRedirect(request.getContextPath() + CARGOES_LIST_PAGE);
@@ -87,7 +87,7 @@ public class CargoServlet extends EntityServlet<Cargo> {
                     double weight = Double.parseDouble(weightParam);
                     cargoService.changeByNumber(cargoNumber, nameParam, weight);
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, CARGO_IS_EDITED);
-                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 } catch (NumberFormatException ex) {
                     request.setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     response.sendRedirect(request.getContextPath() + CARGOES_LIST_PAGE);
@@ -100,7 +100,7 @@ public class CargoServlet extends EntityServlet<Cargo> {
                     int cargoNumber = Integer.parseInt(cargoNumberParam);
                     cargoService.deleteByNumber(cargoNumber);
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, CARGO_IS_DELETED);
-                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 } catch (NumberFormatException ex) {
                     request.getSession().setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     response.sendRedirect(request.getContextPath() + CARGOES_LIST_PAGE);

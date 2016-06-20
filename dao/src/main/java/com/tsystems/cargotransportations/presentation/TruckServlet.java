@@ -12,7 +12,7 @@ import java.io.IOException;
 import static com.tsystems.cargotransportations.constant.ActionConstants.*;
 import static com.tsystems.cargotransportations.constant.MessageConstants.*;
 import static com.tsystems.cargotransportations.constant.PageConstants.TRUCKS_LIST_PAGE;
-import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_PAGE;
+import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_ADMIN_PAGE;
 import static com.tsystems.cargotransportations.constant.PageConstants.TRUCK_REGISTRATION_PAGE;
 import static com.tsystems.cargotransportations.constant.ParamConstants.*;
 
@@ -68,7 +68,7 @@ public class TruckServlet extends EntityServlet<Truck> {
                     double capacity = Double.parseDouble(capacityParam);
                     truckService.createTruck(truckNumberParam, people, active, capacity, cityParam);
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, TRUCK_IS_CREATED);
-                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 } catch (NumberFormatException ex) {
                     request.getSession().setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     response.sendRedirect(request.getContextPath() + TRUCK_REGISTRATION_PAGE);
@@ -86,7 +86,7 @@ public class TruckServlet extends EntityServlet<Truck> {
                     double capacity = Double.parseDouble(capacityParam);
                     truckService.changeByNumber(truckNumberParam, people, active, capacity);
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, TRUCK_IS_EDITED);
-                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 } catch (NumberFormatException ex) {
                     request.getSession().setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     response.sendRedirect(request.getContextPath() + TRUCK_REGISTRATION_PAGE);
@@ -97,7 +97,7 @@ public class TruckServlet extends EntityServlet<Truck> {
                 String truckNumberParam = request.getParameter(TRUCK_NUMBER_PARAM);
                 truckService.deleteByNumber(truckNumberParam);
                 request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, TRUCK_IS_DELETED);
-                response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
             }
             break;
             default: {

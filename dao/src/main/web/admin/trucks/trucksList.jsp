@@ -5,7 +5,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css"/>
 </head>
 
 <html>
@@ -15,35 +15,37 @@
                 <div class="col-sm-1"></div>
                 <div class="col-sm-10">
 
-                    <jsp:include page="navbar.jsp"/>
-                    <jsp:include page="message.jsp"/>
+                    <jsp:include page="../navbar.jsp"/>
+                    <jsp:include page="../message.jsp"/>
 
                     <div class="btn-group">
-                        <a class="btn btn-info" role="button" href="orderServlet?action=refresh">Refresh</a>
-                        <a class="btn btn-info" role="button" href="orderServlet?action=add">Add</a>
+                        <a class="btn btn-info" role="button" href="truckServlet?action=refresh">Refresh</a>
+                        <a class="btn btn-info" role="button" href="truckServlet?action=add">Add</a>
                     </div>
 
                     <table class="table table-striped">
                         <tr>
                             <th>Number</th>
+                            <th>People</th>
                             <th>Active</th>
-                            <th>Creation Date</th>
-                            <th>Truck</th>
+                            <th>Capacity</th>
+                            <th>City</th>
                             <th></th>
                             <th></th>
                         </tr>
-                        <c:forEach var="order" items="${orders}">
+                        <c:forEach var="truck" items="${trucks}">
                             <tr>
-                                <td><c:out value="${order.number}" /></td>
-                                <td><c:out value="${order.status}" /></td>
-                                <td><c:out value="${order.creationDate}" /></td>
-                                <td><c:out value="${order.truck}" /></td>
+                                <td><c:out value="${truck.number}" /></td>
+                                <td><c:out value="${truck.people}" /></td>
+                                <td><c:out value="${truck.active}" /></td>
+                                <td><c:out value="${truck.capacity}" /></td>
+                                <td><c:out value="${truck.city}" /></td>
                                 <td><a class="btn btn-primary"
-                                       href="orderServlet?action=edit&order_number=${order.number}">Edit</a></td>
+                                       href="truckServlet?action=edit&truck_number=${truck.number}">Edit</a></td>
                                 <td>
-                                    <form action="orderServlet" method="post">
+                                    <form action="truckServlet" method="post">
                                         <input type="text" name="action" value="perform_deleting" hidden />
-                                        <input type="text" name="order_number" value=${order.number} hidden />
+                                        <input type="text" name="truck_number" value=${truck.number} hidden />
                                         <input class="btn btn-primary" type="submit" value="Delete">
                                     </form>
                                 </td>

@@ -30,6 +30,11 @@ public class MessageConstants {
     private static final String ROUTE = "route";
 
     /**
+     * String representation of user classname.
+     */
+    private static final String USER = "user";
+
+    /**
      * Pattern for representing of success messages after operations over the entity.
      */
     private static final String OPERATION_OVER_ENTITY = "This %s is %s successfully!";
@@ -135,6 +140,31 @@ public class MessageConstants {
     public static final String TRUCK_IS_DELETED = String.format(OPERATION_OVER_ENTITY, TRUCK, "deleted");
 
     /**
+     * Message represents when user is created.
+     */
+    public static final String USER_IS_CREATED = String.format(OPERATION_OVER_ENTITY, USER, "created");
+
+    /**
+     * Message represents when user is edited.
+     */
+    public static final String USER_IS_EDITED = String.format(OPERATION_OVER_ENTITY, USER, "edited");
+
+    /**
+     * Message represents when user is deleted.
+     */
+    public static final String USER_IS_DELETED = String.format(OPERATION_OVER_ENTITY, USER, "deleted");
+
+    /**
+     * Message represents when user password is edited.
+     */
+    public static final String PASSWORD_IS_EDITED = String.format(OPERATION_OVER_ENTITY, "password", "edited");
+
+    /**
+     * Message represents when user is not found.
+     */
+    public static final String USER_IS_NOT_FOUND = String.format(ENTITY_IS_NOT_FOUND, USER);
+
+    /**
      * Message represents when passed data aren't correct.
      */
     public static final String DATA_ARE_NOT_CORRECT = "Passed data aren't correct!";
@@ -148,5 +178,11 @@ public class MessageConstants {
      * Message represents when user didn't pass an authentication.
      */
     public static final String WRONG_USERNAME_OR_PASSWORD = "Either user name or password is wrong.";
+
+    /**
+     * Message represents when permission to resource denied.
+     */
+    public static final String PERMISSION_DENIED = "The resource is unreachable - permission denied.";
+
 
 }

@@ -12,7 +12,7 @@ import java.io.IOException;
 import static com.tsystems.cargotransportations.constant.ActionConstants.*;
 import static com.tsystems.cargotransportations.constant.MessageConstants.*;
 import static com.tsystems.cargotransportations.constant.PageConstants.DRIVERS_LIST_PAGE;
-import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_PAGE;
+import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_ADMIN_PAGE;
 import static com.tsystems.cargotransportations.constant.PageConstants.DRIVER_REGISTRATION_PAGE;
 import static com.tsystems.cargotransportations.constant.ParamConstants.*;
 
@@ -69,7 +69,7 @@ public class DriverServlet extends EntityServlet<Driver> {
                 String cityParam = request.getParameter(CITY_PARAM);
                 driverService.createDriver(firstNameParam, lastNameParam, cityParam);
                 request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, DRIVER_IS_CREATED);
-                response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
             }
             break;
             case PERFORM_EDITING_ACTION: {
@@ -80,10 +80,10 @@ public class DriverServlet extends EntityServlet<Driver> {
                     int driverNumber = Integer.parseInt(driverNumberParam);
                     driverService.changeByNumber(driverNumber, firstNameParam, lastNameParam);
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, DRIVER_IS_EDITED);
-                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 } catch (NumberFormatException ex) {
                     request.getSession().setAttribute(ERROR_MESSAGE_PARAM, DRIVER_IS_NOT_FOUND);
-                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 }
             }
             break;
@@ -94,10 +94,10 @@ public class DriverServlet extends EntityServlet<Driver> {
                     driverService.deleteByNumber(driverNumber);
                     request.setAttribute(DRIVERS_LIST_PARAM, driverService.getAllDrivers());
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, DRIVER_IS_DELETED);
-                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 } catch (NumberFormatException ex) {
                     request.getSession().setAttribute(ERROR_MESSAGE_PARAM, DRIVER_IS_NOT_FOUND);
-                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 }
             }
             break;

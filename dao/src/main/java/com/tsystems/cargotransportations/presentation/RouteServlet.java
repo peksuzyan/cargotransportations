@@ -12,7 +12,7 @@ import java.io.IOException;
 import static com.tsystems.cargotransportations.constant.ActionConstants.*;
 import static com.tsystems.cargotransportations.constant.MessageConstants.*;
 import static com.tsystems.cargotransportations.constant.PageConstants.ROUTES_LIST_PAGE;
-import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_PAGE;
+import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_ADMIN_PAGE;
 import static com.tsystems.cargotransportations.constant.PageConstants.ROUTE_REGISTRATION_PAGE;
 import static com.tsystems.cargotransportations.constant.ParamConstants.*;
 
@@ -59,10 +59,10 @@ public class RouteServlet extends EntityServlet<Route> {
                     }
                     routeService.createRoute(cities);
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, ROUTE_IS_CREATED);
-                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 } catch (NumberFormatException ex) {
                     request.getSession().setAttribute(ERROR_MESSAGE_PARAM, CITIES_COUNT_IS_NOT_EXISTED);
-                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 }
             }
             break;
@@ -73,10 +73,10 @@ public class RouteServlet extends EntityServlet<Route> {
                     routeService.deleteByNumber(routeNumber);
                     request.setAttribute(ROUTES_LIST_PARAM, routeService.getAllRoutes());
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, ROUTE_IS_DELETED);
-                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 } catch (NumberFormatException ex) {
                     request.getSession().setAttribute(ERROR_MESSAGE_PARAM, ROUTE_IS_NOT_FOUND);
-                    response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 }
             }
             break;

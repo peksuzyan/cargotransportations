@@ -145,6 +145,11 @@ public class ParamConstants {
     public static final String CITIES_COUNT_PARAM = "cities_count";
 
     /**
+     * Necessary for setting or getting cities by param name.
+     */
+    public static final String ROUTE_CITIES_PARAM = "cities";
+
+    /**
      * Necessary for setting or getting suitable trucks list by param name.
      */
     public static final String SUITABLE_TRUCKS_LIST_PARAM = "suitable_trucks";
@@ -178,4 +183,14 @@ public class ParamConstants {
      * Necessary for setting or getting user role by param name.
      */
     public static final String USER_ROLE_PARAM = "user_role";
+
+    /**
+     * Necessary for setting or getting users list by param name.
+     */
+    public static final String USERS_LIST_PARAM = "users";
+
+    /**
+     * Necessary for setting or getting user by param name.
+     */
+    public static final String USER_PARAM = "user";
 }

@@ -11,7 +11,7 @@ import java.util.List;
 import static com.tsystems.cargotransportations.constant.ActionConstants.ADD_ACTION;
 import static com.tsystems.cargotransportations.constant.ActionConstants.NOTHING_ACTION;
 import static com.tsystems.cargotransportations.constant.MessageConstants.ACTION_IS_NOT_EXISTED;
-import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_PAGE;
+import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_ADMIN_PAGE;
 import static com.tsystems.cargotransportations.constant.ParamConstants.ACTION_PARAM;
 import static com.tsystems.cargotransportations.constant.ParamConstants.ERROR_MESSAGE_PARAM;
 
@@ -63,7 +63,7 @@ public abstract class EntityServlet<T> extends HttpServlet {
     void processDefault(HttpServletRequest request,
                         HttpServletResponse response) throws ServletException, IOException {
         request.getSession().setAttribute(ERROR_MESSAGE_PARAM, ACTION_IS_NOT_EXISTED);
-        response.sendRedirect(request.getContextPath() + CONFIRMATION_PAGE);
+        response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
     }
 
     /**

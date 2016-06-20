@@ -1,6 +1,7 @@
 package com.tsystems.cargotransportations.presentation.authentication;
 
 import com.tsystems.cargotransportations.entity.User;
+import com.tsystems.cargotransportations.entity.UserRole;
 import com.tsystems.cargotransportations.service.UserService;
 import com.tsystems.cargotransportations.service.UserServiceImpl;
 
@@ -13,8 +14,7 @@ import java.io.IOException;
 
 import static com.tsystems.cargotransportations.constant.MagicConstants.HALF_HOUR;
 import static com.tsystems.cargotransportations.constant.MessageConstants.WRONG_USERNAME_OR_PASSWORD;
-import static com.tsystems.cargotransportations.constant.PageConstants.LOGIN_PAGE;
-import static com.tsystems.cargotransportations.constant.PageConstants.WELCOME_PAGE;
+import static com.tsystems.cargotransportations.constant.PageConstants.*;
 import static com.tsystems.cargotransportations.constant.ParamConstants.*;
 
 /**
@@ -29,27 +29,18 @@ public class LoginServlet extends HttpServlet {
                        HttpServletResponse response) throws ServletException, IOException {
         String userName = request.getParameter(USER_NAME_PARAM);
         String userPassword = request.getParameter(USER_PASSWORD_PARAM);
-        if (userService.isAuthenticatedUser(userName, userPassword)) {
-            HttpSession session = request.getSession();
-            session.setAttribute(USER_NAME_PARAM, userName);
-            session.setMaxInactiveInterval(HALF_HOUR);
-            response.sendRedirect(request.getContextPath() + WELCOME_PAGE);
-        } else {
-            request.setAttribute(ERROR_MESSAGE_PARAM, WRONG_USERNAME_OR_PASSWORD);
-            getServletContext().getRequestDispatcher(LOGIN_PAGE).forward(request, response);
-        }
-
-        /*
         User user = userService.getByName(userName);
         if (user != null && user.getPassword().equals(userPassword)) {
             HttpSession session = request.getSession();
             session.setAttribute(USER_NAME_PARAM, userName);
-            session.setAttribute(USER_ROLE_PARAM, );
+            UserRole userRole = user.getUserRole();
+            session.setAttribute(USER_ROLE_PARAM, userRole);
             session.setMaxInactiveInterval(HALF_HOUR);
-            response.sendRedirect(request.getContextPath() + WELCOME_PAGE);
+            response.sendRedirect(request.getContextPath() +
+                    (userRole == UserRole.ADMIN ? WELCOME_ADMIN_PAGE : WELCOME_USER_PAGE));
+        } else {
+            request.setAttribute(ERROR_MESSAGE_PARAM, WRONG_USERNAME_OR_PASSWORD);
+            getServletContext().getRequestDispatcher(LOGIN_PAGE).forward(request, response);
         }
-        */
-
-
     }
 }

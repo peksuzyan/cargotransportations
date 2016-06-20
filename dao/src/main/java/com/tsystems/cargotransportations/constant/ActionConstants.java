@@ -20,6 +20,16 @@ public class ActionConstants {
     public static final String EDIT_ACTION = "edit";
 
     /**
+     * User needs to edit own profile.
+     */
+    public static final String USER_EDIT_ACTION = "user_edit";
+
+    /**
+     * User needs to show assignments for an order.
+     */
+    public static final String SHOW_ASSIGNMENTS_ACTION = "show_assignments";
+
+    /**
      * Client needs to perform a new entity creating.
      */
     public static final String PERFORM_ADDING_ACTION = "perform_adding";
@@ -78,6 +88,11 @@ public class ActionConstants {
      * Client needs to perform an order processing.
      */
     public static final String PERFORM_ORDER_PROCESSING_ACTION = "perform_order_processing";
+
+    /**
+     * User needs to perform editing of own profile.
+     */
+    public static final String PERFORM_USER_EDITING_ACTION = "perform_user_editing";
 
     /**
      * Client doesn't need to do anything with an entity.

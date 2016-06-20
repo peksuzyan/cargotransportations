@@ -13,7 +13,9 @@ import static com.tsystems.cargotransportations.constant.FilterConstant.*;
  * Filter that logs all request to the web application.
  */
 public class RequestLoggingFilter implements Filter {
-
+    /**
+     * Logs events bound with received requests.
+     */
     private static final Logger logger = Logger.getLogger(RequestLoggingFilter.class);
 
     @Override
