@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static com.tsystems.cargotransportations.constants.ConfConstants.UNIT_NAME;
 
-// TODO
+// TODO exceptions
 /**
  * Provides convenient methods for thread-safe getting EntityManager's instances from factory.
  */
@@ -46,9 +46,10 @@ public class DaoUtils {
      */
     public static EntityManager getEntityManager() {
         Thread current = Thread.currentThread();
-        return entityManagersMap.containsKey(current) && entityManagersMap.get(current).isOpen() ?
-                entityManagersMap.get(current) :
-                entityManagersMap.put(current, entityManagerFactory.createEntityManager());
+        if (!entityManagersMap.containsKey(current) || !entityManagersMap.get(current).isOpen()) {
+            entityManagersMap.put(current, entityManagerFactory.createEntityManager());
+        }
+        return entityManagersMap.get(current);
     }
 
     /**

@@ -6,6 +6,7 @@ import com.tsystems.cargotransportations.dao.implementation.UserDaoImpl;
 import com.tsystems.cargotransportations.entity.User;
 import com.tsystems.cargotransportations.entity.UserRole;
 import com.tsystems.cargotransportations.service.interfaces.UserService;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.util.Date;
 import java.util.List;

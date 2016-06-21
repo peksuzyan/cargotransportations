@@ -4,6 +4,7 @@ import com.tsystems.cargotransportations.entity.User;
 import com.tsystems.cargotransportations.entity.UserRole;
 import com.tsystems.cargotransportations.service.interfaces.UserService;
 import com.tsystems.cargotransportations.service.implementation.UserServiceImpl;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.security.MessageDigest;
 
 import static com.tsystems.cargotransportations.constants.MagicConstants.HALF_HOUR;
 import static com.tsystems.cargotransportations.constants.MessageConstants.WRONG_USERNAME_OR_PASSWORD;
@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
         String userName = request.getParameter(USER_NAME_PARAM);
         String userPassword = request.getParameter(USER_PASSWORD_PARAM);
         User user = userService.getByName(userName);
-        if (user != null && user.getPassword().equals(userPassword)) {
+        if (user != null && user.getPassword().equals(DigestUtils.md5Hex(userPassword))) {
             HttpSession session = request.getSession();
             session.setAttribute(USER_NAME_PARAM, userName);
             UserRole userRole = user.getUserRole();

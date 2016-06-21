@@ -7,6 +7,7 @@ import com.tsystems.cargotransportations.service.interfaces.OrderService;
 import com.tsystems.cargotransportations.service.implementation.OrderServiceImpl;
 import com.tsystems.cargotransportations.service.interfaces.UserService;
 import com.tsystems.cargotransportations.service.implementation.UserServiceImpl;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -98,7 +99,7 @@ public class UserServlet extends EntityServlet<User> {
                 String userNameParam = request.getParameter(USER_NAME_PARAM);
                 String userPasswordParam = request.getParameter(USER_PASSWORD_PARAM);
                 UserRole userRole = getUserRole(request.getParameter(USER_ROLE_PARAM));
-                userService.changeByName(userNameParam, userPasswordParam, userRole);
+                userService.changeByName(userNameParam, DigestUtils.md5Hex(userPasswordParam), userRole);
                 request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, USER_IS_EDITED);
                 response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
             }
@@ -113,7 +114,7 @@ public class UserServlet extends EntityServlet<User> {
             case PERFORM_USER_EDITING_ACTION: {
                 String userNameParam = request.getParameter(USER_NAME_PARAM);
                 String userPasswordParam = request.getParameter(USER_PASSWORD_PARAM);
-                userService.changePasswordByName(userNameParam, userPasswordParam);
+                userService.changePasswordByName(userNameParam, DigestUtils.md5Hex(userPasswordParam));
                 request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, PASSWORD_IS_EDITED);
                 response.sendRedirect(request.getContextPath() + CONFIRMATION_USER_PAGE);
             }
