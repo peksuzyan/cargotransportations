@@ -93,7 +93,7 @@
                             <div class="col-sm-4">
                                 <select class="form-control" name="route_number">
                                     <c:forEach var="route" items="${routes}">
-                                        <option value="${route.number}">${route.cities}</option>
+                                        <option value="${route}">${route}</option>
                                     </c:forEach>
                                 </select>
                                 <input type="text" name="order_number" value="${order.number}" hidden/>
@@ -112,7 +112,7 @@
                     </form>
 
                     <form action="orderServlet" method="post" class="form-horizontal" role="form">
-                        <div class="col-sm-6" class="form-group">
+                        <div class="col-sm-6 form-group">
                             <table class="table table-striped">
                                 <tr>
                                     <th>Number</th>
@@ -128,6 +128,7 @@
                                         <td>
                                             <form action="orderServlet" method="post">
                                                 <input type="text" name="action" value="perform_cargo_excluding" hidden />
+                                                <input type="text" name="order_number" value="${order.number}" hidden />
                                                 <input type="text" name="cargo_number" value="${cargo.number}" hidden />
                                                 <input type="submit" value="Delete">
                                             </form>
@@ -136,12 +137,14 @@
                                 </c:forEach>
                             </table>
                         </div>
+                    </form>
 
+                    <form action="orderServlet" method="post" class="form-horizontal" role="form">
                         <div class="form-group">
-                            <div class="col-sm-2">
+                            <div class="col-sm-4">
                                 <select class="form-control" name="cargo_number">
                                     <c:forEach var="cargo" items="${suitable_cargoes}">
-                                        <option value="${cargo.number}">${cargo.number}</option>
+                                        <option value="${cargo.number}">${cargo.number} ${cargo.name}</option>
                                     </c:forEach>
                                 </select>
                                 <input type="text" name="order_number" value="${order.number}" hidden/>
@@ -160,7 +163,7 @@
                     </form>
 
                     <form action="orderServlet" method="post" class="form-horizontal" role="form">
-                        <div class="col-sm-6" class="form-group">
+                        <div class="col-sm-6 form-group">
                             <table class="table table-striped">
                                 <tr>
                                     <th>Number</th>
@@ -186,13 +189,16 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-sm-2">
+                            <div class="col-sm-4">
                                 <select class="form-control" name="driver_number">
                                     <c:forEach var="driver" items="${suitable_drivers}">
                                         <option value="${driver.number}">${driver.number}</option>
                                     </c:forEach>
                                 </select>
-                                <input type="text" name="order_number" value="${driver.number}" hidden/>
+                                <input type="text"
+                                       name="order_number"
+                                       value="${driver.number} ${driver.lastName}"
+                                       hidden/>
                                 <input type="text" name="action" value="perform_driver_adding" hidden/>
                             </div>
                             <div>

@@ -1,20 +1,20 @@
 package com.tsystems.cargotransportations.presentation.servlets;
 
 import com.tsystems.cargotransportations.entity.Truck;
-import com.tsystems.cargotransportations.service.abstracts.TruckService;
-import com.tsystems.cargotransportations.service.implementations.TruckServiceImpl;
+import com.tsystems.cargotransportations.service.interfaces.TruckService;
+import com.tsystems.cargotransportations.service.implementation.TruckServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.tsystems.cargotransportations.constant.ActionConstants.*;
-import static com.tsystems.cargotransportations.constant.MessageConstants.*;
-import static com.tsystems.cargotransportations.constant.PageConstants.TRUCKS_LIST_PAGE;
-import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_ADMIN_PAGE;
-import static com.tsystems.cargotransportations.constant.PageConstants.TRUCK_REGISTRATION_PAGE;
-import static com.tsystems.cargotransportations.constant.ParamConstants.*;
+import static com.tsystems.cargotransportations.constants.ActionConstants.*;
+import static com.tsystems.cargotransportations.constants.MessageConstants.*;
+import static com.tsystems.cargotransportations.constants.PageConstants.TRUCKS_LIST_PAGE;
+import static com.tsystems.cargotransportations.constants.PageConstants.CONFIRMATION_ADMIN_PAGE;
+import static com.tsystems.cargotransportations.constants.PageConstants.TRUCK_REGISTRATION_PAGE;
+import static com.tsystems.cargotransportations.constants.ParamConstants.*;
 
 /**
  * Processes all client requests that relate to truck entity.

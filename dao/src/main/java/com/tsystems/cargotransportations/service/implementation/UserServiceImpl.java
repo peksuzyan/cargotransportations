@@ -1,11 +1,11 @@
-package com.tsystems.cargotransportations.service.implementations;
+package com.tsystems.cargotransportations.service.implementation;
 
 import com.tsystems.cargotransportations.dao.DaoUtils;
 import com.tsystems.cargotransportations.dao.abstracts.UserDao;
-import com.tsystems.cargotransportations.dao.implementations.UserDaoImpl;
+import com.tsystems.cargotransportations.dao.implementation.UserDaoImpl;
 import com.tsystems.cargotransportations.entity.User;
 import com.tsystems.cargotransportations.entity.UserRole;
-import com.tsystems.cargotransportations.service.abstracts.UserService;
+import com.tsystems.cargotransportations.service.interfaces.UserService;
 
 import java.util.Date;
 import java.util.List;

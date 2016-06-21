@@ -1,19 +1,19 @@
-package com.tsystems.cargotransportations.service.implementations;
+package com.tsystems.cargotransportations.service.implementation;
 
 import com.tsystems.cargotransportations.dao.*;
 import com.tsystems.cargotransportations.dao.abstracts.OrderDao;
 import com.tsystems.cargotransportations.dao.abstracts.TruckDao;
-import com.tsystems.cargotransportations.dao.implementations.OrderDaoImpl;
-import com.tsystems.cargotransportations.dao.implementations.TruckDaoImpl;
+import com.tsystems.cargotransportations.dao.implementation.OrderDaoImpl;
+import com.tsystems.cargotransportations.dao.implementation.TruckDaoImpl;
 import com.tsystems.cargotransportations.entity.Cargo;
 import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.entity.Truck;
-import com.tsystems.cargotransportations.service.abstracts.TruckService;
+import com.tsystems.cargotransportations.service.interfaces.TruckService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.tsystems.cargotransportations.constant.MagicConstants.DOUBLE_ZERO;
+import static com.tsystems.cargotransportations.constants.MagicConstants.DOUBLE_ZERO;
 
 /**
  * Implements business-logic operations that bound with truck.

@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.dao.implementations;
+package com.tsystems.cargotransportations.dao.implementation;
 
 import com.tsystems.cargotransportations.dao.abstracts.RouteDao;
 import com.tsystems.cargotransportations.entity.Route;

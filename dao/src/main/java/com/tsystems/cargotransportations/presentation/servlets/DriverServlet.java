@@ -1,20 +1,20 @@
 package com.tsystems.cargotransportations.presentation.servlets;
 
 import com.tsystems.cargotransportations.entity.Driver;
-import com.tsystems.cargotransportations.service.abstracts.DriverService;
-import com.tsystems.cargotransportations.service.implementations.DriverServiceImpl;
+import com.tsystems.cargotransportations.service.interfaces.DriverService;
+import com.tsystems.cargotransportations.service.implementation.DriverServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.tsystems.cargotransportations.constant.ActionConstants.*;
-import static com.tsystems.cargotransportations.constant.MessageConstants.*;
-import static com.tsystems.cargotransportations.constant.PageConstants.DRIVERS_LIST_PAGE;
-import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_ADMIN_PAGE;
-import static com.tsystems.cargotransportations.constant.PageConstants.DRIVER_REGISTRATION_PAGE;
-import static com.tsystems.cargotransportations.constant.ParamConstants.*;
+import static com.tsystems.cargotransportations.constants.ActionConstants.*;
+import static com.tsystems.cargotransportations.constants.MessageConstants.*;
+import static com.tsystems.cargotransportations.constants.PageConstants.DRIVERS_LIST_PAGE;
+import static com.tsystems.cargotransportations.constants.PageConstants.CONFIRMATION_ADMIN_PAGE;
+import static com.tsystems.cargotransportations.constants.PageConstants.DRIVER_REGISTRATION_PAGE;
+import static com.tsystems.cargotransportations.constants.ParamConstants.*;
 
 /**
  * Processes all client requests that relate to driver entity.

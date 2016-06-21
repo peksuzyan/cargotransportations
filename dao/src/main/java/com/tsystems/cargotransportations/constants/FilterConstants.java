@@ -1,6 +1,6 @@
-package com.tsystems.cargotransportations.constant;
+package com.tsystems.cargotransportations.constants;
 
-public class FilterConstant {
+public class FilterConstants {
     public static final String INITIALIZED = "RequestLoggingFilter initialized";
     public static final String DESTROYED  = "RequestLoggingFilter destroyed";
     public static final String RECORD_PATTERN  = "address::%s::request params::";

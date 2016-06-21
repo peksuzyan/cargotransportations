@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.constant;
+package com.tsystems.cargotransportations.constants;
 
 /**
  * Contains all params names that are used for parse client requests.
@@ -148,6 +148,16 @@ public class ParamConstants {
      * Necessary for setting or getting cities by param name.
      */
     public static final String ROUTE_CITIES_PARAM = "cities";
+
+    /**
+     * Necessary for setting or getting route points by param name.
+     */
+    public static final String ROUTE_POINTS_PARAM = "route_points";
+
+    /**
+     * Necessary for setting or getting routes cases by param name.
+     */
+    public static final String ROUTES_CASES_LIST_PARAM = "routes_cases";
 
     /**
      * Necessary for setting or getting suitable trucks list by param name.

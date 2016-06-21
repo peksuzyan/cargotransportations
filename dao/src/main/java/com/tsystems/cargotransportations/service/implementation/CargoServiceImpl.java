@@ -1,11 +1,11 @@
-package com.tsystems.cargotransportations.service.implementations;
+package com.tsystems.cargotransportations.service.implementation;
 
 import com.tsystems.cargotransportations.dao.abstracts.CargoDao;
-import com.tsystems.cargotransportations.dao.implementations.CargoDaoImpl;
+import com.tsystems.cargotransportations.dao.implementation.CargoDaoImpl;
 import com.tsystems.cargotransportations.dao.DaoUtils;
 import com.tsystems.cargotransportations.entity.Cargo;
 import com.tsystems.cargotransportations.entity.CargoStatus;
-import com.tsystems.cargotransportations.service.abstracts.CargoService;
+import com.tsystems.cargotransportations.service.interfaces.CargoService;
 
 import java.util.List;
 

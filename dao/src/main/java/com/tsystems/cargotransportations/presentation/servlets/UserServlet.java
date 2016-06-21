@@ -3,20 +3,20 @@ package com.tsystems.cargotransportations.presentation.servlets;
 import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.entity.User;
 import com.tsystems.cargotransportations.entity.UserRole;
-import com.tsystems.cargotransportations.service.abstracts.OrderService;
-import com.tsystems.cargotransportations.service.implementations.OrderServiceImpl;
-import com.tsystems.cargotransportations.service.abstracts.UserService;
-import com.tsystems.cargotransportations.service.implementations.UserServiceImpl;
+import com.tsystems.cargotransportations.service.interfaces.OrderService;
+import com.tsystems.cargotransportations.service.implementation.OrderServiceImpl;
+import com.tsystems.cargotransportations.service.interfaces.UserService;
+import com.tsystems.cargotransportations.service.implementation.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.tsystems.cargotransportations.constant.ActionConstants.*;
-import static com.tsystems.cargotransportations.constant.MessageConstants.*;
-import static com.tsystems.cargotransportations.constant.PageConstants.*;
-import static com.tsystems.cargotransportations.constant.ParamConstants.*;
+import static com.tsystems.cargotransportations.constants.ActionConstants.*;
+import static com.tsystems.cargotransportations.constants.MessageConstants.*;
+import static com.tsystems.cargotransportations.constants.PageConstants.*;
+import static com.tsystems.cargotransportations.constants.ParamConstants.*;
 
 public class UserServlet extends EntityServlet<User> {
     /**

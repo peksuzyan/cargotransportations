@@ -1,11 +1,11 @@
-package com.tsystems.cargotransportations.service.implementations;
+package com.tsystems.cargotransportations.service.implementation;
 
 import com.tsystems.cargotransportations.dao.*;
 import com.tsystems.cargotransportations.dao.abstracts.DriverDao;
-import com.tsystems.cargotransportations.dao.implementations.DriverDaoImpl;
+import com.tsystems.cargotransportations.dao.implementation.DriverDaoImpl;
 import com.tsystems.cargotransportations.entity.Driver;
 import com.tsystems.cargotransportations.entity.DriverStatus;
-import com.tsystems.cargotransportations.service.abstracts.DriverService;
+import com.tsystems.cargotransportations.service.interfaces.DriverService;
 
 import java.util.List;
 
@@ -62,6 +62,7 @@ public class DriverServiceImpl implements DriverService {
     //TODO
     @Override
     public List<Driver> getSuitableDriversByOrder(int orderNumber) {
+
         return null;
     }
 }

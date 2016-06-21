@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.service.abstracts;
+package com.tsystems.cargotransportations.service.interfaces;
 
 import com.tsystems.cargotransportations.entity.Order;
 
@@ -45,11 +45,18 @@ public interface OrderService {
     void assignTruckByNumber(int orderNumber, String truckNumber);
 
     /**
-     * Assigns a route by number for an order.
+     * Assigns to an order a route by number.
      * @param orderNumber order number
      * @param routeNumber route number
      */
     void assignRouteByNumber(int orderNumber, int routeNumber);
+
+    /**
+     * Assigns to an order a route by route points.
+     * @param orderNumber order number
+     * @param routePoints route points
+     */
+    void assignRouteByRoutePoints(int orderNumber, List<String> routePoints);
 
     /**
      * Excludes a cargo from a cargoes list of an order.

@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.constant;
+package com.tsystems.cargotransportations.constants;
 
 /**
  * Contains all messages are performed by known reasons/exceptions.
@@ -88,6 +88,11 @@ public class MessageConstants {
      * Message represents when order is created.
      */
     public static final String ORDER_IS_CREATED = String.format(OPERATION_OVER_ENTITY, ORDER, "created");
+
+    /**
+     * Message represents when order is edited.
+     */
+    public static final String ORDER_IS_EDITED = String.format(OPERATION_OVER_ENTITY, ORDER, "edited");
 
     /**
      * Message represents when order is deleted.

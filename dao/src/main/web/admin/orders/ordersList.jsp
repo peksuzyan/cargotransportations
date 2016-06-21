@@ -20,7 +20,10 @@
 
                     <div class="btn-group">
                         <a class="btn btn-info" role="button" href="orderServlet?action=refresh">Refresh</a>
-                        <a class="btn btn-info" role="button" href="orderServlet?action=add">Add</a>
+                        <form action="orderServlet" method="post">
+                            <input type="text" name="action" value="perform_adding" hidden />
+                            <input type="submit" value="Add" class="btn btn-info" />
+                        </form>
                     </div>
 
                     <table class="table table-striped">

@@ -2,20 +2,21 @@ package com.tsystems.cargotransportations.presentation.servlets;
 
 import com.tsystems.cargotransportations.entity.CargoStatus;
 import com.tsystems.cargotransportations.entity.Order;
-import com.tsystems.cargotransportations.service.abstracts.*;
-import com.tsystems.cargotransportations.service.implementations.*;
+import com.tsystems.cargotransportations.service.interfaces.*;
+import com.tsystems.cargotransportations.service.implementation.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
-import static com.tsystems.cargotransportations.constant.ActionConstants.*;
-import static com.tsystems.cargotransportations.constant.MessageConstants.*;
-import static com.tsystems.cargotransportations.constant.PageConstants.ORDERS_LIST_PAGE;
-import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_ADMIN_PAGE;
-import static com.tsystems.cargotransportations.constant.PageConstants.ORDER_REGISTRATION_PAGE;
-import static com.tsystems.cargotransportations.constant.ParamConstants.*;
+import static com.tsystems.cargotransportations.constants.ActionConstants.*;
+import static com.tsystems.cargotransportations.constants.MessageConstants.*;
+import static com.tsystems.cargotransportations.constants.PageConstants.ORDERS_LIST_PAGE;
+import static com.tsystems.cargotransportations.constants.PageConstants.CONFIRMATION_ADMIN_PAGE;
+import static com.tsystems.cargotransportations.constants.PageConstants.ORDER_REGISTRATION_PAGE;
+import static com.tsystems.cargotransportations.constants.ParamConstants.*;
 
 /**
  * Processes all client requests that relate to order entity.
@@ -53,10 +54,6 @@ public class OrderServlet extends EntityServlet<Order> {
         switch (actionParam) {
             case REFRESH_ACTION: {
                 processRefresh(request, response, ORDERS_LIST_PARAM, ORDERS_LIST_PAGE, orderService.getAllOrders());
-            }
-            break;
-            case ADD_ACTION: {
-                processAdd(request, response, ORDER_REGISTRATION_PAGE);
             }
             break;
             case EDIT_ACTION: {
@@ -120,13 +117,19 @@ public class OrderServlet extends EntityServlet<Order> {
             case PERFORM_ROUTE_ASSIGNING_ACTION: {
                 try {
                     String orderNumberParam = request.getParameter(ORDER_NUMBER_PARAM);
-                    String routeNumberParam = request.getParameter(ROUTE_NUMBER_PARAM);
+                    String routePointsParam = request.getParameter(ROUTE_POINTS_PARAM);
                     int orderNumber = Integer.parseInt(orderNumberParam);
-                    int routeNumber = Integer.parseInt(routeNumberParam);
-                    orderService.assignRouteByNumber(orderNumber, routeNumber);
-                    setOrderDataAsAttributes(request, orderNumber);
-                    //getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
-                    response.sendRedirect(request.getContextPath() + ORDER_REGISTRATION_PAGE);
+                    List<String> routePoints = routeService.getRoutePoints(routePointsParam);
+                    orderService.assignRouteByRoutePoints(orderNumber, routePoints);
+                    Order order = orderService.getByNumber(orderNumber);
+                    request.setAttribute(ORDER_PARAM, order);
+                    //routeService.createRoute(routePoints);
+                    //Route route = routeService.getRouteByRoutePoints(routePoints);
+                    //orderService.assignRouteByNumber(orderNumber, route.getNumber());
+
+                    //setOrderDataAsAttributes(request, orderNumber);
+                    getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
+                    //response.sendRedirect(request.getContextPath() + ORDER_REGISTRATION_PAGE);
                 } catch (NumberFormatException ex) {
                     request.setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
                     getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
@@ -168,7 +171,9 @@ public class OrderServlet extends EntityServlet<Order> {
                     int cargoNumber = Integer.parseInt(cargoNumberParam);
                     orderService.addCargoByNumber(orderNumber, cargoNumber);
                     setOrderDataAsAttributes(request, orderNumber);
-                    response.sendRedirect(request.getContextPath() + ORDER_REGISTRATION_PAGE);
+                    //response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
+                    request.setAttribute(SUCCESS_MESSAGE_PARAM, ORDER_IS_EDITED);
+                    getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
                 } catch (NumberFormatException ex) {
                     request.setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
                     getServletContext().getRequestDispatcher(ORDERS_LIST_PAGE).forward(request, response);
@@ -198,7 +203,9 @@ public class OrderServlet extends EntityServlet<Order> {
                     int cargoNumber = Integer.parseInt(cargoNumberParam);
                     orderService.excludeCargoByNumber(orderNumber, cargoNumber);
                     setOrderDataAsAttributes(request, orderNumber);
-                    response.sendRedirect(request.getContextPath() + ORDER_REGISTRATION_PAGE);
+                    //response.sendRedirect(request.getContextPath() + ORDER_REGISTRATION_PAGE);
+                    request.setAttribute(SUCCESS_MESSAGE_PARAM, ORDER_IS_EDITED);
+                    getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
                 } catch (NumberFormatException ex) {
                     request.setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
                     getServletContext().getRequestDispatcher(ORDERS_LIST_PAGE).forward(request, response);
@@ -239,13 +246,35 @@ public class OrderServlet extends EntityServlet<Order> {
     }
 
     private void setOrderDataAsAttributes(HttpServletRequest request, int orderNumber) {
-        request.setAttribute(ORDER_PARAM, orderService.getByNumber(orderNumber));
-        request.setAttribute(SUITABLE_TRUCKS_LIST_PARAM,
-                truckService.getSuitableTrucksByOrder(orderNumber));
-        request.setAttribute(ROUTES_LIST_PARAM,
-                routeService.getAllRoutes());
+        Order order = orderService.getByNumber(orderNumber);
+        /**
+         * Sets as attribute the order given by order number (int)
+         */
+        request.setAttribute(ORDER_PARAM, order);
+        /**
+         * Sets as attribute all possible routes in according with order.
+         */
+        request.setAttribute(ROUTES_CASES_LIST_PARAM,
+                routeService.getRoutesCases(order.getCargoes()));
+        /**
+         * Sets as attribute all having cargoes by status PREPARED (it's new cargoes)
+         */
         request.setAttribute(SUITABLE_CARGOES_LIST_PARAM,
                 cargoService.getAllByStatus(CargoStatus.PREPARED));
+        /**
+         * Sets as attribute all trucks that:
+         * 1. are active;
+         * 2. aren't busy;
+         * 3. are suitable by capacity.
+         */
+        request.setAttribute(SUITABLE_TRUCKS_LIST_PARAM,
+                truckService.getSuitableTrucksByOrder(orderNumber));
+        /**
+         * Sets as attribute all drivers that:
+         * 1. aren't busy;
+         * 2. have the same location with truck;
+         * 3. are suitable by working time.
+         */
         request.setAttribute(SUITABLE_DRIVERS_LIST_PARAM,
                 driverService.getSuitableDriversByOrder(orderNumber));
     }

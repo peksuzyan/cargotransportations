@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static com.tsystems.cargotransportations.constant.PageConstants.LOGIN_PAGE;
+import static com.tsystems.cargotransportations.constants.PageConstants.LOGIN_PAGE;
 
 /**
  * Invalidates session if exists.

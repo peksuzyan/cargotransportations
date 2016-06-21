@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.constant;
+package com.tsystems.cargotransportations.constants;
 
 /**
  * Contains all kinds of client operations given by action param.

@@ -1,10 +1,10 @@
-package com.tsystems.cargotransportations.service.implementations;
+package com.tsystems.cargotransportations.service.implementation;
 
 import com.tsystems.cargotransportations.dao.*;
 import com.tsystems.cargotransportations.dao.abstracts.*;
-import com.tsystems.cargotransportations.dao.implementations.*;
+import com.tsystems.cargotransportations.dao.implementation.*;
 import com.tsystems.cargotransportations.entity.*;
-import com.tsystems.cargotransportations.service.abstracts.OrderService;
+import com.tsystems.cargotransportations.service.interfaces.OrderService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -60,6 +60,7 @@ public class OrderServiceImpl implements OrderService {
             order.setCreationDate(new Date());
             order.setNumber(order.getId() + 500);
         });
+
     }
 
     @Override
@@ -103,6 +104,19 @@ public class OrderServiceImpl implements OrderService {
         final Order order = getByNumber(orderNumber);
         final Route route = routeDao.getByNumber(routeNumber);
         DaoUtils.executeInTransaction(() -> {
+            order.setRoute(route);
+            orderDao.update(order);
+        });
+    }
+
+    @Override
+    public void assignRouteByRoutePoints(int orderNumber, List<String> routePoints) {
+        final Order order = getByNumber(orderNumber);
+        DaoUtils.executeInTransaction(() -> {
+            Route route = new Route();
+            routeDao.create(route);
+            route.setCities(routePoints);
+            route.setNumber(route.getId() + 1000);
             order.setRoute(route);
             orderDao.update(order);
         });

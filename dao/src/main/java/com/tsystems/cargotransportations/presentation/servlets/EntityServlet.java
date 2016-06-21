@@ -8,12 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-import static com.tsystems.cargotransportations.constant.ActionConstants.ADD_ACTION;
-import static com.tsystems.cargotransportations.constant.ActionConstants.NOTHING_ACTION;
-import static com.tsystems.cargotransportations.constant.MessageConstants.ACTION_IS_NOT_EXISTED;
-import static com.tsystems.cargotransportations.constant.PageConstants.CONFIRMATION_ADMIN_PAGE;
-import static com.tsystems.cargotransportations.constant.ParamConstants.ACTION_PARAM;
-import static com.tsystems.cargotransportations.constant.ParamConstants.ERROR_MESSAGE_PARAM;
+import static com.tsystems.cargotransportations.constants.ActionConstants.ADD_ACTION;
+import static com.tsystems.cargotransportations.constants.ActionConstants.NOTHING_ACTION;
+import static com.tsystems.cargotransportations.constants.MessageConstants.ACTION_IS_NOT_EXISTED;
+import static com.tsystems.cargotransportations.constants.PageConstants.CONFIRMATION_ADMIN_PAGE;
+import static com.tsystems.cargotransportations.constants.ParamConstants.ACTION_PARAM;
+import static com.tsystems.cargotransportations.constants.ParamConstants.ERROR_MESSAGE_PARAM;
 
 /**
  * Common abstract parent of all entities servlets.

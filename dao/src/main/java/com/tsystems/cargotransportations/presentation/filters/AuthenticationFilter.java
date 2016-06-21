@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-import static com.tsystems.cargotransportations.constant.PageConstants.LOGIN_PAGE;
+import static com.tsystems.cargotransportations.constants.PageConstants.LOGIN_PAGE;
 
 /**
  * Filter tests a session and sends to authentication if session isn't valid.

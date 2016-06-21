@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.constant;
+package com.tsystems.cargotransportations.constants;
 
 /**
  * Contains important values.
@@ -13,4 +13,9 @@ public class MagicConstants {
      * Represents a half hour in seconds.
      */
     public static final int HALF_HOUR = 30 * 60;
+
+    /**
+     * Ordinary comma as string delimiter.
+     */
+    public static final String COMMA_DELIMITER = ",";
 }

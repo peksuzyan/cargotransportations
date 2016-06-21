@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.tsystems.cargotransportations.constant.MessageConstants.PERMISSION_DENIED;
-import static com.tsystems.cargotransportations.constant.PageConstants.LOGIN_PAGE;
-import static com.tsystems.cargotransportations.constant.ParamConstants.ERROR_MESSAGE_PARAM;
-import static com.tsystems.cargotransportations.constant.ParamConstants.USER_ROLE_PARAM;
+import static com.tsystems.cargotransportations.constants.MessageConstants.PERMISSION_DENIED;
+import static com.tsystems.cargotransportations.constants.PageConstants.LOGIN_PAGE;
+import static com.tsystems.cargotransportations.constants.ParamConstants.ERROR_MESSAGE_PARAM;
+import static com.tsystems.cargotransportations.constants.ParamConstants.USER_ROLE_PARAM;
 
 /**
  * Abstract parent of all role filters.

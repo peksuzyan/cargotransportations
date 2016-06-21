@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.service.abstracts;
+package com.tsystems.cargotransportations.service.interfaces;
 
 import com.tsystems.cargotransportations.entity.Driver;
 

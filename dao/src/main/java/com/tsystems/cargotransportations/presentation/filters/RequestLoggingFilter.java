@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Enumeration;
 
-import static com.tsystems.cargotransportations.constant.FilterConstant.*;
+import static com.tsystems.cargotransportations.constants.FilterConstants.*;
 
 /**
  * Filter that logs all request to the web application.
