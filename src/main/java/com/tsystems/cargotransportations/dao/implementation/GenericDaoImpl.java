@@ -1,7 +1,7 @@
 package com.tsystems.cargotransportations.dao.implementation;
 
 import com.tsystems.cargotransportations.dao.DaoUtils;
-import com.tsystems.cargotransportations.dao.abstracts.GenericDao;
+import com.tsystems.cargotransportations.dao.interfaces.GenericDao;
 
 import javax.persistence.EntityManager;
 import java.util.List;

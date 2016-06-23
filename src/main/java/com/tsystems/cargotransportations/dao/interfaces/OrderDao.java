@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.dao.abstracts;
+package com.tsystems.cargotransportations.dao.interfaces;
 
 import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.entity.OrderStatus;

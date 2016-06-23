@@ -23,33 +23,39 @@ public interface OrderService {
 
     /**
      * Creates a new order.
+     * @return order
      */
-    void createOrder();
+    Order createOrder();
 
     /**
      * Adds a cargo by number to list of cargoes in an order.
+     * @param orderNumber order number
      * @param cargoNumber cargo number
+     * @return order
      */
-    void addCargoByNumber(int orderNumber, int cargoNumber);
+    Order addCargoByNumber(int orderNumber, int cargoNumber);
 
     /**
      * Adds a driver by number to list of drivers in an order.
      * @param driverNumber driver number
+     * @return order
      */
-    void addDriverByNumber(int orderNumber, int driverNumber);
+    Order addDriverByNumber(int orderNumber, int driverNumber);
 
     /**
      * Assigns a truck by number for an order.
      * @param truckNumber truck number
+     * @return order
      */
-    void assignTruckByNumber(int orderNumber, String truckNumber);
+    Order assignTruckByNumber(int orderNumber, String truckNumber);
 
     /**
      * Assigns to an order a route by number.
      * @param orderNumber order number
      * @param routeNumber route number
+     * @return order
      */
-    void assignRouteByNumber(int orderNumber, int routeNumber);
+    Order assignRouteByNumber(int orderNumber, int routeNumber);
 
     /**
      * Assigns to an order a route by route points.
@@ -61,26 +67,36 @@ public interface OrderService {
     /**
      * Excludes a cargo from a cargoes list of an order.
      * @param cargoNumber cargo number
+     * @return order
      */
-    void excludeCargoByNumber(int orderNumber, int cargoNumber);
+    Order excludeCargoByNumber(int orderNumber, int cargoNumber);
 
     /**
      * Excludes a driver from a drivers list of an order.
      * @param driverNumber driver number
+     * @return order
      */
-    void excludeDriverByNumber(int orderNumber, int driverNumber);
+    Order excludeDriverByNumber(int orderNumber, int driverNumber);
+
+    /**
+     * Excludes drivers from a drivers list of an order.
+     * @param orderNumber order number
+     */
+    void excludeAllDriver(int orderNumber);
 
     /**
      * Refuses truck from an order.
      * @param orderNumber order number
+     * @return order
      */
-    void refuseTruck(int orderNumber);
+    Order refuseTruck(int orderNumber);
 
     /**
      * Refuses route from an order.
      * @param orderNumber order number
+     * @return order
      */
-    void refuseRoute(int orderNumber);
+    Order refuseRoute(int orderNumber);
 
     /**
      * Gets a list of all existing orders.

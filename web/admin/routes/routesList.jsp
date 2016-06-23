@@ -26,12 +26,14 @@
                 <table class="table table-striped">
                     <tr>
                         <th>Number</th>
+                        <th>Duration</th>
                         <th>Route Points</th>
                         <th></th>
                     </tr>
                     <c:forEach var="route" items="${routes}">
                         <tr>
                             <td><c:out value="${route.number}" /></td>
+                            <td><c:out value="${route.duration}" /></td>
                             <td><c:out value="${route.cities}" /></td>
                             <td>
                                 <form action="routeServlet" method="post">

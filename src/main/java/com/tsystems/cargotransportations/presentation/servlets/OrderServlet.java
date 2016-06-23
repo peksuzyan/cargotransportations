@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 import static com.tsystems.cargotransportations.constants.ActionConstants.*;
 import static com.tsystems.cargotransportations.constants.MessageConstants.*;
@@ -60,11 +59,11 @@ public class OrderServlet extends EntityServlet<Order> {
                 try {
                     String orderNumberParam = request.getParameter(ORDER_NUMBER_PARAM);
                     int orderNumber = Integer.parseInt(orderNumberParam);
-                    setOrderDataAsAttributes(request, orderNumber);
-                    request.setAttribute(ACTION_PARAM, EDIT_ACTION);
+                    Order order = orderService.getByNumber(orderNumber);
+                    setOrderDataAsAttributes(request, order);
                     getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
                 } catch (NumberFormatException ex) {
-                    request.setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
+                    request.setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     getServletContext().getRequestDispatcher(ORDERS_LIST_PAGE).forward(request, response);
                 }
             }
@@ -82,9 +81,10 @@ public class OrderServlet extends EntityServlet<Order> {
         String actionParam = getActionParam(request);
         switch (actionParam) {
             case PERFORM_ADDING_ACTION: {
-                orderService.createOrder();
-                request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, ORDER_IS_CREATED);
-                response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
+                Order order = orderService.createOrder();
+                setOrderDataAsAttributes(request, order);
+                request.setAttribute(SUCCESS_MESSAGE_PARAM, ORDER_IS_CREATED);
+                request.getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
             }
             break;
             case PERFORM_TRUCK_ASSIGNING_ACTION: {
@@ -92,11 +92,13 @@ public class OrderServlet extends EntityServlet<Order> {
                     String orderNumberParam = request.getParameter(ORDER_NUMBER_PARAM);
                     String truckNumberParam = request.getParameter(TRUCK_NUMBER_PARAM);
                     int orderNumber = Integer.parseInt(orderNumberParam);
-                    orderService.assignTruckByNumber(orderNumber, truckNumberParam);
-                    setOrderDataAsAttributes(request, orderNumber);
-                    response.sendRedirect(request.getContextPath() + ORDER_REGISTRATION_PAGE);
+                    orderService.excludeAllDriver(orderNumber);
+                    Order order = orderService.assignTruckByNumber(orderNumber, truckNumberParam);
+                    setOrderDataAsAttributes(request, order);
+                    request.setAttribute(SUCCESS_MESSAGE_PARAM, ORDER_IS_EDITED);
+                    getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
                 } catch (NumberFormatException ex) {
-                    request.setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
+                    request.setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     getServletContext().getRequestDispatcher(ORDERS_LIST_PAGE).forward(request, response);
                 }
             }
@@ -105,11 +107,13 @@ public class OrderServlet extends EntityServlet<Order> {
                 try {
                     String orderNumberParam = request.getParameter(ORDER_NUMBER_PARAM);
                     int orderNumber = Integer.parseInt(orderNumberParam);
-                    orderService.refuseTruck(orderNumber);
-                    setOrderDataAsAttributes(request, orderNumber);
-                    response.sendRedirect(request.getContextPath() + ORDER_REGISTRATION_PAGE);
+                    orderService.excludeAllDriver(orderNumber);
+                    Order order = orderService.refuseTruck(orderNumber);
+                    setOrderDataAsAttributes(request, order);
+                    request.setAttribute(SUCCESS_MESSAGE_PARAM, ORDER_IS_EDITED);
+                    getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
                 } catch (NumberFormatException ex) {
-                    request.setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
+                    request.setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     getServletContext().getRequestDispatcher(ORDERS_LIST_PAGE).forward(request, response);
                 }
             }
@@ -117,21 +121,17 @@ public class OrderServlet extends EntityServlet<Order> {
             case PERFORM_ROUTE_ASSIGNING_ACTION: {
                 try {
                     String orderNumberParam = request.getParameter(ORDER_NUMBER_PARAM);
-                    String routePointsParam = request.getParameter(ROUTE_POINTS_PARAM);
+                    String routeNumberParam = request.getParameter(ROUTE_NUMBER_PARAM);
                     int orderNumber = Integer.parseInt(orderNumberParam);
-                    List<String> routePoints = routeService.getRoutePoints(routePointsParam);
-                    orderService.assignRouteByRoutePoints(orderNumber, routePoints);
-                    Order order = orderService.getByNumber(orderNumber);
-                    request.setAttribute(ORDER_PARAM, order);
-                    //routeService.createRoute(routePoints);
-                    //Route route = routeService.getRouteByRoutePoints(routePoints);
-                    //orderService.assignRouteByNumber(orderNumber, route.getNumber());
-
-                    //setOrderDataAsAttributes(request, orderNumber);
+                    int routeNumber = Integer.parseInt(routeNumberParam);
+                    orderService.excludeAllDriver(orderNumber);
+                    orderService.refuseTruck(orderNumber);
+                    Order order = orderService.assignRouteByNumber(orderNumber, routeNumber);
+                    setOrderDataAsAttributes(request, order);
+                    request.setAttribute(SUCCESS_MESSAGE_PARAM, ORDER_IS_EDITED);
                     getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
-                    //response.sendRedirect(request.getContextPath() + ORDER_REGISTRATION_PAGE);
                 } catch (NumberFormatException ex) {
-                    request.setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
+                    request.setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
                 }
             }
@@ -140,11 +140,14 @@ public class OrderServlet extends EntityServlet<Order> {
                 try {
                     String orderNumberParam = request.getParameter(ORDER_NUMBER_PARAM);
                     int orderNumber = Integer.parseInt(orderNumberParam);
-                    orderService.refuseRoute(orderNumber);
-                    setOrderDataAsAttributes(request, orderNumber);
-                    response.sendRedirect(request.getContextPath() + ORDER_REGISTRATION_PAGE);
+                    orderService.excludeAllDriver(orderNumber);
+                    orderService.refuseTruck(orderNumber);
+                    Order order = orderService.refuseRoute(orderNumber);
+                    setOrderDataAsAttributes(request, order);
+                    request.setAttribute(SUCCESS_MESSAGE_PARAM, ORDER_IS_EDITED);
+                    getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
                 } catch (NumberFormatException ex) {
-                    request.setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
+                    request.setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     getServletContext().getRequestDispatcher(ORDERS_LIST_PAGE).forward(request, response);
                 }
             }
@@ -154,11 +157,28 @@ public class OrderServlet extends EntityServlet<Order> {
                     String driverNumberParam = request.getParameter(DRIVER_NUMBER_PARAM);
                     int orderNumber = Integer.parseInt(orderNumberParam);
                     int driverNumber = Integer.parseInt(driverNumberParam);
-                    orderService.addDriverByNumber(orderNumber, driverNumber);
-                    setOrderDataAsAttributes(request, orderNumber);
-                    response.sendRedirect(request.getContextPath() + ORDER_REGISTRATION_PAGE);
+                    Order order = orderService.addDriverByNumber(orderNumber, driverNumber);
+                    setOrderDataAsAttributes(request, order);
+                    request.setAttribute(SUCCESS_MESSAGE_PARAM, ORDER_IS_EDITED);
+                    getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
                 } catch (NumberFormatException ex) {
-                    request.setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
+                    request.setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
+                    getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
+                }
+            }
+            break;
+            case PERFORM_DRIVER_EXCLUDING_ACTION: {
+                try {
+                    String orderNumberParam = request.getParameter(ORDER_NUMBER_PARAM);
+                    String driverNumberParam = request.getParameter(DRIVER_NUMBER_PARAM);
+                    int orderNumber = Integer.parseInt(orderNumberParam);
+                    int driverNumber = Integer.parseInt(driverNumberParam);
+                    Order order = orderService.excludeDriverByNumber(orderNumber, driverNumber);
+                    setOrderDataAsAttributes(request, order);
+                    request.setAttribute(SUCCESS_MESSAGE_PARAM, ORDER_IS_EDITED);
+                    getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
+                } catch (NumberFormatException ex) {
+                    request.setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     getServletContext().getRequestDispatcher(ORDERS_LIST_PAGE).forward(request, response);
                 }
             }
@@ -169,28 +189,15 @@ public class OrderServlet extends EntityServlet<Order> {
                     String cargoNumberParam = request.getParameter(CARGO_NUMBER_PARAM);
                     int orderNumber = Integer.parseInt(orderNumberParam);
                     int cargoNumber = Integer.parseInt(cargoNumberParam);
-                    orderService.addCargoByNumber(orderNumber, cargoNumber);
-                    setOrderDataAsAttributes(request, orderNumber);
-                    //response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
+                    orderService.excludeAllDriver(orderNumber);
+                    orderService.refuseTruck(orderNumber);
+                    orderService.refuseRoute(orderNumber);
+                    Order order = orderService.addCargoByNumber(orderNumber, cargoNumber);
+                    setOrderDataAsAttributes(request, order);
                     request.setAttribute(SUCCESS_MESSAGE_PARAM, ORDER_IS_EDITED);
                     getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
                 } catch (NumberFormatException ex) {
-                    request.setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
-                    getServletContext().getRequestDispatcher(ORDERS_LIST_PAGE).forward(request, response);
-                }
-            }
-            break;
-            case PERFORM_DRIVER_EXCLUDING_ACTION: {
-                try {
-                    String orderNumberParam = request.getParameter(ORDER_NUMBER_PARAM);
-                    String driverNumberParam = request.getParameter(DRIVER_NUMBER_PARAM);
-                    int orderNumber = Integer.parseInt(orderNumberParam);
-                    int driverNumber = Integer.parseInt(driverNumberParam);
-                    orderService.excludeDriverByNumber(orderNumber, driverNumber);
-                    setOrderDataAsAttributes(request, orderNumber);
-                    response.sendRedirect(request.getContextPath() + ORDER_REGISTRATION_PAGE);
-                } catch (NumberFormatException ex) {
-                    request.setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
+                    request.setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     getServletContext().getRequestDispatcher(ORDERS_LIST_PAGE).forward(request, response);
                 }
             }
@@ -201,13 +208,15 @@ public class OrderServlet extends EntityServlet<Order> {
                     String cargoNumberParam = request.getParameter(CARGO_NUMBER_PARAM);
                     int orderNumber = Integer.parseInt(orderNumberParam);
                     int cargoNumber = Integer.parseInt(cargoNumberParam);
-                    orderService.excludeCargoByNumber(orderNumber, cargoNumber);
-                    setOrderDataAsAttributes(request, orderNumber);
-                    //response.sendRedirect(request.getContextPath() + ORDER_REGISTRATION_PAGE);
+                    orderService.excludeAllDriver(orderNumber);
+                    orderService.refuseTruck(orderNumber);
+                    orderService.refuseRoute(orderNumber);
+                    Order order = orderService.excludeCargoByNumber(orderNumber, cargoNumber);
+                    setOrderDataAsAttributes(request, order);
                     request.setAttribute(SUCCESS_MESSAGE_PARAM, ORDER_IS_EDITED);
                     getServletContext().getRequestDispatcher(ORDER_REGISTRATION_PAGE).forward(request, response);
                 } catch (NumberFormatException ex) {
-                    request.setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
+                    request.setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     getServletContext().getRequestDispatcher(ORDERS_LIST_PAGE).forward(request, response);
                 }
             }
@@ -220,7 +229,7 @@ public class OrderServlet extends EntityServlet<Order> {
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, ORDER_IS_PERFORMING);
                     response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 } catch (NumberFormatException ex) {
-                    request.setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
+                    request.setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     getServletContext().getRequestDispatcher(ORDERS_LIST_PAGE).forward(request, response);
                 }
             }
@@ -234,7 +243,7 @@ public class OrderServlet extends EntityServlet<Order> {
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, ORDER_IS_DELETED);
                     response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 } catch (NumberFormatException ex) {
-                    request.getSession().setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
+                    request.getSession().setAttribute(ERROR_MESSAGE_PARAM, DATA_ARE_NOT_CORRECT);
                     response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 }
             }
@@ -245,22 +254,21 @@ public class OrderServlet extends EntityServlet<Order> {
         }
     }
 
-    private void setOrderDataAsAttributes(HttpServletRequest request, int orderNumber) {
-        Order order = orderService.getByNumber(orderNumber);
+    private void setOrderDataAsAttributes(HttpServletRequest request, Order order) {
         /**
          * Sets as attribute the order given by order number (int)
          */
         request.setAttribute(ORDER_PARAM, order);
         /**
-         * Sets as attribute all possible routes in according with order.
-         */
-        request.setAttribute(ROUTES_CASES_LIST_PARAM,
-                routeService.getRoutesCases(order.getCargoes()));
-        /**
          * Sets as attribute all having cargoes by status PREPARED (it's new cargoes)
          */
         request.setAttribute(SUITABLE_CARGOES_LIST_PARAM,
-                cargoService.getAllByStatus(CargoStatus.PREPARED));
+                cargoService.getSuitableCargoes());
+        /**
+         * Sets as attribute all possible routes in according with order.
+         */
+        request.setAttribute(SUITABLE_ROUTES_LIST_PARAM,
+                routeService.getSuitableRoutesByOrder(order));
         /**
          * Sets as attribute all trucks that:
          * 1. are active;
@@ -268,7 +276,7 @@ public class OrderServlet extends EntityServlet<Order> {
          * 3. are suitable by capacity.
          */
         request.setAttribute(SUITABLE_TRUCKS_LIST_PARAM,
-                truckService.getSuitableTrucksByOrder(orderNumber));
+                truckService.getSuitableTrucksByOrder(order));
         /**
          * Sets as attribute all drivers that:
          * 1. aren't busy;
@@ -276,6 +284,6 @@ public class OrderServlet extends EntityServlet<Order> {
          * 3. are suitable by working time.
          */
         request.setAttribute(SUITABLE_DRIVERS_LIST_PARAM,
-                driverService.getSuitableDriversByOrder(orderNumber));
+                driverService.getSuitableDriversByOrder(order));
     }
 }

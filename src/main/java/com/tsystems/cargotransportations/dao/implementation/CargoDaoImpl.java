@@ -1,8 +1,7 @@
 package com.tsystems.cargotransportations.dao.implementation;
 
-import com.tsystems.cargotransportations.dao.abstracts.CargoDao;
+import com.tsystems.cargotransportations.dao.interfaces.CargoDao;
 import com.tsystems.cargotransportations.entity.Cargo;
-import com.tsystems.cargotransportations.entity.CargoStatus;
 
 import java.util.List;
 
@@ -24,9 +23,8 @@ public class CargoDaoImpl extends GenericDaoImpl<Cargo> implements CargoDao {
     }
 
     @Override
-    public List<Cargo> getAllByStatus(CargoStatus status) {
-        String query = String.format(
-                "SELECT c FROM Cargo c WHERE c.status = '%s'", status);
+    public List<Cargo> getFreeCargoes() {
+        String query = "SELECT c FROM Cargo AS c WHERE c.status = 'PREPARED'";
         return getLazyEntityManager().createQuery(query, Cargo.class).getResultList();
     }
 }

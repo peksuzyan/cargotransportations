@@ -1,6 +1,8 @@
-package com.tsystems.cargotransportations.dao.abstracts;
+package com.tsystems.cargotransportations.dao.interfaces;
 
 import com.tsystems.cargotransportations.entity.Driver;
+
+import java.util.List;
 
 /**
  * Specific DAO interface for driver entity.
@@ -13,4 +15,10 @@ public interface DriverDao extends GenericDao<Driver> {
      * @return driver
      */
     Driver getByNumber(int number);
+
+    /**
+     * Gets free drivers.
+     * @return drivers list
+     */
+    List<Driver> getFreeDrivers();
 }

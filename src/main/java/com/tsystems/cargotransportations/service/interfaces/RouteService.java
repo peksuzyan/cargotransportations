@@ -1,6 +1,7 @@
 package com.tsystems.cargotransportations.service.interfaces;
 
 import com.tsystems.cargotransportations.entity.Cargo;
+import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.entity.Route;
 
 import java.util.List;
@@ -26,8 +27,9 @@ public interface RouteService {
     /**
      * Creates route by a set of cities.
      * @param cities cities
+     * @param duration expected route duration
      */
-    void createRoute(String... cities);
+    void createRoute(int duration, String... cities);
 
     /**
      * Gets a list of all existing routes.
@@ -48,4 +50,11 @@ public interface RouteService {
      * @return route points list
      */
     List<String> getRoutePoints(String routePointsString);
+
+    /**
+     * Gets routes for given order.
+     * @param order order
+     * @return routes list
+     */
+    List<Route> getSuitableRoutesByOrder(Order order);
 }

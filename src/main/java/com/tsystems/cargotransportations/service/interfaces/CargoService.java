@@ -49,5 +49,5 @@ public interface CargoService {
      * Gets all cargoes that have given status.
      * @return cargoes list
      */
-    List<Cargo> getAllByStatus(CargoStatus status);
+    List<Cargo> getSuitableCargoes();
 }

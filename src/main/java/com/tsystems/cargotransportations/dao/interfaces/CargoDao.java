@@ -1,7 +1,6 @@
-package com.tsystems.cargotransportations.dao.abstracts;
+package com.tsystems.cargotransportations.dao.interfaces;
 
 import com.tsystems.cargotransportations.entity.Cargo;
-import com.tsystems.cargotransportations.entity.CargoStatus;
 
 import java.util.List;
 
@@ -19,8 +18,7 @@ public interface CargoDao extends GenericDao<Cargo> {
 
     /**
      * Gets all cargoes by a given status.
-     * @param status status
      * @return cargoes list
      */
-    List<Cargo> getAllByStatus(CargoStatus status);
+    List<Cargo> getFreeCargoes();
 }

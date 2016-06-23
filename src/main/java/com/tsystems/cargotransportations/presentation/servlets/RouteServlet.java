@@ -51,13 +51,15 @@ public class RouteServlet extends EntityServlet<Route> {
         switch (actionParam) {
             case PERFORM_ADDING_ACTION: {
                 try {
+                    String durationParam = request.getParameter(DURATION_PARAM);
                     String citiesCountParam = request.getParameter(CITIES_COUNT_PARAM);
+                    int duration = Integer.parseInt(durationParam);
                     int citiesCount = Integer.parseInt(citiesCountParam);
                     String[] cities = new String[citiesCount];
                     for (int i = 0; i < citiesCount; i++) {
                         cities[i] = request.getParameter(CITY_PARAM + String.valueOf(i + 1));
                     }
-                    routeService.createRoute(cities);
+                    routeService.createRoute(duration, cities);
                     request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, ROUTE_IS_CREATED);
                     response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
                 } catch (NumberFormatException ex) {

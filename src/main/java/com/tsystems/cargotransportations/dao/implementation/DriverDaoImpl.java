@@ -1,6 +1,6 @@
 package com.tsystems.cargotransportations.dao.implementation;
 
-import com.tsystems.cargotransportations.dao.abstracts.DriverDao;
+import com.tsystems.cargotransportations.dao.interfaces.DriverDao;
 import com.tsystems.cargotransportations.entity.Driver;
 
 import java.util.List;
@@ -20,5 +20,11 @@ public class DriverDaoImpl extends GenericDaoImpl<Driver> implements DriverDao {
                 "FROM %s WHERE number = %d", Driver.class.getSimpleName(), number);
         List<Driver> drivers = getLazyEntityManager().createQuery(query, Driver.class).getResultList();
         return drivers.size() != 0 ? drivers.get(0) : null;
+    }
+
+    @Override
+    public List<Driver> getFreeDrivers() {
+        String query = "SELECT d FROM Driver AS d WHERE d.status = 'FREE'";
+        return getLazyEntityManager().createQuery(query, Driver.class).getResultList();
     }
 }

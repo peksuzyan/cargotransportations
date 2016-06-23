@@ -64,7 +64,7 @@ public class UserServlet extends EntityServlet<User> {
                     request.setAttribute(DRIVERS_LIST_PARAM, order.getDrivers());
                     request.setAttribute(TRUCK_NUMBER_PARAM, order.getTruck().getNumber());
                     request.setAttribute(ORDER_NUMBER_PARAM, order.getNumber());
-                    request.setAttribute(ROUTE_CITIES_PARAM, order.getRoute().getCities());
+                    request.setAttribute(SUITABLE_ROUTES_LIST_PARAM, order.getRoute().getCities());
                     getServletContext().getRequestDispatcher(USER_ASSIGNMENTS_PAGE).forward(request, response);
                 } catch (NumberFormatException ex) {
                     request.setAttribute(ERROR_MESSAGE_PARAM, DRIVER_IS_NOT_FOUND);

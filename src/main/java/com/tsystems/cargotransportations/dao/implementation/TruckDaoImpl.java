@@ -1,6 +1,6 @@
 package com.tsystems.cargotransportations.dao.implementation;
 
-import com.tsystems.cargotransportations.dao.abstracts.TruckDao;
+import com.tsystems.cargotransportations.dao.interfaces.TruckDao;
 import com.tsystems.cargotransportations.entity.Truck;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class TruckDaoImpl extends GenericDaoImpl<Truck> implements TruckDao {
     public List<Truck> getActiveAndFreeTrucks() {
         String query =
                 "SELECT t FROM Truck t " +
-                "JOIN Order AS o ON t.id = o.truck.id " +
+                "LEFT JOIN Order AS o ON t.id = o.truck.id " +
                 "WHERE t.active = true AND " +
                         "(o.truck IS NULL OR o.status = 'DONE')";
         return getLazyEntityManager().createQuery(query, Truck.class).getResultList();

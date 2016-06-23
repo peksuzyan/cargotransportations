@@ -18,4 +18,9 @@ public class MagicConstants {
      * Ordinary comma as string delimiter.
      */
     public static final String COMMA_DELIMITER = ",";
+
+    /**
+     * Working time of month in hours.
+     */
+    public static final int WORKING_TIME_OF_MONTH = 176;
 }

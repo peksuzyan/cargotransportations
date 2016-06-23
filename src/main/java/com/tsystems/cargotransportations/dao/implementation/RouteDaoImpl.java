@@ -1,6 +1,6 @@
 package com.tsystems.cargotransportations.dao.implementation;
 
-import com.tsystems.cargotransportations.dao.abstracts.RouteDao;
+import com.tsystems.cargotransportations.dao.interfaces.RouteDao;
 import com.tsystems.cargotransportations.entity.Route;
 
 import java.util.List;

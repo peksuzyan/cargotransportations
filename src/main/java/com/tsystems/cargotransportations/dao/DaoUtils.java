@@ -1,8 +1,6 @@
 package com.tsystems.cargotransportations.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,15 +21,16 @@ public class DaoUtils {
     /**
      * Map keeps all created entity managers and returns its to associated thread.
      */
-    private static Map<Thread, EntityManager> entityManagersMap = getEntityManagerMap();
+    //private static Map<Thread, EntityManager> entityManagersMap = getEntityManagerMap();
+    private static EntityManager entityManager;
 
     /**
      * Provides of initializing entity managers map.
      * @return entity manager map
      */
-    private static Map<Thread,EntityManager> getEntityManagerMap() {
+    /*private static Map<Thread,EntityManager> getEntityManagerMap() {
         return new ConcurrentHashMap<>();
-    }
+    }*/
 
     /**
      * Hides a possibility to create any other class instance.
@@ -44,12 +43,20 @@ public class DaoUtils {
      * Otherwise returns existing one.
      * @return entity manager associated with current thread
      */
-    public static EntityManager getEntityManager() {
+/*    public static EntityManager getEntityManager() {
         Thread current = Thread.currentThread();
-        if (!entityManagersMap.containsKey(current) || !entityManagersMap.get(current).isOpen()) {
+        if (!entityManagersMap.containsKey(current)
+                || !entityManagersMap.get(current).isOpen()) {
             entityManagersMap.put(current, entityManagerFactory.createEntityManager());
         }
         return entityManagersMap.get(current);
+    }*/
+
+    public static EntityManager getEntityManager() {
+        if (entityManager == null || !entityManager.isOpen()) {
+            entityManager = entityManagerFactory.createEntityManager();
+        }
+        return entityManager;
     }
 
     /**
@@ -64,6 +71,7 @@ public class DaoUtils {
             em.getTransaction().commit();
         } catch (Exception ex) {
             em.getTransaction().rollback();
+            throw new EntityExistsException(ex);
         } finally {
             em.close();
         }

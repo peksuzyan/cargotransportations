@@ -22,85 +22,30 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2">Number:</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" value="${order.number}" readonly />
+                                <input type="text"
+                                       class="form-control"
+                                       value="${order.number}"
+                                       readonly />
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-sm-2">Status:</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" value="${order.status}" readonly />
+                                <input type="text"
+                                       class="form-control"
+                                       value="${order.status}"
+                                       readonly />
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-sm-2">Creation Date:</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" value="${order.creationDate}" readonly />
-                            </div>
-                        </div>
-                    </form>
-
-                    <form action="orderServlet" method="post" class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="control-label col-sm-2">Truck:</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" value="${order.truck}" readonly />
-                                <input type="text" name="order_number" value="${order.number}" hidden/>
-                                <input type="text" name="action" value="perform_truck_refusing" hidden />
-                            </div>
-                            <div>
-                                <input class="btn btn-default" type="submit" value="Refuse"/>
-                            </div>
-                        </div>
-                    </form>
-
-                    <form action="orderServlet" method="post" class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="control-label col-sm-2"></label>
-                            <div class="col-sm-4">
-                                <select class="form-control" name="truck_number">
-                                    <c:forEach var="truck" items="${suitable_trucks}">
-                                        <option value="${truck.number}">${truck.number}</option>
-                                    </c:forEach>
-                                </select>
-                                <input type="text" name="order_number" value="${order.number}" hidden/>
-                                <input type="text" name="action" value="perform_truck_assigning" hidden/>
-                            </div>
-                            <div>
-                                <input class="btn btn-default" type="submit" value="Assign"/>
-                            </div>
-                        </div>
-                    </form>
-
-                    <form action="orderServlet" method="post" class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="control-label col-sm-2">Route:</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control" value="${order.route}" readonly />
-                                <input type="text" name="order_number" value="${order.number}" hidden/>
-                                <input type="text" name="action" value="perform_route_refusing" hidden />
-                            </div>
-                            <div>
-                                <input class="btn btn-default" type="submit" value="Refuse"/>
-                            </div>
-                        </div>
-                    </form>
-
-                    <form action="orderServlet" method="post" class="form-horizontal" role="form">
-                        <div class="form-group">
-                            <label class="control-label col-sm-2"></label>
-                            <div class="col-sm-4">
-                                <select class="form-control" name="route_number">
-                                    <c:forEach var="route" items="${routes}">
-                                        <option value="${route}">${route}</option>
-                                    </c:forEach>
-                                </select>
-                                <input type="text" name="order_number" value="${order.number}" hidden/>
-                                <input type="text" name="action" value="perform_route_assigning" hidden/>
-                            </div>
-                            <div>
-                                <input class="btn btn-default" type="submit" value="Assign"/>
+                                <input type="text"
+                                       class="form-control"
+                                       value="${order.creationDate}"
+                                       readonly />
                             </div>
                         </div>
                     </form>
@@ -127,10 +72,20 @@
                                         <td><c:out value="${cargo.weight}" /></td>
                                         <td>
                                             <form action="orderServlet" method="post">
-                                                <input type="text" name="action" value="perform_cargo_excluding" hidden />
-                                                <input type="text" name="order_number" value="${order.number}" hidden />
-                                                <input type="text" name="cargo_number" value="${cargo.number}" hidden />
-                                                <input type="submit" value="Delete">
+                                                <input type="text"
+                                                       name="action"
+                                                       value="perform_cargo_excluding"
+                                                       hidden />
+                                                <input type="text"
+                                                       name="order_number"
+                                                       value="${order.number}"
+                                                       hidden />
+                                                <input type="text"
+                                                       name="cargo_number"
+                                                       value="${cargo.number}"
+                                                       hidden />
+                                                <input class="btn btn-default" type="submit" value="Delete"
+                                                       <c:if test="${order.status == 'PERFORMING'}">disabled</c:if> >
                                             </form>
                                         </td>
                                     </tr>
@@ -147,11 +102,113 @@
                                         <option value="${cargo.number}">${cargo.number} ${cargo.name}</option>
                                     </c:forEach>
                                 </select>
-                                <input type="text" name="order_number" value="${order.number}" hidden/>
-                                <input type="text" name="action" value="perform_cargo_adding" hidden/>
+                                <input type="text"
+                                       name="order_number"
+                                       value="${order.number}"
+                                       hidden/>
+                                <input type="text"
+                                       name="action"
+                                       value="perform_cargo_adding"
+                                       hidden/>
                             </div>
                             <div>
-                                <input class="btn btn-default" type="submit" value="Add cargo"/>
+                                <input class="btn btn-default" type="submit" value="Add cargo"
+                                       <c:if test="${order.status == 'PERFORMING'}">disabled</c:if>
+                                />
+                            </div>
+                        </div>
+                    </form>
+
+                    <form action="orderServlet" method="post" class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Route:</label>
+                            <div class="col-sm-4">
+                                <c:if test="${order.route != null}">
+                                    <input type="text"
+                                           class="form-control"
+                                           value="${order.route.number} ${order.route.cities}"
+                                           readonly />
+                                    <input type="text"
+                                           name="action"
+                                           value="perform_route_refusing"
+                                           hidden />
+                                </c:if>
+                                <c:if test="${order.route == null}">
+                                    <select class="form-control" name="route_number">
+                                        <c:forEach var="route" items="${suitable_routes}">
+                                            <option value="${route.number}">${route.cities}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <input type="text"
+                                           name="action"
+                                           value="perform_route_assigning"
+                                           hidden/>
+                                </c:if>
+                                <input type="text"
+                                       name="order_number"
+                                       value="${order.number}"
+                                       hidden/>
+                            </div>
+                            <div>
+                                <c:if test="${order.route != null}">
+                                    <input class="btn btn-default" type="submit" value="Refuse"
+                                           <c:if test="${order.status == 'PERFORMING'}">disabled</c:if>
+                                    />
+                                </c:if>
+                                <c:if test="${order.route == null}">
+                                    <button class="btn btn-default"
+                                            type="submit"
+                                            <c:if test="${empty order.cargoes}">disabled</c:if>
+                                            <c:if test="${order.status == 'PERFORMING'}">disabled</c:if>
+                                    >Assign</button>
+                                </c:if>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form action="orderServlet" method="post" class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Truck:</label>
+                            <div class="col-sm-4">
+                                <c:if test="${order.truck != null}">
+                                    <input type="text"
+                                           class="form-control"
+                                           value="${order.truck.number}"
+                                           readonly />
+                                    <input type="text"
+                                           name="action"
+                                           value="perform_truck_refusing"
+                                           hidden />
+                                </c:if>
+                                <c:if test="${order.truck == null}">
+                                    <select class="form-control" name="truck_number">
+                                        <c:forEach var="truck" items="${suitable_trucks}">
+                                            <option value="${truck.number}">${truck.number}</option>
+                                        </c:forEach>
+                                    </select>
+                                    <input type="text"
+                                           name="action"
+                                           value="perform_truck_assigning"
+                                           hidden />
+                                </c:if>
+                                <input type="text"
+                                       name="order_number"
+                                       value="${order.number}"
+                                       hidden/>
+                            </div>
+                            <div>
+                                <c:if test="${order.truck != null}">
+                                    <input class="btn btn-default" type="submit" value="Refuse"
+                                           <c:if test="${order.status == 'PERFORMING'}">disabled</c:if>
+                                    />
+                                </c:if>
+                                <c:if test="${order.truck == null}">
+                                    <button class="btn btn-default"
+                                            type="submit"
+                                            <c:if test="${empty order.route}">disabled</c:if>
+                                            <c:if test="${order.status == 'PERFORMING'}">disabled</c:if>
+                                    >Assign</button>
+                                </c:if>
                             </div>
                         </div>
                     </form>
@@ -178,9 +235,16 @@
                                         <td><c:out value="${driver.lastName}" /></td>
                                         <td>
                                             <form action="orderServlet" method="post">
-                                                <input type="text" name="action" value="perform_driver_excluding" hidden />
-                                                <input type="text" name="driver_number" value="${driver.number}" hidden />
-                                                <input class="btn btn-default" type="submit" value="Delete">
+                                                <input type="text"
+                                                       name="action"
+                                                       value="perform_driver_excluding"
+                                                       hidden />
+                                                <input type="text"
+                                                       name="driver_number"
+                                                       value="${driver.number}"
+                                                       hidden />
+                                                <input class="btn btn-default" type="submit" value="Delete"
+                                                       <c:if test="${order.status == 'PERFORMING'}">disabled</c:if>>
                                             </form>
                                         </td>
                                     </tr>
@@ -192,17 +256,26 @@
                             <div class="col-sm-4">
                                 <select class="form-control" name="driver_number">
                                     <c:forEach var="driver" items="${suitable_drivers}">
-                                        <option value="${driver.number}">${driver.number}</option>
+                                        <option value="${driver.number}">
+                                            ${driver.number} ${driver.firstName} ${driver.lastName}
+                                        </option>
                                     </c:forEach>
                                 </select>
                                 <input type="text"
                                        name="order_number"
-                                       value="${driver.number} ${driver.lastName}"
+                                       value="${order.number}"
                                        hidden/>
-                                <input type="text" name="action" value="perform_driver_adding" hidden/>
+                                <input type="text"
+                                       name="action"
+                                       value="perform_driver_adding"
+                                       hidden/>
                             </div>
                             <div>
-                                <input class="btn btn-default" type="submit" value="Add driver"/>
+                                <button class="btn btn-default"
+                                        type="submit"
+                                        <c:if test="${empty order.truck}">disabled</c:if>
+                                        <c:if test="${order.status == 'PERFORMING'}">disabled</c:if>
+                                >Add driver</button>
                             </div>
                         </div>
                     </form>
@@ -212,9 +285,18 @@
                     <form action="orderServlet" method="post" class="form-horizontal" role="form">
                         <div class="form-group" class="col-sm-offset-2">
                             <a class="btn btn-default" href="orderServlet?action=refresh">OK</a>
-                            <input type="text" name="order_number" value="${order.number}" hidden/>
-                            <input type="text" name="action" value="perform_order_processing" hidden/>
-                            <input class="btn btn-default" type="submit" value="Send to performing"/>
+                            <input type="text"
+                                   name="order_number"
+                                   value="${order.number}"
+                                   hidden/>
+                            <input type="text" name="action"
+                                   value="perform_order_processing"
+                                   hidden/>
+                            <button class="btn btn-default"
+                                    type="submit"
+                                    <c:if test="${empty order.drivers}">disabled</c:if>
+                                    <c:if test="${order.status == 'PERFORMING'}">disabled</c:if>
+                            >Send to performing</button>
                         </div>
                     </form>
 

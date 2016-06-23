@@ -1,6 +1,7 @@
 package com.tsystems.cargotransportations.service.interfaces;
 
 import com.tsystems.cargotransportations.entity.Driver;
+import com.tsystems.cargotransportations.entity.Order;
 
 import java.util.List;
 
@@ -44,9 +45,9 @@ public interface DriverService {
     List<Driver> getAllDrivers();
 
     /**
-     * Gets all drivers that suitable for assigning of the order given order number.
-     * @param orderNumber order number
+     * Gets all drivers that suitable for assigning of the order given order.
+     * @param order order
      * @return drivers list
      */
-    List<Driver> getSuitableDriversByOrder(int orderNumber);
+    List<Driver> getSuitableDriversByOrder(Order order);
 }

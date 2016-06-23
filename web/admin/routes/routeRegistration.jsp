@@ -25,21 +25,37 @@
                         <div class="form-group">
                             <label class="control-label col-sm-2">Number:</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" value="${route.number}" readonly />
+                                <input type="text"
+                                       class="form-control"
+                                       value="${route.number}"
+                                       readonly />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">Duration:</label>
+                            <div class="col-sm-4">
+                                <input type="text"
+                                       class="form-control"
+                                       name="duration" />
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-sm-2">Route Point:</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="city1" />
+                                <input type="text"
+                                       class="form-control"
+                                       name="city1" />
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-sm-2">Route Point:</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" name="city2" />
+                                <input type="text"
+                                       class="form-control"
+                                       name="city2" />
                             </div>
                         </div>
 

@@ -135,6 +135,11 @@ public class ParamConstants {
     public static final String ROUTES_LIST_PARAM = "routes";
 
     /**
+     * Necessary for setting or getting duration by param name.
+     */
+    public static final String DURATION_PARAM = "duration";
+
+    /**
      * Necessary for setting or getting route number by param name.
      */
     public static final String ROUTE_NUMBER_PARAM = "route_number";
@@ -145,11 +150,6 @@ public class ParamConstants {
     public static final String CITIES_COUNT_PARAM = "cities_count";
 
     /**
-     * Necessary for setting or getting cities by param name.
-     */
-    public static final String ROUTE_CITIES_PARAM = "cities";
-
-    /**
      * Necessary for setting or getting route points by param name.
      */
     public static final String ROUTE_POINTS_PARAM = "route_points";
@@ -158,6 +158,11 @@ public class ParamConstants {
      * Necessary for setting or getting routes cases by param name.
      */
     public static final String ROUTES_CASES_LIST_PARAM = "routes_cases";
+
+    /**
+     * Necessary for setting or getting suitable routes list by param name.
+     */
+    public static final String SUITABLE_ROUTES_LIST_PARAM = "suitable_routes";
 
     /**
      * Necessary for setting or getting suitable trucks list by param name.

@@ -23,6 +23,16 @@
                         <a class="btn btn-info" role="button" href="cargoServlet?action=add">Add</a>
                     </div>
 
+                </div>
+                <div class="col-sm-1"></div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-10">
+
                     <table class="table table-striped">
                         <tr>
                             <th>Number</th>

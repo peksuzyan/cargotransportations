@@ -15,8 +15,17 @@ public class Route implements Serializable {
     @Column(name = "number", unique = true)
     private int number;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String> cities;
+
+    @Column(name = "departure_city")
+    private String departureCity;
+
+    @Column(name = "arrival_city")
+    private String arrivalCity;
+
+    @Column(name = "duration")
+    private int duration;
 
     public Route() {}
 
@@ -48,6 +57,33 @@ public class Route implements Serializable {
     }
 
     /**
+     * Gets departureCity.
+     *
+     * @return departureCity departureCity
+     */
+    public String getDepartureCity() {
+        return departureCity;
+    }
+
+    /**
+     * Gets arrivalCity.
+     *
+     * @return arrivalCity arrivalCity
+     */
+    public String getArrivalCity() {
+        return arrivalCity;
+    }
+
+    /**
+     * Gets duration.
+     *
+     * @return duration duration
+     */
+    public int getDuration() {
+        return duration;
+    }
+
+    /**
      * Sets id.
      *
      * @param id id
@@ -72,5 +108,32 @@ public class Route implements Serializable {
      */
     public void setCities(List<String> cities) {
         this.cities = cities;
+    }
+
+    /**
+     * Sets departureCity.
+     *
+     * @param departureCity departureCity
+     */
+    public void setDepartureCity(String departureCity) {
+        this.departureCity = departureCity;
+    }
+
+    /**
+     * Sets arrivalCity.
+     *
+     * @param arrivalCity arrivalCity
+     */
+    public void setArrivalCity(String arrivalCity) {
+        this.arrivalCity = arrivalCity;
+    }
+
+    /**
+     * Sets duration.
+     *
+     * @param duration duration
+     */
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 }

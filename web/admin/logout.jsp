@@ -35,7 +35,7 @@
                 <div align="center" class="form-group">
                     <form action="logoutServlet" method="post">
                         <p>Are you sure want to sign out now?</p>
-                        <input class="btn btn-default" type="submit" value="Yes, I sure" />
+                        <input class="btn btn-default" type="submit" value="Yes, I'm sure" />
                     </form>
                 </div>
             </div>

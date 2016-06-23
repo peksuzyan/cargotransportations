@@ -1,7 +1,7 @@
 package com.tsystems.cargotransportations.service.implementation;
 
 import com.tsystems.cargotransportations.dao.*;
-import com.tsystems.cargotransportations.dao.abstracts.*;
+import com.tsystems.cargotransportations.dao.interfaces.*;
 import com.tsystems.cargotransportations.dao.implementation.*;
 import com.tsystems.cargotransportations.entity.*;
 import com.tsystems.cargotransportations.service.interfaces.OrderService;
@@ -52,19 +52,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void createOrder() {
+    public Order createOrder() {
+        final Order order = new Order();
         DaoUtils.executeInTransaction(() -> {
-            Order order = new Order();
             orderDao.create(order);
             order.setStatus(OrderStatus.OPEN);
             order.setCreationDate(new Date());
             order.setNumber(order.getId() + 500);
         });
-
+        return order;
     }
 
     @Override
-    public void addCargoByNumber(int orderNumber, int cargoNumber) {
+    public Order addCargoByNumber(int orderNumber, int cargoNumber) {
         final Order order = getByNumber(orderNumber);
         final Cargo cargo = cargoDao.getByNumber(cargoNumber);
         DaoUtils.executeInTransaction(() -> {
@@ -74,10 +74,11 @@ public class OrderServiceImpl implements OrderService {
             order.getCargoes().add(cargo);
             orderDao.update(order);
         });
+        return order;
     }
 
     @Override
-    public void addDriverByNumber(int orderNumber, int driverNumber) {
+    public Order addDriverByNumber(int orderNumber, int driverNumber) {
         final Order order = getByNumber(orderNumber);
         final Driver driver = driverDao.getByNumber(driverNumber);
         DaoUtils.executeInTransaction(() -> {
@@ -87,26 +88,29 @@ public class OrderServiceImpl implements OrderService {
             order.getDrivers().add(driver);
             orderDao.update(order);
         });
+        return order;
     }
 
     @Override
-    public void assignTruckByNumber(int orderNumber, String truckNumber) {
+    public Order assignTruckByNumber(int orderNumber, String truckNumber) {
         final Order order = getByNumber(orderNumber);
         final Truck truck = truckDao.getByNumber(truckNumber);
         DaoUtils.executeInTransaction(() -> {
             order.setTruck(truck);
             orderDao.update(order);
         });
+        return order;
     }
 
     @Override
-    public void assignRouteByNumber(int orderNumber, int routeNumber) {
+    public Order assignRouteByNumber(int orderNumber, int routeNumber) {
         final Order order = getByNumber(orderNumber);
         final Route route = routeDao.getByNumber(routeNumber);
         DaoUtils.executeInTransaction(() -> {
             order.setRoute(route);
             orderDao.update(order);
         });
+        return order;
     }
 
     @Override
@@ -123,7 +127,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void excludeCargoByNumber(int orderNumber, int cargoNumber) {
+    public Order excludeCargoByNumber(int orderNumber, int cargoNumber) {
         final Order order = getByNumber(orderNumber);
         final Cargo cargo = cargoDao.getByNumber(cargoNumber);
         if (order.getCargoes() != null) {
@@ -132,10 +136,11 @@ public class OrderServiceImpl implements OrderService {
                 orderDao.update(order);
             });
         }
+        return order;
     }
 
     @Override
-    public void excludeDriverByNumber(int orderNumber, int driverNumber) {
+    public Order excludeDriverByNumber(int orderNumber, int driverNumber) {
         final Order order = getByNumber(orderNumber);
         final Driver driver = driverDao.getByNumber(driverNumber);
         if (order.getDrivers() != null) {
@@ -144,24 +149,38 @@ public class OrderServiceImpl implements OrderService {
                 orderDao.update(order);
             });
         }
+        return order;
     }
 
     @Override
-    public void refuseTruck(int orderNumber) {
+    public void excludeAllDriver(int orderNumber) {
+        final Order order = getByNumber(orderNumber);
+        if (order.getDrivers() != null) {
+            DaoUtils.executeInTransaction(() -> {
+                order.getDrivers().clear();
+                orderDao.update(order);
+            });
+        }
+    }
+
+    @Override
+    public Order refuseTruck(int orderNumber) {
         final Order order = getByNumber(orderNumber);
         DaoUtils.executeInTransaction(() -> {
             order.setTruck(null);
             orderDao.update(order);
         });
+        return order;
     }
 
     @Override
-    public void refuseRoute(int orderNumber) {
+    public Order refuseRoute(int orderNumber) {
         final Order order = getByNumber(orderNumber);
         DaoUtils.executeInTransaction(() -> {
             order.setRoute(null);
             orderDao.update(order);
         });
+        return order;
     }
 
     @Override

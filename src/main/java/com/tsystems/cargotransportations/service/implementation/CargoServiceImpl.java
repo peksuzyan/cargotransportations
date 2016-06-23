@@ -1,12 +1,16 @@
 package com.tsystems.cargotransportations.service.implementation;
 
-import com.tsystems.cargotransportations.dao.abstracts.CargoDao;
+import com.tsystems.cargotransportations.dao.interfaces.CargoDao;
+import com.tsystems.cargotransportations.dao.interfaces.OrderDao;
 import com.tsystems.cargotransportations.dao.implementation.CargoDaoImpl;
 import com.tsystems.cargotransportations.dao.DaoUtils;
+import com.tsystems.cargotransportations.dao.implementation.OrderDaoImpl;
 import com.tsystems.cargotransportations.entity.Cargo;
 import com.tsystems.cargotransportations.entity.CargoStatus;
+import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.service.interfaces.CargoService;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -17,6 +21,10 @@ public class CargoServiceImpl implements CargoService {
      * Instance of implementation of DriverDao class.
      */
     private CargoDao cargoDao = new CargoDaoImpl();
+    /**
+     * Instance of implementation of Cargo class.
+     */
+    private OrderDao orderDao = new OrderDaoImpl();
 
     @Override
     public Cargo getByNumber(int cargoNumber) {
@@ -60,7 +68,19 @@ public class CargoServiceImpl implements CargoService {
     }
 
     @Override
-    public List<Cargo> getAllByStatus(CargoStatus status) {
-        return cargoDao.getAllByStatus(status);
+    public List<Cargo> getSuitableCargoes() {
+        List<Cargo> cargoes = cargoDao.getFreeCargoes();
+        List<Order> orders = orderDao.getAll();
+        Iterator<Cargo> cargoIterator = cargoes.iterator();
+        while (cargoIterator.hasNext()) {
+            Cargo cargo = cargoIterator.next();
+            for (Order order : orders) {
+                if (order.getCargoes().contains(cargo)) {
+                    cargoIterator.remove();
+                    break;
+                }
+            }
+        }
+        return cargoes;
     }
 }

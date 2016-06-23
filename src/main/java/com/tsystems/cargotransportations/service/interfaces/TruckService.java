@@ -1,5 +1,6 @@
 package com.tsystems.cargotransportations.service.interfaces;
 
+import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.entity.Truck;
 
 import java.util.List;
@@ -47,9 +48,9 @@ public interface TruckService {
     List<Truck> getAllTrucks();
 
     /**
-     * Gets all trucks that suitable for assigning of the order given order number.
-     * @param orderNumber order number
+     * Gets all trucks that suitable for assigning to the order.
+     * @param order order
      * @return trucks list
      */
-    List<Truck> getSuitableTrucksByOrder(int orderNumber);
+    List<Truck> getSuitableTrucksByOrder(Order order);
 }

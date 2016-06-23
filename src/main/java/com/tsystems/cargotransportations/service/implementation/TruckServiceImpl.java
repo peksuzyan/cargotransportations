@@ -1,12 +1,11 @@
 package com.tsystems.cargotransportations.service.implementation;
 
 import com.tsystems.cargotransportations.dao.*;
-import com.tsystems.cargotransportations.dao.abstracts.OrderDao;
-import com.tsystems.cargotransportations.dao.abstracts.TruckDao;
-import com.tsystems.cargotransportations.dao.implementation.OrderDaoImpl;
+import com.tsystems.cargotransportations.dao.interfaces.TruckDao;
 import com.tsystems.cargotransportations.dao.implementation.TruckDaoImpl;
 import com.tsystems.cargotransportations.entity.Cargo;
 import com.tsystems.cargotransportations.entity.Order;
+import com.tsystems.cargotransportations.entity.Route;
 import com.tsystems.cargotransportations.entity.Truck;
 import com.tsystems.cargotransportations.service.interfaces.TruckService;
 
@@ -23,11 +22,6 @@ public class TruckServiceImpl implements TruckService {
      * Instance of implementation of TruckDao class.
      */
     private TruckDao truckDao = new TruckDaoImpl();
-
-    /**
-     * Instance of implementation of OrderDao class.
-     */
-    private OrderDao orderDao = new OrderDaoImpl();
 
     @Override
     public Truck getByNumber(String number) {
@@ -71,22 +65,28 @@ public class TruckServiceImpl implements TruckService {
     }
 
     @Override
-    public List<Truck> getSuitableTrucksByOrder(int orderNumber) {
+    public List<Truck> getSuitableTrucksByOrder(Order order) {
         List<Truck> suitableTrucks = new ArrayList<>();
-        Order order = orderDao.getByNumber(orderNumber);
         if (order.getRoute() != null) {
             List<Truck> trucks = truckDao.getActiveAndFreeTrucks();
             for (Truck truck : trucks) {
-                if (isTruckWithEnoughCapacity(
-                        truck,
-                        order.getRoute().getCities(),
-                        order.getCargoes()
-                )) {
+                if (isSameLocationCity(truck, order.getRoute())
+                        && isTruckWithEnoughCapacity(truck, order.getRoute().getCities(), order.getCargoes())) {
                     suitableTrucks.add(truck);
                 }
             }
         }
         return suitableTrucks;
+    }
+
+    /**
+     * Returns does truck location equals relate to route start or not.
+     * @param truck truck
+     * @param route route
+     * @return locations equals or not
+     */
+    private boolean isSameLocationCity(Truck truck, Route route) {
+        return truck.getCity().equalsIgnoreCase(route.getCities().get(0));
     }
 
     /**
@@ -116,8 +116,8 @@ public class TruckServiceImpl implements TruckService {
      */
     private double getWeightDeltaByCity(String city, Cargo cargo) {
         double delta = DOUBLE_ZERO;
-        delta += city.equals(cargo.getDepartureCity()) ? cargo.getWeight() : DOUBLE_ZERO;
-        delta -= city.equals(cargo.getArrivalCity()) ? cargo.getWeight() : DOUBLE_ZERO;
+        delta += city.equalsIgnoreCase(cargo.getDepartureCity()) ? cargo.getWeight() : DOUBLE_ZERO;
+        delta -= city.equalsIgnoreCase(cargo.getArrivalCity()) ? cargo.getWeight() : DOUBLE_ZERO;
         return delta;
     }
 }

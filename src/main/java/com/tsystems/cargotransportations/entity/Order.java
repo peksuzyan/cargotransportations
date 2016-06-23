@@ -77,7 +77,7 @@ public class Order implements Serializable {
         return status;
     }
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id")
     public List<Cargo> getCargoes() {
         return cargoes;
@@ -89,7 +89,7 @@ public class Order implements Serializable {
         return truck;
     }
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id")
     public List<Driver> getDrivers() {
         return drivers;

@@ -1,6 +1,6 @@
 package com.tsystems.cargotransportations.dao.implementation;
 
-import com.tsystems.cargotransportations.dao.abstracts.UserDao;
+import com.tsystems.cargotransportations.dao.interfaces.UserDao;
 import com.tsystems.cargotransportations.entity.User;
 import com.tsystems.cargotransportations.entity.UserRole;
 

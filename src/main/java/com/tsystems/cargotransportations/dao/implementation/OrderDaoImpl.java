@@ -1,6 +1,6 @@
 package com.tsystems.cargotransportations.dao.implementation;
 
-import com.tsystems.cargotransportations.dao.abstracts.OrderDao;
+import com.tsystems.cargotransportations.dao.interfaces.OrderDao;
 import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.entity.OrderStatus;
 
@@ -22,18 +22,6 @@ public class OrderDaoImpl extends GenericDaoImpl<Order> implements OrderDao {
         List<Order> orders = getLazyEntityManager().createQuery(query, Order.class).getResultList();
         return orders.size() != 0 ? orders.get(0) : null;
     }
-
-    /* public Optional<Order> getByNumber(int number)
-
-
-        if (optional.isPresent()) {
-            Order order1 = optional.get();
-        } else {
-
-        }
-        return orders.size() != 0 ? orders.get(0) : null;
-        */
-
 
     @Override
     public List<Order> getAllByStatus(OrderStatus status) {
