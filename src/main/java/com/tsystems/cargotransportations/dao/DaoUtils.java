@@ -7,7 +7,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static com.tsystems.cargotransportations.constants.ConfConstants.UNIT_NAME;
 
-// TODO exceptions
 /**
  * Provides convenient methods for thread-safe getting EntityManager's instances from factory.
  */
@@ -17,7 +16,6 @@ public class DaoUtils {
      */
     private final static EntityManagerFactory entityManagerFactory =
             Persistence.createEntityManagerFactory(UNIT_NAME);
-
     /**
      * Map keeps all created entity managers and returns its to associated thread.
      */
@@ -51,8 +49,7 @@ public class DaoUtils {
         }
         return entityManagersMap.get(current);
     }*/
-
-    public static EntityManager getEntityManager() {
+    public synchronized static EntityManager getEntityManager() {
         if (entityManager == null || !entityManager.isOpen()) {
             entityManager = entityManagerFactory.createEntityManager();
         }
@@ -63,7 +60,7 @@ public class DaoUtils {
      * Provides a conducting of DAO-depended operations within transaction.
      * @param transaction functional interface
      */
-    public static void executeInTransaction(Transaction transaction) {
+    public synchronized static void executeInTransaction(Transaction transaction) {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();

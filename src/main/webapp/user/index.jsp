@@ -34,7 +34,7 @@
             <div class="col-sm-offset-2 col-sm-8">
                 <h4 align="center">You have passed an authentication
                     as <kbd>${user_name}</kbd> with role <kbd>${user_role}</kbd></h4>
-                <h4 align="center">Please, type your personal number:</h4>
+                <h4 align="center">Please, type your driver number:</h4>
             </div>
 
         </div>
@@ -43,7 +43,7 @@
 
     <div class="row">
         <div class="col-sm-1"></div>
-        <div class="col-sm-10">
+        <div class="col-sm-offset-4 col-sm-4">
 
             <form action="userServlet" method="get" role="form">
                 <input name="action" value="show_assignments" hidden/>
@@ -55,15 +55,18 @@
                                name="driver_number"
                         />
                     </div>
-                    <label id="incorrect_driver_number" class="control-label text-danger"></label>
-                </div>
-
-                <div class="form-group">
                     <div class="col-sm-4">
                         <button type="submit" class="btn btn-default"
                                 onclick="return validate_on_empty()"
-                                onfocus="clear_onclick()">Show assignments</button>
+                        >Show</button>
                     </div>
+                    <div class="col-sm-4">
+                        <label id="incorrect_driver_number" class="control-label text-danger"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+
                 </div>
             </form>
 

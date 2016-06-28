@@ -3,6 +3,7 @@ package com.tsystems.cargotransportations.presentation.servlets;
 import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.entity.User;
 import com.tsystems.cargotransportations.entity.UserRole;
+import com.tsystems.cargotransportations.exception.IllegalAccessException;
 import com.tsystems.cargotransportations.service.interfaces.OrderService;
 import com.tsystems.cargotransportations.service.implementation.OrderServiceImpl;
 import com.tsystems.cargotransportations.service.interfaces.UserService;
@@ -58,8 +59,11 @@ public class UserServlet extends EntityServlet<User> {
             break;
             case SHOW_ASSIGNMENTS_ACTION: {
                 try {
+                    Object userNameParam = request.getSession(false).getAttribute(USER_NAME_PARAM);
+                    User user = userService.getByName((String) userNameParam);
                     String driverNumberParam = request.getParameter(DRIVER_NUMBER_PARAM);
                     int driverNumber = Integer.parseInt(driverNumberParam);
+                    userService.checkUserByDriverNumber(user, driverNumber);
                     Order order = orderService.getPerformingOrderByDriverNumber(driverNumber);
                     request.setAttribute(DRIVERS_LIST_PARAM, order.getDrivers());
                     request.setAttribute(TRUCK_NUMBER_PARAM, order.getTruck().getNumber());
@@ -69,9 +73,9 @@ public class UserServlet extends EntityServlet<User> {
                 } catch (NumberFormatException ex) {
                     request.setAttribute(ERROR_MESSAGE_PARAM, DRIVER_IS_NOT_FOUND);
                     getServletContext().getRequestDispatcher(CONFIRMATION_USER_PAGE).forward(request, response);
-                } catch (NullPointerException ex) {
-                    request.setAttribute(ERROR_MESSAGE_PARAM, ORDER_IS_NOT_FOUND);
-                    getServletContext().getRequestDispatcher(CONFIRMATION_USER_PAGE).forward(request, response);
+                } catch (IllegalAccessException ex) {
+                    request.getSession().setAttribute(ERROR_MESSAGE_PARAM, PERMISSION_DENIED);
+                    response.sendRedirect(request.getContextPath() + CONFIRMATION_USER_PAGE);
                 }
             }
             break;
@@ -90,7 +94,10 @@ public class UserServlet extends EntityServlet<User> {
                 String userNameParam = request.getParameter(USER_NAME_PARAM);
                 String userPasswordParam = request.getParameter(USER_PASSWORD_PARAM);
                 UserRole userRole = getUserRole(request.getParameter(USER_ROLE_PARAM));
-                userService.createUser(userNameParam, userPasswordParam, userRole);
+                String driverNumberParam = request.getParameter(DRIVER_NUMBER_PARAM);
+                int driverNumber = (driverNumberParam == null || driverNumberParam.length() == 0)
+                        ? 0 : Integer.parseInt(driverNumberParam);
+                userService.createUser(userNameParam, DigestUtils.md5Hex(userPasswordParam), userRole, driverNumber);
                 request.getSession().setAttribute(SUCCESS_MESSAGE_PARAM, USER_IS_CREATED);
                 response.sendRedirect(request.getContextPath() + CONFIRMATION_ADMIN_PAGE);
             }

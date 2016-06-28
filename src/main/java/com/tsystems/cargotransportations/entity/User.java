@@ -41,6 +41,9 @@ public class User {
     @Column(name = "creation_date")
     private Date creationDate;
 
+    @Column(name = "driver_number")
+    private int driverNumber;
+
     /**
      * Gets id.
      *
@@ -87,6 +90,15 @@ public class User {
     }
 
     /**
+     * Gets driverNumber.
+     *
+     * @return driverNumber driverNumber
+     */
+    public int getDriverNumber() {
+        return driverNumber;
+    }
+
+    /**
      * Sets id.
      *
      * @param id id
@@ -129,5 +141,14 @@ public class User {
      */
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    /**
+     * Sets driverNumber.
+     *
+     * @param driverNumber driverNumber
+     */
+    public void setDriverNumber(int driverNumber) {
+        this.driverNumber = driverNumber;
     }
 }

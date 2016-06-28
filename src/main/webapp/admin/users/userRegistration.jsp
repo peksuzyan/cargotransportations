@@ -84,6 +84,19 @@
                     <label id="incorrect_role" class="control-label text-danger"></label>
                 </div>
 
+                <c:if test="${user_role eq 'ADMIN'}">
+                    <div class="form-group" <c:if test="${action ne 'add'}">hidden</c:if> >
+                        <label class="control-label col-sm-2">Driver Number:</label>
+                        <div class="col-sm-4">
+                            <input type="text"
+                                   class="form-control"
+                                   name="driver_number"
+                            />
+                        </div>
+                        <label class="control-label text-danger"></label>
+                    </div>
+                </c:if>
+
                 <div class="form-group" <c:if test="${action eq 'add'}">hidden</c:if> >
                     <label class="control-label col-sm-2">Creation Date:</label>
                     <div class="col-sm-4">

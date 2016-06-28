@@ -188,7 +188,6 @@ public class OrderServiceImpl implements OrderService {
         return orderDao.getAll();
     }
 
-    // TODO
     @Override
     public void sendOrderToPerforming(int orderNumber) {
         final Order order = getByNumber(orderNumber);

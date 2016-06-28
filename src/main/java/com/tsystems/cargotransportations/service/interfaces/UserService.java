@@ -2,6 +2,7 @@ package com.tsystems.cargotransportations.service.interfaces;
 
 import com.tsystems.cargotransportations.entity.User;
 import com.tsystems.cargotransportations.entity.UserRole;
+import com.tsystems.cargotransportations.exception.IllegalAccessException;
 
 import java.util.List;
 
@@ -40,8 +41,9 @@ public interface UserService {
      * @param name user name
      * @param password password
      * @param role user role
+     * @param driverNumber driver number
      */
-    void createUser(String name, String password, UserRole role);
+    void createUser(String name, String password, UserRole role, int driverNumber);
 
     /**
      * Gets all users.
@@ -63,4 +65,12 @@ public interface UserService {
      * @return whether is authenticated user or not
      */
     boolean isAuthenticatedUser(String name, String password);
+
+    /**
+     * Checks to respecting of driver number and user.
+     * @param user user
+     * @param driverNumber driver number
+     * @throws IllegalAccessException
+     */
+    void checkUserByDriverNumber(User user, int driverNumber) throws IllegalAccessException;
 }

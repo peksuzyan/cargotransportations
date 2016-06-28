@@ -92,7 +92,7 @@ public class PageConstants {
     /**
      * Refers to user assignments page.
      */
-    public static final String USER_ASSIGNMENTS_PAGE = "/user/assignments/assignments.jsp";
+    public static final String USER_ASSIGNMENTS_PAGE = "/user/profile/assignments.jsp";
 
     /**
      * Refers to user account page.

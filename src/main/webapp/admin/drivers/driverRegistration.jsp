@@ -23,7 +23,7 @@
                         <c:if test="${action eq 'add'}"><input name="action" value="perform_adding" hidden /></c:if>
                         <c:if test="${action eq 'edit'}"><input name="action" value="perform_editing" hidden /></c:if>
 
-                        <div class="form-group">
+                        <div class="form-group" <c:if test="${action eq 'add'}">hidden</c:if> >
                             <label class="control-label col-sm-2">Number:</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control" value="${driver.number}" readonly
@@ -47,7 +47,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" <c:if test="${action eq 'add'}">hidden</c:if> >
                             <label class="control-label col-sm-2">Hours:</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control"
@@ -55,7 +55,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" <c:if test="${action eq 'add'}">hidden</c:if> >
                             <label class="control-label col-sm-2">Status:</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control"
@@ -72,7 +72,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group" <c:if test="${action eq 'add'}">hidden</c:if> >
                             <label class="control-label col-sm-2">Truck:</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control"

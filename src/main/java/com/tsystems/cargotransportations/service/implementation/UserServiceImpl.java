@@ -5,6 +5,7 @@ import com.tsystems.cargotransportations.dao.interfaces.UserDao;
 import com.tsystems.cargotransportations.dao.implementation.UserDaoImpl;
 import com.tsystems.cargotransportations.entity.User;
 import com.tsystems.cargotransportations.entity.UserRole;
+import com.tsystems.cargotransportations.exception.IllegalAccessException;
 import com.tsystems.cargotransportations.service.interfaces.UserService;
 
 import java.util.Date;
@@ -42,7 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createUser(String name, String password, UserRole role) {
+    public void createUser(String name, String password, UserRole role, int driverNumber) {
         DaoUtils.executeInTransaction(() -> {
             User user = new User();
             userDao.create(user);
@@ -50,6 +51,7 @@ public class UserServiceImpl implements UserService {
             user.setPassword(password);
             user.setUserRole(role);
             user.setCreationDate(new Date());
+            user.setDriverNumber(driverNumber);
         });
     }
 
@@ -76,5 +78,10 @@ public class UserServiceImpl implements UserService {
             user.setPassword(password);
             userDao.update(user);
         });
+    }
+
+    @Override
+    public void checkUserByDriverNumber(User user, int driverNumber) throws IllegalAccessException {
+        if (user.getDriverNumber() != driverNumber) throw new IllegalAccessException();
     }
 }

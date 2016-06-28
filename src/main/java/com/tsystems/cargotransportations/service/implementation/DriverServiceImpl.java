@@ -104,7 +104,7 @@ public class DriverServiceImpl implements DriverService {
         while (driverIterator.hasNext()) {
             Driver currentDriver = driverIterator.next();
             int expectedTotalWorkingTime =
-                    routeHoursInCurrentMonth / order.getDrivers().size()
+                    routeHoursInCurrentMonth / order.getTruck().getPeople()
                             + currentDriver.getHours();
             if (expectedTotalWorkingTime > WORKING_TIME_OF_MONTH
                     || !isSameLocationCity(order.getTruck(), currentDriver)) {
