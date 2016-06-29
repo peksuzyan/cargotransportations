@@ -4,69 +4,28 @@
             http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.tsystems.cargotransportations</groupId>
+
+    <groupId>${app.groupId}</groupId>
     <artifactId>cargotransportations</artifactId>
-    <packaging>war</packaging>
-    <version>1.0-SNAPSHOT</version>
-    
+    <version>${app.version}</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>dao</module>
+        <module>service</module>
+        <module>presentation</module>
+    </modules>
+
     <dependencies>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.38</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.1-api</artifactId>
-            <version>1.0.0.Final</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>5.1.0.Final</version>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-        </dependency>
-
-        <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.10</version>
-        </dependency>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>cargotransportations</finalName>
-        <sourceDirectory>src/main/java</sourceDirectory>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -77,7 +36,35 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <url>http://localhost:8080/manager/text</url>
+                    <server>TomcatServer</server>
+                    <path>/cargotransportations</path>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.wildfly.plugins</groupId>
+                <artifactId>wildfly-maven-plugin</artifactId>
+                <version>1.1.0.Alpha5</version>
+                <configuration>
+                    <hostname>127.0.0.1</hostname>
+                    <port>9990</port>
+                    <username>jboss</username>
+                    <password>Pervant123</password>
+                    <name>cargotransportations.war</name>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <properties>
+        <app.groupId>com.tsystems.cargotransportations</app.groupId>
+        <app.version>1.0-SNAPSHOT</app.version>
+        <app.finalName>cargotransportations</app.finalName>
+    </properties>
 
 </project>
