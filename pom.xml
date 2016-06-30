@@ -54,7 +54,7 @@
                     <hostname>127.0.0.1</hostname>
                     <port>9990</port>
                     <username>jboss</username>
-                    <password>Pervant123</password>
+                    <password>jboss</password>
                     <name>cargotransportations.war</name>
                 </configuration>
             </plugin>

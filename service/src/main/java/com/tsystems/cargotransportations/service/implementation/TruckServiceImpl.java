@@ -1,8 +1,6 @@
 package com.tsystems.cargotransportations.service.implementation;
 
-import com.tsystems.cargotransportations.dao.*;
 import com.tsystems.cargotransportations.dao.interfaces.TruckDao;
-import com.tsystems.cargotransportations.dao.implementation.TruckDaoImpl;
 import com.tsystems.cargotransportations.entity.Cargo;
 import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.entity.Route;
@@ -10,62 +8,65 @@ import com.tsystems.cargotransportations.entity.Truck;
 import com.tsystems.cargotransportations.service.interfaces.TruckService;
 
 import com.tsystems.cargotransportations.constants.MagicConstants;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.tsystems.cargotransportations.constants.MagicConstants.DOUBLE_ZERO;
-
 /**
  * Implements business-logic operations that bound with truck.
  */
+@Service("truckService")
 public class TruckServiceImpl implements TruckService {
     /**
      * Instance of implementation of TruckDao class.
      */
-    private TruckDao truckDao = new TruckDaoImpl();
+    @Autowired
+    private TruckDao truckDao;
 
+    @Transactional(readOnly = true)
     @Override
     public Truck getByNumber(String number) {
         return truckDao.getByNumber(number);
     }
 
+    @Transactional
     @Override
     public void deleteByNumber(String number) {
-        DaoUtils.executeInTransaction(() -> {
-            truckDao.delete(truckDao.getByNumber(number));
-        });
+        truckDao.delete(truckDao.getByNumber(number));
     }
 
+    @Transactional
     @Override
     public void changeByNumber(String number, int people, boolean active, double capacity) {
-        DaoUtils.executeInTransaction(() -> {
-            Truck truck = truckDao.getByNumber(number);
-            truck.setPeople(people);
-            truck.setActive(active);
-            truck.setCapacity(capacity);
-            truckDao.update(truck);
-        });
+        Truck truck = truckDao.getByNumber(number);
+        truck.setPeople(people);
+        truck.setActive(active);
+        truck.setCapacity(capacity);
+        truckDao.update(truck);
     }
 
+    @Transactional
     @Override
     public void createTruck(String number, int people, boolean active, double capacity, String city) {
-        DaoUtils.executeInTransaction(() -> {
-            Truck truck = new Truck();
-            truckDao.create(truck);
-            truck.setNumber(number);
-            truck.setPeople(people);
-            truck.setActive(active);
-            truck.setCapacity(capacity);
-            truck.setCity(city);
-        });
+        Truck truck = new Truck();
+        truckDao.create(truck);
+        truck.setNumber(number);
+        truck.setPeople(people);
+        truck.setActive(active);
+        truck.setCapacity(capacity);
+        truck.setCity(city);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Truck> getAllTrucks() {
         return truckDao.getAll();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Truck> getSuitableTrucksByOrder(Order order) {
         List<Truck> suitableTrucks = new ArrayList<>();

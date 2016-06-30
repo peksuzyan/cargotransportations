@@ -1,10 +1,7 @@
 package com.tsystems.cargotransportations.service.implementation;
 
-import com.tsystems.cargotransportations.dao.*;
 import com.tsystems.cargotransportations.dao.interfaces.DriverDao;
 import com.tsystems.cargotransportations.dao.interfaces.OrderDao;
-import com.tsystems.cargotransportations.dao.implementation.DriverDaoImpl;
-import com.tsystems.cargotransportations.dao.implementation.OrderDaoImpl;
 import com.tsystems.cargotransportations.entity.Driver;
 import com.tsystems.cargotransportations.entity.DriverStatus;
 import com.tsystems.cargotransportations.entity.Order;
@@ -12,6 +9,9 @@ import com.tsystems.cargotransportations.entity.Truck;
 import com.tsystems.cargotransportations.service.interfaces.DriverService;
 
 import com.tsystems.cargotransportations.constants.MagicConstants;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Calendar;
 import java.util.Collections;
@@ -21,57 +21,61 @@ import java.util.List;
 /**
  * Implements business-logic operations that bound with driver.
  */
+@Service("driverService")
 public class DriverServiceImpl implements DriverService {
     /**
      * Instance of implementation of DriverDao class.
      */
-    private DriverDao driverDao = new DriverDaoImpl();
+    @Autowired
+    private DriverDao driverDao;
+
     /**
      * Instance of implementation of OrderDao class.
      */
-    private OrderDao orderDao = new OrderDaoImpl();
+    @Autowired
+    private OrderDao orderDao;
 
+    @Transactional(readOnly = true)
     @Override
     public Driver getByNumber(int driverNumber) {
         return driverDao.getByNumber(driverNumber);
     }
 
+    @Transactional
     @Override
     public void deleteByNumber(int driverNumber) {
-        DaoUtils.executeInTransaction(() -> {
-            driverDao.delete(driverDao.getByNumber(driverNumber));
-        });
+        driverDao.delete(driverDao.getByNumber(driverNumber));
     }
 
+    @Transactional
     @Override
     public void changeByNumber(int driverNumber, String firstName, String lastName) {
-        DaoUtils.executeInTransaction(() -> {
-            Driver driver = driverDao.getByNumber(driverNumber);
-            driver.setFirstName(firstName);
-            driver.setLastName(lastName);
-            driverDao.update(driver);
-        });
+        Driver driver = driverDao.getByNumber(driverNumber);
+        driver.setFirstName(firstName);
+        driver.setLastName(lastName);
+        driverDao.update(driver);
     }
 
+    @Transactional
     @Override
     public void createDriver(String firstName, String lastName, String city) {
-        DaoUtils.executeInTransaction(() -> {
-            Driver driver = new Driver();
-            driverDao.create(driver);
-            driver.setFirstName(firstName);
-            driver.setLastName(lastName);
-            driver.setCity(city);
-            driver.setHours(0);
-            driver.setStatus(DriverStatus.FREE);
-            driver.setNumber(driver.getId() + 100);
-        });
+        Driver driver = new Driver();
+        driverDao.create(driver);
+        driver.setFirstName(firstName);
+        driver.setLastName(lastName);
+        driver.setCity(city);
+        driver.setHours(0);
+        driver.setStatus(DriverStatus.FREE);
+        driver.setNumber(driver.getId() + 100);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Driver> getAllDrivers() {
         return driverDao.getAll();
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Driver> getSuitableDriversByOrder(Order order) {
         if (order.getTruck() == null)

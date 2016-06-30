@@ -2,12 +2,14 @@ package com.tsystems.cargotransportations.dao.implementation;
 
 import com.tsystems.cargotransportations.dao.interfaces.TruckDao;
 import com.tsystems.cargotransportations.entity.Truck;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Specific DAO implementation for trucks management.
  */
+@Repository("truckDao")
 public class TruckDaoImpl extends GenericDaoImpl<Truck> implements TruckDao {
 
     public TruckDaoImpl() {
@@ -18,7 +20,7 @@ public class TruckDaoImpl extends GenericDaoImpl<Truck> implements TruckDao {
     public Truck getByNumber(String number) {
         String query = String.format(
                 "FROM %s WHERE number = '%s'", Truck.class.getSimpleName(), number);
-        List<Truck> trucks = getLazyEntityManager().createQuery(query, Truck.class).getResultList();
+        List<Truck> trucks = getEntityManager().createQuery(query, Truck.class).getResultList();
         return trucks.size() != 0 ? trucks.get(0) : null;
     }
 
@@ -29,6 +31,6 @@ public class TruckDaoImpl extends GenericDaoImpl<Truck> implements TruckDao {
                 "LEFT JOIN Order AS o ON t.id = o.truck.id " +
                 "WHERE t.active = true AND " +
                         "(o.truck IS NULL OR o.status = 'DONE')";
-        return getLazyEntityManager().createQuery(query, Truck.class).getResultList();
+        return getEntityManager().createQuery(query, Truck.class).getResultList();
     }
 }

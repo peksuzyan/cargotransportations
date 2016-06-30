@@ -1,40 +1,42 @@
 package com.tsystems.cargotransportations.service.implementation;
 
-import com.tsystems.cargotransportations.dao.DaoUtils;
 import com.tsystems.cargotransportations.dao.interfaces.RouteDao;
-import com.tsystems.cargotransportations.dao.implementation.RouteDaoImpl;
 import com.tsystems.cargotransportations.entity.Cargo;
 import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.entity.Route;
 import com.tsystems.cargotransportations.service.interfaces.RouteService;
 
 import com.tsystems.cargotransportations.constants.MagicConstants;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-
-import static com.tsystems.cargotransportations.constants.MagicConstants.COMMA_DELIMITER;
 
 /**
  * Implements business-logic operations that bound with route.
  */
+@Service("routeService")
 public class RouteServiceImpl implements RouteService {
     /**
      * Instance of implementation of RouteDao class.
      */
-    private RouteDao routeDao = new RouteDaoImpl();
+    @Autowired
+    private RouteDao routeDao;
 
+    @Transactional(readOnly = true)
     @Override
     public Route getByNumber(int routeNumber) {
         return routeDao.getByNumber(routeNumber);
     }
 
+    @Transactional
     @Override
     public void deleteByNumber(int routeNumber) {
-        DaoUtils.executeInTransaction(() -> {
-            routeDao.delete(getByNumber(routeNumber));
-        });
+        routeDao.delete(getByNumber(routeNumber));
     }
 
+    @Transactional
     @Override
     public void createRoute(int duration, String... cities) {
         if (cities != null) {
@@ -44,16 +46,15 @@ public class RouteServiceImpl implements RouteService {
                     citiesList.add(city.trim());
                 }
             }
-            DaoUtils.executeInTransaction(() -> {
-                Route route = new Route();
-                routeDao.create(route);
-                route.setCities(citiesList);
-                route.setDuration(duration);
-                route.setNumber(route.getId() + 1000);
-            });
+            Route route = new Route();
+            routeDao.create(route);
+            route.setCities(citiesList);
+            route.setDuration(duration);
+            route.setNumber(route.getId() + 1000);
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Route> getAllRoutes() {
         return routeDao.getAll();
@@ -70,6 +71,7 @@ public class RouteServiceImpl implements RouteService {
         return routePoints;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Set<List<String>> getRoutesCases(List<Cargo> cargoes) {
         Set<String> routePoints = new HashSet<>();
@@ -116,6 +118,7 @@ public class RouteServiceImpl implements RouteService {
         return routesCases;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<Route> getSuitableRoutesByOrder(Order order) {
         if (order == null) return Collections.emptyList();

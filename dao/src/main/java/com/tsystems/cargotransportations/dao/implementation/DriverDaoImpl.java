@@ -2,12 +2,14 @@ package com.tsystems.cargotransportations.dao.implementation;
 
 import com.tsystems.cargotransportations.dao.interfaces.DriverDao;
 import com.tsystems.cargotransportations.entity.Driver;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * Specific DAO implementation for drivers management.
  */
+@Repository("driverDao")
 public class DriverDaoImpl extends GenericDaoImpl<Driver> implements DriverDao {
 
     public DriverDaoImpl() {
@@ -18,13 +20,13 @@ public class DriverDaoImpl extends GenericDaoImpl<Driver> implements DriverDao {
     public Driver getByNumber(int number) {
         String query = String.format(
                 "FROM %s WHERE number = %d", Driver.class.getSimpleName(), number);
-        List<Driver> drivers = getLazyEntityManager().createQuery(query, Driver.class).getResultList();
+        List<Driver> drivers = getEntityManager().createQuery(query, Driver.class).getResultList();
         return drivers.size() != 0 ? drivers.get(0) : null;
     }
 
     @Override
     public List<Driver> getFreeDrivers() {
         String query = "SELECT d FROM Driver AS d WHERE d.status = 'FREE'";
-        return getLazyEntityManager().createQuery(query, Driver.class).getResultList();
+        return getEntityManager().createQuery(query, Driver.class).getResultList();
     }
 }
