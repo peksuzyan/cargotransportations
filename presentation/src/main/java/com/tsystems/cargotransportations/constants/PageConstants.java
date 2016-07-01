@@ -5,6 +5,11 @@ package com.tsystems.cargotransportations.constants;
  */
 public class PageConstants {
     /**
+     * test page constant
+     */
+    public static final String CARGO_PAGE_PATTERN = "/admin/cargoes/**";
+
+    /**
      * Refers to login page.
      */
     public static final String LOGIN_PAGE = "/login.jsp";

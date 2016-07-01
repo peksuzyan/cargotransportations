@@ -39,6 +39,8 @@ public interface CargoService {
      */
     void createCargo(String name, double weight, String departureCity, String arrivalCity);
 
+    void createCargo(Cargo cargo);
+
     /**
      * Gets a list of all existing cargoes.
      * @return cargoes list
