@@ -30,7 +30,7 @@ public class DriverServlet extends EntityServlet<Driver> {
         request.getSession();
         switch (actionParam) {
             case ActionConstants.REFRESH_ACTION: {
-                processRefresh(request, response, ParamConstants.DRIVERS_LIST_PARAM, PageConstants.DRIVERS_LIST_PAGE, driverService.getAllDrivers());
+                processRefresh(request, response, ParamConstants.DRIVERS_PARAM, PageConstants.DRIVERS_LIST_PAGE, driverService.getAllDrivers());
             }
             break;
             case ActionConstants.ADD_ACTION: {
@@ -90,7 +90,7 @@ public class DriverServlet extends EntityServlet<Driver> {
                     String driverNumberParam = request.getParameter(ParamConstants.DRIVER_NUMBER_PARAM);
                     int driverNumber = Integer.parseInt(driverNumberParam);
                     driverService.deleteByNumber(driverNumber);
-                    request.setAttribute(ParamConstants.DRIVERS_LIST_PARAM, driverService.getAllDrivers());
+                    request.setAttribute(ParamConstants.DRIVERS_PARAM, driverService.getAllDrivers());
                     request.getSession().setAttribute(ParamConstants.SUCCESS_MESSAGE_PARAM, MessageConstants.DRIVER_IS_DELETED);
                     response.sendRedirect(request.getContextPath() + PageConstants.CONFIRMATION_ADMIN_PAGE);
                 } catch (NumberFormatException ex) {

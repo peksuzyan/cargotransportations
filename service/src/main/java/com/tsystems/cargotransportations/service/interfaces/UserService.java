@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Contains business-logic operations that bound with user.
  */
-public interface UserService {
+public interface UserService extends GenericService<User>  {
     /**
      * Deletes user by name.
      * @param name name

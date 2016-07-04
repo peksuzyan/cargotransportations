@@ -1,6 +1,7 @@
 package com.tsystems.cargotransportations.service.implementation;
 
 import com.tsystems.cargotransportations.dao.interfaces.CargoDao;
+import com.tsystems.cargotransportations.dao.interfaces.GenericDao;
 import com.tsystems.cargotransportations.dao.interfaces.OrderDao;
 import com.tsystems.cargotransportations.entity.Cargo;
 import com.tsystems.cargotransportations.entity.CargoStatus;
@@ -17,12 +18,17 @@ import java.util.List;
  * Implements business-logic operations that bound with cargo.
  */
 @Service("cargoService")
-public class CargoServiceImpl implements CargoService {
+public class CargoServiceImpl extends GenericServiceImpl<Cargo> implements CargoService {
     /**
      * Instance of implementation of DriverDao class.
      */
     @Autowired
     private CargoDao cargoDao;
+
+    @Override
+    GenericDao<Cargo> getDao() {
+        return cargoDao;
+    }
 
     /**
      * Instance of implementation of Cargo class.
@@ -64,6 +70,7 @@ public class CargoServiceImpl implements CargoService {
         cargo.setNumber(cargo.getId() + 1000);
     }
 
+    // need to delete from the service!
     @Transactional(readOnly = true)
     @Override
     public List<Cargo> getAllCargoes() {

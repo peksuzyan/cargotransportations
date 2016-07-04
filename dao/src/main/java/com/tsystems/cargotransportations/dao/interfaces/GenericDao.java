@@ -35,7 +35,20 @@ public interface GenericDao<T> {
 
     /**
      * Gets all entities.
-     * @return list of entities
+     * @return a list of entities
      */
     List<T> getAll();
+
+    /**
+     * Gets all entities by specified range.
+     * @param firstItemNumber first item number of range (first item has 0 index)
+     * @param itemsCount items count of range
+     * @param sortBy sort by
+     * @param sortTo sort direction
+     * @return a list of entities
+     */
+    List<T> getAllByRange(int firstItemNumber,
+                          int itemsCount,
+                          String sortBy,
+                          String sortTo);
 }

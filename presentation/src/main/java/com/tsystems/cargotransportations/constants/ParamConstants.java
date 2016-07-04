@@ -15,6 +15,11 @@ public class ParamConstants {
     public static final String NAME_PARAM = "name";
 
     /**
+     * Necessary for setting or getting number by param name.
+     */
+    public static final String NUMBER_PARAM = "number";
+
+    /**
      * Necessary for setting or getting first name by param name.
      */
     public static final String FIRST_NAME_PARAM = "first_name";
@@ -52,7 +57,7 @@ public class ParamConstants {
     /**
      * Necessary for setting or getting drivers list by param name.
      */
-    public static final String DRIVERS_LIST_PARAM = "drivers";
+    public static final String DRIVERS_PARAM = "drivers";
 
     /**
      * Necessary for setting success message about an operation status by param name.
@@ -67,7 +72,7 @@ public class ParamConstants {
     /**
      * Necessary for setting or getting trucks list by param name.
      */
-    public static final String TRUCKS_LIST_PARAM = "trucks";
+    public static final String TRUCKS_PARAM = "trucks";
 
     /**
      * Necessary for setting or getting truck number by param name.
@@ -97,7 +102,7 @@ public class ParamConstants {
     /**
      * Necessary for setting or getting cargoes list by param name.
      */
-    public static final String CARGOES_LIST_PARAM = "cargoes";
+    public static final String CARGOES_PARAM = "cargoes";
 
     /**
      * Necessary for setting or getting cargo number by param name.
@@ -117,7 +122,7 @@ public class ParamConstants {
     /**
      * Necessary for setting or getting orders list by param name.
      */
-    public static final String ORDERS_LIST_PARAM = "orders";
+    public static final String ORDERS_PARAM = "orders";
 
     /**
      * Necessary for setting or getting order number by param name.
@@ -132,7 +137,12 @@ public class ParamConstants {
     /**
      * Necessary for setting or getting routes list by param name.
      */
-    public static final String ROUTES_LIST_PARAM = "routes";
+    public static final String ROUTES_PARAM = "routes";
+
+    /**
+     * Necessary for setting or getting route by param name.
+     */
+    public static final String ROUTE_PARAM = "route";
 
     /**
      * Necessary for setting or getting duration by param name.
@@ -202,7 +212,7 @@ public class ParamConstants {
     /**
      * Necessary for setting or getting users list by param name.
      */
-    public static final String USERS_LIST_PARAM = "users";
+    public static final String USERS_PARAM = "users";
 
     /**
      * Necessary for setting or getting user by param name.

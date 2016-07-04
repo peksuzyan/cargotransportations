@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Contains business-logic operations that bound with driver.
  */
-public interface DriverService {
+public interface DriverService extends GenericService<Driver> {
     /**
      * Gets driver by number.
      * @param driverNumber driver number

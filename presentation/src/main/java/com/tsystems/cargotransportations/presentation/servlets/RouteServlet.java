@@ -29,7 +29,7 @@ public class RouteServlet extends EntityServlet<Route> {
         String actionParam = getActionParam(request);
         switch (actionParam) {
             case ActionConstants.REFRESH_ACTION: {
-                processRefresh(request, response, ParamConstants.ROUTES_LIST_PARAM, PageConstants.ROUTES_LIST_PAGE, routeService.getAllRoutes());
+                processRefresh(request, response, ParamConstants.ROUTES_PARAM, PageConstants.ROUTES_LIST_PAGE, routeService.getAllRoutes());
             }
             break;
             case ActionConstants.ADD_ACTION: {
@@ -71,7 +71,7 @@ public class RouteServlet extends EntityServlet<Route> {
                     String routeNumberParam = request.getParameter(ParamConstants.ROUTE_NUMBER_PARAM);
                     int routeNumber = Integer.parseInt(routeNumberParam);
                     routeService.deleteByNumber(routeNumber);
-                    request.setAttribute(ParamConstants.ROUTES_LIST_PARAM, routeService.getAllRoutes());
+                    request.setAttribute(ParamConstants.ROUTES_PARAM, routeService.getAllRoutes());
                     request.getSession().setAttribute(ParamConstants.SUCCESS_MESSAGE_PARAM, MessageConstants.ROUTE_IS_DELETED);
                     response.sendRedirect(request.getContextPath() + PageConstants.CONFIRMATION_ADMIN_PAGE);
                 } catch (NumberFormatException ex) {

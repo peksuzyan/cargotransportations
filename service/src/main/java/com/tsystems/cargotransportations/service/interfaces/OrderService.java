@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Contains business-logic operations that bound with order.
  */
-public interface OrderService {
+public interface OrderService extends GenericService<Order>  {
     /**
      * Gets order by number.
      * @param orderNumber order number

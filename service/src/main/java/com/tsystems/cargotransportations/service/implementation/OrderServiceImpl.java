@@ -15,7 +15,7 @@ import java.util.List;
  * Implements business-logic operations that bound with order.
  */
 @Service("orderService")
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl extends GenericServiceImpl<Order> implements OrderService {
     /**
      * Instance of implementation of OrderDao class.
      */
@@ -45,6 +45,11 @@ public class OrderServiceImpl implements OrderService {
      */
     @Autowired
     private RouteDao routeDao;
+
+    @Override
+    GenericDao<Order> getDao() {
+        return orderDao;
+    }
 
     @Transactional(readOnly = true)
     @Override

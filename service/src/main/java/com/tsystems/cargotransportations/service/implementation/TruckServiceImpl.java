@@ -1,5 +1,6 @@
 package com.tsystems.cargotransportations.service.implementation;
 
+import com.tsystems.cargotransportations.dao.interfaces.GenericDao;
 import com.tsystems.cargotransportations.dao.interfaces.TruckDao;
 import com.tsystems.cargotransportations.entity.Cargo;
 import com.tsystems.cargotransportations.entity.Order;
@@ -19,12 +20,17 @@ import java.util.List;
  * Implements business-logic operations that bound with truck.
  */
 @Service("truckService")
-public class TruckServiceImpl implements TruckService {
+public class TruckServiceImpl extends GenericServiceImpl<Truck> implements TruckService {
     /**
      * Instance of implementation of TruckDao class.
      */
     @Autowired
     private TruckDao truckDao;
+
+    @Override
+    GenericDao<Truck> getDao() {
+        return truckDao;
+    }
 
     @Transactional(readOnly = true)
     @Override

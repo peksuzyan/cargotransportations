@@ -1,6 +1,6 @@
 package com.tsystems.cargotransportations.service.implementation;
 
-import com.tsystems.cargotransportations.dao.DaoUtils;
+import com.tsystems.cargotransportations.dao.interfaces.GenericDao;
 import com.tsystems.cargotransportations.dao.interfaces.UserDao;
 import com.tsystems.cargotransportations.entity.User;
 import com.tsystems.cargotransportations.entity.UserRole;
@@ -17,12 +17,17 @@ import java.util.List;
  * Implements business-logic operations that bound with user.
  */
 @Service("userService")
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends GenericServiceImpl<User> implements UserService {
     /**
      * Instance of implementation of UserDao class.
      */
     @Autowired
     private UserDao userDao;
+
+    @Override
+    GenericDao<User> getDao() {
+        return userDao;
+    }
 
     @Transactional
     @Override

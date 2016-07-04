@@ -1,6 +1,7 @@
 package com.tsystems.cargotransportations.service.implementation;
 
 import com.tsystems.cargotransportations.dao.interfaces.DriverDao;
+import com.tsystems.cargotransportations.dao.interfaces.GenericDao;
 import com.tsystems.cargotransportations.dao.interfaces.OrderDao;
 import com.tsystems.cargotransportations.entity.Driver;
 import com.tsystems.cargotransportations.entity.DriverStatus;
@@ -22,12 +23,17 @@ import java.util.List;
  * Implements business-logic operations that bound with driver.
  */
 @Service("driverService")
-public class DriverServiceImpl implements DriverService {
+public class DriverServiceImpl extends GenericServiceImpl<Driver> implements DriverService {
     /**
      * Instance of implementation of DriverDao class.
      */
     @Autowired
     private DriverDao driverDao;
+
+    @Override
+    GenericDao<Driver> getDao() {
+        return driverDao;
+    }
 
     /**
      * Instance of implementation of OrderDao class.

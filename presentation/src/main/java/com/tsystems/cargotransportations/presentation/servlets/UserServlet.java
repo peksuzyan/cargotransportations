@@ -36,7 +36,7 @@ public class UserServlet extends EntityServlet<User> {
         String action = getActionParam(request);
         switch (action) {
             case ActionConstants.REFRESH_ACTION: {
-                processRefresh(request, response, ParamConstants.USERS_LIST_PARAM, PageConstants.USERS_LIST_PAGE, userService.getAllUsers());
+                processRefresh(request, response, ParamConstants.USERS_PARAM, PageConstants.USERS_LIST_PAGE, userService.getAllUsers());
             }
             break;
             case ActionConstants.ADD_ACTION: {
@@ -65,7 +65,7 @@ public class UserServlet extends EntityServlet<User> {
                     int driverNumber = Integer.parseInt(driverNumberParam);
                     userService.checkUserByDriverNumber(user, driverNumber);
                     Order order = orderService.getPerformingOrderByDriverNumber(driverNumber);
-                    request.setAttribute(ParamConstants.DRIVERS_LIST_PARAM, order.getDrivers());
+                    request.setAttribute(ParamConstants.DRIVERS_PARAM, order.getDrivers());
                     request.setAttribute(ParamConstants.TRUCK_NUMBER_PARAM, order.getTruck().getNumber());
                     request.setAttribute(ParamConstants.ORDER_NUMBER_PARAM, order.getNumber());
                     request.setAttribute(ParamConstants.SUITABLE_ROUTES_LIST_PARAM, order.getRoute().getCities());

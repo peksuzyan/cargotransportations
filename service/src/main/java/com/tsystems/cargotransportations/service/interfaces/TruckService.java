@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Contains business-logic operations that bound with truck.
  */
-public interface TruckService {
+public interface TruckService extends GenericService<Truck>  {
     /**
      * Gets truck by number.
      * @param number number

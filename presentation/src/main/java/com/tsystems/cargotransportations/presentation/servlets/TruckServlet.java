@@ -29,7 +29,7 @@ public class TruckServlet extends EntityServlet<Truck> {
         String action = getActionParam(request);
         switch (action) {
             case ActionConstants.REFRESH_ACTION: {
-                processRefresh(request, response, ParamConstants.TRUCKS_LIST_PARAM, PageConstants.TRUCKS_LIST_PAGE, truckService.getAllTrucks());
+                processRefresh(request, response, ParamConstants.TRUCKS_PARAM, PageConstants.TRUCKS_LIST_PAGE, truckService.getAllTrucks());
             }
             break;
             case ActionConstants.ADD_ACTION: {

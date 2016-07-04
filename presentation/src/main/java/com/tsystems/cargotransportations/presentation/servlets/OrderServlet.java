@@ -49,7 +49,7 @@ public class OrderServlet extends EntityServlet<Order> {
         String actionParam = getActionParam(request);
         switch (actionParam) {
             case ActionConstants.REFRESH_ACTION: {
-                processRefresh(request, response, ParamConstants.ORDERS_LIST_PARAM, PageConstants.ORDERS_LIST_PAGE, orderService.getAllOrders());
+                processRefresh(request, response, ParamConstants.ORDERS_PARAM, PageConstants.ORDERS_LIST_PAGE, orderService.getAllOrders());
             }
             break;
             case ActionConstants.EDIT_ACTION: {
@@ -236,7 +236,7 @@ public class OrderServlet extends EntityServlet<Order> {
                     String orderNumberParam = request.getParameter(ParamConstants.ORDER_NUMBER_PARAM);
                     int orderNumber = Integer.parseInt(orderNumberParam);
                     orderService.deleteByNumber(orderNumber);
-                    request.setAttribute(ParamConstants.ORDERS_LIST_PARAM, orderService.getAllOrders());
+                    request.setAttribute(ParamConstants.ORDERS_PARAM, orderService.getAllOrders());
                     request.getSession().setAttribute(ParamConstants.SUCCESS_MESSAGE_PARAM, MessageConstants.ORDER_IS_DELETED);
                     response.sendRedirect(request.getContextPath() + PageConstants.CONFIRMATION_ADMIN_PAGE);
                 } catch (NumberFormatException ex) {

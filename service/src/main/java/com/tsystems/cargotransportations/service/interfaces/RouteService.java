@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * Contains business-logic operations that bound with route.
  */
-public interface RouteService {
+public interface RouteService extends GenericService<Route>  {
     /**
      * Gets route by number.
      * @param routeNumber route number

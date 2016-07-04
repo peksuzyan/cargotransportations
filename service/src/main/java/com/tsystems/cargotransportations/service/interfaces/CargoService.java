@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Contains business-logic operations that bound with cargo.
  */
-public interface CargoService {
+public interface CargoService extends GenericService<Cargo> {
     /**
      * Gets cargo by number.
      * @param cargoNumber cargoNumber
@@ -38,8 +38,6 @@ public interface CargoService {
      * @param arrivalCity arrival city
      */
     void createCargo(String name, double weight, String departureCity, String arrivalCity);
-
-    void createCargo(Cargo cargo);
 
     /**
      * Gets a list of all existing cargoes.

@@ -1,18 +1,17 @@
 package com.tsystems.cargotransportations.dao.implementation;
 
 import com.tsystems.cargotransportations.dao.interfaces.GenericDao;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
  * Common DAO implementation for entities management.
  * @param <T>
  */
-@Repository("genericDao")
-abstract class GenericDaoImpl<T> implements GenericDao<T> {
+public abstract class GenericDaoImpl<T> implements GenericDao<T> {
     /**
      * Instance of EntityManager produced by EntityManagerFactory.
      */
@@ -64,5 +63,18 @@ abstract class GenericDaoImpl<T> implements GenericDao<T> {
     public List<T> getAll() {
         String query = String.format("FROM %s", genericClass.getSimpleName());
         return getEntityManager().createQuery(query, genericClass).getResultList();
+    }
+
+    @Override
+    public List<T> getAllByRange(int firstItemNumber,
+                                 int itemsCount,
+                                 String sortBy,
+                                 String sortTo) {
+        String query = String.format(
+                "FROM %s ORDER BY %s %s", genericClass.getSimpleName(), sortBy, sortTo);
+        TypedQuery<T> typedQuery = getEntityManager().createQuery(query, genericClass);
+        typedQuery.setFirstResult(firstItemNumber);
+        typedQuery.setMaxResults(itemsCount);
+        return typedQuery.getResultList();
     }
 }

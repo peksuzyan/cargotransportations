@@ -1,5 +1,6 @@
 package com.tsystems.cargotransportations.service.implementation;
 
+import com.tsystems.cargotransportations.dao.interfaces.GenericDao;
 import com.tsystems.cargotransportations.dao.interfaces.RouteDao;
 import com.tsystems.cargotransportations.entity.Cargo;
 import com.tsystems.cargotransportations.entity.Order;
@@ -17,12 +18,17 @@ import java.util.*;
  * Implements business-logic operations that bound with route.
  */
 @Service("routeService")
-public class RouteServiceImpl implements RouteService {
+public class RouteServiceImpl extends GenericServiceImpl<Route> implements RouteService {
     /**
      * Instance of implementation of RouteDao class.
      */
     @Autowired
     private RouteDao routeDao;
+
+    @Override
+    GenericDao<Route> getDao() {
+        return routeDao;
+    }
 
     @Transactional(readOnly = true)
     @Override
