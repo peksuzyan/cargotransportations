@@ -42,7 +42,7 @@ public class OrderDaoImpl extends GenericDaoImpl<Order> implements OrderDao {
         System.out.println(obj1.getEntityManager());
 
         GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
-        ctx.load("classpath:applicationContext-dao.xml");
+        ctx.load("classpath:dao-context.xml");
         ctx.refresh();
         OrderDaoImpl orderDaoImpl = ctx.getBean("orderDao", OrderDaoImpl.class);
         System.out.println("--------------------------------");

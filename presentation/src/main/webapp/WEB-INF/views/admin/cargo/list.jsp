@@ -6,6 +6,7 @@
     <title>Cargoes</title>
 </head>
     <body>
+    Hello World!
         <c:if test="${not empty cargoes}">
             <table>
                 <c:forEach var="cargo" items="${cargoes}">
