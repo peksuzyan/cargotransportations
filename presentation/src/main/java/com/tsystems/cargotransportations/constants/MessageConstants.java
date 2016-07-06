@@ -189,5 +189,22 @@ public class MessageConstants {
      */
     public static final String PERMISSION_DENIED = "The resource is unreachable - permission denied.";
 
+    /* <-----  Codes of Properties ----->*/
 
+    /**
+     * Represents code of property-file when editing cargo is success.
+     */
+    public static final String CODE_CARGO_EDIT_SUCCESS = "cargo_edit_success";
+    /**
+     * Represents code of property-file when editing cargo is error.
+     */
+    public static final String CODE_CARGO_EDIT_ERROR = "cargo_edit_error";
+    /**
+     * Represents code of property-file when adding cargo is success.
+     */
+    public static final String CODE_CARGO_ADD_SUCCESS = "cargo_add_success";
+    /**
+     * Represents code of property-file when adding cargo is error.
+     */
+    public static final String CODE_CARGO_ADD_ERROR = "cargo_add_error";
 }

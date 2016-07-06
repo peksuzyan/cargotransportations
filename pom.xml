@@ -55,6 +55,7 @@
         <app.groupId>com.tsystems.cargotransportations</app.groupId>
         <app.version>1.0-SNAPSHOT</app.version>
         <app.finalName>cargotransportations</app.finalName>
+        <spring.version>4.2.6.RELEASE</spring.version>
     </properties>
 
 </project>

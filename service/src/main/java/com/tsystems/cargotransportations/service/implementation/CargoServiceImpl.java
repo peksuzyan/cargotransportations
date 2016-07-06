@@ -8,6 +8,7 @@ import com.tsystems.cargotransportations.entity.CargoStatus;
 import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.service.interfaces.CargoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

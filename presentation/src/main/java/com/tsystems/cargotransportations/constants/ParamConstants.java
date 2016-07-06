@@ -70,6 +70,16 @@ public class ParamConstants {
     public static final String ERROR_MESSAGE_PARAM = "error_message";
 
     /**
+     * Necessary for setting success about an operation status by param name.
+     */
+    public static final String SUCCESS_PARAM = "success";
+
+    /**
+     * Necessary for setting error about an operation status by param name.
+     */
+    public static final String ERROR_PARAM = "error";
+
+    /**
      * Necessary for setting or getting trucks list by param name.
      */
     public static final String TRUCKS_PARAM = "trucks";
@@ -218,4 +228,9 @@ public class ParamConstants {
      * Necessary for setting or getting user by param name.
      */
     public static final String USER_PARAM = "user";
+
+    /**
+     * Necessary for setting or getting message by param name.
+     */
+    public static final String MESSAGE_PARAM = "message";
 }

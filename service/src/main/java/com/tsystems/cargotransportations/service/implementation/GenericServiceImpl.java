@@ -16,20 +16,20 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
      */
     abstract GenericDao<T> getDao();
 
-    @Override
     @Transactional
+    @Override
     public void create(T object) {
         getDao().create(object);
     }
 
-    @Override
     @Transactional
+    @Override
     public void update(T object) {
         getDao().update(object);
     }
 
-    @Override
     @Transactional
+    @Override
     public void delete(T object) {
         getDao().delete(object);
     }

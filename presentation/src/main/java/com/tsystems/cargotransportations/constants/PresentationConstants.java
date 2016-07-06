@@ -7,6 +7,11 @@ public class PresentationConstants {
     public static final String REDIRECT = "redirect:";
 
     /**
+     * Keyword for slash symbol.
+     */
+    public static final String SLASH = "/";
+
+    /**
      * Subdirectory of personal entity page.
      */
     public static final String NUMBER_DIR = "/{number}";
@@ -41,7 +46,7 @@ public class PresentationConstants {
     /**
      * Subdirectory of entity page.
      */
-    public static final String CARGO_DIR = "/cargo";
+    public static final String CARGO_DIR = "/cargoes";
 
     /**
      * Path to entity redirect page.
@@ -73,7 +78,7 @@ public class PresentationConstants {
     /**
      * Subdirectory of entity page.
      */
-    public static final String DRIVER_DIR = "/driver";
+    public static final String DRIVER_DIR = "/drivers";
 
     /**
      * Path to entity redirect page.
@@ -100,7 +105,7 @@ public class PresentationConstants {
     /**
      * Subdirectory of entity page.
      */
-    public static final String TRUCK_DIR = "/truck";
+    public static final String TRUCK_DIR = "/trucks";
 
     /**
      * Path to entity redirect page.
@@ -127,7 +132,7 @@ public class PresentationConstants {
     /**
      * Subdirectory of entity page.
      */
-    public static final String USER_DIR = "/user";
+    public static final String USER_DIR = "/users";
 
     /**
      * Path to entity redirect page.
@@ -154,7 +159,7 @@ public class PresentationConstants {
     /**
      * Subdirectory of entity page.
      */
-    public static final String ROUTE_DIR = "/route";
+    public static final String ROUTE_DIR = "/routes";
 
     /**
      * Path to entity redirect page.
@@ -181,7 +186,7 @@ public class PresentationConstants {
     /**
      * Subdirectory of entity page.
      */
-    public static final String ORDER_DIR = "/order";
+    public static final String ORDER_DIR = "/orders";
 
     /**
      * Path to entity redirect page.
