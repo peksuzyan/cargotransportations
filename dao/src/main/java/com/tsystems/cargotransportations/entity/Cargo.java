@@ -60,6 +60,45 @@ public class Cargo implements Serializable {
     public Cargo() {}
 
     /**
+     * Classic equals method.
+     * @param o passed object
+     * @return result of comparison
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Cargo cargo = (Cargo) o;
+
+        if (id != cargo.id) return false;
+        if (Double.compare(cargo.weight, weight) != 0) return false;
+        if (!name.equals(cargo.name)) return false;
+        if (!departureCity.equals(cargo.departureCity)) return false;
+        if (!arrivalCity.equals(cargo.arrivalCity)) return false;
+        return status == cargo.status;
+
+    }
+
+    /**
+     * Classic hashCode method.
+     * @return hashCode of given object
+     */
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = id;
+        result = 31 * result + name.hashCode();
+        temp = Double.doubleToLongBits(weight);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + departureCity.hashCode();
+        result = 31 * result + arrivalCity.hashCode();
+        result = 31 * result + status.hashCode();
+        return result;
+    }
+
+    /**
      * Gets id.
      *
      * @return id id
