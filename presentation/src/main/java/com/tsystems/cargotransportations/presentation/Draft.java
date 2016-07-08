@@ -1,5 +1,6 @@
 package com.tsystems.cargotransportations.presentation;
 
+import com.tsystems.cargotransportations.entity.Cargo;
 import com.tsystems.cargotransportations.service.interfaces.CargoService;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
@@ -12,5 +13,7 @@ public class Draft {
         ctx.refresh();
 
         CargoService cargoService = ctx.getBean("cargoService", CargoService.class);
+        Cargo cargo = cargoService.read(10);
+        System.out.println(cargo.getName());
     }
 }
