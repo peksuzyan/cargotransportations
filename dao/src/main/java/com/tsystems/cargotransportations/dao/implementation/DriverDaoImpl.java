@@ -4,6 +4,8 @@ import com.tsystems.cargotransportations.dao.interfaces.DriverDao;
 import com.tsystems.cargotransportations.entity.Driver;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -14,6 +16,17 @@ public class DriverDaoImpl extends GenericDaoImpl<Driver> implements DriverDao {
 
     public DriverDaoImpl() {
         super(Driver.class);
+    }
+
+    /**
+     * Injected instance of entity manager.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    EntityManager getEntityManager() {
+        return entityManager;
     }
 
     @Override

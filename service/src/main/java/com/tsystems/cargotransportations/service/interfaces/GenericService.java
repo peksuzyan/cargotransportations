@@ -10,6 +10,13 @@ public interface GenericService<T> {
     void create(T object);
 
     /**
+     * Gets object by passed id.
+     * @param id id
+     * @return object
+     */
+    T read(int id);
+
+    /**
      * Updates passed object in the dao layer.
      * @param object object
      */

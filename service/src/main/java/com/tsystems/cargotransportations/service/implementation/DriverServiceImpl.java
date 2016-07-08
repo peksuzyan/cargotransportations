@@ -41,19 +41,16 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
     @Autowired
     private OrderDao orderDao;
 
-    @Transactional(readOnly = true)
     @Override
     public Driver getByNumber(int driverNumber) {
         return driverDao.getByNumber(driverNumber);
     }
 
-    @Transactional
     @Override
     public void deleteByNumber(int driverNumber) {
         driverDao.delete(driverDao.getByNumber(driverNumber));
     }
 
-    @Transactional
     @Override
     public void changeByNumber(int driverNumber, String firstName, String lastName) {
         Driver driver = driverDao.getByNumber(driverNumber);
@@ -62,7 +59,6 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
         driverDao.update(driver);
     }
 
-    @Transactional
     @Override
     public void createDriver(String firstName, String lastName, String city) {
         Driver driver = new Driver();
@@ -75,13 +71,11 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
         driver.setNumber(driver.getId() + 100);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Driver> getAllDrivers() {
         return driverDao.getAll();
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Driver> getSuitableDriversByOrder(Order order) {
         if (order.getTruck() == null)

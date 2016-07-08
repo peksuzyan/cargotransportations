@@ -22,6 +22,17 @@ public class OrderDaoImpl extends GenericDaoImpl<Order> implements OrderDao {
         super(Order.class);
     }
 
+    /**
+     * Injected instance of entity manager.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    EntityManager getEntityManager() {
+        return entityManager;
+    }
+
     @Override
     public Order getByNumber(int number) {
         String query = String.format(

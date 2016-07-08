@@ -4,6 +4,8 @@ import com.tsystems.cargotransportations.dao.interfaces.RouteDao;
 import com.tsystems.cargotransportations.entity.Route;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -14,6 +16,17 @@ public class RouteDaoImpl extends GenericDaoImpl<Route> implements RouteDao {
 
     public RouteDaoImpl() {
         super(Route.class);
+    }
+
+    /**
+     * Injected instance of entity manager.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    EntityManager getEntityManager() {
+        return entityManager;
     }
 
     @Override

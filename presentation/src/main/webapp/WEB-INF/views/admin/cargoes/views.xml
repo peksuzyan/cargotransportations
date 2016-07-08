@@ -4,6 +4,7 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
+    <!-- Cargo tiles mapping -->
     <definition extends="default" name="/cargoes/list">
         <put-attribute name="body" value="/WEB-INF/views/admin/cargoes/list.jsp" />
     </definition>
@@ -12,5 +13,8 @@
     </definition>
     <definition extends="default" name="/cargoes/add">
         <put-attribute name="body" value="/WEB-INF/views/admin/cargoes/show.jsp" />
+    </definition>
+    <definition extends="default" name="/cargoes/delete">
+        <put-attribute name="body" value="/WEB-INF/views/admin/cargoes/confirm.jsp" />
     </definition>
 </tiles-definitions>

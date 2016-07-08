@@ -3,6 +3,8 @@ package com.tsystems.cargotransportations.presentation.controllers;
 import com.tsystems.cargotransportations.entity.Cargo;
 import com.tsystems.cargotransportations.service.interfaces.CargoService;
 import com.tsystems.cargotransportations.util.Message;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,7 @@ import static com.tsystems.cargotransportations.constants.PresentationConstants.
 @RequestMapping(CARGO_DIR)
 @Controller
 public class CargoController {
+
     /**
      * Injected instance of service class for entities management.
      */
@@ -46,21 +49,20 @@ public class CargoController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model uiModel) {
-        List<Cargo> cargoes = cargoService.getAll();
-        uiModel.addAttribute(CARGOES_PARAM, cargoes);
+        uiModel.addAttribute(CARGOES_PARAM, cargoService.getAll());
         return CARGO_LIST_PATH;
     }
 
     /**
-     * Gets requests to show edit form with specified entity by number.
-     * @param number entity number
+     * Gets requests to show edit form with specified entity by id.
+     * @param id entity id
      * @param uiModel UI model
      * @return path to logic page of editing form
      */
-    @RequestMapping(value = NUMBER_DIR, method = RequestMethod.GET)
-    public String editForm(@PathVariable(NUMBER_PARAM) int number, Model uiModel) {
-        Cargo cargo = cargoService.getByNumber(number);
-        uiModel.addAttribute(CARGO_PARAM, cargo);
+    @RequestMapping(value = ID_DIR, method = RequestMethod.GET)
+    public String editForm(@PathVariable(ID_PARAM) int id,
+                           Model uiModel) {
+        uiModel.addAttribute(CARGO_PARAM, cargoService.read(id));
         return CARGO_EDIT_PATH;
     }
 
@@ -70,7 +72,7 @@ public class CargoController {
      * @param uiModel UI model
      * @return redirect path to logic page of editing form
      */
-    @RequestMapping(value = NUMBER_DIR, method = RequestMethod.POST)
+    @RequestMapping(value = ID_DIR, method = RequestMethod.POST)
     public String edit(@ModelAttribute(CARGO_PARAM) Cargo cargo,
                        Model uiModel,
                        BindingResult bindingResult,
@@ -92,29 +94,34 @@ public class CargoController {
     }
 
     /**
-     * Gets requests to show delete form with specified entity by number.
-     * @param number number
+     * Gets requests to show delete form with specified entity by id.
+     * @param id id
      * @param uiModel UI model
      * @return path to logic page of deleting form
      */
-    @RequestMapping(value = NUMBER_DIR, params = DELETE_ACTION, method = RequestMethod.GET)
-    public String deleteForm(@PathVariable(NUMBER_PARAM) int number, Model uiModel) {
-        Cargo cargo = cargoService.getByNumber(number);
-        uiModel.addAttribute(CARGO_PARAM, cargo);
+    @RequestMapping(value = ID_DIR, params = DELETE_ACTION, method = RequestMethod.GET)
+    public String deleteForm(@PathVariable(ID_PARAM) int id,
+                             Model uiModel) {
+        uiModel.addAttribute(CARGO_PARAM, cargoService.read(id));
         return CARGO_DELETE_PATH;
     }
 
     /**
-     * Gets requests to delete specified entity by number.
-     * @param number number
+     * Gets requests to delete specified entity by id.
+     * @param id id
      * @param uiModel UI model
      * @return redirect path to logic page of entities list
      */
-    @RequestMapping(value = NUMBER_DIR, params = DELETE_ACTION, method = RequestMethod.POST)
-    public String delete(@PathVariable(NUMBER_PARAM) int number, Model uiModel) {
-        Cargo cargo = cargoService.getByNumber(number);
-        cargoService.delete(cargo);
+    @RequestMapping(value = ID_DIR, params = DELETE_ACTION, method = RequestMethod.POST)
+    public String delete(@PathVariable(ID_PARAM) int id,
+                         Model uiModel,
+                         RedirectAttributes redirectAttributes,
+                         Locale locale) {
+        cargoService.delete(cargoService.read(id));
         uiModel.asMap().clear();
+        Message message = new Message(SUCCESS_PARAM,
+                messageSource.getMessage(CODE_CARGO_DELETE_SUCCESS, new Object[]{}, locale));
+        redirectAttributes.addFlashAttribute(MESSAGE_PARAM, message);
         return CARGO_REDIRECT_PATH;
     }
 

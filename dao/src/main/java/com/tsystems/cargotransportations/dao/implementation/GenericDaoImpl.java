@@ -13,10 +13,10 @@ import java.util.List;
  */
 public abstract class GenericDaoImpl<T> implements GenericDao<T> {
     /**
-     * Instance of EntityManager produced by EntityManagerFactory.
+     * Getter of the entity manager.
+     * @return entityManager
      */
-    @PersistenceContext
-    private EntityManager entityManager;
+    abstract EntityManager getEntityManager();
 
     /**
      * The Class object of parametrized entity.
@@ -31,14 +31,6 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
         this.genericClass = genericClass;
     }
 
-    /**
-     * Getter of the entity manager for using by child classes.
-     * @return entityManager
-     */
-    EntityManager getEntityManager() {
-        return entityManager;
-    }
-
     @Override
     public void create(T object) {
         getEntityManager().persist(object);
@@ -51,12 +43,17 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
 
     @Override
     public void update(T object) {
-        getEntityManager().persist(object);
+        if (!getEntityManager().contains(object)) {
+            getEntityManager().merge(object);
+        }
+        getEntityManager().flush();
     }
 
     @Override
     public void delete(T object) {
-        getEntityManager().remove(object);
+        getEntityManager().remove(
+                getEntityManager().contains(object) ?
+                        object : getEntityManager().merge(object));
     }
 
     @Override

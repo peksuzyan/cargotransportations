@@ -8,7 +8,6 @@ import com.tsystems.cargotransportations.entity.CargoStatus;
 import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.service.interfaces.CargoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,38 +17,40 @@ import java.util.List;
 /**
  * Implements business-logic operations that bound with cargo.
  */
+@Transactional
 @Service("cargoService")
 public class CargoServiceImpl extends GenericServiceImpl<Cargo> implements CargoService {
-    /**
-     * Instance of implementation of DriverDao class.
-     */
-    @Autowired
-    private CargoDao cargoDao;
 
     @Override
     GenericDao<Cargo> getDao() {
         return cargoDao;
     }
-
+    /**
+     * Instance of implementation of DriverDao class.
+     */
+    @Autowired
+    private CargoDao cargoDao;
     /**
      * Instance of implementation of Cargo class.
      */
     @Autowired
     private OrderDao orderDao;
 
-    @Transactional(readOnly = true)
+    @Override
+    public void createCargo(Cargo cargo) {
+        cargoDao.create(cargo);
+    }
+
     @Override
     public Cargo getByNumber(int cargoNumber) {
         return cargoDao.getByNumber(cargoNumber);
     }
 
-    @Transactional
     @Override
     public void deleteByNumber(int cargoNumber) {
         cargoDao.delete(cargoDao.getByNumber(cargoNumber));
     }
 
-    @Transactional
     @Override
     public void changeByNumber(int cargoNumber, String name, double weight) {
         Cargo cargo = cargoDao.getByNumber(cargoNumber);
@@ -58,7 +59,6 @@ public class CargoServiceImpl extends GenericServiceImpl<Cargo> implements Cargo
         cargoDao.update(cargo);
     }
 
-    @Transactional
     @Override
     public void createCargo(String name, double weight, String departureCity, String arrivalCity) {
         Cargo cargo = new Cargo();
@@ -71,8 +71,6 @@ public class CargoServiceImpl extends GenericServiceImpl<Cargo> implements Cargo
         cargo.setNumber(cargo.getId() + 1000);
     }
 
-    // need to delete from the service!
-    @Transactional(readOnly = true)
     @Override
     public List<Cargo> getAllCargoes() {
         return cargoDao.getAll();

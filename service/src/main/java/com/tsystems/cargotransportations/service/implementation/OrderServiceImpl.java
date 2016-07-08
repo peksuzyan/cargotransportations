@@ -51,19 +51,16 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
         return orderDao;
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Order getByNumber(int orderNumber) {
         return orderDao.getByNumber(orderNumber);
     }
 
-    @Transactional
     @Override
     public void deleteByNumber(int orderNumber) {
         orderDao.delete(getByNumber(orderNumber));
     }
 
-    @Transactional
     @Override
     public Order createOrder() {
         final Order order = new Order();
@@ -74,7 +71,6 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
         return order;
     }
 
-    @Transactional
     @Override
     public Order addCargoByNumber(int orderNumber, int cargoNumber) {
         final Order order = getByNumber(orderNumber);
@@ -87,7 +83,6 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
         return order;
     }
 
-    @Transactional
     @Override
     public Order addDriverByNumber(int orderNumber, int driverNumber) {
         final Order order = getByNumber(orderNumber);
@@ -100,7 +95,6 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
         return order;
     }
 
-    @Transactional
     @Override
     public Order assignTruckByNumber(int orderNumber, String truckNumber) {
         final Order order = getByNumber(orderNumber);
@@ -110,7 +104,6 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
         return order;
     }
 
-    @Transactional
     @Override
     public Order assignRouteByNumber(int orderNumber, int routeNumber) {
         final Order order = getByNumber(orderNumber);
@@ -120,7 +113,6 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
         return order;
     }
 
-    @Transactional
     @Override
     public void assignRouteByRoutePoints(int orderNumber, List<String> routePoints) {
         final Order order = getByNumber(orderNumber);
@@ -132,7 +124,6 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
         orderDao.update(order);
     }
 
-    @Transactional
     @Override
     public Order excludeCargoByNumber(int orderNumber, int cargoNumber) {
         final Order order = getByNumber(orderNumber);
@@ -144,7 +135,6 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
         return order;
     }
 
-    @Transactional
     @Override
     public Order excludeDriverByNumber(int orderNumber, int driverNumber) {
         final Order order = getByNumber(orderNumber);
@@ -156,7 +146,6 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
         return order;
     }
 
-    @Transactional
     @Override
     public void excludeAllDriver(int orderNumber) {
         final Order order = getByNumber(orderNumber);
@@ -166,7 +155,6 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
         }
     }
 
-    @Transactional
     @Override
     public Order refuseTruck(int orderNumber) {
         final Order order = getByNumber(orderNumber);
@@ -175,7 +163,6 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
         return order;
     }
 
-    @Transactional
     @Override
     public Order refuseRoute(int orderNumber) {
         final Order order = getByNumber(orderNumber);
@@ -184,13 +171,11 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
         return order;
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Order> getAllOrders() {
         return orderDao.getAll();
     }
 
-    @Transactional
     @Override
     public void sendOrderToPerforming(int orderNumber) {
         final Order order = getByNumber(orderNumber);
@@ -206,7 +191,6 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
         orderDao.update(order);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Order getPerformingOrderByDriverNumber(int driverNumber) {
         List<Order> orders = orderDao.getAllByStatus(OrderStatus.PERFORMING);

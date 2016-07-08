@@ -29,13 +29,11 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         return userDao;
     }
 
-    @Transactional
     @Override
     public void deleteByName(String name) {
         userDao.delete(getByName(name));
     }
 
-    @Transactional
     @Override
     public void changeByName(String name, String password, UserRole role) {
         User user = userDao.getByName(name);
@@ -44,13 +42,11 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         userDao.update(user);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public User getByName(String name) {
         return userDao.getByName(name);
     }
 
-    @Transactional
     @Override
     public void createUser(String name, String password, UserRole role, int driverNumber) {
         User user = new User();
@@ -62,26 +58,22 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         user.setDriverNumber(driverNumber);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<User> getAllUsers() {
         return userDao.getAll();
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<User> getAllByRole(UserRole role) {
         return userDao.getAllByRole(role);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public boolean isAuthenticatedUser(String name, String password) {
         User user = userDao.getByName(name);
         return user != null && user.getPassword().equals(password);
     }
 
-    @Transactional
     @Override
     public void changePasswordByName(String name, String password) {
         User user = userDao.getByName(name);

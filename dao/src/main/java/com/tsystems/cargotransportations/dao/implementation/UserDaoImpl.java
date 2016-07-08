@@ -5,6 +5,8 @@ import com.tsystems.cargotransportations.entity.User;
 import com.tsystems.cargotransportations.entity.UserRole;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -15,6 +17,17 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
 
     public UserDaoImpl() {
         super(User.class);
+    }
+
+    /**
+     * Injected instance of entity manager.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    EntityManager getEntityManager() {
+        return entityManager;
     }
 
     @Override

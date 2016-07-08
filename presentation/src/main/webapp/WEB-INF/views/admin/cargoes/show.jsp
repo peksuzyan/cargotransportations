@@ -5,7 +5,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <spring:message code="title_passport_cargo" var="titleCargoPassport" />
-<spring:message code="cargo_number" var="cargoNumber" />
+<spring:message code="cargo_id" var="cargoId" />
 <spring:message code="cargo_name" var="cargoName" />
 <spring:message code="cargo_weight" var="cargoWeight" />
 <spring:message code="cargo_departure_city" var="cargoDepartureCity" />
@@ -14,7 +14,7 @@
 <spring:message code="app_button_save" var="appButtonSave" />
 <spring:message code="app_button_cancel" var="appButtonCancel" />
 
-<c:set var="number" value="number" />
+<c:set var="id" value="id" />
 <c:set var="name" value="name" />
 <c:set var="weight" value="weight" />
 <c:set var="depCity" value="departureCity" />
@@ -25,9 +25,9 @@
 
 <form:form method="post" modelAttribute="cargo">
 
-    <form:label path="${number}" >${cargoNumber}:</form:label>
-    <form:input path="${number}" value="${cargo.number}" />
-    <div><form:errors path="${number}" /></div>
+    <form:label path="${id}" >${cargoId}:</form:label>
+    <form:input path="${id}" value="${cargo.id}" />
+    <div><form:errors path="${id}" /></div>
 
     <form:label path="${name}" >${cargoName}:</form:label>
     <form:input path="${name}" value="${cargo.name}" />
@@ -50,6 +50,6 @@
     <div><form:errors path="${status}" /></div>
 
     <button type="submit">${appButtonSave}</button>
-    <button type="reset">${appButtonCancel}</button>
+    <button><a href="/cargoes">${appButtonCancel}</a></button>
 
 </form:form>

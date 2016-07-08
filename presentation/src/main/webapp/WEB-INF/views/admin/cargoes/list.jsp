@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 <spring:message code="title_cargoes" var="titleCargoes"/>
-<spring:message code="cargo_number" var="cargoNumber" />
+<spring:message code="cargo_id" var="cargoId" />
 <spring:message code="cargo_name" var="cargoName" />
 <spring:message code="cargo_weight" var="cargoWeight" />
 <spring:message code="cargo_departure_city" var="cargoDepartureCity" />
@@ -32,7 +32,7 @@
     <table>
         <thead>
             <tr>
-                <th>${cargoNumber}</th>
+                <th>${cargoId}</th>
                 <th>${cargoName}</th>
                 <th>${cargoWeight}</th>
                 <th>${cargoDepartureCity}</th>
@@ -45,14 +45,14 @@
         <tbody>
             <c:forEach var="cargo" items="${cargoes}">
                 <tr>
-                    <td>${cargo.number}</td>
+                    <td>${cargo.id}</td>
                     <td>${cargo.name}</td>
                     <td>${cargo.weight}</td>
                     <td>${cargo.departureCity}</td>
                     <td>${cargo.arrivalCity}</td>
                     <td>${cargo.status}</td>
-                    <td><a href="/cargoes/${cargo.number}">${appButtonEdit}</a></td>
-                    <td><a href="/cargoes/${cargo.number}?delete">${appButtonDelete}</a></td>
+                    <td><a href="/cargoes/${cargo.id}">${appButtonEdit}</a></td>
+                    <td><a href="/cargoes/${cargo.id}?delete">${appButtonDelete}</a></td>
                 </tr>
             </c:forEach>
         </tbody>

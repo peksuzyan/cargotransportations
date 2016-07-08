@@ -1,65 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans:beans xmlns="http://www.springframework.org/schema/mvc"
-             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xmlns:beans="http://www.springframework.org/schema/beans"
-             xmlns:context="http://www.springframework.org/schema/context"
-             xsi:schemaLocation="
-               http://www.springframework.org/schema/mvc
-               http://www.springframework.org/schema/mvc/spring-mvc.xsd
-               http://www.springframework.org/schema/beans
-               http://www.springframework.org/schema/beans/spring-beans.xsd
-               http://www.springframework.org/schema/context
-               http://www.springframework.org/schema/context/spring-context.xsd">
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <annotation-driven />
+    <context:component-scan base-package="com.tsystems.cargotransportations.presentation" />
 
-    <annotation-driven validator="validator" />
+    <context:annotation-config />
 
-    <resources mapping="/resources/**" location="/" />
+    <mvc:annotation-driven />
 
-    <default-servlet-handler />
+    <mvc:resources mapping="/resources/**" location="/" />
 
-    <beans:bean id="tilesViewResolver"
-                class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-        <beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
-    </beans:bean>
+    <mvc:default-servlet-handler />
 
-    <beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
-        <beans:property name="definitions">
-            <beans:list>
-                <beans:value>/WEB-INF/layouts/layouts.xml</beans:value>
-                <beans:value>/WEB-INF/views/**/views.xml</beans:value>
-            </beans:list>
-        </beans:property>
-    </beans:bean>
+    <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+    </bean>
 
-    <interceptors>
-        <beans:bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-            <beans:property name="paramName" value="lang" />
-        </beans:bean>
-    </interceptors>
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>WEB-INF/layouts/layouts.xml</value>
+                <value>WEB-INF/views/**/views.xml</value>
+            </list>
+        </property>
+    </bean>
 
-    <beans:bean id="messageSource"
-                class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <beans:property name="basenames">
-            <beans:list>
-                <beans:value>WEB-INF/i18n/application</beans:value>
-                <beans:value>WEB-INF/i18n/message</beans:value>
-            </beans:list>
-        </beans:property>
-        <beans:property name="fallbackToSystemLocale" value="false" />
-    </beans:bean>
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang" />
+        </bean>
+    </mvc:interceptors>
 
-    <beans:bean id="localeResolver"
-                class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
-        <beans:property name="cookieName" value="locale" />
-    </beans:bean>
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>WEB-INF/i18n/application</value>
+                <value>WEB-INF/i18n/message</value>
+            </list>
+        </property>
+        <property name="fallbackToSystemLocale" value="false" />
+    </bean>
 
-    <beans:bean id="validator"
-                class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
-        <beans:property name="validationMessageSource" ref="messageSource" />
-    </beans:bean>
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="cookieName" value="locale" />
+    </bean>
 
-    <context:component-scan base-package="com.tsystems.cargotransportations.presentation"/>
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="validationMessageSource" ref="messageSource" />
+    </bean>
 
-</beans:beans>
+    <mvc:annotation-driven validator="validator" />
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+</beans>

@@ -12,9 +12,9 @@
 <spring:message code="title_users" var="titleUsers" />
 
 <h3>${appCategories}</h3>
-<a href="/${titleCargoes}"><h3>${titleCargoes}</h3></a>
-<a href="/${titleDrivers}"><h3>${titleDrivers}</h3></a>
-<a href="/${titleTrucks}"><h3>${titleTrucks}</h3></a>
-<a href="/${titleOrders}"><h3>${titleOrders}</h3></a>
-<a href="/${titleRoutes}"><h3>${titleRoutes}</h3></a>
-<a href="/${titleUsers}"><h3>${titleUsers}</h3></a>
+<a href="/cargoes"><h3>${titleCargoes}</h3></a>
+<a href="/drivers"><h3>${titleDrivers}</h3></a>
+<a href="/trucks"><h3>${titleTrucks}</h3></a>
+<a href="/orders"><h3>${titleOrders}</h3></a>
+<a href="/routes"><h3>${titleRoutes}</h3></a>
+<a href="/users"><h3>${titleUsers}</h3></a>

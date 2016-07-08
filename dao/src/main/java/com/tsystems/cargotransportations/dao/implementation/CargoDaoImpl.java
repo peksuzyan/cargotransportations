@@ -4,6 +4,8 @@ import com.tsystems.cargotransportations.dao.interfaces.CargoDao;
 import com.tsystems.cargotransportations.entity.Cargo;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 /**
@@ -16,6 +18,18 @@ public class CargoDaoImpl extends GenericDaoImpl<Cargo> implements CargoDao {
         super(Cargo.class);
     }
 
+    /**
+     * Injected instance of entity manager.
+     */
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @Override
+    EntityManager getEntityManager() {
+        return entityManager;
+    }
+
+    @Deprecated
     @Override
     public Cargo getByNumber(int number) {
         String query = String.format(

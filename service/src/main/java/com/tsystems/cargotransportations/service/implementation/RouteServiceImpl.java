@@ -30,19 +30,16 @@ public class RouteServiceImpl extends GenericServiceImpl<Route> implements Route
         return routeDao;
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Route getByNumber(int routeNumber) {
         return routeDao.getByNumber(routeNumber);
     }
 
-    @Transactional
     @Override
     public void deleteByNumber(int routeNumber) {
         routeDao.delete(getByNumber(routeNumber));
     }
 
-    @Transactional
     @Override
     public void createRoute(int duration, String... cities) {
         if (cities != null) {
@@ -60,7 +57,6 @@ public class RouteServiceImpl extends GenericServiceImpl<Route> implements Route
         }
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Route> getAllRoutes() {
         return routeDao.getAll();
@@ -77,7 +73,6 @@ public class RouteServiceImpl extends GenericServiceImpl<Route> implements Route
         return routePoints;
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Set<List<String>> getRoutesCases(List<Cargo> cargoes) {
         Set<String> routePoints = new HashSet<>();
@@ -124,7 +119,6 @@ public class RouteServiceImpl extends GenericServiceImpl<Route> implements Route
         return routesCases;
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Route> getSuitableRoutesByOrder(Order order) {
         if (order == null) return Collections.emptyList();

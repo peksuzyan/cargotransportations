@@ -32,19 +32,16 @@ public class TruckServiceImpl extends GenericServiceImpl<Truck> implements Truck
         return truckDao;
     }
 
-    @Transactional(readOnly = true)
     @Override
     public Truck getByNumber(String number) {
         return truckDao.getByNumber(number);
     }
 
-    @Transactional
     @Override
     public void deleteByNumber(String number) {
         truckDao.delete(truckDao.getByNumber(number));
     }
 
-    @Transactional
     @Override
     public void changeByNumber(String number, int people, boolean active, double capacity) {
         Truck truck = truckDao.getByNumber(number);
@@ -54,7 +51,6 @@ public class TruckServiceImpl extends GenericServiceImpl<Truck> implements Truck
         truckDao.update(truck);
     }
 
-    @Transactional
     @Override
     public void createTruck(String number, int people, boolean active, double capacity, String city) {
         Truck truck = new Truck();
@@ -66,13 +62,11 @@ public class TruckServiceImpl extends GenericServiceImpl<Truck> implements Truck
         truck.setCity(city);
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Truck> getAllTrucks() {
         return truckDao.getAll();
     }
 
-    @Transactional(readOnly = true)
     @Override
     public List<Truck> getSuitableTrucksByOrder(Order order) {
         List<Truck> suitableTrucks = new ArrayList<>();

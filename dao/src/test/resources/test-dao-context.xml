@@ -16,7 +16,7 @@
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
         <!--<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />-->
-        <property name="persistenceUnitName" value="cargotransportations" />
+        <property name="persistenceUnitName" value="cargotransportations_test" />
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">

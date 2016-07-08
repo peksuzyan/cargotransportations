@@ -207,4 +207,8 @@ public class MessageConstants {
      * Represents code of property-file when adding cargo is error.
      */
     public static final String CODE_CARGO_ADD_ERROR = "cargo_add_error";
+    /**
+     * Represents code of property-file when deleting cargo is success.
+     */
+    public static final String CODE_CARGO_DELETE_SUCCESS = "cargo_delete_success";
 }

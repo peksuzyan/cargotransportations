@@ -1,7 +1,6 @@
 package com.tsystems.cargotransportations.service.interfaces;
 
 import com.tsystems.cargotransportations.entity.Cargo;
-import com.tsystems.cargotransportations.entity.CargoStatus;
 
 import java.util.List;
 
@@ -9,17 +8,22 @@ import java.util.List;
  * Contains business-logic operations that bound with cargo.
  */
 public interface CargoService extends GenericService<Cargo> {
+
+    @Deprecated
+    void createCargo(Cargo cargo);
     /**
      * Gets cargo by number.
      * @param cargoNumber cargoNumber
      * @return cargo
      */
+    @Deprecated
     Cargo getByNumber(int cargoNumber);
 
     /**
      * Deletes cargo by number.
      * @param cargoNumber cargo number
      */
+    @Deprecated
     void deleteByNumber(int cargoNumber);
 
     /**
@@ -28,6 +32,7 @@ public interface CargoService extends GenericService<Cargo> {
      * @param name name for users
      * @param weight weight of a cargo
      */
+    @Deprecated
     void changeByNumber(int cargoNumber, String name, double weight);
 
     /**
@@ -37,12 +42,14 @@ public interface CargoService extends GenericService<Cargo> {
      * @param departureCity departure city
      * @param arrivalCity arrival city
      */
+    @Deprecated
     void createCargo(String name, double weight, String departureCity, String arrivalCity);
 
     /**
      * Gets a list of all existing cargoes.
      * @return cargoes list
      */
+    @Deprecated
     List<Cargo> getAllCargoes();
 
     /**
