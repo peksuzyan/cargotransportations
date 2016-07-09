@@ -43,4 +43,13 @@ public class CargoDaoImpl extends GenericDaoImpl<Cargo> implements CargoDao {
         String query = "SELECT c FROM Cargo AS c WHERE c.status = 'PREPARED'";
         return getEntityManager().createQuery(query, Cargo.class).getResultList();
     }
+
+    /**
+     * Sets entityManager.
+     *
+     * @param entityManager entityManager
+     */
+    public void setEntityManager(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 }
