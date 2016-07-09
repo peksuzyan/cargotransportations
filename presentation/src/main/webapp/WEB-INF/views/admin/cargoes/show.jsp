@@ -21,33 +21,51 @@
 <c:set var="arCity" value="arrivalCity" />
 <c:set var="status" value="status" />
 
-<h2>${titleCargoPassport}</h2>
+<h2>
+    ${titleCargoPassport}<c:if test="${cargo.id != 0}"> <kbd>#${cargo.id}</kbd></c:if>
+</h2>
 
 <form:form method="post" modelAttribute="cargo">
 
-    <form:label path="${id}" >${cargoId}:</form:label>
-    <form:input path="${id}" value="${cargo.id}" />
-    <div><form:errors path="${id}" /></div>
+    <c:if test="${cargo.id != 0}">
+        <div>
+            <form:label path="${id}" >${cargoId}:</form:label>
+            <form:input path="${id}" value="${cargo.id}" readonly="true" />
+            <div><form:errors path="${id}" cssClass="error" /></div>
+        </div>
+    </c:if>
 
-    <form:label path="${name}" >${cargoName}:</form:label>
-    <form:input path="${name}" value="${cargo.name}" />
-    <div><form:errors path="${name}" /></div>
+    <div>
+        <form:label path="${name}" >${cargoName}:</form:label>
+        <form:input path="${name}" value="${cargo.name}" />
+        <div><form:errors path="${name}" cssClass="error" /></div>
+    </div>
 
-    <form:label path="${weight}" >${cargoWeight}:</form:label>
-    <form:input path="${weight}" value="${cargo.weight}" />
-    <div><form:errors path="${weight}" /></div>
+    <div>
+        <form:label path="${weight}" >${cargoWeight}:</form:label>
+        <form:input path="${weight}" value="${cargo.weight}" />
+        <div><form:errors path="${weight}" cssClass="error" /></div>
+    </div>
 
-    <form:label path="${depCity}" >${cargoDepartureCity}:</form:label>
-    <form:input path="${depCity}" value="${cargo.departureCity}" />
-    <div><form:errors path="${depCity}" /></div>
+    <div>
+        <form:label path="${depCity}" >${cargoDepartureCity}:</form:label>
+        <form:input path="${depCity}" value="${cargo.departureCity}" />
+        <div><form:errors path="${depCity}" cssClass="error" /></div>
+    </div>
 
-    <form:label path="${arCity}" >${cargoArrivalCity}:</form:label>
-    <form:input path="${arCity}" value="${cargo.arrivalCity}" />
-    <div><form:errors path="${arCity}" /></div>
+    <div>
+        <form:label path="${arCity}" >${cargoArrivalCity}:</form:label>
+        <form:input path="${arCity}" value="${cargo.arrivalCity}" />
+        <div><form:errors path="${arCity}" cssClass="error" /></div>
+    </div>
 
-    <form:label path="${status}" >${cargoStatus}:</form:label>
-    <form:input path="${status}" value="${cargo.status}" />
-    <div><form:errors path="${status}" /></div>
+    <c:if test="${cargo.id != 0}">
+        <div>
+            <form:label path="${status}" >${cargoStatus}:</form:label>
+            <form:input path="${status}" value="${cargo.status}" readonly="true" />
+            <div><form:errors path="${status}" cssClass="error" /></div>
+        </div>
+    </c:if>
 
     <button type="submit">${appButtonSave}</button>
     <button><a href="/cargoes">${appButtonCancel}</a></button>

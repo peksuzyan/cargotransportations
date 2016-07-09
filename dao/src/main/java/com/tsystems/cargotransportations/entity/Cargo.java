@@ -1,14 +1,20 @@
 package com.tsystems.cargotransportations.entity;
 
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Basic class that represents a cargo entity.
  */
 @Entity
 public class Cargo implements Serializable {
-
     /**
      * Identifier of a cargo.
      */
@@ -26,24 +32,29 @@ public class Cargo implements Serializable {
     /**
      * Ordinary name of a cargo for representing to user.
      */
+    @NotEmpty(message = "{validation_cargo_name_NotEmpty}")
     @Column(name = "name")
     private String name;
 
     /**
      * Weight of a cargo.
      */
+    @DecimalMax(value = "100", message = "{validation_cargo_weight_DecimalMax}")
+    @DecimalMin(value = "0", message = "{validation_cargo_weight_DecimalMin}")
     @Column(name = "weight")
     private double weight;
 
     /**
      * City is where cargo has to departure.
      */
+    @NotEmpty(message = "{validation_cargo_departure_NotEmpty}")
     @Column(name = "departure_city")
     private String departureCity;
 
     /**
      * City is where cargo has to arrive.
      */
+    @NotEmpty(message = "{validation_cargo_arrival_NotEmpty}")
     @Column(name = "arrival_city")
     private String arrivalCity;
 
@@ -59,6 +70,11 @@ public class Cargo implements Serializable {
      */
     public Cargo() {}
 
+    @PrePersist
+    public void setupDefaultValues() {
+        status = CargoStatus.PREPARED;
+    }
+
     /**
      * Classic equals method.
      * @param o passed object
@@ -68,16 +84,13 @@ public class Cargo implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Cargo cargo = (Cargo) o;
-
-        if (id != cargo.id) return false;
-        if (Double.compare(cargo.weight, weight) != 0) return false;
-        if (!name.equals(cargo.name)) return false;
-        if (!departureCity.equals(cargo.departureCity)) return false;
-        if (!arrivalCity.equals(cargo.arrivalCity)) return false;
-        return status == cargo.status;
-
+        return id == cargo.id &&
+                Double.compare(cargo.weight, weight) == 0 &&
+                Objects.equals(name, cargo.name) &&
+                Objects.equals(departureCity, cargo.departureCity) &&
+                Objects.equals(arrivalCity, cargo.arrivalCity) &&
+                status == cargo.status;
     }
 
     /**
@@ -86,16 +99,7 @@ public class Cargo implements Serializable {
      */
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = id;
-        result = 31 * result + name.hashCode();
-        temp = Double.doubleToLongBits(weight);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
-        result = 31 * result + departureCity.hashCode();
-        result = 31 * result + arrivalCity.hashCode();
-        result = 31 * result + status.hashCode();
-        return result;
+        return Objects.hash(id, name, weight, departureCity, arrivalCity, status);
     }
 
     /**

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Locale;
 
@@ -73,9 +74,9 @@ public class CargoController {
      * @return redirect path to logic page of editing form
      */
     @RequestMapping(value = ID_DIR, method = RequestMethod.POST)
-    public String edit(@ModelAttribute(CARGO_PARAM) Cargo cargo,
-                       Model uiModel,
+    public String edit(@Valid @ModelAttribute(CARGO_PARAM) Cargo cargo,
                        BindingResult bindingResult,
+                       Model uiModel,
                        RedirectAttributes redirectAttributes,
                        Locale locale) {
         if (bindingResult.hasErrors()) {
@@ -132,6 +133,7 @@ public class CargoController {
      */
     @RequestMapping(params = ADD_ACTION, method = RequestMethod.GET)
     public String addForm(Model uiModel) {
+        System.out.println("addForm method is starting...");
         Cargo cargo = new Cargo();
         uiModel.addAttribute(CARGO_PARAM, cargo);
         return CARGO_ADD_PATH;
@@ -144,18 +146,20 @@ public class CargoController {
      * @return redirect path to logic page of editing form
      */
     @RequestMapping(params = ADD_ACTION, method = RequestMethod.POST)
-    public String add(@ModelAttribute(CARGO_PARAM) Cargo cargo,
-                      Model uiModel,
+    public String add(@Valid @ModelAttribute(CARGO_PARAM) Cargo cargo,
                       BindingResult bindingResult,
+                      Model uiModel,
                       RedirectAttributes redirectAttributes,
                       Locale locale) {
         if (bindingResult.hasErrors()) {
+            System.out.println("binding result has errors... Cargo ID => " + cargo.getId());
             Message message = new Message(ERROR_PARAM,
                     messageSource.getMessage(CODE_CARGO_ADD_ERROR, new Object[]{}, locale));
             uiModel.addAttribute(MESSAGE_PARAM, message);
             uiModel.addAttribute(CARGO_PARAM, cargo);
             return CARGO_ADD_PATH;
         }
+        System.out.println("binding result hasn't errors!!! Cargo ID => " + cargo.getId());
         uiModel.asMap().clear();
         Message message = new Message(SUCCESS_PARAM,
                 messageSource.getMessage(CODE_CARGO_ADD_SUCCESS, new Object[]{}, locale));

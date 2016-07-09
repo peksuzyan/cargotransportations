@@ -19,7 +19,7 @@ public class PresentationConstants {
     /**
      * Subdirectory of personal entity page.
      */
-    public static final String ID_DIR = "/{id}";
+    public static final String ID_DIR = "/{id_number}";
 
     /**
      * Subdirectory of personal entity page (only user).

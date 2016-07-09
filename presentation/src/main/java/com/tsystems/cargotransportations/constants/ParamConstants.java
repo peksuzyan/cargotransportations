@@ -22,7 +22,7 @@ public class ParamConstants {
     /**
      * Necessary for setting or getting id by param name.
      */
-    public static final String ID_PARAM = "id";
+    public static final String ID_PARAM = "id_number";
 
     /**
      * Necessary for setting or getting first name by param name.
