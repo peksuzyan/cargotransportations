@@ -34,6 +34,12 @@ public interface GenericDao<T> {
     void delete(T object);
 
     /**
+     * Gets total entities count.
+     * @return entities count
+     */
+    int getTotalCount();
+
+    /**
      * Gets all entities.
      * @return a list of entities
      */

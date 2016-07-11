@@ -10,5 +10,5 @@
 
 <form method="post">
     <button type="submit">${appButtonDelete}</button>
-    <button><a href="/cargoes">${appButtonCancel}</a></button>
+    <button><a href="/cargoes/${cargo.id}">${appButtonCancel}</a></button>
 </form>

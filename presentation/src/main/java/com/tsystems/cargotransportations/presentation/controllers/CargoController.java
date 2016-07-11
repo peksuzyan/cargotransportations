@@ -1,27 +1,24 @@
 package com.tsystems.cargotransportations.presentation.controllers;
 
 import com.tsystems.cargotransportations.entity.Cargo;
+import com.tsystems.cargotransportations.exception.BOException;
+import com.tsystems.cargotransportations.presentation.grids.Grid;
 import com.tsystems.cargotransportations.service.interfaces.CargoService;
 import com.tsystems.cargotransportations.util.Message;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Locale;
 
 import static com.tsystems.cargotransportations.constants.ActionConstants.ADD_ACTION;
 import static com.tsystems.cargotransportations.constants.ActionConstants.DELETE_ACTION;
+import static com.tsystems.cargotransportations.constants.GridConstants.*;
 import static com.tsystems.cargotransportations.constants.MessageConstants.*;
 import static com.tsystems.cargotransportations.constants.ParamConstants.*;
 import static com.tsystems.cargotransportations.constants.PresentationConstants.*;
@@ -44,13 +41,38 @@ public class CargoController {
     private MessageSource messageSource;
 
     /**
+     * Gets requests to show a partial cargoes list.
+     * @param page current page number
+     * @param records count records on a page
+     * @param sortBy sort by any field of entity
+     * @param sortTo sort direction
+     * @return data container with entities
+     */
+    @RequestMapping(value = LIST_GRID_DIR, method = RequestMethod.GET, produces = REQUEST_JSON_TYPE)
+    @ResponseBody
+    public Grid<Cargo> listGrid(@RequestParam(value = GRID_CURRENT_PAGE, required = false) Integer page,
+                                @RequestParam(value = GRID_RECORDS_ON_PAGE, required = false) Integer records,
+                                @RequestParam(value = GRID_SORT_BY, required = false) String sortBy,
+                                @RequestParam(value = GRID_SORT_TO, required = false) String sortTo) {
+        Grid<Cargo> cargoGrid = new Grid<>();
+        cargoGrid.setData(cargoService.getAllByRange(page, records, sortBy, sortTo));
+        cargoGrid.setTotalRecords(cargoService.getTotalCount());
+        cargoGrid.setCurrentPage(page);
+        int totalPages =
+                cargoGrid.getTotalRecords() / records
+                        + (cargoGrid.getTotalRecords() % records != 0 ? 1 : 0);
+        cargoGrid.setTotalPages(totalPages);
+        return cargoGrid;
+    }
+
+    /**
      * Gets requests to show a cargoes list.
      * @param uiModel UI model
      * @return path to logic page of entities list
      */
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model uiModel) {
-        uiModel.addAttribute(CARGOES_PARAM, cargoService.getAll());
+        //uiModel.addAttribute(CARGOES_PARAM, cargoService.getAll());
         return CARGO_LIST_PATH;
     }
 
@@ -80,36 +102,36 @@ public class CargoController {
                        RedirectAttributes redirectAttributes,
                        Locale locale) {
         if (bindingResult.hasErrors()) {
-            Message message = new Message(ERROR_PARAM,
-                    messageSource.getMessage(CODE_CARGO_EDIT_ERROR, new Object[]{}, locale));
-            uiModel.addAttribute(MESSAGE_PARAM, message);
+            uiModel.addAttribute(
+                    MESSAGE_PARAM, getMessage(ERROR_PARAM, CODE_CARGO_EDIT_ERROR, locale));
             uiModel.addAttribute(CARGO_PARAM, cargo);
             return CARGO_EDIT_PATH;
         }
+        try {
+            cargoService.checkAndUpdate(cargo);
+        } catch (BOException e) {
+            uiModel.addAttribute(
+                    MESSAGE_PARAM, getMessage(ERROR_PARAM, e.getMessage(), locale));
+            return CARGO_EDIT_PATH;
+        }
         uiModel.asMap().clear();
-        Message message = new Message(SUCCESS_PARAM,
-                messageSource.getMessage(CODE_CARGO_EDIT_SUCCESS, new Object[]{}, locale));
-        redirectAttributes.addFlashAttribute(MESSAGE_PARAM, message);
-        cargoService.update(cargo);
+        redirectAttributes.addFlashAttribute(
+                MESSAGE_PARAM, getMessage(SUCCESS_PARAM, CODE_CARGO_EDIT_SUCCESS, locale));
         return CARGO_REDIRECT_PATH;
     }
 
     /**
      * Gets requests to show delete form with specified entity by id.
-     * @param id id
-     * @param uiModel UI model
      * @return path to logic page of deleting form
      */
     @RequestMapping(value = ID_DIR, params = DELETE_ACTION, method = RequestMethod.GET)
-    public String deleteForm(@PathVariable(ID_PARAM) int id,
-                             Model uiModel) {
-        uiModel.addAttribute(CARGO_PARAM, cargoService.read(id));
+    public String deleteForm() {
         return CARGO_DELETE_PATH;
     }
 
     /**
      * Gets requests to delete specified entity by id.
-     * @param id id
+     * @param id c
      * @param uiModel UI model
      * @return redirect path to logic page of entities list
      */
@@ -118,11 +140,17 @@ public class CargoController {
                          Model uiModel,
                          RedirectAttributes redirectAttributes,
                          Locale locale) {
-        cargoService.delete(cargoService.read(id));
         uiModel.asMap().clear();
-        Message message = new Message(SUCCESS_PARAM,
-                messageSource.getMessage(CODE_CARGO_DELETE_SUCCESS, new Object[]{}, locale));
-        redirectAttributes.addFlashAttribute(MESSAGE_PARAM, message);
+        Cargo cargo = cargoService.read(id);
+        try {
+            cargoService.checkAndDelete(cargo);
+        } catch (BOException e) {
+            redirectAttributes.addFlashAttribute(
+                    MESSAGE_PARAM, getMessage(ERROR_PARAM, e.getMessage(), locale));
+            return CARGO_REDIRECT_PATH_WITH + id;
+        }
+        redirectAttributes.addFlashAttribute(
+                MESSAGE_PARAM, getMessage(SUCCESS_PARAM, CODE_CARGO_DELETE_SUCCESS, locale));
         return CARGO_REDIRECT_PATH;
     }
 
@@ -133,9 +161,7 @@ public class CargoController {
      */
     @RequestMapping(params = ADD_ACTION, method = RequestMethod.GET)
     public String addForm(Model uiModel) {
-        System.out.println("addForm method is starting...");
-        Cargo cargo = new Cargo();
-        uiModel.addAttribute(CARGO_PARAM, cargo);
+        uiModel.addAttribute(CARGO_PARAM, new Cargo());
         return CARGO_ADD_PATH;
     }
 
@@ -152,19 +178,28 @@ public class CargoController {
                       RedirectAttributes redirectAttributes,
                       Locale locale) {
         if (bindingResult.hasErrors()) {
-            System.out.println("binding result has errors... Cargo ID => " + cargo.getId());
-            Message message = new Message(ERROR_PARAM,
-                    messageSource.getMessage(CODE_CARGO_ADD_ERROR, new Object[]{}, locale));
-            uiModel.addAttribute(MESSAGE_PARAM, message);
+            System.out.println(bindingResult.getFieldError().getCode());
+            uiModel.addAttribute(
+                    MESSAGE_PARAM, getMessage(ERROR_PARAM, CODE_CARGO_ADD_ERROR, locale));
             uiModel.addAttribute(CARGO_PARAM, cargo);
             return CARGO_ADD_PATH;
         }
-        System.out.println("binding result hasn't errors!!! Cargo ID => " + cargo.getId());
         uiModel.asMap().clear();
-        Message message = new Message(SUCCESS_PARAM,
-                messageSource.getMessage(CODE_CARGO_ADD_SUCCESS, new Object[]{}, locale));
-        redirectAttributes.addFlashAttribute(MESSAGE_PARAM, message);
+        redirectAttributes.addFlashAttribute(
+                MESSAGE_PARAM, getMessage(SUCCESS_PARAM, CODE_CARGO_ADD_SUCCESS, locale));
         cargoService.create(cargo);
         return CARGO_REDIRECT_PATH;
+    }
+
+    /**
+     * Converts message type, code and request locale to a Message object.
+     * @param type type
+     * @param messageCode message code
+     * @param locale locale
+     * @return message object
+     */
+    private Message getMessage(String type, String messageCode, Locale locale) {
+        return new Message(type,
+                messageSource.getMessage(messageCode, new Object[]{}, locale));
     }
 }

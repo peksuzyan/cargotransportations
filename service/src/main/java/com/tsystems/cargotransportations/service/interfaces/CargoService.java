@@ -9,6 +9,18 @@ import java.util.List;
  */
 public interface CargoService extends GenericService<Cargo> {
 
+    /**
+     * Checks whether cargo is ready to deleting or not in accordance to a business-logic.
+     * @param cargo cargo
+     */
+    void checkAndDelete(Cargo cargo);
+
+    /**
+     * Checks whether cargo is ready to updating or not in accordance to a business-logic.
+     * @param cargo cargo
+     */
+    void checkAndUpdate(Cargo cargo);
+
     @Deprecated
     void createCargo(Cargo cargo);
     /**

@@ -14,10 +14,14 @@ import static org.mockito.Mockito.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 public class CargoDaoImplTest {
 
     private static final int ENTITY_ID = 8;
+
+    private static final String QUERY = "something query";
 
     private CargoDaoImpl dao;
 
@@ -140,6 +144,11 @@ public class CargoDaoImplTest {
         when(em.merge(detached)).thenReturn(attached);
         doThrow(PersistenceException.class).when(em).remove(attached);
         dao.delete(detached);
+
+    }
+
+    @Test
+    public void getTotalCount_MustReturn() {
 
     }
 

@@ -40,6 +40,12 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
 
     @Transactional(readOnly = true)
     @Override
+    public int getTotalCount() {
+        return getDao().getTotalCount();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public List<T> getAll() {
         return getDao().getAll();
     }

@@ -6,6 +6,8 @@ import com.tsystems.cargotransportations.dao.interfaces.OrderDao;
 import com.tsystems.cargotransportations.entity.Cargo;
 import com.tsystems.cargotransportations.entity.CargoStatus;
 import com.tsystems.cargotransportations.entity.Order;
+import com.tsystems.cargotransportations.exception.CargoAlreadyDeliveredBOException;
+import com.tsystems.cargotransportations.exception.CargoAlreadyShippedBOException;
 import com.tsystems.cargotransportations.service.interfaces.CargoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Iterator;
 import java.util.List;
+
+import static com.tsystems.cargotransportations.constants.BOConstants.CARGO_ALREADY_DELIVERED;
+import static com.tsystems.cargotransportations.constants.BOConstants.CARGO_ALREADY_SHIPPED;
 
 /**
  * Implements business-logic operations that bound with cargo.
@@ -35,6 +40,31 @@ public class CargoServiceImpl extends GenericServiceImpl<Cargo> implements Cargo
      */
     @Autowired
     private OrderDao orderDao;
+
+    /**
+     * Checks whether cargo is ready to modifying or not in accordance to a business-logic
+     * @param cargo cargo
+     * @return is ready or not
+     */
+    private boolean isReadyToModifying(Cargo cargo) {
+        if (cargo.getStatus() == CargoStatus.SHIPPED) {
+            throw new CargoAlreadyShippedBOException(CARGO_ALREADY_SHIPPED);
+        }
+        if (cargo.getStatus() == CargoStatus.DELIVERED) {
+            throw new CargoAlreadyDeliveredBOException(CARGO_ALREADY_DELIVERED);
+        }
+        return true;
+    }
+
+    @Override
+    public void checkAndDelete(Cargo cargo) {
+        if (isReadyToModifying(cargo)) getDao().delete(cargo);
+    }
+
+    @Override
+    public void checkAndUpdate(Cargo cargo) {
+        if (isReadyToModifying(cargo)) getDao().update(cargo);
+    }
 
     @Override
     public void createCargo(Cargo cargo) {

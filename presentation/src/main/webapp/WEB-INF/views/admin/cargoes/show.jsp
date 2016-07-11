@@ -13,6 +13,7 @@
 <spring:message code="cargo_status" var="cargoStatus" />
 <spring:message code="app_button_save" var="appButtonSave" />
 <spring:message code="app_button_cancel" var="appButtonCancel" />
+<spring:message code="app_button_delete" var="appButtonDelete" />
 
 <c:set var="id" value="id" />
 <c:set var="name" value="name" />
@@ -24,6 +25,11 @@
 <h2>
     ${titleCargoPassport}<c:if test="${cargo.id != 0}"> <kbd>#${cargo.id}</kbd></c:if>
 </h2>
+
+<c:if test="${not empty message}">
+    <c:if test="${message.type eq 'success'}"><div>${message.entry}</div></c:if>
+    <c:if test="${message.type eq 'error'}"><div>${message.entry}</div></c:if>
+</c:if>
 
 <form:form method="post" modelAttribute="cargo">
 
@@ -63,11 +69,15 @@
         <div>
             <form:label path="${status}" >${cargoStatus}:</form:label>
             <form:input path="${status}" value="${cargo.status}" readonly="true" />
-            <div><form:errors path="${status}" cssClass="error" /></div>
+            <div><form:errors path="${status}" cssClass="error"/></div>
         </div>
     </c:if>
 
     <button type="submit">${appButtonSave}</button>
+    <c:if test="${cargo.id != 0}">
+        <button><a href="/cargoes/${cargo.id}?delete">${appButtonDelete}</a></button>
+    </c:if>
     <button><a href="/cargoes">${appButtonCancel}</a></button>
+
 
 </form:form>

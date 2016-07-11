@@ -57,8 +57,17 @@ public abstract class GenericDaoImpl<T> implements GenericDao<T> {
     }
 
     @Override
+    public int getTotalCount() {
+        String query = String.format(
+                "SELECT COUNT(t) FROM %s t", genericClass.getSimpleName());
+        TypedQuery<Long> typedQuery = getEntityManager().createQuery(query, Long.class);
+        return (int) typedQuery.getSingleResult().longValue();
+    }
+
+    @Override
     public List<T> getAll() {
-        String query = String.format("FROM %s", genericClass.getSimpleName());
+        String query = String.format(
+                "FROM %s", genericClass.getSimpleName());
         return getEntityManager().createQuery(query, genericClass).getResultList();
     }
 

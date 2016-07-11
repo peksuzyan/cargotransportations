@@ -1,12 +1,11 @@
 package com.tsystems.cargotransportations.entity;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -15,6 +14,7 @@ import java.util.Objects;
  */
 @Entity
 public class Cargo implements Serializable {
+
     /**
      * Identifier of a cargo.
      */

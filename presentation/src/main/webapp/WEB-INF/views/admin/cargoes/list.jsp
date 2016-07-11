@@ -11,50 +11,86 @@
 <spring:message code="cargo_arrival_city" var="cargoArrivalCity" />
 <spring:message code="cargo_status" var="cargoStatus" />
 <spring:message code="app_button_edit" var="appButtonEdit" />
-<spring:message code="app_button_delete" var="appButtonDelete" />
 <spring:message code="app_button_create" var="appButtonCreate" />
 <spring:message code="app_button_refresh" var="appButtonRefresh" />
 
-<h2>${titleCargoes}</h2>
+<spring:url value="/cargoes/listgrid" var="listGridUrl" />
 
-<c:if test="${not empty message}">
-    <c:if test="${message.type eq 'success'}"><div>${message.entry}</div></c:if>
-    <c:if test="${message.type eq 'error'}"><div>${message.entry}</div></c:if>
-</c:if>
+<c:set var="localeCode" value="${pageContext.response.locale}" />
 
-<h3>
-    <a href="/cargoes?add">${appButtonCreate}</a>
-    <a>|</a>
-    <a href="/cargoes">${appButtonRefresh}</a>
-</h3>
+<div class="row">
+    <div class="col-lg-12">
 
-<c:if test="${not empty cargoes}">
-    <table>
-        <thead>
-            <tr>
-                <th>${cargoId}</th>
-                <th>${cargoName}</th>
-                <th>${cargoWeight}</th>
-                <th>${cargoDepartureCity}</th>
-                <th>${cargoArrivalCity}</th>
-                <th>${cargoStatus}</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach var="cargo" items="${cargoes}">
-                <tr>
-                    <td>${cargo.id}</td>
-                    <td>${cargo.name}</td>
-                    <td>${cargo.weight}</td>
-                    <td>${cargo.departureCity}</td>
-                    <td>${cargo.arrivalCity}</td>
-                    <td>${cargo.status}</td>
-                    <td><a href="/cargoes/${cargo.id}">${appButtonEdit}</a></td>
-                    <td><a href="/cargoes/${cargo.id}?delete">${appButtonDelete}</a></td>
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-</c:if>
+        <div class="panel panel-default">
+            <div class="btn-group">
+                <a class="btn btn-default" readonly>${titleCargoes}</a>
+                <a class="btn btn-info" role="button" href="/cargoes?add">${appButtonCreate}</a>
+                <a class="btn btn-info" role="button" href="/cargoes">${appButtonRefresh}</a>
+            </div>
+        </div>
+
+        <div class="page-header">
+            <div class="btn-group">
+                <a class="btn btn-default" readonly>${titleCargoes}</a>
+                <a class="btn btn-info" role="button" href="/cargoes?add">${appButtonCreate}</a>
+                <a class="btn btn-info" role="button" href="/cargoes">${appButtonRefresh}</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <table id="jqGridList" class="table table-striped"></table>
+        <div id="jqGridPager"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        $("#jqGridList").jqGrid({
+            url: '${listGridUrl}',
+            datatype: 'json',
+            colNames: [
+                '${cargoId}',
+                '${cargoName}',
+                '${cargoWeight}',
+                '${cargoDepartureCity}',
+                '${cargoArrivalCity}',
+                '${cargoStatus}'
+            ],
+            colModel: [
+                {name:'id', width:75, key:true},
+                {name:'name', width:150},
+                {name:'weight', width:75},
+                {name:'departureCity', width:150},
+                {name:'arrivalCity', width:150},
+                {name:'status', width:150}
+            ],
+            jsonReader: {
+                root: "data",
+                page: "currentPage",
+                total: "totalPages",
+                records: "totalRecords",
+                repeatitems: false,
+                id: "id"
+            },
+            pager: '#jqGridPager',
+            rowNum: 15,
+            rowList: [10, 15, 25, 50],
+            sortname: 'id',
+            sortorder: 'asc',
+            /*autowidth: true,*/
+            width: 'auto',
+            height: 'auto',
+            regional:
+                <c:if test="${empty lang}">'${localeCode}'</c:if>
+                <c:if test="${not empty lang}">'${lang}'</c:if>,
+            gridview: true,
+            styleUI : "Bootstrap",
+            onSelectRow: function(id){
+                document.location.href = "/cargoes/" + id;
+            }
+        });
+    });
+</script>

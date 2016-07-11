@@ -32,6 +32,12 @@ public class PresentationConstants {
     public static final String LIST_DIR = "/list";
 
     /**
+     * Subdirectory of entities list grid page.
+     */
+    public static final String LIST_GRID_DIR = "/listgrid";
+
+
+    /**
      * Subdirectory of entity adding page.
      */
     public static final String ADD_DIR = "/add";
@@ -57,6 +63,11 @@ public class PresentationConstants {
      * Path to entity redirect page.
      */
     public static final String CARGO_REDIRECT_PATH = REDIRECT + CARGO_DIR;
+
+    /**
+     * Path to entity edit page after redirect.
+     */
+    public static final String CARGO_REDIRECT_PATH_WITH = CARGO_REDIRECT_PATH + SLASH;
 
     /**
      * Path to entity list page.
