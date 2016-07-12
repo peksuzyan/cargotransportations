@@ -40,46 +40,28 @@
         <title>${appName}</title>
     </head>
     <body>
-<%--        <table>
-            <tr>
-                <td></td>
-                <td>
-                    <tiles:insertAttribute name="header" ignore="true" />
-                </td>
-            </tr>
-            <tr>
-               <td>
-                   <tiles:insertAttribute name="menu" ignore="true" />
-               </td>
-               <td>
-                   <tiles:insertAttribute name="body" />
-               </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>
-                    <tiles:insertAttribute name="footer" ignore="true" />
-                </td>
-            </tr>
-        </table>--%>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <tiles:insertAttribute name="header" ignore="true" />
+                    <tiles:insertAttribute name="header" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-2">
-                    <tiles:insertAttribute name="menu" ignore="true" />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <tiles:insertAttribute name="menu" />
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-8">
-                    <c:if test="${not empty message}">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <tiles:insertAttribute name="message" ignore="true" />
-                            </div>
+                <c:if test="${not empty message}">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <tiles:insertAttribute name="message" />
                         </div>
-                    </c:if>
+                    </div>
+                </c:if>
                     <div class="row">
                         <div class="col-lg-12">
                             <tiles:insertAttribute name="body" />
@@ -87,14 +69,13 @@
                     </div>
                 </div>
                 <div class="col-lg-2">
-                    <tiles:insertAttribute name="footer" ignore="true" />
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <tiles:insertAttribute name="footer" />
+                        </div>
+                    </div>
                 </div>
             </div>
-            <%--<div class="row">
-                <div class="col-lg-12">
-
-                </div>
-            </div>--%>
         </div>
     </body>
 </html>

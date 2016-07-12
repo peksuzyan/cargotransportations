@@ -21,21 +21,37 @@
 <div class="row">
     <div class="col-lg-12">
 
-        <div class="panel panel-default">
+        <%--<div class="panel panel-default">
             <div class="btn-group">
-                <a class="btn btn-default" readonly>${titleCargoes}</a>
+                <a class="btn btn-default">${titleCargoes}</a>
                 <a class="btn btn-info" role="button" href="/cargoes?add">${appButtonCreate}</a>
                 <a class="btn btn-info" role="button" href="/cargoes">${appButtonRefresh}</a>
+            </div>
+        </div>--%>
+
+        <%--<ul class="nav nav-pills">
+            <li class="active"><a>${titleCargoes}</a></li>
+            <li><a href="/cargoes?add">${appButtonCreate}</a></li>
+            <li><a href="/cargoes">${appButtonRefresh}</a></li>
+        </ul>--%>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">${titleCargoes}</div>
+            <div class="panel-body">
+                <div class="btn-group">
+                    <a class="btn btn-info" role="button" href="/cargoes?add">${appButtonCreate}</a>
+                    <a class="btn btn-info" role="button" href="/cargoes">${appButtonRefresh}</a>
+                </div>
             </div>
         </div>
 
-        <div class="page-header">
+        <%--<div class="page-header">
             <div class="btn-group">
                 <a class="btn btn-default" readonly>${titleCargoes}</a>
                 <a class="btn btn-info" role="button" href="/cargoes?add">${appButtonCreate}</a>
                 <a class="btn btn-info" role="button" href="/cargoes">${appButtonRefresh}</a>
             </div>
-        </div>
+        </div>--%>
 
     </div>
 </div>

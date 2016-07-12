@@ -17,7 +17,7 @@ public class ServiceActionsLogger {
 
     @Before("execution(* com.tsystems.cargotransportations.service.interfaces.CargoService.*(..))")
     public void logBeforeGetMethods() {
-        logger.log(Level.ERROR, "[BEFORE] Anything getMethod is starting...");
+        logger.error("[BEFORE] Anything getMethod is starting...");
     }
 
     @After("execution(* com.tsystems.cargotransportations.service.interfaces.CargoService.*(..))")

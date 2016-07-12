@@ -72,7 +72,7 @@ public class CargoController {
      */
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model uiModel) {
-        //uiModel.addAttribute(CARGOES_PARAM, cargoService.getAll());
+        uiModel.addAttribute(CARGO_PARAM, new Cargo());
         return CARGO_LIST_PATH;
     }
 

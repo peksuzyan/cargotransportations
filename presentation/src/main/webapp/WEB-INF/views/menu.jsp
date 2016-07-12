@@ -11,55 +11,38 @@
 <spring:message code="title_orders" var="titleOrders"/>
 <spring:message code="title_users" var="titleUsers"/>
 
-<%--<div class="panel panel-default">
-    <div class="panel-heading">${appCategories}</div>
-    <div class="panel-body"><a href="/cargoes">${titleCargoes}</a></div>
-    <div class="panel-body"><a href="/drivers">${titleDrivers}</a></div>
-    <div class="panel-body"><a href="/trucks">${titleTrucks}</a></div>
-    <div class="panel-body"><a href="/orders">${titleOrders}</a></div>
-    <div class="panel-body"><a href="/routes">${titleRoutes}</a></div>
-    <div class="panel-body"><a href="/users">${titleUsers}</a></div>
-</div>--%>
+<c:set var="categoryDivClass" value="col-sm-6 col-md-4 col-lg-12" />
+<c:set var="hCategoryDivClass" value="col-sm-12 col-md-12 col-lg-12" />
+<c:set var="categoryLinkClass" value="list-group-item" />
 
 <div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="panel-title">
-            <a href="/cargoes">${titleCargoes}</a>
-        </div>
-    </div>
+    <div class="panel-heading">${appCategories}</div>
 </div>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="panel-title">
-            <a href="/drivers">${titleDrivers}</a>
-        </div>
+
+<div class="list-group">
+    <%--<div class="${categoryDivClass}">
+        <a href="/cargoes" class="${categoryLinkClass}">${titleCargoes}</a>
     </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="panel-title">
-            <a href="/trucks">${titleTrucks}</a>
-        </div>
+    <div class="${categoryDivClass}">
+        <a href="/drivers" class="${categoryLinkClass}">${titleDrivers}</a>
     </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="panel-title">
-            <a href="/orders">${titleOrders}</a>
-        </div>
+    <div class="${categoryDivClass}">
+        <a href="/trucks" class="${categoryLinkClass}">${titleTrucks}</a>
     </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="panel-title">
-            <a href="/routes">${titleRoutes}</a>
-        </div>
+    <div class="${categoryDivClass}">
+        <a href="/orders" class="${categoryLinkClass}">${titleOrders}</a>
     </div>
-</div>
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="panel-title">
-            <a href="/users">${titleUsers}</a>
-        </div>
+    <div class="${categoryDivClass}">
+        <a href="/routes" class="${categoryLinkClass}">${titleRoutes}</a>
     </div>
+    <div class="${categoryDivClass}">
+        <a href="/users" class="${categoryLinkClass}">${titleUsers}</a>
+    </div>--%>
+    <a href="/cargoes" class="${categoryLinkClass}">${titleCargoes}</a>
+    <a href="/drivers" class="${categoryLinkClass}">${titleDrivers}</a>
+    <a href="/trucks" class="${categoryLinkClass}">${titleTrucks}</a>
+    <a href="/orders" class="${categoryLinkClass}">${titleOrders}</a>
+    <a href="/routes" class="${categoryLinkClass}">${titleRoutes}</a>
+    <a href="/users" class="${categoryLinkClass}">${titleUsers}</a>
 </div>
+

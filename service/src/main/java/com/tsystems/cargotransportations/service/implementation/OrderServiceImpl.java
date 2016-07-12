@@ -183,10 +183,10 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
             driver.setStatus(DriverStatus.BUSY);
             driverDao.update(driver);
         }
-        for (Cargo cargo : order.getCargoes()) {
+        order.getCargoes().forEach(cargo -> {
             cargo.setStatus(CargoStatus.SHIPPED);
             cargoDao.update(cargo);
-        }
+        });
         order.setStatus(OrderStatus.PERFORMING);
         orderDao.update(order);
     }
@@ -195,12 +195,21 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
     public Order getPerformingOrderByDriverNumber(int driverNumber) {
         List<Order> orders = orderDao.getAllByStatus(OrderStatus.PERFORMING);
         for (Order order : orders) {
+
+            /*Driver driver = order.getDrivers().stream()
+                    .filter(d -> d.getNumber() == driverNumber)
+                    .findFirst().orElse(null);*/
+
+
             for (Driver driver : order.getDrivers()) {
                 if (driver.getNumber() == driverNumber) {
                     return order;
                 }
             }
+
+
         }
+
         return null;
     }
 }

@@ -15,8 +15,17 @@
 </h3>
 --%>
 
-<div class="panel panel-default">
+<%--<div class="panel panel-default">
     <div class="panel-heading">${appLanguage}</div>
     <div class="panel-body"><a href="/cargoes?lang=en">${appButtonEn}</a></div>
     <div class="panel-body"><a href="/cargoes?lang=ru">${appButtonRu}</a></div>
+</div>--%>
+
+<div class="panel panel-default">
+    <div class="panel-heading">${appLanguage}</div>
+</div>
+
+<div class="list-group">
+    <a href="/cargoes?lang=en" class="list-group-item">${appButtonEn}</a>
+    <a href="/cargoes?lang=ru" class="list-group-item">${appButtonRu}</a>
 </div>
