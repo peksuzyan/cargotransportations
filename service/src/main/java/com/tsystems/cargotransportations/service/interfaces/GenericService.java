@@ -3,6 +3,7 @@ package com.tsystems.cargotransportations.service.interfaces;
 import java.util.List;
 
 public interface GenericService<T> {
+
     /**
      * Creates passed object in the dao layer.
      * @param object object

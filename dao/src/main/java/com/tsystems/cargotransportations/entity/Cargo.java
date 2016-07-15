@@ -64,13 +64,6 @@ public class Cargo implements Serializable {
     private CargoStatus status;
 
     /**
-     * Unique personal number of a cargo.
-     */
-    @Column(name = "number")
-    private int number;
-
-
-    /**
      * Default constructor.
      */
     public Cargo() {}
@@ -126,24 +119,6 @@ public class Cargo implements Serializable {
      */
     public void setId(int id) {
         this.id = id;
-    }
-
-    /**
-     * Gets number.
-     *
-     * @return number number
-     */
-    public int getNumber() {
-        return number;
-    }
-
-    /**
-     * Sets number.
-     *
-     * @param number number
-     */
-    public void setNumber(int number) {
-        this.number = number;
     }
 
     /**

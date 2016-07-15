@@ -1,6 +1,7 @@
 package com.tsystems.cargotransportations.dao.interfaces;
 
 import com.tsystems.cargotransportations.entity.Cargo;
+import com.tsystems.cargotransportations.entity.CargoStatus;
 
 import java.util.List;
 
@@ -9,16 +10,12 @@ import java.util.List;
  * Contains specific operations over cargo entity.
  */
 public interface CargoDao extends GenericDao<Cargo> {
-    /**
-     * Gets cargo by number.
-     * @param number number
-     * @return cargo
-     */
-    Cargo getByNumber(int number);
 
     /**
      * Gets all cargoes by a given status.
+     * @param status cargo status
      * @return cargoes list
      */
-    List<Cargo> getFreeCargoes();
+    List<Cargo> getCargoesByStatus(CargoStatus status);
+
 }

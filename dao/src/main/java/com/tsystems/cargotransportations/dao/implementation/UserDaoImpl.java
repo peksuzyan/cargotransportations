@@ -9,12 +9,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static com.tsystems.cargotransportations.constants.DaoMapping.USER_DAO;
+
 /**
  * Specific DAO implementation for users management.
  */
-@Repository("userDao")
+@Repository(USER_DAO)
 public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
 
+    /**
+     * Default constructor.
+     */
     public UserDaoImpl() {
         super(User.class);
     }
@@ -31,16 +36,9 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
     }
 
     @Override
-    public User getByName(String name) {
-        String query = String.format(
-                "FROM %s WHERE name = '%s'", User.class.getSimpleName(), name);
-        List<User> users = getEntityManager().createQuery(query, User.class).getResultList();
-        return users.size() != 0 ? users.get(0) : null;
-    }
-
-    @Override
-    public List<User> getAllByRole(UserRole role) {
-        String query = String.format("SELECT u FROM User u WHERE u.userRole = '%s'", role);
+    public List<User> getUsersByRole(UserRole role) {
+        String query = String.format("SELECT u FROM User AS u WHERE u.userRole = '%s'", role);
         return getEntityManager().createQuery(query, User.class).getResultList();
     }
+
 }

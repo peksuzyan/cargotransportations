@@ -4,29 +4,35 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+import static com.tsystems.cargotransportations.constants.FieldsMapping.DURATION;
+import static com.tsystems.cargotransportations.constants.FieldsMapping.ID;
+
 @Entity
 public class Route implements Serializable {
 
+    /**
+     * Represents identifier of a route.
+     */
     @Id
-    @Column(name = "id")
+    @Column(name = ID)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "number", unique = true)
-    private int number;
-
+    /**
+     * Sequence route points expressed by cities.
+     */
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> cities;
 
-    @Column(name = "departure_city")
-    private String departureCity;
-
-    @Column(name = "arrival_city")
-    private String arrivalCity;
-
-    @Column(name = "duration")
+    /**
+     * Route duration in time.
+     */
+    @Column(name = DURATION)
     private int duration;
 
+    /**
+     * Default constructor.
+     */
     public Route() {}
 
     /**
@@ -39,39 +45,12 @@ public class Route implements Serializable {
     }
 
     /**
-     * Gets number.
-     *
-     * @return number number
-     */
-    public int getNumber() {
-        return number;
-    }
-
-    /**
      * Gets cities.
      *
      * @return cities cities
      */
     public List<String> getCities() {
         return cities;
-    }
-
-    /**
-     * Gets departureCity.
-     *
-     * @return departureCity departureCity
-     */
-    public String getDepartureCity() {
-        return departureCity;
-    }
-
-    /**
-     * Gets arrivalCity.
-     *
-     * @return arrivalCity arrivalCity
-     */
-    public String getArrivalCity() {
-        return arrivalCity;
     }
 
     /**
@@ -93,39 +72,12 @@ public class Route implements Serializable {
     }
 
     /**
-     * Sets number.
-     *
-     * @param number number
-     */
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    /**
      * Sets cities.
      *
      * @param cities cities
      */
     public void setCities(List<String> cities) {
         this.cities = cities;
-    }
-
-    /**
-     * Sets departureCity.
-     *
-     * @param departureCity departureCity
-     */
-    public void setDepartureCity(String departureCity) {
-        this.departureCity = departureCity;
-    }
-
-    /**
-     * Sets arrivalCity.
-     *
-     * @param arrivalCity arrivalCity
-     */
-    public void setArrivalCity(String arrivalCity) {
-        this.arrivalCity = arrivalCity;
     }
 
     /**

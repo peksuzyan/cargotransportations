@@ -32,7 +32,7 @@ public class CargoDaoImplTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         dao = new CargoDaoImpl();
-        dao.setEntityManager(em);
+        //dao.setEntityManager(em);
     }
 
     @Test

@@ -10,7 +10,7 @@ import java.util.List;
  * Implements business-logic operations that bound with any entity.
  */
 @Transactional
-public abstract class GenericServiceImpl<T> implements GenericService<T> {
+abstract class GenericServiceImpl<T> implements GenericService<T> {
     /**
      * Gets an instance of dao implementation in this service.
      * @return an instance of dao implementation

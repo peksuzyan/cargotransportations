@@ -9,16 +9,11 @@ import java.util.List;
  * Contains specific operations over truck entity.
  */
 public interface TruckDao extends GenericDao<Truck> {
-    /**
-     * Gets driver by number.
-     * @param number number
-     * @return truck
-     */
-    Truck getByNumber(String number);
 
     /**
      * Gets a list with active and free trucks.
      * @return trucks list
      */
     List<Truck> getActiveAndFreeTrucks();
+
 }

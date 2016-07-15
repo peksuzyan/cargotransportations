@@ -11,9 +11,17 @@
 
 <div class="list-group">
     <span class="${languageClass} list-group-item-warning">${appLanguage}</span>
-    <a href="/cargoes?lang=en" class="${languageClass}">${appButtonEn}</a>
-    <a href="/cargoes?lang=ru" class="${languageClass}">${appButtonRu}</a>
+    <a id="en" class="${languageClass}">${appButtonEn}</a>
+    <a id="ru" class="${languageClass}">${appButtonRu}</a>
 </div>
+
+<script>
+    $(document).ready(function(){
+       var path = $(location).attr('pathname');
+       $('#en').attr('href', path + '?lang=en');
+       $('#ru').attr('href', path + '?lang=ru');
+    });
+</script>
 
 <%--
 <div class="panel panel-default">

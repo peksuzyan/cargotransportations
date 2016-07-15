@@ -4,24 +4,13 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-    <!-- Cargo tiles mapping -->
-    <!--<definition extends="default" name="/cargoes/list">
-        <put-attribute name="body" value="/WEB-INF/views/admin/cargoes/list.jsp" />
-    </definition>-->
     <definition extends="default" name="/cargoes/edit">
         <put-attribute name="body" value="/WEB-INF/views/admin/cargoes/show.jsp" />
     </definition>
-    <!-- Modal form is created instead of this -->
-    <!--<definition extends="default" name="/cargoes/add">
-        <put-attribute name="body" value="/WEB-INF/views/admin/cargoes/show.jsp" />
-    </definition>-->
-    <!--<definition extends="default" name="/cargoes/delete">
-        <put-attribute name="body" value="/WEB-INF/views/admin/cargoes/confirm.jsp" />
-    </definition>-->
     <definition extends="default" name="/cargoes/list">
-        <put-attribute name="body" value="list" />
+        <put-attribute name="body" value="cargoes_list" />
     </definition>
-    <definition name="list" template="/WEB-INF/views/admin/cargoes/list.jsp" >
+    <definition name="cargoes_list" template="/WEB-INF/views/admin/cargoes/list.jsp" >
         <put-attribute name="modal" value="/WEB-INF/views/admin/cargoes/show.jsp" />
     </definition>
 </tiles-definitions>

@@ -8,12 +8,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static com.tsystems.cargotransportations.constants.DaoMapping.ROUTE_DAO;
+
 /**
  * Specific DAO implementation for routes management.
  */
-@Repository("routeDao")
+@Repository(ROUTE_DAO)
 public class RouteDaoImpl extends GenericDaoImpl<Route> implements RouteDao {
 
+    /**
+     * Default constructor.
+     */
     public RouteDaoImpl() {
         super(Route.class);
     }
@@ -29,11 +34,4 @@ public class RouteDaoImpl extends GenericDaoImpl<Route> implements RouteDao {
         return entityManager;
     }
 
-    @Override
-    public Route getByNumber(int number) {
-        String query = String.format(
-                "FROM %s WHERE number = %d", Route.class.getSimpleName(), number);
-        List<Route> routes = getEntityManager().createQuery(query, Route.class).getResultList();
-        return routes.size() != 0 ? routes.get(0) : null;
-    }
 }

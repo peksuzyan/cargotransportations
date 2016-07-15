@@ -83,7 +83,7 @@
         <div class="${innerDivClass}">
             <form:input path="${weight}" cssClass="${inputClass}"
                         value="${cargo.weight}" placeholder="${placeholderWeight}"
-                        name="${weight}" required="true" />
+                        name="${weight}" />
         </div>
         <form:errors path="${weight}" cssClass="${errorsClass}" for="${weight}" />
     </div>
@@ -93,7 +93,7 @@
         <div class="${innerDivClass}">
             <form:input path="${depCity}" cssClass="${inputClass}"
                         value="${cargo.departureCity}" placeholder="${placeholderDepartureCity}"
-                        name="${depCity}" required="true" />
+                        name="${depCity}" />
         </div>
         <div><form:errors path="${depCity}" cssClass="${errorsClass}" for="${depCity}" /></div>
     </div>
@@ -103,7 +103,7 @@
         <div class="${innerDivClass}">
             <form:input path="${arCity}" cssClass="${inputClass}"
                         value="${cargo.arrivalCity}" placeholder="${placeholderArrivalCity}"
-                        name="${arCity}" required="true" />
+                        name="${arCity}" />
         </div>
         <div><form:errors path="${arCity}" cssClass="${errorsClass}" for="${arCity}" /></div>
     </div>

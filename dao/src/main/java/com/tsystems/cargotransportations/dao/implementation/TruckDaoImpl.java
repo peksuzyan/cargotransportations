@@ -8,12 +8,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static com.tsystems.cargotransportations.constants.DaoMapping.TRUCK_DAO;
+
 /**
  * Specific DAO implementation for trucks management.
  */
-@Repository("truckDao")
+@Repository(TRUCK_DAO)
 public class TruckDaoImpl extends GenericDaoImpl<Truck> implements TruckDao {
 
+    /**
+     * Default constructor.
+     */
     public TruckDaoImpl() {
         super(Truck.class);
     }
@@ -30,20 +35,13 @@ public class TruckDaoImpl extends GenericDaoImpl<Truck> implements TruckDao {
     }
 
     @Override
-    public Truck getByNumber(String number) {
-        String query = String.format(
-                "FROM %s WHERE number = '%s'", Truck.class.getSimpleName(), number);
-        List<Truck> trucks = getEntityManager().createQuery(query, Truck.class).getResultList();
-        return trucks.size() != 0 ? trucks.get(0) : null;
-    }
-
-    @Override
     public List<Truck> getActiveAndFreeTrucks() {
         String query =
                 "SELECT t FROM Truck t " +
-                "LEFT JOIN Order AS o ON t.id = o.truck.id " +
-                "WHERE t.active = true AND " +
+                        "LEFT JOIN Order AS o ON t.id = o.truck.id " +
+                        "WHERE t.active = true AND " +
                         "(o.truck IS NULL OR o.status = 'DONE')";
         return getEntityManager().createQuery(query, Truck.class).getResultList();
     }
+
 }

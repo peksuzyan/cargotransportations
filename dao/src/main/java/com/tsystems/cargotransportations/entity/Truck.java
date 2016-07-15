@@ -3,16 +3,12 @@ package com.tsystems.cargotransportations.entity;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.*;
 import java.io.Serializable;
 
 import static com.tsystems.cargotransportations.constants.FieldsMapping.*;
-import static com.tsystems.cargotransportations.constants.ValidationCodes.TRUCK_NUMBER_IS_EMPTY;
-import static com.tsystems.cargotransportations.constants.ValidationCodes.TRUCK_PEOPLE_IS_LESS_MIN;
-import static com.tsystems.cargotransportations.constants.ValidationCodes.TRUCK_PEOPLE_IS_MORE_MAX;
-import static com.tsystems.cargotransportations.constants.ValidationValues.TRUCK_MAX_PEOPLE;
-import static com.tsystems.cargotransportations.constants.ValidationValues.TRUCK_MIN_PEOPLE;
+import static com.tsystems.cargotransportations.constants.ValidationCodes.*;
+import static com.tsystems.cargotransportations.constants.ValidationValues.*;
 
 /**
  * Basic class that represents a truck entity.
@@ -32,6 +28,7 @@ public class Truck implements Serializable {
      * Unique personal number of a truck.
      */
     @NotEmpty(message = TRUCK_NUMBER_IS_EMPTY)
+    @Pattern(regexp = "[a-zA-Z]{2}[\\d]{5}", message = TRUCK_NUMBER_NOT_MATCHES_PATTERN)
     @Column(name = NUMBER, unique = true)
     private String number;
 
@@ -46,19 +43,21 @@ public class Truck implements Serializable {
     /**
      * Represents may be a truck is used now.
      */
-    
     @Column(name = ACTIVE)
     private boolean active;
 
     /**
      * Total capacity of a truck.
      */
+    @DecimalMax(value = TRUCK_MAX_CAPACITY, message = TRUCK_CAPACITY_IS_MORE_MAX)
+    @DecimalMin(value = TRUCK_MIN_CAPACITY, message = TRUCK_CAPACITY_IS_LESS_MIN)
     @Column(name = CAPACITY)
     private double capacity;
 
     /**
      * City where is a truck now.
      */
+    @NotEmpty(message = TRUCK_CITY_IS_EMPTY)
     @Column(name = CITY)
     private String city;
 

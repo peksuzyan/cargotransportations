@@ -2,18 +2,24 @@ package com.tsystems.cargotransportations.dao.implementation;
 
 import com.tsystems.cargotransportations.dao.interfaces.DriverDao;
 import com.tsystems.cargotransportations.entity.Driver;
+import com.tsystems.cargotransportations.entity.DriverStatus;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static com.tsystems.cargotransportations.constants.DaoMapping.DRIVER_DAO;
+
 /**
  * Specific DAO implementation for drivers management.
  */
-@Repository("driverDao")
+@Repository(DRIVER_DAO)
 public class DriverDaoImpl extends GenericDaoImpl<Driver> implements DriverDao {
 
+    /**
+     * Default constructor.
+     */
     public DriverDaoImpl() {
         super(Driver.class);
     }
@@ -30,16 +36,9 @@ public class DriverDaoImpl extends GenericDaoImpl<Driver> implements DriverDao {
     }
 
     @Override
-    public Driver getByNumber(int number) {
-        String query = String.format(
-                "FROM %s WHERE number = %d", Driver.class.getSimpleName(), number);
-        List<Driver> drivers = getEntityManager().createQuery(query, Driver.class).getResultList();
-        return drivers.size() != 0 ? drivers.get(0) : null;
-    }
-
-    @Override
-    public List<Driver> getFreeDrivers() {
-        String query = "SELECT d FROM Driver AS d WHERE d.status = 'FREE'";
+    public List<Driver> getDriversByStatus(DriverStatus status) {
+        String query = String.format("SELECT d FROM Driver AS d WHERE d.status = '%s'", status);
         return getEntityManager().createQuery(query, Driver.class).getResultList();
     }
+
 }

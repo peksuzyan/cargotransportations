@@ -24,12 +24,6 @@ public class Driver implements Serializable {
     private int id;
 
     /**
-     * Unique personal number of a driver.
-     */
-    @Column(name = "number", unique = true)
-    private int number;
-
-    /**
      * Unique identifier of driver in form of an email.
      */
     @NotEmpty(message = DRIVER_EMAIL_IS_EMPTY)

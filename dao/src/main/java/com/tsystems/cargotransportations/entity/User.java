@@ -54,18 +54,6 @@ public class User {
     private Date creationDate;
 
     /**
-     * Name of a user.
-     */
-    @Column(name = "name", unique = true)
-    private String name;
-
-    /**
-     * something else
-     */
-    @Column(name = "driver_number")
-    private int driverNumber;
-
-    /**
      * Default constructor.
      */
     public User() {}

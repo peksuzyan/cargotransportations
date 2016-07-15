@@ -14,111 +14,28 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
+import static com.tsystems.cargotransportations.constants.ServiceMapping.ROUTE_SERVICE;
+import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
+
 /**
  * Implements business-logic operations that bound with route.
  */
-@Service("routeService")
+@Transactional
+@Service(ROUTE_SERVICE)
 public class RouteServiceImpl extends GenericServiceImpl<Route> implements RouteService {
-    /**
-     * Instance of implementation of RouteDao class.
-     */
-    @Autowired
-    private RouteDao routeDao;
 
     @Override
     GenericDao<Route> getDao() {
         return routeDao;
     }
 
-    @Override
-    public Route getByNumber(int routeNumber) {
-        return routeDao.getByNumber(routeNumber);
-    }
-
-    @Override
-    public void deleteByNumber(int routeNumber) {
-        routeDao.delete(getByNumber(routeNumber));
-    }
-
-    @Override
-    public void createRoute(int duration, String... cities) {
-        if (cities != null) {
-            List<String> citiesList = new ArrayList<>();
-            for (String city : cities) {
-                if (city != null) {
-                    citiesList.add(city.trim());
-                }
-            }
-            Route route = new Route();
-            routeDao.create(route);
-            route.setCities(citiesList);
-            route.setDuration(duration);
-            route.setNumber(route.getId() + 1000);
-        }
-    }
-
-    @Override
-    public List<Route> getAllRoutes() {
-        return routeDao.getAll();
-    }
-
-    @Override
-    public List<String> getRoutePoints(String routePointsString) {
-        List<String> routePoints = new ArrayList<>();
-        StringTokenizer tokenizer = new StringTokenizer(
-                routePointsString.substring(1, routePointsString.length() - 1), MagicConstants.COMMA_DELIMITER);
-        while (tokenizer.hasMoreTokens()) {
-            routePoints.add(tokenizer.nextToken().trim());
-        }
-        return routePoints;
-    }
-
-    @Override
-    public Set<List<String>> getRoutesCases(List<Cargo> cargoes) {
-        Set<String> routePoints = new HashSet<>();
-        for (Cargo cargo : cargoes) {
-            routePoints.add(cargo.getDepartureCity());
-            routePoints.add(cargo.getArrivalCity());
-        }
-        return getRoutes(routePoints);
-    }
-
     /**
-     * Gets a set of routes cases by given route points.
-     * @param routePoints route points
-     * @return a set of routes cases
+     * Instance of implementation of RouteDao class.
      */
-    private static Set<List<String>> getRoutes(Set<String> routePoints) {
-        Set<List<String>> routes = new HashSet<>();
-        routes.addAll(getRoutesCases(routePoints, new ArrayList<>()));
-        return routes;
-    }
+    @Autowired
+    private RouteDao routeDao;
 
-    /**
-     * Recursively operation to find all combinations of routes cases.
-     * Takes a set of remained points and already evaluated points.
-     * Proceed recursively process while a set of remained points has became empty.
-     * @param remainedPoints a set of remained points
-     * @param pointsSequence a list of evaluated sequence points of route
-     * @return a set of routes cases
-     */
-    private static Set<List<String>> getRoutesCases(Set<String> remainedPoints, List<String> pointsSequence) {
-        Set<List<String>> routesCases = new HashSet<>();
-        if (!remainedPoints.isEmpty()) {
-            List<String> routeCase;
-            for (String current : remainedPoints) {
-                routeCase = new ArrayList<>(pointsSequence);
-                routeCase.add(current);
-                Set<String> pointsWithoutCurrent = new HashSet<>(remainedPoints);
-                pointsWithoutCurrent.remove(current);
-                routesCases.addAll(getRoutesCases(pointsWithoutCurrent, routeCase));
-            }
-        } else {
-            routesCases.add(pointsSequence);
-        }
-        return routesCases;
-    }
-
+    @Transactional(readOnly = true)
     @Override
     public List<Route> getSuitableRoutesByOrder(Order order) {
         if (order == null) return Collections.emptyList();
@@ -141,6 +58,7 @@ public class RouteServiceImpl extends GenericServiceImpl<Route> implements Route
      * @param routePoints route points
      * @return is same route points or not
      */
+    @Transactional(propagation = SUPPORTS)
     private boolean isSuitableRoute(List<Cargo> orderCargoes, List<String> routePoints) {
         List<Cargo> cargoes = new ArrayList<>(orderCargoes);
         for (int i = 0; i < routePoints.size() - 1; i++) {
@@ -162,6 +80,7 @@ public class RouteServiceImpl extends GenericServiceImpl<Route> implements Route
      * @param cargo cargo
      * @return equals or not
      */
+    @Transactional(propagation = SUPPORTS)
     private boolean isSuitableRoutePart(String cityFrom, String cityTo, Cargo cargo) {
         return cityFrom.equalsIgnoreCase(cargo.getDepartureCity())
                 && cityTo.equalsIgnoreCase(cargo.getArrivalCity());

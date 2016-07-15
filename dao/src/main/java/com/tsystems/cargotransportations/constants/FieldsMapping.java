@@ -100,6 +100,24 @@ public class FieldsMapping {
      */
     public static final String CAPACITY = "capacity";
 
+    /**
+     * Represents order id.
+     */
+    public static final String ORDER_ID = "order_id";
 
+    /**
+     * Represents route id.
+     */
+    public static final String ROUTE_ID = "route_id";
+
+    /**
+     * Represents duration.
+     */
+    public static final String DURATION = "duration";
+
+    /**
+     * Represents table name within database for order class.
+     */
+    public static final String ORDERS_TABLE = "Orders";
 
 }

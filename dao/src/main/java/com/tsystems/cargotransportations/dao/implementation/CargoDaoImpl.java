@@ -2,18 +2,24 @@ package com.tsystems.cargotransportations.dao.implementation;
 
 import com.tsystems.cargotransportations.dao.interfaces.CargoDao;
 import com.tsystems.cargotransportations.entity.Cargo;
+import com.tsystems.cargotransportations.entity.CargoStatus;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static com.tsystems.cargotransportations.constants.DaoMapping.CARGO_DAO;
+
 /**
  * Specific DAO implementation for cargoes management.
  */
-@Repository("cargoDao")
+@Repository(CARGO_DAO)
 public class CargoDaoImpl extends GenericDaoImpl<Cargo> implements CargoDao {
 
+    /**
+     * Default constructor.
+     */
     public CargoDaoImpl() {
         super(Cargo.class);
     }
@@ -29,27 +35,9 @@ public class CargoDaoImpl extends GenericDaoImpl<Cargo> implements CargoDao {
         return entityManager;
     }
 
-    @Deprecated
     @Override
-    public Cargo getByNumber(int number) {
-        String query = String.format(
-                "FROM %s WHERE number = %d", Cargo.class.getSimpleName(), number);
-        List<Cargo> cargoes = getEntityManager().createQuery(query, Cargo.class).getResultList();
-        return cargoes.size() != 0 ? cargoes.get(0) : null;
-    }
-
-    @Override
-    public List<Cargo> getFreeCargoes() {
-        String query = "SELECT c FROM Cargo AS c WHERE c.status = 'PREPARED'";
+    public List<Cargo> getCargoesByStatus(CargoStatus status) {
+        String query = String.format("SELECT c FROM Cargo AS c WHERE c.status = '%s'", status);
         return getEntityManager().createQuery(query, Cargo.class).getResultList();
-    }
-
-    /**
-     * Sets entityManager.
-     *
-     * @param entityManager entityManager
-     */
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
     }
 }

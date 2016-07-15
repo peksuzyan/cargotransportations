@@ -12,12 +12,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static com.tsystems.cargotransportations.constants.DaoMapping.ORDER_DAO;
+
 /**
  * Specific DAO implementation for orders management.
  */
-@Repository("orderDao")
+@Repository(ORDER_DAO)
 public class OrderDaoImpl extends GenericDaoImpl<Order> implements OrderDao {
 
+    /**
+     * Default constructor.
+     */
     public OrderDaoImpl() {
         super(Order.class);
     }
@@ -34,35 +39,9 @@ public class OrderDaoImpl extends GenericDaoImpl<Order> implements OrderDao {
     }
 
     @Override
-    public Order getByNumber(int number) {
-        String query = String.format(
-                "FROM %s WHERE number = %d", Order.class.getSimpleName(), number);
-        List<Order> orders = getEntityManager().createQuery(query, Order.class).getResultList();
-        return orders.size() != 0 ? orders.get(0) : null;
-    }
-
-    @Override
     public List<Order> getAllByStatus(OrderStatus status) {
-        String query = String.format(
-                "FROM %s WHERE status = '%s'", Order.class.getSimpleName(), status);
+        String query = String.format("SELECT o FROM Order AS o WHERE o.status = '%s'", status);
         return getEntityManager().createQuery(query, Order.class).getResultList();
     }
 
-    public static void main(String[] args) {
-        OrderDaoImpl obj1 = new OrderDaoImpl();
-        System.out.println(obj1.getEntityManager());
-
-        GenericXmlApplicationContext ctx = new GenericXmlApplicationContext();
-        ctx.load("classpath:dao-context.xml");
-        ctx.refresh();
-        OrderDaoImpl orderDaoImpl = ctx.getBean("orderDao", OrderDaoImpl.class);
-        System.out.println("--------------------------------");
-        System.out.println(orderDaoImpl.getEntityManager());
-        System.out.println("--------------------------------");
-        DriverDaoImpl driverDaoImpl = ctx.getBean("driverDao", DriverDaoImpl.class);
-        System.out.println("--------------------------------");
-        System.out.println(driverDaoImpl.getEntityManager());
-        System.out.println("--------------------------------");
-        System.out.println(driverDaoImpl.getEntityManager() == orderDaoImpl.getEntityManager());
-    }
 }

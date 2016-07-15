@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
                        HttpServletResponse response) throws ServletException, IOException {
         String userName = request.getParameter(ParamConstants.USER_NAME_PARAM);
         String userPassword = request.getParameter(ParamConstants.USER_PASSWORD_PARAM);
-        User user = userService.getByName(userName);
+        User user = null;//userService.getByName(userName);
         if (user != null && user.getPassword().equals(DigestUtils.md5Hex(userPassword))) {
             HttpSession session = request.getSession();
             session.setAttribute(ParamConstants.USER_NAME_PARAM, userName);

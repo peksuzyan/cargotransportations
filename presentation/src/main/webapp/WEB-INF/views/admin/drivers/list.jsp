@@ -4,18 +4,21 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
-<spring:message code="title_cargoes" var="title"/>
-<spring:message code="cargo_id" var="cargoId" />
-<spring:message code="cargo_name" var="cargoName" />
-<spring:message code="cargo_weight" var="cargoWeight" />
-<spring:message code="cargo_departure_city" var="cargoDepartureCity" />
-<spring:message code="cargo_arrival_city" var="cargoArrivalCity" />
-<spring:message code="cargo_status" var="cargoStatus" />
+<spring:message code="title_drivers" var="title"/>
+<spring:message code="driver_id" var="driverId" />
+<spring:message code="driver_first_name" var="driverFirstName" />
+<spring:message code="driver_last_name" var="driverLastName" />
+<spring:message code="driver_name" var="driverName" />
+<spring:message code="driver_email" var="driverEmail" />
+<spring:message code="driver_city" var="driverCity" />
+<spring:message code="driver_status" var="driverStatus" />
+<spring:message code="driver_hours" var="driverHours" />
+<spring:message code="driver_truck" var="driverTruck" />
 <spring:message code="app_button_edit" var="appButtonEdit" />
 <spring:message code="app_button_create" var="appButtonCreate" />
 <spring:message code="app_button_refresh" var="appButtonRefresh" />
 
-<spring:url var="listGridURL" value="/cargoes/listgrid"/>
+<spring:url var="listGridURL" value="/drivers/listgrid"/>
 
 <c:set var="localeCode" value="${pageContext.response.locale}" />
 
@@ -32,7 +35,7 @@
             <div class="btn-group">
                 <a class="btn btn-info" role="button"
                    data-toggle="modal" data-target="#creating">${appButtonCreate}</a>
-                <a class="btn btn-info" role="button" href="/cargoes">${appButtonRefresh}</a>
+                <a class="btn btn-info" role="button" href="/drivers">${appButtonRefresh}</a>
             </div>
         </div>
     </div>
@@ -65,12 +68,11 @@
             url: '${listGridURL}',
             datatype: 'json',
             colNames: [
-                '${cargoId}',
-                '${cargoName}',
-                '${cargoWeight}',
-                '${cargoDepartureCity}',
-                '${cargoArrivalCity}',
-                '${cargoStatus}'
+                '${driverId}',
+                '${driverName}',
+                '${driverEmail}',
+                '${driverCity}',
+                '${driverStatus}'
             ],
             colModel: [
                 /*{name:'id', width:75, key:true},
@@ -81,9 +83,8 @@
                 {name:'status', width:150}*/
                 {name:'id', key:true},
                 {name:'name'},
-                {name:'weight'},
-                {name:'departureCity'},
-                {name:'arrivalCity'},
+                {name:'email'},
+                {name:'city'},
                 {name:'status'}
             ],
             jsonReader: {
@@ -109,7 +110,7 @@
             gridview: true,
             styleUI : "Bootstrap",
             onSelectRow: function(id){
-                document.location.href = "/cargoes/" + id;
+                document.location.href = "/drivers/" + id;
             }
         });
     });

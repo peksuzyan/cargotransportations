@@ -10,17 +10,12 @@ import java.util.List;
  * Contains specific operations over user entity.
  */
 public interface UserDao extends GenericDao<User> {
-    /**
-     * Gets user by name.
-     * @param name name
-     * @return user
-     */
-    User getByName(String name);
 
     /**
      * Gets all users by a given role.
      * @param role role
      * @return users list
      */
-    List<User> getAllByRole(UserRole role);
+    List<User> getUsersByRole(UserRole role);
+
 }

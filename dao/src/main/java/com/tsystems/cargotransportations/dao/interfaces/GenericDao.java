@@ -8,6 +8,7 @@ import java.util.List;
  * @param <T>
  */
 public interface GenericDao<T> {
+
     /**
      * Creates passed entity.
      * @param object entity

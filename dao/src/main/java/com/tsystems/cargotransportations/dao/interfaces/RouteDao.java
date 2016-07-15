@@ -7,10 +7,5 @@ import com.tsystems.cargotransportations.entity.Route;
  * Contains specific operations over route entity.
  */
 public interface RouteDao extends GenericDao<Route> {
-    /**
-     * Gets route by number.
-     * @param number number
-     * @return route
-     */
-    Route getByNumber(int number);
+
 }

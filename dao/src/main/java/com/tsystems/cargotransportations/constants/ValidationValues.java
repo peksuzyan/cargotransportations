@@ -25,4 +25,20 @@ public class ValidationValues {
      */
     public static final long TRUCK_MIN_PEOPLE = 1L;
 
+    /**
+     * Represents truck max capacity.
+     */
+    public static final String TRUCK_MAX_CAPACITY = "100";
+
+    /**
+     * Represents truck min capacity.
+     */
+    public static final String TRUCK_MIN_CAPACITY = "50";
+
+    /**
+     * Represents truck number pattern.
+     */
+    public static final String TRUCK_NUMBER_PATTERN = "[a-zA-Z]{2}[\\d]{5}";
+
+
 }

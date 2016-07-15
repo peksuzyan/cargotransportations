@@ -8,44 +8,7 @@ import java.util.List;
 /**
  * Contains business-logic operations that bound with truck.
  */
-public interface TruckService extends GenericService<Truck>  {
-    /**
-     * Gets truck by number.
-     * @param number number
-     * @return truck
-     */
-    Truck getByNumber(String number);
-
-    /**
-     * Deletes truck by number.
-     * @param number number
-     */
-    void deleteByNumber(String number);
-
-    /**
-     * Changes some fields of a truck by number.
-     * @param number number
-     * @param people max count of drivers
-     * @param active active or not active
-     * @param capacity max capacity
-     */
-    void changeByNumber(String number, int people, boolean active, double capacity);
-
-    /**
-     * Creates a new truck with passed values.
-     * @param number number
-     * @param people max count of drivers
-     * @param active active or not active
-     * @param capacity max capacity
-     * @param city current city
-     */
-    void createTruck(String number, int people, boolean active, double capacity, String city);
-
-    /**
-     * Gets a list of all existing trucks.
-     * @return trucks list
-     */
-    List<Truck> getAllTrucks();
+public interface TruckService extends GenericService<Truck> {
 
     /**
      * Gets all trucks that suitable for assigning to the order.
@@ -53,4 +16,5 @@ public interface TruckService extends GenericService<Truck>  {
      * @return trucks list
      */
     List<Truck> getSuitableTrucksByOrder(Order order);
+
 }

@@ -106,6 +106,11 @@ public class PresentationConstants {
     public static final String DRIVER_REDIRECT_PATH = REDIRECT + DRIVER_DIR;
 
     /**
+     * Path to entity edit page after redirect.
+     */
+    public static final String DRIVER_REDIRECT_PATH_WITH = DRIVER_REDIRECT_PATH + SLASH;
+
+    /**
      * Path to entity list page.
      */
     public static final String DRIVER_LIST_PATH = DRIVER_DIR + LIST_DIR;

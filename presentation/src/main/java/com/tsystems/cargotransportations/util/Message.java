@@ -6,7 +6,7 @@ package com.tsystems.cargotransportations.util;
 public class Message {
 
     /**
-     * Type of the message: success or error (may would be something else).
+     * Type of the message: success, error, failure, passed and etc.
      */
     private String type;
 

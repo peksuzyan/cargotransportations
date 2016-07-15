@@ -97,7 +97,7 @@ public class ParamConstants {
     /**
      * Necessary for setting or getting truck object by param name.
      */
-    public static final String TRUCK_PARAM = "truck";
+    public static final String TRUCK_PARAM = "driver_truck";
 
     /**
      * Necessary for setting or getting count of people by param name.

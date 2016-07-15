@@ -10,12 +10,6 @@ import java.util.List;
  * Contains specific operations over order entity.
  */
 public interface OrderDao extends GenericDao<Order> {
-    /**
-     * Gets order by number.
-     * @param number number
-     * @return order
-     */
-    Order getByNumber(int number);
 
     /**
      * Gets orders with given status.
@@ -23,4 +17,5 @@ public interface OrderDao extends GenericDao<Order> {
      * @return orders list
      */
     List<Order> getAllByStatus(OrderStatus status);
+
 }

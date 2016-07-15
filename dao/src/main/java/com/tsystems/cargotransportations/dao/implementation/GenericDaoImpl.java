@@ -11,7 +11,7 @@ import java.util.List;
  * Common DAO implementation for entities management.
  * @param <T>
  */
-public abstract class GenericDaoImpl<T> implements GenericDao<T> {
+abstract class GenericDaoImpl<T> implements GenericDao<T> {
     /**
      * Getter of the entity manager.
      * @return entityManager

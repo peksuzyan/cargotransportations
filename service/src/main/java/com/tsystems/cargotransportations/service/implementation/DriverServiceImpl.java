@@ -7,6 +7,7 @@ import com.tsystems.cargotransportations.entity.Driver;
 import com.tsystems.cargotransportations.entity.DriverStatus;
 import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.entity.Truck;
+import com.tsystems.cargotransportations.exception.DriverIsBusyServiceException;
 import com.tsystems.cargotransportations.service.interfaces.DriverService;
 
 import com.tsystems.cargotransportations.constants.MagicConstants;
@@ -19,21 +20,27 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import static com.tsystems.cargotransportations.constants.ServiceConstants.DRIVER_IS_BUSY;
+import static com.tsystems.cargotransportations.constants.ServiceMapping.DRIVER_SERVICE;
+import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
+
 /**
  * Implements business-logic operations that bound with driver.
  */
-@Service("driverService")
+@Transactional
+@Service(DRIVER_SERVICE)
 public class DriverServiceImpl extends GenericServiceImpl<Driver> implements DriverService {
-    /**
-     * Instance of implementation of DriverDao class.
-     */
-    @Autowired
-    private DriverDao driverDao;
 
     @Override
     GenericDao<Driver> getDao() {
         return driverDao;
     }
+
+    /**
+     * Instance of implementation of DriverDao class.
+     */
+    @Autowired
+    private DriverDao driverDao;
 
     /**
      * Instance of implementation of OrderDao class.
@@ -42,40 +49,24 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
     private OrderDao orderDao;
 
     @Override
-    public Driver getByNumber(int driverNumber) {
-        return driverDao.getByNumber(driverNumber);
+    public boolean isReadyToModifying(Driver driver) {
+        if (driver.getStatus() == DriverStatus.BUSY) {
+            throw new DriverIsBusyServiceException(DRIVER_IS_BUSY);
+        }
+        return true;
     }
 
     @Override
-    public void deleteByNumber(int driverNumber) {
-        driverDao.delete(driverDao.getByNumber(driverNumber));
+    public void checkAndDelete(Driver driver) {
+        if (isReadyToModifying(driver)) getDao().delete(driver);
     }
 
     @Override
-    public void changeByNumber(int driverNumber, String firstName, String lastName) {
-        Driver driver = driverDao.getByNumber(driverNumber);
-        driver.setFirstName(firstName);
-        driver.setLastName(lastName);
-        driverDao.update(driver);
+    public void checkAndUpdate(Driver driver) {
+        if (isReadyToModifying(driver)) getDao().delete(driver);
     }
 
-    @Override
-    public void createDriver(String firstName, String lastName, String city) {
-        Driver driver = new Driver();
-        driverDao.create(driver);
-        driver.setFirstName(firstName);
-        driver.setLastName(lastName);
-        driver.setCity(city);
-        driver.setHours(0);
-        driver.setStatus(DriverStatus.FREE);
-        driver.setNumber(driver.getId() + 100);
-    }
-
-    @Override
-    public List<Driver> getAllDrivers() {
-        return driverDao.getAll();
-    }
-
+    @Transactional(readOnly = true)
     @Override
     public List<Driver> getSuitableDriversByOrder(Order order) {
         if (order.getTruck() == null)
@@ -88,7 +79,7 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
             return Collections.emptyList();
         if (order.getTruck().getPeople() <= order.getDrivers().size())
             return Collections.emptyList();
-        List<Driver> drivers = driverDao.getFreeDrivers();
+        List<Driver> drivers = driverDao.getDriversByStatus(DriverStatus.FREE);
         List<Order> orders = orderDao.getAll();
         Iterator<Driver> iterator = drivers.iterator();
         while (iterator.hasNext()) {
@@ -125,6 +116,7 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
      * @param restTime rest time to end of month in hours
      * @return hours
      */
+    @Transactional(propagation = SUPPORTS)
     private int getRouteHoursInCurrentMonth(int routeTime, int restTime) {
         return routeTime > restTime ? restTime : routeTime;
     }
@@ -133,6 +125,7 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
      * Gets hours rest of month from current date.
      * @return hours
      */
+    @Transactional(propagation = SUPPORTS)
     private int getRestHoursOfMonth() {
         int lastDayOfMonth = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
         int currentDayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
@@ -146,7 +139,9 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
      * @param driver driver
      * @return locations equals or not
      */
+    @Transactional(propagation = SUPPORTS)
     private boolean isSameLocationCity(Truck truck, Driver driver) {
         return truck.getCity().equalsIgnoreCase(driver.getCity());
     }
+
 }

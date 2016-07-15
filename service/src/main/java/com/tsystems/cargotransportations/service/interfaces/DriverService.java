@@ -9,40 +9,24 @@ import java.util.List;
  * Contains business-logic operations that bound with driver.
  */
 public interface DriverService extends GenericService<Driver> {
-    /**
-     * Gets driver by number.
-     * @param driverNumber driver number
-     * @return driver
-     */
-    Driver getByNumber(int driverNumber);
 
     /**
-     * Deletes driver by number.
-     * @param driverNumber driver number
+     * Checks whether driver is ready to modifying or not in accordance to a business-logic.
+     * @param driver driver
      */
-    void deleteByNumber(int driverNumber);
+    boolean isReadyToModifying(Driver driver);
 
     /**
-     * Changes name fields of a driver by number.
-     * @param driverNumber driver number
-     * @param firstName first name
-     * @param lastName last name
+     * Checks whether driver is ready to deleting or not in accordance to a business-logic.
+     * @param driver driver
      */
-    void changeByNumber(int driverNumber, String firstName, String lastName);
+    void checkAndDelete(Driver driver);
 
     /**
-     * Creates a new driver with passed values.
-     * @param firstName first name
-     * @param lastName last name
-     * @param city current city
+     * Checks whether driver is ready to updating or not in accordance to a business-logic.
+     * @param driver driver
      */
-    void createDriver(String firstName, String lastName, String city);
-
-    /**
-     * Gets a list of all existing drivers.
-     * @return drivers list
-     */
-    List<Driver> getAllDrivers();
+    void checkAndUpdate(Driver driver);
 
     /**
      * Gets all drivers that suitable for assigning of the order given order.
@@ -50,4 +34,5 @@ public interface DriverService extends GenericService<Driver> {
      * @return drivers list
      */
     List<Driver> getSuitableDriversByOrder(Order order);
+
 }

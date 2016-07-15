@@ -93,6 +93,24 @@ public class ValidationCodes {
      */
     public static final String TRUCK_PEOPLE_IS_LESS_MIN = "{validation_truck_people_Min}";
 
+    /**
+     * Represents validation code when truck capacity is more max.
+     */
+    public static final String TRUCK_CAPACITY_IS_MORE_MAX = "{validation_truck_capacity_DecimalMax}";
 
+    /**
+     * Represents validation code when truck capacity is less min.
+     */
+    public static final String TRUCK_CAPACITY_IS_LESS_MIN = "{validation_truck_capacity_DecimalMin}";
+
+    /**
+     * Represents validation code when truck capacity is less min.
+     */
+    public static final String TRUCK_CITY_IS_EMPTY = "{validation_truck_city_NotEmpty}";
+
+    /**
+     * Represents validation code when truck number pattern don't matches with pattern.
+     */
+    public static final String TRUCK_NUMBER_NOT_MATCHES_PATTERN = "{validation_truck_number_Pattern}";
 
 }

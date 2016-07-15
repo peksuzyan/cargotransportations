@@ -13,76 +13,30 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Date;
 import java.util.List;
 
+import static com.tsystems.cargotransportations.constants.ServiceMapping.USER_SERVICE;
+
 /**
  * Implements business-logic operations that bound with user.
  */
-@Service("userService")
+@Transactional
+@Service(USER_SERVICE)
 public class UserServiceImpl extends GenericServiceImpl<User> implements UserService {
-    /**
-     * Instance of implementation of UserDao class.
-     */
-    @Autowired
-    private UserDao userDao;
 
     @Override
     GenericDao<User> getDao() {
         return userDao;
     }
 
+    /**
+     * Instance of implementation of UserDao class.
+     */
+    @Autowired
+    private UserDao userDao;
+
+    @Transactional(readOnly = true)
     @Override
-    public void deleteByName(String name) {
-        userDao.delete(getByName(name));
+    public List<User> getUsersByRole(UserRole role) {
+        return userDao.getUsersByRole(role);
     }
 
-    @Override
-    public void changeByName(String name, String password, UserRole role) {
-        User user = userDao.getByName(name);
-        user.setPassword(password);
-        user.setUserRole(role);
-        userDao.update(user);
-    }
-
-    @Override
-    public User getByName(String name) {
-        return userDao.getByName(name);
-    }
-
-    @Override
-    public void createUser(String name, String password, UserRole role, int driverNumber) {
-        User user = new User();
-        userDao.create(user);
-        user.setName(name);
-        user.setPassword(password);
-        user.setUserRole(role);
-        user.setCreationDate(new Date());
-        user.setDriverNumber(driverNumber);
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        return userDao.getAll();
-    }
-
-    @Override
-    public List<User> getAllByRole(UserRole role) {
-        return userDao.getAllByRole(role);
-    }
-
-    @Override
-    public boolean isAuthenticatedUser(String name, String password) {
-        User user = userDao.getByName(name);
-        return user != null && user.getPassword().equals(password);
-    }
-
-    @Override
-    public void changePasswordByName(String name, String password) {
-        User user = userDao.getByName(name);
-        user.setPassword(password);
-        userDao.update(user);
-    }
-
-    @Override
-    public void checkUserByDriverNumber(User user, int driverNumber) throws IllegalAccessException {
-        if (user.getDriverNumber() != driverNumber) throw new IllegalAccessException();
-    }
 }

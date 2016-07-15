@@ -16,57 +16,28 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.tsystems.cargotransportations.constants.ServiceMapping.TRUCK_SERVICE;
+import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
+
 /**
  * Implements business-logic operations that bound with truck.
  */
-@Service("truckService")
+@Transactional
+@Service(TRUCK_SERVICE)
 public class TruckServiceImpl extends GenericServiceImpl<Truck> implements TruckService {
-    /**
-     * Instance of implementation of TruckDao class.
-     */
-    @Autowired
-    private TruckDao truckDao;
 
     @Override
     GenericDao<Truck> getDao() {
         return truckDao;
     }
 
-    @Override
-    public Truck getByNumber(String number) {
-        return truckDao.getByNumber(number);
-    }
+    /**
+     * Instance of implementation of TruckDao class.
+     */
+    @Autowired
+    private TruckDao truckDao;
 
-    @Override
-    public void deleteByNumber(String number) {
-        truckDao.delete(truckDao.getByNumber(number));
-    }
-
-    @Override
-    public void changeByNumber(String number, int people, boolean active, double capacity) {
-        Truck truck = truckDao.getByNumber(number);
-        truck.setPeople(people);
-        truck.setActive(active);
-        truck.setCapacity(capacity);
-        truckDao.update(truck);
-    }
-
-    @Override
-    public void createTruck(String number, int people, boolean active, double capacity, String city) {
-        Truck truck = new Truck();
-        truckDao.create(truck);
-        truck.setNumber(number);
-        truck.setPeople(people);
-        truck.setActive(active);
-        truck.setCapacity(capacity);
-        truck.setCity(city);
-    }
-
-    @Override
-    public List<Truck> getAllTrucks() {
-        return truckDao.getAll();
-    }
-
+    @Transactional(readOnly = true)
     @Override
     public List<Truck> getSuitableTrucksByOrder(Order order) {
         List<Truck> suitableTrucks = new ArrayList<>();
@@ -88,6 +59,7 @@ public class TruckServiceImpl extends GenericServiceImpl<Truck> implements Truck
      * @param route route
      * @return locations equals or not
      */
+    @Transactional(propagation = SUPPORTS)
     private boolean isSameLocationCity(Truck truck, Route route) {
         return truck.getCity().equalsIgnoreCase(route.getCities().get(0));
     }
@@ -99,6 +71,7 @@ public class TruckServiceImpl extends GenericServiceImpl<Truck> implements Truck
      * @param cargoes cargoes list of an order
      * @return is suitable truck or not
      */
+    @Transactional(propagation = SUPPORTS)
     private boolean isTruckWithEnoughCapacity(
             Truck truck, List<String> cities, List<Cargo> cargoes) {
         double currentWeight = MagicConstants.DOUBLE_ZERO;
@@ -117,10 +90,12 @@ public class TruckServiceImpl extends GenericServiceImpl<Truck> implements Truck
      * @param cargo cargo
      * @return delta weight
      */
+    @Transactional(propagation = SUPPORTS)
     private double getWeightDeltaByCity(String city, Cargo cargo) {
         double delta = MagicConstants.DOUBLE_ZERO;
         delta += city.equalsIgnoreCase(cargo.getDepartureCity()) ? cargo.getWeight() : MagicConstants.DOUBLE_ZERO;
         delta -= city.equalsIgnoreCase(cargo.getArrivalCity()) ? cargo.getWeight() : MagicConstants.DOUBLE_ZERO;
         return delta;
     }
+
 }
