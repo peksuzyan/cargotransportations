@@ -18,6 +18,7 @@ import java.util.List;
 
 import static com.tsystems.cargotransportations.constants.BOConstants.CARGO_ALREADY_DELIVERED;
 import static com.tsystems.cargotransportations.constants.BOConstants.CARGO_ALREADY_SHIPPED;
+import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
 
 /**
  * Implements business-logic operations that bound with cargo.
@@ -46,7 +47,9 @@ public class CargoServiceImpl extends GenericServiceImpl<Cargo> implements Cargo
      * @param cargo cargo
      * @return is ready or not
      */
-    private boolean isReadyToModifying(Cargo cargo) {
+    @Transactional(propagation = SUPPORTS)
+    @Override
+    public boolean isReadyToModifying(Cargo cargo) {
         if (cargo.getStatus() == CargoStatus.SHIPPED) {
             throw new CargoAlreadyShippedBOException(CARGO_ALREADY_SHIPPED);
         }

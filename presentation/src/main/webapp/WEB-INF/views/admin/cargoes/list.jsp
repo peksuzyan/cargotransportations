@@ -2,6 +2,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
 <spring:message code="title_cargoes" var="titleCargoes"/>
 <spring:message code="cargo_id" var="cargoId" />
@@ -14,58 +15,54 @@
 <spring:message code="app_button_create" var="appButtonCreate" />
 <spring:message code="app_button_refresh" var="appButtonRefresh" />
 
-<spring:url value="/cargoes/listgrid" var="listGridUrl" />
+<spring:url var="listGridURL" value="/cargoes/listgrid"/>
 
 <c:set var="localeCode" value="${pageContext.response.locale}" />
 
-<div class="row">
-    <div class="col-lg-12">
+<c:if test="${message.type eq 'success'}">
+    <div class="col-xs-12">
+        <div class="alert alert-success"><strong>${message.entry}</strong></div>
+    </div>
+</c:if>
 
-        <%--<div class="panel panel-default">
+<div class="col-xs-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">${titleCargoes}</div>
+        <div class="panel-body">
             <div class="btn-group">
-                <a class="btn btn-default">${titleCargoes}</a>
-                <a class="btn btn-info" role="button" href="/cargoes?add">${appButtonCreate}</a>
+                <a class="btn btn-info" role="button"
+                   data-toggle="modal" data-target="#creating">${appButtonCreate}</a>
                 <a class="btn btn-info" role="button" href="/cargoes">${appButtonRefresh}</a>
             </div>
-        </div>--%>
+        </div>
+    </div>
+</div>
 
-        <%--<ul class="nav nav-pills">
-            <li class="active"><a>${titleCargoes}</a></li>
-            <li><a href="/cargoes?add">${appButtonCreate}</a></li>
-            <li><a href="/cargoes">${appButtonRefresh}</a></li>
-        </ul>--%>
-
-        <div class="panel panel-default">
-            <div class="panel-heading">${titleCargoes}</div>
-            <div class="panel-body">
-                <div class="btn-group">
-                    <a class="btn btn-info" role="button" href="/cargoes?add">${appButtonCreate}</a>
-                    <a class="btn btn-info" role="button" href="/cargoes">${appButtonRefresh}</a>
+<div class="col-xs-12">
+    <div id="creating" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <tiles:insertAttribute name="modal" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <%--<div class="page-header">
-            <div class="btn-group">
-                <a class="btn btn-default" readonly>${titleCargoes}</a>
-                <a class="btn btn-info" role="button" href="/cargoes?add">${appButtonCreate}</a>
-                <a class="btn btn-info" role="button" href="/cargoes">${appButtonRefresh}</a>
-            </div>
-        </div>--%>
-
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-12">
-        <table id="jqGridList" class="table table-striped"></table>
-        <div id="jqGridPager"></div>
-    </div>
+
+<div class="col-xs-12">
+    <table id="jqGridList" class="table table-striped"></table>
+    <div id="jqGridPager"></div>
 </div>
 
 <script type="text/javascript">
     $(function(){
         $("#jqGridList").jqGrid({
-            url: '${listGridUrl}',
+            url: '${listGridURL}',
             datatype: 'json',
             colNames: [
                 '${cargoId}',
@@ -76,12 +73,18 @@
                 '${cargoStatus}'
             ],
             colModel: [
-                {name:'id', width:75, key:true},
+                /*{name:'id', width:75, key:true},
                 {name:'name', width:150},
                 {name:'weight', width:75},
                 {name:'departureCity', width:150},
                 {name:'arrivalCity', width:150},
-                {name:'status', width:150}
+                {name:'status', width:150}*/
+                {name:'id', key:true},
+                {name:'name'},
+                {name:'weight'},
+                {name:'departureCity'},
+                {name:'arrivalCity'},
+                {name:'status'}
             ],
             jsonReader: {
                 root: "data",
@@ -96,7 +99,8 @@
             rowList: [10, 15, 25, 50],
             sortname: 'id',
             sortorder: 'asc',
-            /*autowidth: true,*/
+            autowidth: true,
+            shrinkToFit: true,
             width: 'auto',
             height: 'auto',
             regional:

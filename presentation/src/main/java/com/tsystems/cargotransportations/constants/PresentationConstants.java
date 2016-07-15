@@ -36,6 +36,10 @@ public class PresentationConstants {
      */
     public static final String LIST_GRID_DIR = "/listgrid";
 
+    /**
+     * Subdirectory of entities for check page.
+     */
+    public static final String CHECK_DIR = "/check";
 
     /**
      * Subdirectory of entity adding page.

@@ -192,23 +192,39 @@ public class MessageConstants {
     /* <-----  Codes of Properties ----->*/
 
     /**
-     * Represents code of property-file when editing cargo is success.
+     * Represents code of property-file when process is success.
+     */
+    public static final String CODE_SUCCESS = "success";
+    /**
+     * Represents code of property-file when process is failure.
+     */
+    public static final String CODE_FAILURE = "failure";
+    /**
+     * Represents code of property-file when process is passed.
+     */
+    public static final String CODE_PASSED = "passed";
+    /**
+     * Represents code of property-file when process is error.
+     */
+    public static final String CODE_ERROR = "error";
+    /**
+     * Represents code of property-file when cargo editing is success.
      */
     public static final String CODE_CARGO_EDIT_SUCCESS = "cargo_edit_success";
     /**
-     * Represents code of property-file when editing cargo is error.
+     * Represents code of property-file when cargo editing is error.
      */
     public static final String CODE_CARGO_EDIT_ERROR = "cargo_edit_error";
     /**
-     * Represents code of property-file when adding cargo is success.
+     * Represents code of property-file when cargo adding is success.
      */
     public static final String CODE_CARGO_ADD_SUCCESS = "cargo_add_success";
     /**
-     * Represents code of property-file when adding cargo is error.
+     * Represents code of property-file when cargo adding is error.
      */
     public static final String CODE_CARGO_ADD_ERROR = "cargo_add_error";
     /**
-     * Represents code of property-file when deleting cargo is success.
+     * Represents code of property-file when cargo deleting is success.
      */
     public static final String CODE_CARGO_DELETE_SUCCESS = "cargo_delete_success";
 }

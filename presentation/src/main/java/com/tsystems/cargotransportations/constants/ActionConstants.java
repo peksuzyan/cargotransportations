@@ -25,6 +25,11 @@ public class ActionConstants {
     public static final String DELETE_ACTION = "delete";
 
     /**
+     * Client needs to check an entity.
+     */
+    public static final String CHECK_ACTION = "check";
+
+    /**
      * User needs to edit own profile.
      */
     public static final String USER_EDIT_ACTION = "user_edit";

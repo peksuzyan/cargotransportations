@@ -1,20 +1,57 @@
 package com.tsystems.cargotransportations.entity;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 import java.util.Date;
+
+import static com.tsystems.cargotransportations.constants.FieldsMapping.*;
+import static com.tsystems.cargotransportations.constants.ValidationCodes.USER_EMAIL_IS_EMPTY;
+import static com.tsystems.cargotransportations.constants.ValidationCodes.USER_EMAIL_IS_NOT_EMAIL;
+import static com.tsystems.cargotransportations.constants.ValidationCodes.USER_PASSWORD_IS_EMPTY;
 
 /**
  * Basic class that represents a user entity.
  */
 @Entity
 public class User {
+
     /**
      * Identifier of a user.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = ID)
     private int id;
+
+    /**
+     * Email of a user.
+     */
+    @NotEmpty(message = USER_EMAIL_IS_EMPTY)
+    @Email(message = USER_EMAIL_IS_NOT_EMAIL)
+    @Column(name = EMAIL, unique = true)
+    private String email;
+
+    /**
+     * Password of a user.
+     */
+    @NotEmpty(message = USER_PASSWORD_IS_EMPTY)
+    @Column(name = PASSWORD)
+    private String password;
+
+    /**
+     * Role of a user.
+     */
+    @Column(name = USER_ROLE)
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
+
+    /**
+     * Date of a user registration.
+     */
+    @Column(name = CREATION_DATE)
+    private Date creationDate;
 
     /**
      * Name of a user.
@@ -23,26 +60,24 @@ public class User {
     private String name;
 
     /**
-     * Password of a user.
+     * something else
      */
-    @Column(name = "password")
-    private String password;
-
-    /**
-     * Role of a user.
-     */
-    @Column(name = "user_role")
-    @Enumerated(EnumType.STRING)
-    private UserRole userRole;
-
-    /**
-     * Date of a user registration.
-     */
-    @Column(name = "creation_date")
-    private Date creationDate;
-
     @Column(name = "driver_number")
     private int driverNumber;
+
+    /**
+     * Default constructor.
+     */
+    public User() {}
+
+    /**
+     * Setup initial values for creating user entity.
+     */
+    @PrePersist
+    public void setupDefaultValues() {
+        if (userRole == null) userRole = UserRole.USER;
+        creationDate = new Date();
+    }
 
     /**
      * Gets id.
@@ -51,51 +86,6 @@ public class User {
      */
     public int getId() {
         return id;
-    }
-
-    /**
-     * Gets name.
-     *
-     * @return name name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Gets password.
-     *
-     * @return password password
-     */
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * Gets userRole.
-     *
-     * @return userRole userRole
-     */
-    public UserRole getUserRole() {
-        return userRole;
-    }
-
-    /**
-     * Gets creationDate.
-     *
-     * @return creationDate creationDate
-     */
-    public Date getCreationDate() {
-        return creationDate;
-    }
-
-    /**
-     * Gets driverNumber.
-     *
-     * @return driverNumber driverNumber
-     */
-    public int getDriverNumber() {
-        return driverNumber;
     }
 
     /**
@@ -108,12 +98,30 @@ public class User {
     }
 
     /**
-     * Sets name.
+     * Gets email.
      *
-     * @param name name
+     * @return email email
      */
-    public void setName(String name) {
-        this.name = name;
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * Sets email.
+     *
+     * @param email email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * Gets password.
+     *
+     * @return password password
+     */
+    public String getPassword() {
+        return password;
     }
 
     /**
@@ -126,6 +134,15 @@ public class User {
     }
 
     /**
+     * Gets userRole.
+     *
+     * @return userRole userRole
+     */
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    /**
      * Sets userRole.
      *
      * @param userRole userRole
@@ -135,20 +152,20 @@ public class User {
     }
 
     /**
+     * Gets creationDate.
+     *
+     * @return creationDate creationDate
+     */
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    /**
      * Sets creationDate.
      *
      * @param creationDate creationDate
      */
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
-    }
-
-    /**
-     * Sets driverNumber.
-     *
-     * @param driverNumber driverNumber
-     */
-    public void setDriverNumber(int driverNumber) {
-        this.driverNumber = driverNumber;
     }
 }

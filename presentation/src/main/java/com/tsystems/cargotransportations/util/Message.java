@@ -4,15 +4,16 @@ package com.tsystems.cargotransportations.util;
  * Container is for passing validation results as attribute to a response.
  */
 public class Message {
-    /**
-     * Text of the message.
-     */
-    private String entry;
 
     /**
      * Type of the message: success or error (may would be something else).
      */
     private String type;
+
+    /**
+     * Text of the message.
+     */
+    private String entry;
 
     /**
      * Single constructor.

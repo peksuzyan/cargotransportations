@@ -7,20 +7,15 @@
 <spring:message code="app_button_en" var="appButtonEn"/>
 <spring:message code="app_button_ru" var="appButtonRu"/>
 
+<c:set var="languageClass" value="list-group-item" />
+
+<div class="list-group">
+    <span class="${languageClass} list-group-item-warning">${appLanguage}</span>
+    <a href="/cargoes?lang=en" class="${languageClass}">${appButtonEn}</a>
+    <a href="/cargoes?lang=ru" class="${languageClass}">${appButtonRu}</a>
+</div>
+
 <%--
-<h3>
-    <a href="/cargoes?lang=en">${appButtonEn}</a>
-    <a>|</a>
-    <a href="/cargoes?lang=ru">${appButtonRu}</a>
-</h3>
---%>
-
-<%--<div class="panel panel-default">
-    <div class="panel-heading">${appLanguage}</div>
-    <div class="panel-body"><a href="/cargoes?lang=en">${appButtonEn}</a></div>
-    <div class="panel-body"><a href="/cargoes?lang=ru">${appButtonRu}</a></div>
-</div>--%>
-
 <div class="panel panel-default">
     <div class="panel-heading">${appLanguage}</div>
 </div>
@@ -29,3 +24,4 @@
     <a href="/cargoes?lang=en" class="list-group-item">${appButtonEn}</a>
     <a href="/cargoes?lang=ru" class="list-group-item">${appButtonRu}</a>
 </div>
+--%>

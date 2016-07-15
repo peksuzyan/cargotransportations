@@ -14,7 +14,11 @@
 <spring:message code="app_button_save" var="appButtonSave" />
 <spring:message code="app_button_cancel" var="appButtonCancel" />
 <spring:message code="app_button_delete" var="appButtonDelete" />
-<spring:message code="placeholder" var="placeholder"/>
+<spring:message code="placeholder_departure_city" var="placeholderDepartureCity"/>
+<spring:message code="placeholder_arrival_city" var="placeholderArrivalCity"/>
+<spring:message code="placeholder_weight" var="placeholderWeight"/>
+<spring:message code="placeholder_cargo_name" var="placeholderCargoName"/>
+<spring:message code="confirm_cargo_deleting_text" var="confirmCargoDeletingText" />
 
 <c:set var="id" value="id" />
 <c:set var="name" value="name" />
@@ -30,17 +34,21 @@
 <c:set var="labelClass" value="control-label col-lg-3" />
 <c:set var="headerClass" value="col-lg-offset-1 col-lg-11" />
 <c:set var="inputClass" value="form-control" />
-<c:set var="errorsClass" value="col-lg-5 text-danger" />
+<c:set var="errorsClass" value="control-label col-lg-12 text-danger" />
 <c:set var="buttonClass" value="btn btn-default" />
+<c:set var="buttonWideClass" value="btn btn-default btn-block" />
+<c:set var="cargoCheckingButtons" value="cargo-checking-buttons" />
+<c:set var="cargoCheckingResult" value="cargo-checking-result" />
 
-<spring:url var="deleteURL" value="/cargoes/${cargo.id}?delete"  />
-<spring:url var="cancelURL" value="/cargoes"  />
+<spring:url var="checkURL" value="/cargoes/${cargo.id}?check"  />
+<spring:url var="deleteURL" value="/cargoes/${cargo.id}?delete" />
+<spring:url var="cancelURL" value="/cargoes" />
 
-<%--<div class="row">
-    <div class="col-lg-1"></div>
-    <div class="col-lg-10">--%>
+<c:if test="${message.type eq 'error'}">
+    <div class="alert alert-danger"><strong>${message.entry}</strong></div>
+</c:if>
 
-<form:form method="post" modelAttribute="cargo" cssClass="${formClass}" role="form">
+<form:form method="post" modelAttribute="cargo" cssClass="${formClass}" role="form" id="cargoForm">
 
     <div class="${outerDivClass}">
         <label class="${headerClass}">
@@ -50,70 +58,148 @@
         </label>
     </div>
 
-<c:if test="${cargo.id != 0}">
-    <div class="${outerDivClass}">
-        <form:label path="${id}" cssClass="${labelClass}">${cargoId}:</form:label>
-        <div class="${innerDivClass}">
-            <form:input path="${id}" cssClass="${inputClass}" value="${cargo.id}" readonly="true" />
+    <c:if test="${cargo.id != 0}">
+        <div class="${outerDivClass}">
+            <form:label path="${id}" cssClass="${labelClass}">${cargoId}:</form:label>
+            <div class="${innerDivClass}">
+                <form:input path="${id}" cssClass="${inputClass}" value="${cargo.id}" readonly="true" />
+            </div>
+            <div><form:errors path="${id}" cssClass="${errorsClass}" /></div>
         </div>
-        <div><form:errors path="${id}" cssClass="${errorsClass}" /></div>
-    </div>
-</c:if>
+    </c:if>
 
     <div class="${outerDivClass}">
         <form:label path="${name}" cssClass="${labelClass}">${cargoName}:</form:label>
         <div class="${innerDivClass}">
             <form:input path="${name}" cssClass="${inputClass}"
-                        value="${cargo.name}" placeholder="${placeholder}" />
+                        value="${cargo.name}" placeholder="${placeholderCargoName}"
+                        name="${name}" />
         </div>
-        <form:errors path="${name}" cssClass="${errorsClass}" />
+        <form:errors path="${name}" cssClass="${errorsClass}" for="${name}"/>
     </div>
 
     <div class="${outerDivClass}">
         <form:label path="${weight}" cssClass="${labelClass}">${cargoWeight}:</form:label>
         <div class="${innerDivClass}">
             <form:input path="${weight}" cssClass="${inputClass}"
-                        value="${cargo.weight}" placeholder="${placeholder}" />
+                        value="${cargo.weight}" placeholder="${placeholderWeight}"
+                        name="${weight}" required="true" />
         </div>
-        <form:errors path="${weight}" cssClass="${errorsClass}" />
+        <form:errors path="${weight}" cssClass="${errorsClass}" for="${weight}" />
     </div>
 
     <div class="${outerDivClass}">
         <form:label path="${depCity}" cssClass="${labelClass}">${cargoDepartureCity}:</form:label>
         <div class="${innerDivClass}">
             <form:input path="${depCity}" cssClass="${inputClass}"
-                        value="${cargo.departureCity}" placeholder="${placeholder}" />
+                        value="${cargo.departureCity}" placeholder="${placeholderDepartureCity}"
+                        name="${depCity}" required="true" />
         </div>
-        <div><form:errors path="${depCity}" cssClass="${errorsClass}" /></div>
+        <div><form:errors path="${depCity}" cssClass="${errorsClass}" for="${depCity}" /></div>
     </div>
 
     <div class="${outerDivClass}">
         <form:label path="${arCity}" cssClass="${labelClass}">${cargoArrivalCity}:</form:label>
         <div class="${innerDivClass}">
             <form:input path="${arCity}" cssClass="${inputClass}"
-                        value="${cargo.arrivalCity}" placeholder="${placeholder}" />
+                        value="${cargo.arrivalCity}" placeholder="${placeholderArrivalCity}"
+                        name="${arCity}" required="true" />
         </div>
-        <div><form:errors path="${arCity}" cssClass="${errorsClass}" /></div>
+        <div><form:errors path="${arCity}" cssClass="${errorsClass}" for="${arCity}" /></div>
     </div>
 
-<c:if test="${cargo.id != 0}">
-    <div class="${outerDivClass}">
-        <form:label path="${status}" cssClass="${labelClass}">${cargoStatus}:</form:label>
-        <div class="${innerDivClass}">
-            <form:input path="${status}" cssClass="${inputClass}" value="${cargo.status}" readonly="true" />
+    <c:if test="${cargo.id != 0}">
+        <div class="${outerDivClass}">
+            <form:label path="${status}" cssClass="${labelClass}">${cargoStatus}:</form:label>
+            <div class="${innerDivClass}">
+                <form:input path="${status}" cssClass="${inputClass}" value="${cargo.status}" readonly="true" />
+            </div>
+            <div><form:errors path="${status}" cssClass="${errorsClass}" /></div>
         </div>
-        <div><form:errors path="${status}" cssClass="${errorsClass}" /></div>
-    </div>
-</c:if>
+    </c:if>
 
     <div class="${outerDivClass}">
         <div class="${buttonDivClass}">
-            <button type="submit" class="${buttonClass}">${appButtonSave}</button>
-        <c:if test="${cargo.id != 0}">
-            <a class="${buttonClass}" href="${deleteURL}">${appButtonDelete}</a>
-        </c:if>
-            <a class="${buttonClass}" href="${cancelURL}">${appButtonCancel}</a>
+            <button class="${buttonClass} ${cargoCheckingButtons}" type="submit">${appButtonSave}</button>
+            <c:if test="${cargo.id != 0}">
+                <a class="${buttonClass} ${cargoCheckingButtons}" type="button"
+                    <%--id="delete_button"--%> data-toggle="modal" data-target="#deleting">${appButtonDelete}</a>
+                <a class="${buttonClass}" type="button"
+                   href="${cancelURL}">${appButtonCancel}</a>
+            </c:if>
+            <c:if test="${cargo.id == 0}">
+                <button class="${buttonClass}" data-dismiss="modal">${appButtonCancel}</button>
+            </c:if>
         </div>
     </div>
 
+    <c:if test="${cargo.id != 0}">
+        <div class="${outerDivClass}">
+            <div class="${buttonDivClass}">
+                    <%--<span id="checking_result" class="label label-danger" hidden></span>--%>
+                <h3 id="${cargoCheckingResult}" class="label label-danger" hidden></h3>
+            </div>
+        </div>
+    </c:if>
+
 </form:form>
+
+<c:if test="${cargo.id != 0}">
+    <div id="deleting" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body" align="center">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <label>${confirmCargoDeletingText}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <form method="post" action="${cargo.id}?delete">
+                                <button type="submit" class="${buttonWideClass}">${appButtonDelete}</button>
+                                <button type="button" class="${buttonWideClass}"
+                                        data-dismiss="modal">${appButtonCancel}</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var isChecked = false;
+        var isLaunched = false;
+
+        //$('#delete_button').click(function(event){
+        $('.${cargoCheckingButtons}').click(function(event){
+            if (!isLaunched) {
+                //$('#delete_button').attr("disabled", true);
+                $('.${cargoCheckingButtons}').attr("disabled", true);
+                $.ajax({
+                    url: '${checkURL}',
+                    type: 'GET',
+                    dataType: 'json',
+                    contentType: 'application/json'
+                }).done(function(response) {
+                    if (response.type == 'passed') {
+                        //$('#delete_button').attr("disabled", false);
+                        $('.${cargoCheckingButtons}').attr("disabled", false);
+                        isChecked = true;
+                        //$('#delete_button').click();
+                        event.target.click();
+                    } else {
+                        $("#${cargoCheckingResult}").text(response.entry).show();
+                    }
+                });
+                isLaunched = true;
+            }
+            if (!isChecked || !isLaunched) event.stopPropagation();
+        });
+    </script>
+</c:if>
+
+<script>
+    /*$('#cargoForm').validate();*/
+</script>

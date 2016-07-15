@@ -5,9 +5,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Objects;
+
+import static com.tsystems.cargotransportations.constants.FieldsMapping.*;
+import static com.tsystems.cargotransportations.constants.ValidationCodes.*;
+import static com.tsystems.cargotransportations.constants.ValidationValues.CARGO_MAX_WEIGHT;
+import static com.tsystems.cargotransportations.constants.ValidationValues.CARGO_MIN_WEIGHT;
 
 /**
  * Basic class that represents a cargo entity.
@@ -20,8 +24,44 @@ public class Cargo implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = ID)
     private int id;
+
+    /**
+     * Ordinary name of a cargo for representing to user.
+     */
+    @NotEmpty(message = CARGO_NAME_IS_EMPTY)
+    @Column(name = NAME)
+    private String name;
+
+    /**
+     * Weight of a cargo.
+     */
+    @DecimalMax(value = CARGO_MAX_WEIGHT, message = CARGO_WEIGHT_IS_MORE_MAX)
+    @DecimalMin(value = CARGO_MIN_WEIGHT, message = CARGO_WEIGHT_IS_LESS_MIN)
+    @Column(name = WEIGHT)
+    private double weight;
+
+    /**
+     * City is where cargo has to departure.
+     */
+    @NotEmpty(message = CARGO_DEPARTURE_CITY_IS_EMPTY)
+    @Column(name = DEPARTURE_CITY)
+    private String departureCity;
+
+    /**
+     * City is where cargo has to arrive.
+     */
+    @NotEmpty(message = CARGO_ARRIVAL_CITY_IS_EMPTY)
+    @Column(name = ARRIVAL_CITY)
+    private String arrivalCity;
+
+    /**
+     * Represents current delivery status of a cargo.
+     */
+    @Column(name = STATUS)
+    @Enumerated(EnumType.STRING)
+    private CargoStatus status;
 
     /**
      * Unique personal number of a cargo.
@@ -29,47 +69,15 @@ public class Cargo implements Serializable {
     @Column(name = "number")
     private int number;
 
-    /**
-     * Ordinary name of a cargo for representing to user.
-     */
-    @NotEmpty(message = "{validation_cargo_name_NotEmpty}")
-    @Column(name = "name")
-    private String name;
 
     /**
-     * Weight of a cargo.
-     */
-    @DecimalMax(value = "100", message = "{validation_cargo_weight_DecimalMax}")
-    @DecimalMin(value = "0", message = "{validation_cargo_weight_DecimalMin}")
-    @Column(name = "weight")
-    private double weight;
-
-    /**
-     * City is where cargo has to departure.
-     */
-    @NotEmpty(message = "{validation_cargo_departure_NotEmpty}")
-    @Column(name = "departure_city")
-    private String departureCity;
-
-    /**
-     * City is where cargo has to arrive.
-     */
-    @NotEmpty(message = "{validation_cargo_arrival_NotEmpty}")
-    @Column(name = "arrival_city")
-    private String arrivalCity;
-
-    /**
-     * Represents current delivery status of a cargo.
-     */
-    @Column(name = "status")
-    @Enumerated(EnumType.STRING)
-    private CargoStatus status;
-
-    /**
-     * Single default-constructor.
+     * Default constructor.
      */
     public Cargo() {}
 
+    /**
+     * Setup initial values for creating cargo entity.
+     */
     @PrePersist
     public void setupDefaultValues() {
         status = CargoStatus.PREPARED;

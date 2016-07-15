@@ -5,16 +5,23 @@
 
 <tiles-definitions>
     <!-- Cargo tiles mapping -->
-    <definition extends="default" name="/cargoes/list">
+    <!--<definition extends="default" name="/cargoes/list">
         <put-attribute name="body" value="/WEB-INF/views/admin/cargoes/list.jsp" />
-    </definition>
+    </definition>-->
     <definition extends="default" name="/cargoes/edit">
         <put-attribute name="body" value="/WEB-INF/views/admin/cargoes/show.jsp" />
     </definition>
-    <definition extends="default" name="/cargoes/add">
+    <!-- Modal form is created instead of this -->
+    <!--<definition extends="default" name="/cargoes/add">
         <put-attribute name="body" value="/WEB-INF/views/admin/cargoes/show.jsp" />
-    </definition>
-    <definition extends="default" name="/cargoes/delete">
+    </definition>-->
+    <!--<definition extends="default" name="/cargoes/delete">
         <put-attribute name="body" value="/WEB-INF/views/admin/cargoes/confirm.jsp" />
+    </definition>-->
+    <definition extends="default" name="/cargoes/list">
+        <put-attribute name="body" value="list" />
+    </definition>
+    <definition name="list" template="/WEB-INF/views/admin/cargoes/list.jsp" >
+        <put-attribute name="modal" value="/WEB-INF/views/admin/cargoes/show.jsp" />
     </definition>
 </tiles-definitions>
