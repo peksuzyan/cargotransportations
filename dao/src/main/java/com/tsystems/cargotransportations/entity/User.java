@@ -2,6 +2,7 @@ package com.tsystems.cargotransportations.entity;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -51,6 +52,7 @@ public class User {
      * Date of a user registration.
      */
     @Column(name = CREATION_DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date creationDate;
 
     /**

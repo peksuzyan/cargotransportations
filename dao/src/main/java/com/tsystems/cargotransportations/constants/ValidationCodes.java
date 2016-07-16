@@ -111,6 +111,6 @@ public class ValidationCodes {
     /**
      * Represents validation code when truck number pattern don't matches with pattern.
      */
-    public static final String TRUCK_NUMBER_NOT_MATCHES_PATTERN = "{validation_truck_number_Pattern}";
+    public static final String TRUCK_NUMBER_NOT_MATCH_PATTERN = "{validation_truck_number_Pattern}";
 
 }

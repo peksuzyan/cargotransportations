@@ -135,7 +135,7 @@ public class CargoController {
 
     /**
      * Gets requests to delete specified entity by id.
-     * @param id c
+     * @param id id
      * @param uiModel UI model
      * @return redirect path to logic page of entities list
      */
@@ -171,7 +171,6 @@ public class CargoController {
                       RedirectAttributes redirectAttributes,
                       Locale locale) {
         if (bindingResult.hasErrors()) {
-            System.out.println(bindingResult.getFieldError().getCode());
             uiModel.addAttribute(
                     MESSAGE_PARAM, getMessage(CODE_ERROR, CODE_CARGO_ADD_ERROR, locale));
             uiModel.addAttribute(CARGO_PARAM, cargo);

@@ -84,4 +84,58 @@ public class MessageConstants {
      */
     public static final String CODE_DRIVER_ADD_SUCCESS = "driver_add_success";
 
+    /* TRUCK */
+
+    /**
+     * Represents code of property-file when truck editing is error.
+     */
+    public static final String CODE_TRUCK_EDIT_ERROR = "truck_edit_error";
+    /**
+     * Represents code of property-file when truck editing is success.
+     */
+    public static final String CODE_TRUCK_EDIT_SUCCESS = "truck_edit_success";
+    /**
+     * Represents code of property-file when truck deleting is error.
+     */
+    public static final String CODE_TRUCK_DELETE_ERROR = "truck_delete_error";
+    /**
+     * Represents code of property-file when truck deleting is success.
+     */
+    public static final String CODE_TRUCK_DELETE_SUCCESS = "truck_delete_success";
+    /**
+     * Represents code of property-file when truck adding is error.
+     */
+    public static final String CODE_TRUCK_ADD_ERROR = "truck_add_error";
+    /**
+     * Represents code of property-file when truck adding is success.
+     */
+    public static final String CODE_TRUCK_ADD_SUCCESS = "truck_add_success";
+
+    /* USER */
+
+    /**
+     * Represents code of property-file when user editing is error.
+     */
+    public static final String CODE_USER_EDIT_ERROR = "user_edit_error";
+    /**
+     * Represents code of property-file when user editing is success.
+     */
+    public static final String CODE_USER_EDIT_SUCCESS = "user_edit_success";
+    /**
+     * Represents code of property-file when user deleting is error.
+     */
+    public static final String CODE_USER_DELETE_ERROR = "user_delete_error";
+    /**
+     * Represents code of property-file when user deleting is success.
+     */
+    public static final String CODE_USER_DELETE_SUCCESS = "user_delete_success";
+    /**
+     * Represents code of property-file when user adding is error.
+     */
+    public static final String CODE_USER_ADD_ERROR = "user_add_error";
+    /**
+     * Represents code of property-file when user adding is success.
+     */
+    public static final String CODE_USER_ADD_SUCCESS = "user_add_success";
+
 }

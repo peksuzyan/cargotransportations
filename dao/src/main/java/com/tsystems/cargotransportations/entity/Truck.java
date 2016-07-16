@@ -27,8 +27,7 @@ public class Truck implements Serializable {
     /**
      * Unique personal number of a truck.
      */
-    @NotEmpty(message = TRUCK_NUMBER_IS_EMPTY)
-    @Pattern(regexp = "[a-zA-Z]{2}[\\d]{5}", message = TRUCK_NUMBER_NOT_MATCHES_PATTERN)
+    @Pattern(regexp = TRUCK_NUMBER_PATTERN, message = TRUCK_NUMBER_NOT_MATCH_PATTERN)
     @Column(name = NUMBER, unique = true)
     private String number;
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition extends="default" name="/users/edit">
+        <put-attribute name="body" value="/WEB-INF/views/admin/users/show.jsp" />
+    </definition>
+    <definition extends="default" name="/users/list">
+        <put-attribute name="body" value="users_list" />
+    </definition>
+    <definition name="users_list" template="/WEB-INF/views/admin/users/list.jsp" >
+        <put-attribute name="modal" value="/WEB-INF/views/admin/users/show.jsp" />
+    </definition>
+</tiles-definitions>

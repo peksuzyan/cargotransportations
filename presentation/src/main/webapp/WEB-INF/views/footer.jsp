@@ -22,14 +22,3 @@
        $('#ru').attr('href', path + '?lang=ru');
     });
 </script>
-
-<%--
-<div class="panel panel-default">
-    <div class="panel-heading">${appLanguage}</div>
-</div>
-
-<div class="list-group">
-    <a href="/cargoes?lang=en" class="list-group-item">${appButtonEn}</a>
-    <a href="/cargoes?lang=ru" class="list-group-item">${appButtonRu}</a>
-</div>
---%>
