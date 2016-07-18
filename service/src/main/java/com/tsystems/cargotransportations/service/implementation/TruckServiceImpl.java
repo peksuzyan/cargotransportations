@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.tsystems.cargotransportations.constants.ServiceMapping.TRUCK_SERVICE;
 import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
@@ -43,12 +44,11 @@ public class TruckServiceImpl extends GenericServiceImpl<Truck> implements Truck
         List<Truck> suitableTrucks = new ArrayList<>();
         if (order.getRoute() != null) {
             List<Truck> trucks = truckDao.getActiveAndFreeTrucks();
-            for (Truck truck : trucks) {
-                if (isSameLocationCity(truck, order.getRoute())
-                        && isTruckWithEnoughCapacity(truck, order.getRoute().getCities(), order.getCargoes())) {
-                    suitableTrucks.add(truck);
-                }
-            }
+            suitableTrucks.addAll(trucks
+                    .stream()
+                    .filter(truck -> isSameLocationCity(truck, order.getRoute())
+                    && isTruckWithEnoughCapacity(truck, order.getRoute().getCities(), order.getCargoes()))
+                    .collect(Collectors.toList()));
         }
         return suitableTrucks;
     }

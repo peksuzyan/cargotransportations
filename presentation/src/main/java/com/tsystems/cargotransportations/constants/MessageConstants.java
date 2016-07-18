@@ -5,15 +5,22 @@ package com.tsystems.cargotransportations.constants;
  */
 public class MessageConstants {
 
+    /* <-----  Security Messages ----->*/
+
     /**
      * Message represents when user didn't pass an authentication.
      */
-    public static final String WRONG_USERNAME_OR_PASSWORD = "Either user name or password is wrong.";
+    public static final String SECURITY_WRONG_CREDENTIALS = "security_wrong_credentials";
 
     /**
      * Message represents when permission to resource denied.
      */
-    public static final String PERMISSION_DENIED = "The resource is unreachable - permission denied.";
+    public static final String SECURITY_PERMISSION_DENIED = "security_permission_denied";
+
+    /**
+     * Message represents when user sign out.
+     */
+    public static final String SECURITY_LOGOUT = "security_logout";
 
     /* <-----  Codes of Properties ----->*/
 

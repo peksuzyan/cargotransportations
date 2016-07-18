@@ -39,4 +39,9 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         return userDao.getUsersByRole(role);
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public User getUserByEmail(String email) {
+        return userDao.getUserByEmail(email);
+    }
 }

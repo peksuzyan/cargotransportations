@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 import static com.tsystems.cargotransportations.constants.DaoMapping.USER_DAO;
@@ -41,4 +42,10 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
         return getEntityManager().createQuery(query, User.class).getResultList();
     }
 
+    @Override
+    public User getUserByEmail(String email) {
+        String query = String.format("SELECT u FROM User AS u WHERE u.email = '%s'", email);
+        List<User> users = getEntityManager().createQuery(query, User.class).getResultList();
+        return users.isEmpty() ? null : users.get(0);
+    }
 }

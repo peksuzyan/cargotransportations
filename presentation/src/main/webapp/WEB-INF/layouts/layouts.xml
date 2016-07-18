@@ -4,9 +4,16 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-    <definition name="default" template="/WEB-INF/layouts/default.jsp">
-        <put-attribute name="header" value="/WEB-INF/views/header.jsp" />
-        <put-attribute name="menu" value="/WEB-INF/views/menu.jsp" />
-        <put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
+    <definition name="default_admin" template="/WEB-INF/layouts/default_admin.jsp">
+        <put-attribute name="header_admin" value="/WEB-INF/views/admin/header.jsp"/>
+        <put-attribute name="footer_admin" value="/WEB-INF/views/admin/footer.jsp"/>
+        <put-attribute name="menu_admin" value="/WEB-INF/views/admin/menu.jsp"/>
+    </definition>
+    <definition name="default_user" template="/WEB-INF/layouts/default_user.jsp">
+        <put-attribute name="header_user" value="/WEB-INF/views/user/header.jsp"/>
+        <put-attribute name="footer_user" value="/WEB-INF/views/user/footer.jsp"/>
+    </definition>
+    <definition name="default_anonymous" template="/WEB-INF/layouts/default_anonymous.jsp">
+        <put-attribute name="header_anonymous" value="/WEB-INF/views/header.jsp"/>
     </definition>
 </tiles-definitions>

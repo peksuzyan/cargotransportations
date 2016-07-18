@@ -51,7 +51,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
-                    <tiles:insertAttribute name="header" />
+                    <tiles:insertAttribute name="header_admin"/>
                 </div>
             </div>
             <div class="row">
@@ -60,21 +60,21 @@
                     col-md-9
                     col-sm-12
                     col-xs-12">
-                    <tiles:insertAttribute name="menu" />
+                    <tiles:insertAttribute name="menu_admin"/>
                 </div>
                 <div class="
                     col-lg-8
                     col-md-12
                     col-sm-12
                     col-xs-12">
-                    <tiles:insertAttribute name="body" />
+                    <tiles:insertAttribute name="body_admin"/>
                 </div>
                 <div class="
                     col-lg-2
                     col-md-3
                     col-sm-12
                     col-xs-12">
-                    <tiles:insertAttribute name="footer" />
+                    <tiles:insertAttribute name="footer_admin"/>
                 </div>
             </div>
         </div>

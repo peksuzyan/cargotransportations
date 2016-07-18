@@ -5,7 +5,7 @@ import com.tsystems.cargotransportations.service.interfaces.GenericService;
 /**
  * Util class in order to organize container with data.
  */
-public class GridUtil {
+public final class GridUtil {
 
     /**
      * Builds data grid by given parameters.

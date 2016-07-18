@@ -18,7 +18,8 @@
 <spring:message code="app_button_create" var="appButtonCreate" />
 <spring:message code="app_button_refresh" var="appButtonRefresh" />
 
-<spring:url var="listGridURL" value="/drivers/listgrid"/>
+<spring:url var="driversURL" value="/admin/drivers"/>
+<spring:url var="listGridURL" value="${driversURL}/listgrid"/>
 
 <c:set var="localeCode" value="${pageContext.response.locale}" />
 
@@ -35,7 +36,7 @@
             <div class="btn-group">
                 <a class="btn btn-info" role="button"
                    data-toggle="modal" data-target="#creating">${appButtonCreate}</a>
-                <a class="btn btn-info" role="button" href="/drivers">${appButtonRefresh}</a>
+                <a class="btn btn-info" role="button" href="${driversURL}">${appButtonRefresh}</a>
             </div>
         </div>
     </div>
@@ -48,7 +49,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xs-12">
-                            <tiles:insertAttribute name="modal" />
+                            <tiles:insertAttribute name="modal_admin"/>
                         </div>
                     </div>
                 </div>
@@ -75,12 +76,6 @@
                 '${driverStatus}'
             ],
             colModel: [
-                /*{name:'id', width:75, key:true},
-                {name:'name', width:150},
-                {name:'weight', width:75},
-                {name:'departureCity', width:150},
-                {name:'arrivalCity', width:150},
-                {name:'status', width:150}*/
                 {name:'id', key:true},
                 {name:'name'},
                 {name:'email'},
@@ -110,7 +105,7 @@
             gridview: true,
             styleUI : "Bootstrap",
             onSelectRow: function(id){
-                document.location.href = "/drivers/" + id;
+                document.location.href = "${driversURL}/" + id;
             }
         });
     });

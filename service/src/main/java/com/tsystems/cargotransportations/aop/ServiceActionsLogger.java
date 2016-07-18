@@ -1,6 +1,5 @@
 package com.tsystems.cargotransportations.aop;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import org.aspectj.lang.annotation.After;
@@ -17,11 +16,11 @@ public class ServiceActionsLogger {
 
     @Before("execution(* com.tsystems.cargotransportations.service.interfaces.CargoService.*(..))")
     public void logBeforeGetMethods() {
-        logger.error("[BEFORE] Anything getMethod is starting...");
+        logger.debug("[BEFORE] Anything getMethod is starting...");
     }
 
     @After("execution(* com.tsystems.cargotransportations.service.interfaces.CargoService.*(..))")
     public void logAfterGetMethods() {
-        logger.log(Level.ERROR, "[AFTER] Anything getMethod is ending...");
+        logger.debug("[AFTER] Anything getMethod is ending...");
     }
 }

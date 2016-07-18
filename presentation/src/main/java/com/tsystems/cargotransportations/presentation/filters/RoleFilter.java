@@ -34,7 +34,7 @@ abstract class RoleFilter implements Filter {
         if (userRole.toString().equals(userRoleParam.toString())) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            request.getSession().setAttribute(ParamConstants.ERROR_MESSAGE_PARAM, MessageConstants.PERMISSION_DENIED);
+            request.getSession().setAttribute(ParamConstants.ERROR_MESSAGE_PARAM, MessageConstants.SECURITY_PERMISSION_DENIED);
             response.sendRedirect(request.getContextPath() + PageConstants.LOGIN_PAGE);
         }
     }

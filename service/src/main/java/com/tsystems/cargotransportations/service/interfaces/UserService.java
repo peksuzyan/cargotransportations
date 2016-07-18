@@ -18,4 +18,11 @@ public interface UserService extends GenericService<User>  {
      */
     List<User> getUsersByRole(UserRole role);
 
+    /**
+     * Gets user by email.
+     * @param email email
+     * @return user
+     */
+    User getUserByEmail(String email);
+
 }

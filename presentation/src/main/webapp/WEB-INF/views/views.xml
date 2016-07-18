@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition extends="default_anonymous" name="/login">
+        <put-attribute name="body_anonymous" value="/WEB-INF/views/login.jsp" />
+    </definition>
+    <definition extends="default_anonymous" name="/login?403">
+        <put-attribute name="body_anonymous" value="/WEB-INF/views/403.jsp" />
+    </definition>
+    <definition extends="default_anonymous" name="/login?error">
+        <put-attribute name="body_anonymous" value="/WEB-INF/views/error.jsp" />
+    </definition>
+    <definition extends="default_anonymous" name="/404">
+        <put-attribute name="body_anonymous" value="/WEB-INF/views/404.jsp" />
+    </definition>
+</tiles-definitions>

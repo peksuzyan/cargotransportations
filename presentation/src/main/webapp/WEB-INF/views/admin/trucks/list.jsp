@@ -15,8 +15,8 @@
 <spring:message code="app_button_create" var="appButtonCreate" />
 <spring:message code="app_button_refresh" var="appButtonRefresh" />
 
-<spring:url var="listGridURL" value="/trucks/listgrid" />
-<spring:url var="trucksURL" value="/trucks" />
+<spring:url var="trucksURL" value="/admin/trucks"/>
+<spring:url var="listGridURL" value="${trucksURL}/listgrid"/>
 
 <c:set var="localeCode" value="${pageContext.response.locale}" />
 
@@ -46,7 +46,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xs-12">
-                            <tiles:insertAttribute name="modal" />
+                            <tiles:insertAttribute name="modal_admin"/>
                         </div>
                     </div>
                 </div>

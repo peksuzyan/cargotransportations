@@ -73,7 +73,7 @@
         <div class="${innerDivClass}">
             <form:input path="${name}" cssClass="${inputClass}"
                         value="${cargo.name}" placeholder="${placeholderCargoName}"
-                        name="${name}" />
+                        name="${name}" required="true"/>
         </div>
         <form:errors path="${name}" cssClass="${errorsClass}" for="${name}"/>
     </div>
@@ -83,7 +83,7 @@
         <div class="${innerDivClass}">
             <form:input path="${weight}" cssClass="${inputClass}"
                         value="${cargo.weight}" placeholder="${placeholderWeight}"
-                        name="${weight}" />
+                        name="${weight}" required="true"/>
         </div>
         <form:errors path="${weight}" cssClass="${errorsClass}" for="${weight}" />
     </div>
@@ -93,7 +93,7 @@
         <div class="${innerDivClass}">
             <form:input path="${depCity}" cssClass="${inputClass}"
                         value="${cargo.departureCity}" placeholder="${placeholderDepartureCity}"
-                        name="${depCity}" />
+                        name="${depCity}" required="true"/>
         </div>
         <div><form:errors path="${depCity}" cssClass="${errorsClass}" for="${depCity}" /></div>
     </div>
@@ -103,7 +103,7 @@
         <div class="${innerDivClass}">
             <form:input path="${arCity}" cssClass="${inputClass}"
                         value="${cargo.arrivalCity}" placeholder="${placeholderArrivalCity}"
-                        name="${arCity}" />
+                        name="${arCity}" required="true"/>
         </div>
         <div><form:errors path="${arCity}" cssClass="${errorsClass}" for="${arCity}" /></div>
     </div>
@@ -172,10 +172,8 @@
         var isChecked = false;
         var isLaunched = false;
 
-        //$('#delete_button').click(function(event){
         $('.${cargoCheckingButtons}').click(function(event){
             if (!isLaunched) {
-                //$('#delete_button').attr("disabled", true);
                 $('.${cargoCheckingButtons}').attr("disabled", true);
                 $.ajax({
                     url: '${checkURL}',
@@ -184,10 +182,8 @@
                     contentType: 'application/json'
                 }).done(function(response) {
                     if (response.type == 'passed') {
-                        //$('#delete_button').attr("disabled", false);
                         $('.${cargoCheckingButtons}').attr("disabled", false);
                         isChecked = true;
-                        //$('#delete_button').click();
                         event.target.click();
                     } else {
                         $("#${cargoCheckingResult}").text(response.entry).show();
@@ -201,5 +197,5 @@
 </c:if>
 
 <script>
-    /*$('#cargoForm').validate();*/
+    $('#cargoForm').validate();
 </script>

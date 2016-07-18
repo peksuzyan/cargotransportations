@@ -5,7 +5,7 @@ import com.tsystems.cargotransportations.exception.ServiceException;
 import com.tsystems.cargotransportations.presentation.grids.Grid;
 import com.tsystems.cargotransportations.presentation.grids.GridUtil;
 import com.tsystems.cargotransportations.service.interfaces.DriverService;
-import com.tsystems.cargotransportations.util.Message;
+import com.tsystems.cargotransportations.presentation.messages.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;

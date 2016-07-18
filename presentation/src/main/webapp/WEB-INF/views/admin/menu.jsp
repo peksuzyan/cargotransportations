@@ -15,11 +15,11 @@
 
 <div class="list-group">
     <span class="${languageClass} list-group-item-warning">${appCategories}</span>
-    <a href="/cargoes" class="${languageClass}">${titleCargoes}</a>
-    <a href="/drivers" class="${languageClass}">${titleDrivers}</a>
-    <a href="/trucks" class="${languageClass}">${titleTrucks}</a>
-    <a href="/orders" class="${languageClass}">${titleOrders}</a>
-    <a href="/routes" class="${languageClass}">${titleRoutes}</a>
-    <a href="/users" class="${languageClass}">${titleUsers}</a>
+    <a href="/admin/cargoes" class="${languageClass}">${titleCargoes}</a>
+    <a href="/admin/drivers" class="${languageClass}">${titleDrivers}</a>
+    <a href="/admin/trucks" class="${languageClass}">${titleTrucks}</a>
+    <a href="/admin/orders" class="${languageClass}">${titleOrders}</a>
+    <a href="/admin/routes" class="${languageClass}">${titleRoutes}</a>
+    <a href="/admin/users" class="${languageClass}">${titleUsers}</a>
 </div>
 

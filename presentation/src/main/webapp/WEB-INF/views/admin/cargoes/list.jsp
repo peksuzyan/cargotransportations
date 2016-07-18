@@ -15,7 +15,8 @@
 <spring:message code="app_button_create" var="appButtonCreate" />
 <spring:message code="app_button_refresh" var="appButtonRefresh" />
 
-<spring:url var="listGridURL" value="/cargoes/listgrid"/>
+<spring:url var="cargoesURL" value="/admin/cargoes"/>
+<spring:url var="listGridURL" value="${cargoesURL}/listgrid"/>
 
 <c:set var="localeCode" value="${pageContext.response.locale}" />
 
@@ -32,7 +33,7 @@
             <div class="btn-group">
                 <a class="btn btn-info" role="button"
                    data-toggle="modal" data-target="#creating">${appButtonCreate}</a>
-                <a class="btn btn-info" role="button" href="/cargoes">${appButtonRefresh}</a>
+                <a class="btn btn-info" role="button" href="${cargoesURL}">${appButtonRefresh}</a>
             </div>
         </div>
     </div>
@@ -45,7 +46,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xs-12">
-                            <tiles:insertAttribute name="modal" />
+                            <tiles:insertAttribute name="modal_admin" />
                         </div>
                     </div>
                 </div>
@@ -109,7 +110,7 @@
             gridview: true,
             styleUI : "Bootstrap",
             onSelectRow: function(id){
-                document.location.href = "/cargoes/" + id;
+                document.location.href = "${cargoesURL}/" + id;
             }
         });
     });

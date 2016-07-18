@@ -14,8 +14,8 @@
 <spring:message code="app_button_create" var="appButtonCreate" />
 <spring:message code="app_button_refresh" var="appButtonRefresh" />
 
-<spring:url var="listGridURL" value="/users/listgrid"/>
-<spring:url var="usersURL" value="/users"/>
+<spring:url var="usersURL" value="/admin/users"/>
+<spring:url var="listGridURL" value="${usersURL}/listgrid"/>
 
 <c:set var="localeCode" value="${pageContext.response.locale}" />
 
@@ -45,7 +45,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xs-12">
-                            <tiles:insertAttribute name="modal" />
+                            <tiles:insertAttribute name="modal_admin"/>
                         </div>
                     </div>
                 </div>
@@ -71,12 +71,6 @@
                 '${userCreationDate}'
             ],
             colModel: [
-                /*{name:'id', width:75, key:true},
-                {name:'name', width:150},
-                {name:'weight', width:75},
-                {name:'departureCity', width:150},
-                {name:'arrivalCity', width:150},
-                {name:'status', width:150}*/
                 {name:'id', key:true},
                 {name:'email'},
                 {name:'userRole'},

@@ -4,13 +4,13 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-    <definition extends="default" name="/users/edit">
-        <put-attribute name="body" value="/WEB-INF/views/admin/users/show.jsp" />
+    <definition extends="default_admin" name="/admin/users/edit">
+        <put-attribute name="body_admin" value="/WEB-INF/views/admin/users/show.jsp" />
     </definition>
-    <definition extends="default" name="/users/list">
-        <put-attribute name="body" value="users_list" />
+    <definition extends="default_admin" name="/admin/users/list">
+        <put-attribute name="body_admin" value="users_list" />
     </definition>
     <definition name="users_list" template="/WEB-INF/views/admin/users/list.jsp" >
-        <put-attribute name="modal" value="/WEB-INF/views/admin/users/show.jsp" />
+        <put-attribute name="modal_admin" value="/WEB-INF/views/admin/users/show.jsp" />
     </definition>
 </tiles-definitions>

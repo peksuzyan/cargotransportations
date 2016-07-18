@@ -4,8 +4,9 @@ import com.tsystems.cargotransportations.entity.Cargo;
 import com.tsystems.cargotransportations.exception.ServiceException;
 import com.tsystems.cargotransportations.presentation.grids.Grid;
 import com.tsystems.cargotransportations.presentation.grids.GridUtil;
+import com.tsystems.cargotransportations.presentation.messages.MessageUtil;
 import com.tsystems.cargotransportations.service.interfaces.CargoService;
-import com.tsystems.cargotransportations.util.Message;
+import com.tsystems.cargotransportations.presentation.messages.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -73,7 +74,7 @@ public class CargoController {
         try {
             cargoService.isReadyToModifying(cargoService.read(id));
         } catch (ServiceException e) {
-            return getMessage(CODE_FAILURE, e.getMessage(), locale);
+            return MessageUtil.getMessage(CODE_FAILURE, e.getMessage(), messageSource, locale);
         }
         return new Message(CODE_PASSED, null);
     }
@@ -116,7 +117,8 @@ public class CargoController {
                        Locale locale) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute(
-                    MESSAGE_PARAM, getMessage(CODE_ERROR, CODE_CARGO_EDIT_ERROR, locale));
+                    MESSAGE_PARAM, MessageUtil.getMessage(
+                            CODE_ERROR, CODE_CARGO_EDIT_ERROR, messageSource, locale));
             uiModel.addAttribute(CARGO_PARAM, cargo);
             return CARGO_EDIT_PATH;
         }
@@ -124,12 +126,14 @@ public class CargoController {
             cargoService.checkAndUpdate(cargo);
         } catch (ServiceException e) {
             uiModel.addAttribute(
-                    MESSAGE_PARAM, getMessage(CODE_ERROR, e.getMessage(), locale));
+                    MESSAGE_PARAM, MessageUtil.getMessage(
+                            CODE_ERROR, e.getMessage(), messageSource, locale));
             return CARGO_EDIT_PATH;
         }
         uiModel.asMap().clear();
         redirectAttributes.addFlashAttribute(
-                MESSAGE_PARAM, getMessage(CODE_SUCCESS, CODE_CARGO_EDIT_SUCCESS, locale));
+                MESSAGE_PARAM, MessageUtil.getMessage(
+                        CODE_SUCCESS, CODE_CARGO_EDIT_SUCCESS, messageSource, locale));
         return CARGO_REDIRECT_PATH;
     }
 
@@ -150,11 +154,13 @@ public class CargoController {
             cargoService.checkAndDelete(cargo);
         } catch (ServiceException e) {
             redirectAttributes.addFlashAttribute(
-                    MESSAGE_PARAM, getMessage(CODE_ERROR, e.getMessage(), locale));
+                    MESSAGE_PARAM, MessageUtil.getMessage(
+                            CODE_ERROR, e.getMessage(), messageSource, locale));
             return CARGO_REDIRECT_PATH_WITH + id;
         }
         redirectAttributes.addFlashAttribute(
-                MESSAGE_PARAM, getMessage(CODE_SUCCESS, CODE_CARGO_DELETE_SUCCESS, locale));
+                MESSAGE_PARAM, MessageUtil.getMessage(
+                        CODE_SUCCESS, CODE_CARGO_DELETE_SUCCESS, messageSource, locale));
         return CARGO_REDIRECT_PATH;
     }
 
@@ -172,26 +178,16 @@ public class CargoController {
                       Locale locale) {
         if (bindingResult.hasErrors()) {
             uiModel.addAttribute(
-                    MESSAGE_PARAM, getMessage(CODE_ERROR, CODE_CARGO_ADD_ERROR, locale));
+                    MESSAGE_PARAM, MessageUtil.getMessage(
+                            CODE_ERROR, CODE_CARGO_ADD_ERROR, messageSource, locale));
             uiModel.addAttribute(CARGO_PARAM, cargo);
             return CARGO_LIST_PATH;
         }
         uiModel.asMap().clear();
         redirectAttributes.addFlashAttribute(
-                MESSAGE_PARAM, getMessage(CODE_SUCCESS, CODE_CARGO_ADD_SUCCESS, locale));
+                MESSAGE_PARAM, MessageUtil.getMessage(
+                        CODE_SUCCESS, CODE_CARGO_ADD_SUCCESS, messageSource, locale));
         cargoService.create(cargo);
         return CARGO_REDIRECT_PATH;
-    }
-
-    /**
-     * Converts message type, code and request locale to a Message object.
-     * @param type type
-     * @param messageCode message code
-     * @param locale locale
-     * @return message object
-     */
-    private Message getMessage(String type, String messageCode, Locale locale) {
-        return new Message(type,
-                messageSource.getMessage(messageCode, new Object[]{}, locale));
     }
 }

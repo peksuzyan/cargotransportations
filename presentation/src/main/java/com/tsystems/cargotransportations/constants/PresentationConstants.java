@@ -12,6 +12,26 @@ public class PresentationConstants {
     public static final String SLASH = "/";
 
     /**
+     * Root subdirectory.
+     */
+    public static final String ROOT_DIR = "/";
+
+    /**
+     * Represents page when some resource isn't found.
+     */
+    public static final String PAGE_404 = "/404";
+
+    /**
+     * Admin directory.
+     */
+    public static final String ADMIN = "/admin";
+
+    /**
+     * User directory.
+     */
+    public static final String USER = "/user";
+
+    /**
      * Subdirectory of personal entity page.
      */
     public static final String NUMBER_DIR = "/{number}";
@@ -61,7 +81,7 @@ public class PresentationConstants {
     /**
      * Subdirectory of entity page.
      */
-    public static final String CARGO_DIR = "/cargoes";
+    public static final String CARGO_DIR = ADMIN + "/cargoes";
 
     /**
      * Path to entity redirect page.
@@ -98,7 +118,7 @@ public class PresentationConstants {
     /**
      * Subdirectory of entity page.
      */
-    public static final String DRIVER_DIR = "/drivers";
+    public static final String DRIVER_DIR = ADMIN + "/drivers";
 
     /**
      * Path to entity redirect page.
@@ -130,7 +150,7 @@ public class PresentationConstants {
     /**
      * Subdirectory of entity page.
      */
-    public static final String TRUCK_DIR = "/trucks";
+    public static final String TRUCK_DIR = ADMIN + "/trucks";
 
     /**
      * Path to entity redirect page.
@@ -157,7 +177,7 @@ public class PresentationConstants {
     /**
      * Subdirectory of entity page.
      */
-    public static final String USER_DIR = "/users";
+    public static final String USER_DIR = ADMIN + "/users";
 
     /**
      * Path to entity redirect page.
@@ -184,7 +204,7 @@ public class PresentationConstants {
     /**
      * Subdirectory of entity page.
      */
-    public static final String ROUTE_DIR = "/routes";
+    public static final String ROUTE_DIR = ADMIN + "/routes";
 
     /**
      * Path to entity redirect page.
@@ -211,7 +231,7 @@ public class PresentationConstants {
     /**
      * Subdirectory of entity page.
      */
-    public static final String ORDER_DIR = "/orders";
+    public static final String ORDER_DIR = ADMIN + "/orders";
 
     /**
      * Path to entity redirect page.

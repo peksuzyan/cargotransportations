@@ -18,4 +18,10 @@ public interface UserDao extends GenericDao<User> {
      */
     List<User> getUsersByRole(UserRole role);
 
+    /**
+     * Gets user by email.
+     * @param email email
+     * @return user
+     */
+    User getUserByEmail(String email);
 }

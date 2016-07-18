@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.util;
+package com.tsystems.cargotransportations.presentation.messages;
 
 /**
  * Container is for passing validation results as attribute to a response.
