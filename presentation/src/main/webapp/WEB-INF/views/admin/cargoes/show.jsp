@@ -4,45 +4,46 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
-<spring:message code="title_passport_cargo" var="titleCargoPassport" />
-<spring:message code="cargo_id" var="cargoId" />
-<spring:message code="cargo_name" var="cargoName" />
-<spring:message code="cargo_weight" var="cargoWeight" />
-<spring:message code="cargo_departure_city" var="cargoDepartureCity" />
-<spring:message code="cargo_arrival_city" var="cargoArrivalCity" />
-<spring:message code="cargo_status" var="cargoStatus" />
-<spring:message code="app_button_save" var="appButtonSave" />
-<spring:message code="app_button_cancel" var="appButtonCancel" />
-<spring:message code="app_button_delete" var="appButtonDelete" />
+<spring:message code="title_passport_cargo" var="titleCargoPassport"/>
+<spring:message code="cargo_id" var="cargoId"/>
+<spring:message code="cargo_name" var="cargoName"/>
+<spring:message code="cargo_weight" var="cargoWeight"/>
+<spring:message code="cargo_departure_city" var="cargoDepartureCity"/>
+<spring:message code="cargo_arrival_city" var="cargoArrivalCity"/>
+<spring:message code="cargo_status" var="cargoStatus"/>
+<spring:message code="app_button_save" var="appButtonSave"/>
+<spring:message code="app_button_cancel" var="appButtonCancel"/>
+<spring:message code="app_button_delete" var="appButtonDelete"/>
 <spring:message code="placeholder_departure_city" var="placeholderDepartureCity"/>
 <spring:message code="placeholder_arrival_city" var="placeholderArrivalCity"/>
 <spring:message code="placeholder_weight" var="placeholderWeight"/>
 <spring:message code="placeholder_cargo_name" var="placeholderCargoName"/>
-<spring:message code="confirm_cargo_deleting_text" var="confirmCargoDeletingText" />
+<spring:message code="confirm_cargo_deleting_text" var="confirmCargoDeletingText"/>
 
-<c:set var="id" value="id" />
-<c:set var="name" value="name" />
-<c:set var="weight" value="weight" />
-<c:set var="depCity" value="departureCity" />
-<c:set var="arCity" value="arrivalCity" />
-<c:set var="status" value="status" />
+<c:set var="id" value="id"/>
+<c:set var="name" value="name"/>
+<c:set var="weight" value="weight"/>
+<c:set var="depCity" value="departureCity"/>
+<c:set var="arCity" value="arrivalCity"/>
+<c:set var="status" value="status"/>
 
-<c:set var="formClass" value="form-horizontal" />
-<c:set var="outerDivClass" value="row form-group" />
-<c:set var="innerDivClass" value="col-lg-4" />
-<c:set var="buttonDivClass" value="col-lg-offset-3 col-lg-9" />
-<c:set var="labelClass" value="control-label col-lg-3" />
-<c:set var="headerClass" value="col-lg-offset-1 col-lg-11" />
-<c:set var="inputClass" value="form-control" />
-<c:set var="errorsClass" value="control-label col-lg-12 text-danger" />
-<c:set var="buttonClass" value="btn btn-default" />
-<c:set var="buttonWideClass" value="btn btn-default btn-block" />
-<c:set var="cargoCheckingButtons" value="cargo-checking-buttons" />
-<c:set var="cargoCheckingResult" value="cargo-checking-result" />
+<c:set var="formClass" value="form-horizontal"/>
+<c:set var="outerDivClass" value="row form-group"/>
+<c:set var="innerDivClass" value="col-lg-4"/>
+<c:set var="buttonDivClass" value="col-lg-offset-3 col-lg-9"/>
+<c:set var="labelClass" value="control-label col-lg-3"/>
+<c:set var="headerClass" value="col-lg-offset-1 col-lg-11"/>
+<c:set var="inputClass" value="form-control"/>
+<c:set var="errorsClass" value="control-label col-lg-12 text-danger"/>
+<c:set var="buttonClass" value="btn btn-default"/>
+<c:set var="buttonWideClass" value="btn btn-default btn-block"/>
+<c:set var="cargoCheckingButtons" value="cargo-checking-buttons"/>
+<c:set var="cargoCheckingResult" value="cargo-checking-result"/>
 
-<spring:url var="checkURL" value="/cargoes/${cargo.id}?check"  />
-<spring:url var="deleteURL" value="/cargoes/${cargo.id}?delete" />
-<spring:url var="cancelURL" value="/cargoes" />
+<spring:url var="cargoesURL" value="/admin/cargoes"/>
+<spring:url var="checkURL" value="${cargoesURL}/${cargo.id}?check"/>
+<spring:url var="deleteURL" value="${cargoesURL}/${cargo.id}?delete"/>
+<spring:url var="cancelURL" value="${cargoesURL}"/>
 
 <c:if test="${message.type eq 'error'}">
     <div class="alert alert-danger"><strong>${message.entry}</strong></div>
@@ -62,9 +63,9 @@
         <div class="${outerDivClass}">
             <form:label path="${id}" cssClass="${labelClass}">${cargoId}:</form:label>
             <div class="${innerDivClass}">
-                <form:input path="${id}" cssClass="${inputClass}" value="${cargo.id}" readonly="true" />
+                <form:input path="${id}" cssClass="${inputClass}" value="${cargo.id}" readonly="true"/>
             </div>
-            <div><form:errors path="${id}" cssClass="${errorsClass}" /></div>
+            <div><form:errors path="${id}" cssClass="${errorsClass}"/></div>
         </div>
     </c:if>
 
@@ -85,7 +86,7 @@
                         value="${cargo.weight}" placeholder="${placeholderWeight}"
                         name="${weight}" required="true"/>
         </div>
-        <form:errors path="${weight}" cssClass="${errorsClass}" for="${weight}" />
+        <form:errors path="${weight}" cssClass="${errorsClass}" for="${weight}"/>
     </div>
 
     <div class="${outerDivClass}">
@@ -95,7 +96,7 @@
                         value="${cargo.departureCity}" placeholder="${placeholderDepartureCity}"
                         name="${depCity}" required="true"/>
         </div>
-        <div><form:errors path="${depCity}" cssClass="${errorsClass}" for="${depCity}" /></div>
+        <div><form:errors path="${depCity}" cssClass="${errorsClass}" for="${depCity}"/></div>
     </div>
 
     <div class="${outerDivClass}">
@@ -105,16 +106,16 @@
                         value="${cargo.arrivalCity}" placeholder="${placeholderArrivalCity}"
                         name="${arCity}" required="true"/>
         </div>
-        <div><form:errors path="${arCity}" cssClass="${errorsClass}" for="${arCity}" /></div>
+        <div><form:errors path="${arCity}" cssClass="${errorsClass}" for="${arCity}"/></div>
     </div>
 
     <c:if test="${cargo.id != 0}">
         <div class="${outerDivClass}">
             <form:label path="${status}" cssClass="${labelClass}">${cargoStatus}:</form:label>
             <div class="${innerDivClass}">
-                <form:input path="${status}" cssClass="${inputClass}" value="${cargo.status}" readonly="true" />
+                <form:input path="${status}" cssClass="${inputClass}" value="${cargo.status}" readonly="true"/>
             </div>
-            <div><form:errors path="${status}" cssClass="${errorsClass}" /></div>
+            <div><form:errors path="${status}" cssClass="${errorsClass}"/></div>
         </div>
     </c:if>
 
@@ -123,7 +124,7 @@
             <button class="${buttonClass} ${cargoCheckingButtons}" type="submit">${appButtonSave}</button>
             <c:if test="${cargo.id != 0}">
                 <a class="${buttonClass} ${cargoCheckingButtons}" type="button"
-                    <%--id="delete_button"--%> data-toggle="modal" data-target="#deleting">${appButtonDelete}</a>
+                   data-toggle="modal" data-target="#deleting">${appButtonDelete}</a>
                 <a class="${buttonClass}" type="button"
                    href="${cancelURL}">${appButtonCancel}</a>
             </c:if>
@@ -136,7 +137,6 @@
     <c:if test="${cargo.id != 0}">
         <div class="${outerDivClass}">
             <div class="${buttonDivClass}">
-                    <%--<span id="checking_result" class="label label-danger" hidden></span>--%>
                 <h3 id="${cargoCheckingResult}" class="label label-danger" hidden></h3>
             </div>
         </div>
@@ -172,7 +172,7 @@
         var isChecked = false;
         var isLaunched = false;
 
-        $('.${cargoCheckingButtons}').click(function(event){
+        $('.${cargoCheckingButtons}').click(function (event) {
             if (!isLaunched) {
                 $('.${cargoCheckingButtons}').attr("disabled", true);
                 $.ajax({
@@ -180,7 +180,7 @@
                     type: 'GET',
                     dataType: 'json',
                     contentType: 'application/json'
-                }).done(function(response) {
+                }).done(function (response) {
                     if (response.type == 'passed') {
                         $('.${cargoCheckingButtons}').attr("disabled", false);
                         isChecked = true;

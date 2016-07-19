@@ -18,4 +18,11 @@ public interface DriverDao extends GenericDao<Driver> {
      */
     List<Driver> getDriversByStatus(DriverStatus status);
 
+    /**
+     * Gets driver by given email.
+     * @param email email
+     * @return driver
+     */
+    Driver getByEmail(String email);
+
 }

@@ -8,6 +8,7 @@ import com.tsystems.cargotransportations.entity.DriverStatus;
 import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.entity.Truck;
 import com.tsystems.cargotransportations.exception.DriverIsBusyServiceException;
+import com.tsystems.cargotransportations.exception.DriverNotExistServiceException;
 import com.tsystems.cargotransportations.service.interfaces.DriverService;
 
 import com.tsystems.cargotransportations.constants.MagicConstants;
@@ -15,12 +16,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceException;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
 import static com.tsystems.cargotransportations.constants.ServiceConstants.DRIVER_IS_BUSY;
+import static com.tsystems.cargotransportations.constants.ServiceConstants.DRIVER_NOT_EXIST;
 import static com.tsystems.cargotransportations.constants.ServiceMapping.DRIVER_SERVICE;
 import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
 
@@ -48,6 +51,7 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
     @Autowired
     private OrderDao orderDao;
 
+    @Transactional(propagation = SUPPORTS)
     @Override
     public boolean isReadyToModifying(Driver driver) {
         if (driver.getStatus() == DriverStatus.BUSY) {
@@ -58,12 +62,28 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
 
     @Override
     public void checkAndDelete(Driver driver) {
-        if (isReadyToModifying(driver)) getDao().delete(driver);
+        if (isReadyToModifying(driver)) {
+            getDao().delete(driver);
+        }
     }
 
     @Override
     public void checkAndUpdate(Driver driver) {
-        if (isReadyToModifying(driver)) getDao().delete(driver);
+        if (isReadyToModifying(driver)) {
+            getDao().delete(driver);
+        }
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Driver getByEmail(String email) {
+        Driver driver = null;
+        try {
+            driver = driverDao.getByEmail(email);
+        } catch (PersistenceException ignore) {
+            /* NOP */
+        }
+        return driver;
     }
 
     @Transactional(readOnly = true)

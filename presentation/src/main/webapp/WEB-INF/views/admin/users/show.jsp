@@ -35,9 +35,10 @@
 <c:set var="userCheckingButtons" value="user-checking-buttons" />
 <c:set var="userCheckingResult" value="user-checking-result" />
 
-<spring:url var="checkURL" value="/users/${user.id}?check"  />
-<spring:url var="deleteURL" value="/users/${user.id}?delete" />
-<spring:url var="cancelURL" value="/users" />
+<spring:url var="usersURL" value="/admin/users"/>
+<spring:url var="checkURL" value="${usersURL}/${user.id}?check"  />
+<spring:url var="deleteURL" value="${usersURL}/${user.id}?delete" />
+<spring:url var="cancelURL" value="${usersURL}" />
 
 <c:if test="${message.type eq 'error'}">
     <div class="alert alert-danger"><strong>${message.entry}</strong></div>

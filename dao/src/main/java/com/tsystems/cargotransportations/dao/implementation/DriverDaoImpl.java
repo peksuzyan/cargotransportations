@@ -41,4 +41,9 @@ public class DriverDaoImpl extends GenericDaoImpl<Driver> implements DriverDao {
         return getEntityManager().createQuery(query, Driver.class).getResultList();
     }
 
+    @Override
+    public Driver getByEmail(String email) {
+        String query = String.format("SELECT d FROM Driver AS d WHERE d.email = '%s'", email);
+        return getEntityManager().createQuery(query, Driver.class).getSingleResult();
+    }
 }

@@ -2,6 +2,7 @@ package com.tsystems.cargotransportations.dao.interfaces;
 
 import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.entity.OrderStatus;
+import com.tsystems.cargotransportations.entity.Truck;
 
 import java.util.List;
 
@@ -17,5 +18,13 @@ public interface OrderDao extends GenericDao<Order> {
      * @return orders list
      */
     List<Order> getAllByStatus(OrderStatus status);
+
+    /**
+     * Gets an order by given status and truck.
+     * @param status order status
+     * @param truck truck
+     * @return order
+     */
+    Order getByStatusAndTruck(OrderStatus status, Truck truck);
 
 }

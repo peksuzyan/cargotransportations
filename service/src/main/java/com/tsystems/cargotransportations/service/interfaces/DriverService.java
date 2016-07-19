@@ -29,6 +29,13 @@ public interface DriverService extends GenericService<Driver> {
     void checkAndUpdate(Driver driver);
 
     /**
+     * Gets a driver by email.
+     * @param email email
+     * @return driver
+     */
+    Driver getByEmail(String email);
+
+    /**
      * Gets all drivers that suitable for assigning of the order given order.
      * @param order order
      * @return drivers list

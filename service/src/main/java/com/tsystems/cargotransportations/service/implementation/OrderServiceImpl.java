@@ -7,15 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import javax.persistence.PersistenceException;
 
 import static com.tsystems.cargotransportations.constants.ServiceMapping.ORDER_SERVICE;
 
 /**
  * Implements business-logic operations that bound with order.
  */
+@Transactional
 @Service(ORDER_SERVICE)
 public class OrderServiceImpl extends GenericServiceImpl<Order> implements OrderService {
 
@@ -53,4 +52,17 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      */
     @Autowired
     private RouteDao routeDao;
+
+    @Transactional(readOnly = true)
+    @Override
+    public Order getByStatusAndTruck(OrderStatus status, Truck truck) {
+        if (truck == null) return null;
+        Order order = null;
+        try {
+            order = orderDao.getByStatusAndTruck(status, truck);
+        } catch (PersistenceException ignore) {
+            /* NOP */
+        }
+        return order;
+    }
 }

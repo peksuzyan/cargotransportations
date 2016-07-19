@@ -19,4 +19,9 @@ public class ServiceConstants {
      * Localization code for processes when driver is busy.
      */
     public static final String DRIVER_IS_BUSY = "exception_driver_busy";
+
+    /**
+     * Localization code for processes when driver don't exist.
+     */
+    public static final String DRIVER_NOT_EXIST = "exception_driver_not_exist";
 }
