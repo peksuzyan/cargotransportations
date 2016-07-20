@@ -127,7 +127,7 @@ $.extend($.jgrid,{
 		},
 		offset =0;
 		if(opts === undefined) {
-			opts = $.jgrid.getRegional(this, "formatter.date");//$.jgrid.formatter.date;
+			opts = $.jgrid.getRegional(this, "formatter.date");//$.jgrid.formatters.date;
 		}
 		// old lang files
 		if(opts.parseRe === undefined ) {

@@ -122,7 +122,7 @@ $.extend($.jgrid,{
 		},
 		offset =0;
 		if(opts === undefined) {
-			opts = $.jgrid.getRegional(this, "formatter.date");//$.jgrid.formatter.date;
+			opts = $.jgrid.getRegional(this, "formatter.date");//$.jgrid.formatters.date;
 		}
 		// old lang files
 		if(opts.parseRe === undefined ) {
@@ -9476,7 +9476,7 @@ $.jgrid.extend({
 				for (i=1;i<=maxcols;i++) {
 					tmpl += i === 1 ? tdtmpl : tdtmpl2;
 				}
-				// find max number align rigth with property formatter
+				// find max number align rigth with property formatters
 				$(obj.p.colModel).each( function() {
 					if(this.editrules && this.editrules.edithidden === true) {
 						hc = false;
@@ -11594,7 +11594,7 @@ $.extend($.jgrid,{
 		};
 		
 		$.jgrid.loadState( jqGridId, null, o);
-		// check for formatter actions
+		// check for formatters actions
 		var grid = $("#"+jqGridId)[0],
 		model = $(grid).jqGrid('getGridParam','colModel'), i=-1, nav = $.jgrid.getRegional(grid, 'nav');
 		$.each(model,function(k){

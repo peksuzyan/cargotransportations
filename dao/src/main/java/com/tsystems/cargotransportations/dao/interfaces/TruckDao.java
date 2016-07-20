@@ -16,4 +16,10 @@ public interface TruckDao extends GenericDao<Truck> {
      */
     List<Truck> getActiveAndFreeTrucks();
 
+    /**
+     * Gets truck by given number.
+     * @param number truck number
+     * @return truck
+     */
+    Truck getByNumber(String number);
 }

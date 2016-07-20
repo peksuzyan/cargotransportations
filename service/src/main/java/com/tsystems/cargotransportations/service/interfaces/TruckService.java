@@ -17,4 +17,11 @@ public interface TruckService extends GenericService<Truck> {
      */
     List<Truck> getSuitableTrucksByOrder(Order order);
 
+    /**
+     * Gets truck by given number.
+     * @param number truck number
+     * @return truck
+     */
+    Truck getByNumber(String number);
+
 }

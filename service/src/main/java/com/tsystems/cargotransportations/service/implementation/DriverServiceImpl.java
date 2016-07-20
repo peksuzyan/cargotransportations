@@ -70,7 +70,7 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
     @Override
     public void checkAndUpdate(Driver driver) {
         if (isReadyToModifying(driver)) {
-            getDao().delete(driver);
+            getDao().update(driver);
         }
     }
 

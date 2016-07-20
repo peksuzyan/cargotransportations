@@ -16,18 +16,31 @@
     <context:component-scan base-package="
         com.tsystems.cargotransportations.presentation.controllers,
         com.tsystems.cargotransportations.presentation.messages,
-        com.tsystems.cargotransportations.presentation.handlers" />
+        com.tsystems.cargotransportations.presentation.handlers,
+        com.tsystems.cargotransportations.presentation.formatters,
+        com.tsystems.cargotransportations.webservice"/>
 
-    <context:annotation-config />
+    <context:annotation-config/>
 
-    <mvc:annotation-driven />
+    <mvc:annotation-driven/>
 
-    <mvc:resources mapping="/resources/**" location="/" />
+    <mvc:resources mapping="/resources/**" location="/"/>
 
-    <mvc:default-servlet-handler />
+    <mvc:default-servlet-handler/>
+
+    <mvc:annotation-driven conversion-service="conversionService"/>
+
+    <bean id="conversionService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <set>
+                <ref bean="truckFormatter"/>
+            </set>
+        </property>
+    </bean>
 
     <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-        <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+        <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>
     </bean>
 
     <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
@@ -41,7 +54,7 @@
 
     <mvc:interceptors>
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-            <property name="paramName" value="lang" />
+            <property name="paramName" value="lang"/>
         </bean>
     </mvc:interceptors>
 
@@ -52,19 +65,19 @@
                 <value>WEB-INF/i18n/message</value>
             </list>
         </property>
-        <property name="fallbackToSystemLocale" value="false" />
+        <property name="fallbackToSystemLocale" value="false"/>
     </bean>
 
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
-        <property name="cookieName" value="locale" />
+        <property name="cookieName" value="locale"/>
     </bean>
 
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
-        <property name="validationMessageSource" ref="messageSource" />
+        <property name="validationMessageSource" ref="messageSource"/>
     </bean>
 
-    <mvc:annotation-driven validator="validator" />
+    <mvc:annotation-driven validator="validator"/>
 
-    <tx:annotation-driven transaction-manager="transactionManager" />
+    <tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>

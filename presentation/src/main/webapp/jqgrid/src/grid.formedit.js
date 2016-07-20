@@ -1135,7 +1135,7 @@ $.jgrid.extend({
 				for (i=1;i<=maxcols;i++) {
 					tmpl += i === 1 ? tdtmpl : tdtmpl2;
 				}
-				// find max number align rigth with property formatter
+				// find max number align rigth with property formatters
 				$(obj.p.colModel).each( function() {
 					if(this.editrules && this.editrules.edithidden === true) {
 						hc = false;

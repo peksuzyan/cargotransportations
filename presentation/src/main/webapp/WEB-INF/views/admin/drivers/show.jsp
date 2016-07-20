@@ -134,11 +134,21 @@
         </div>
     </c:if>
 
+    <%--<c:if test="${driver.id != 0}">
+        <div class="${outerDivClass}">
+            <label for="${truck}" class="${labelClass}">${driverTruck}:</label>
+            <div class="${innerDivClass}">
+                <input id="${truck}" name="${truck}"
+                       class="${inputClass}" value="${driver.truck.number}"  readonly/>
+            </div>
+        </div>
+    </c:if>--%>
+
     <c:if test="${driver.id != 0}">
         <div class="${outerDivClass}">
             <form:label path="${truck}" cssClass="${labelClass}">${driverTruck}:</form:label>
             <div class="${innerDivClass}">
-                <form:input path="${truck}" cssClass="${inputClass}" value="${driver.truck.number}" readonly="true"/>
+                <form:input path="${truck}" cssClass="${inputClass}" value="${driver.truck}" readonly="true"/>
             </div>
             <div><form:errors path="${truck}" cssClass="${errorsClass}"/></div>
         </div>

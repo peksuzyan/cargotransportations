@@ -48,4 +48,13 @@ public class UserDaoImpl extends GenericDaoImpl<User> implements UserDao {
         List<User> users = getEntityManager().createQuery(query, User.class).getResultList();
         return users.isEmpty() ? null : users.get(0);
     }
+
+    @Override
+    public boolean authenticate(String email, String password) {
+        String query = String.format(
+                "SELECT u FROM User AS u WHERE u.email = '%s' AND u.password = '%s'",
+                email, password);
+        List<User> users = getEntityManager().createQuery(query, User.class).getResultList();
+        return !users.isEmpty();
+    }
 }

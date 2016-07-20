@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,6 +28,10 @@ import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
 @Service(TRUCK_SERVICE)
 public class TruckServiceImpl extends GenericServiceImpl<Truck> implements TruckService {
 
+    /**
+     * Gets an instance of dao implementation in this service.
+     * @return an instance of dao implementation
+     */
     @Override
     GenericDao<Truck> getDao() {
         return truckDao;
@@ -38,6 +43,28 @@ public class TruckServiceImpl extends GenericServiceImpl<Truck> implements Truck
     @Autowired
     private TruckDao truckDao;
 
+    /**
+     * Gets truck by given number.
+     * @param number truck number
+     * @return truck
+     */
+    @Transactional(readOnly = true)
+    @Override
+    public Truck getByNumber(String number) {
+        Truck truck = null;
+        try {
+            truck = truckDao.getByNumber(number);
+        } catch (PersistenceException ignore) {
+            /* NOP */
+        }
+        return truck;
+    }
+
+    /**
+     * Gets all trucks that suitable for assigning to the order.
+     * @param order order
+     * @return trucks list
+     */
     @Transactional(readOnly = true)
     @Override
     public List<Truck> getSuitableTrucksByOrder(Order order) {
@@ -47,7 +74,7 @@ public class TruckServiceImpl extends GenericServiceImpl<Truck> implements Truck
             suitableTrucks.addAll(trucks
                     .stream()
                     .filter(truck -> isSameLocationCity(truck, order.getRoute())
-                    && isTruckWithEnoughCapacity(truck, order.getRoute().getCities(), order.getCargoes()))
+                            && isTruckWithEnoughCapacity(truck, order.getRoute().getCities(), order.getCargoes()))
                     .collect(Collectors.toList()));
         }
         return suitableTrucks;

@@ -309,7 +309,7 @@ $.extend($.jgrid,{
 		};
 		
 		$.jgrid.loadState( jqGridId, null, o);
-		// check for formatter actions
+		// check for formatters actions
 		var grid = $("#"+jqGridId)[0],
 		model = $(grid).jqGrid('getGridParam','colModel'), i=-1, nav = $.jgrid.getRegional(grid, 'nav');
 		$.each(model,function(k){

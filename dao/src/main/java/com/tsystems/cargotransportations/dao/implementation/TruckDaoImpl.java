@@ -29,11 +29,19 @@ public class TruckDaoImpl extends GenericDaoImpl<Truck> implements TruckDao {
     @PersistenceContext
     private EntityManager entityManager;
 
+    /**
+     * Getter of the entity manager.
+     * @return entityManager
+     */
     @Override
     EntityManager getEntityManager() {
         return entityManager;
     }
 
+    /**
+     * Gets a list with active and free trucks.
+     * @return trucks list
+     */
     @Override
     public List<Truck> getActiveAndFreeTrucks() {
         String query =
@@ -44,4 +52,15 @@ public class TruckDaoImpl extends GenericDaoImpl<Truck> implements TruckDao {
         return getEntityManager().createQuery(query, Truck.class).getResultList();
     }
 
+    /**
+     * Gets truck by given number.
+     * @param number truck number
+     * @return truck
+     */
+    @Override
+    public Truck getByNumber(String number) {
+        String query = String.format(
+                "SELECT t FROM Truck t WHERE t.number = '%s'", number);
+        return getEntityManager().createQuery(query, Truck.class).getSingleResult();
+    }
 }

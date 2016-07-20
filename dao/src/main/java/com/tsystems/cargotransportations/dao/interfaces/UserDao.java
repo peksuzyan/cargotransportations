@@ -24,4 +24,12 @@ public interface UserDao extends GenericDao<User> {
      * @return user
      */
     User getUserByEmail(String email);
+
+    /**
+     * Gets a result of authentication given user by its email and password.
+     * @param email email
+     * @param password password
+     * @return authenticated or not
+     */
+    boolean authenticate(String email, String password);
 }
