@@ -4,6 +4,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.io.Serializable;
 
 import static com.tsystems.cargotransportations.constants.FieldsMapping.*;
@@ -45,11 +46,11 @@ public class Driver implements Serializable {
     @Column(name = LAST_NAME)
     private String lastName;
 
-    /**
+/*    *//**
      * Concat first and last names for convenience representation.
-     */
+     *//*
     @Transient
-    private String name;
+    private String name;*/
 
     /**
      * Represents how many time driver has worked already.
@@ -94,10 +95,10 @@ public class Driver implements Serializable {
 
     /**
      * Returns first and last names concatenation for convenience representation.
+     * @return full name
      */
-    public String getName() {
-        this.name = String.format("%s %s", this.firstName, this.lastName);
-        return name;
+    public String getFullName() {
+        return String.format("%s %s", this.firstName, this.lastName);
     }
 
     /**

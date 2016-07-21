@@ -70,14 +70,16 @@
             datatype: 'json',
             colNames: [
                 '${driverId}',
-                '${driverName}',
+                '${driverFirstName}',
+                '${driverLastName}',
                 '${driverEmail}',
                 '${driverCity}',
                 '${driverStatus}'
             ],
             colModel: [
                 {name:'id', key:true},
-                {name:'name'},
+                {name:'firstName'},
+                {name:'lastName'},
                 {name:'email'},
                 {name:'city'},
                 {name:'status'}

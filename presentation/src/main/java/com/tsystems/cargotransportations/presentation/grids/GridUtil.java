@@ -3,7 +3,7 @@ package com.tsystems.cargotransportations.presentation.grids;
 import com.tsystems.cargotransportations.service.interfaces.GenericService;
 
 /**
- * Util class in order to organize container with data.
+ * Util class in order to organize container with data to grid.
  */
 public final class GridUtil {
 

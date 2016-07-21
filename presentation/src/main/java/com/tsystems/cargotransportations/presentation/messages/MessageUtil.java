@@ -4,6 +4,9 @@ import org.springframework.context.MessageSource;
 
 import java.util.Locale;
 
+/**
+ * Util class in order to get message in convenience representation.
+ */
 public final class MessageUtil {
 
     /**

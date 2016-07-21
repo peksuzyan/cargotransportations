@@ -24,19 +24,16 @@ public class SecurityController {
 
     @RequestMapping(value = "/404")
     public String undefined(Model uiModel, Locale locale) {
-        System.out.println("!!! -> Controller -> login() method");
         return "/404";
     }
 
     @RequestMapping(value = "/login")
     public String login(Model uiModel, Locale locale) {
-        System.out.println("!!! -> Controller -> login() method");
         return "/login";
     }
 
     @RequestMapping(value = "/login", params = "error")
     public String error(Model uiModel, Locale locale) {
-        System.out.println("!!! -> Controller -> error() method");
         uiModel.addAttribute(
                 MESSAGE_PARAM, getMessage(CODE_ERROR, SECURITY_WRONG_CREDENTIALS, locale));
         return "/login";
@@ -44,7 +41,6 @@ public class SecurityController {
 
     @RequestMapping(value = "/login", params = "403")
     public String denied(Model uiModel, Locale locale) {
-        System.out.println("!!! -> Controller -> denied() method");
         uiModel.addAttribute(
                 MESSAGE_PARAM, getMessage(CODE_ERROR, SECURITY_PERMISSION_DENIED, locale));
         return "/login";
@@ -52,7 +48,6 @@ public class SecurityController {
 
     @RequestMapping(value = "/login", params = "logout")
     public String logout(Model uiModel, Locale locale) {
-        System.out.println("!!! -> Controller -> logout() method");
         uiModel.addAttribute(
                 MESSAGE_PARAM, getMessage(CODE_SUCCESS, SECURITY_LOGOUT, locale));
         return "/login";

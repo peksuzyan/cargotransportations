@@ -30,7 +30,7 @@
 <c:set var="city" value="city"/>
 <c:set var="status" value="status"/>
 <c:set var="hours" value="hours"/>
-<c:set var="truck" value="truck"/>
+<c:set var="truck" value="truck.number"/>
 
 <c:set var="formClass" value="form-horizontal"/>
 <c:set var="outerDivClass" value="row form-group"/>
@@ -134,21 +134,22 @@
         </div>
     </c:if>
 
-    <%--<c:if test="${driver.id != 0}">
+<%--    <c:if test="${driver.id != 0 && not empty driver.truck}">
         <div class="${outerDivClass}">
             <label for="${truck}" class="${labelClass}">${driverTruck}:</label>
             <div class="${innerDivClass}">
-                <input id="${truck}" name="${truck}"
+                <input id="${truck}"
                        class="${inputClass}" value="${driver.truck.number}"  readonly/>
             </div>
         </div>
     </c:if>--%>
 
-    <c:if test="${driver.id != 0}">
+    <c:if test="${driver.id != 0 && not empty driver.truck}">
         <div class="${outerDivClass}">
             <form:label path="${truck}" cssClass="${labelClass}">${driverTruck}:</form:label>
             <div class="${innerDivClass}">
-                <form:input path="${truck}" cssClass="${inputClass}" value="${driver.truck}" readonly="true"/>
+                <form:input path="${truck}" cssClass="${inputClass}"
+                            value="${driver.truck.number}" readonly="true"/>
             </div>
             <div><form:errors path="${truck}" cssClass="${errorsClass}"/></div>
         </div>

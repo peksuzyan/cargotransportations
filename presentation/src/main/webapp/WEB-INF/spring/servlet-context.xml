@@ -17,8 +17,7 @@
         com.tsystems.cargotransportations.presentation.controllers,
         com.tsystems.cargotransportations.presentation.messages,
         com.tsystems.cargotransportations.presentation.handlers,
-        com.tsystems.cargotransportations.presentation.formatters,
-        com.tsystems.cargotransportations.webservice"/>
+        com.tsystems.cargotransportations.presentation.formatters" />
 
     <context:annotation-config/>
 
@@ -28,16 +27,25 @@
 
     <mvc:default-servlet-handler/>
 
-    <mvc:annotation-driven conversion-service="conversionService"/>
+<!--    <mvc:annotation-driven conversion-service="conversionService"/>
+
+    &lt;!&ndash;<bean id="conversionService"
+          class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <ref bean="truckConverter"/>
+            </set>
+        </property>
+    </bean>&ndash;&gt;
 
     <bean id="conversionService"
-          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean" >
         <property name="formatters">
             <set>
                 <ref bean="truckFormatter"/>
             </set>
         </property>
-    </bean>
+    </bean>-->
 
     <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView"/>

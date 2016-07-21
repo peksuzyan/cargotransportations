@@ -35,9 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         com.tsystems.cargotransportations.entity.User user = userService.getUserByEmail(s);
-        System.out.println("!!! Is user found? User:" + user);
         if (user == null) throw new UsernameNotFoundException("!!!!custom message! user isn't found!");
-        System.out.println("!!! PASSWORD? User:" + user.getPassword());
         List<GrantedAuthority> authorities = buildUserAuthority(user.getUserRole());
         return buildUserForAuthentication(user, authorities);
     }
@@ -62,7 +60,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     private List<GrantedAuthority> buildUserAuthority(UserRole userRole) {
         List<GrantedAuthority> result = new ArrayList<>();
-        System.out.println(userRole.toString());
         result.add(new SimpleGrantedAuthority("ROLE_" + userRole.toString()));
         return result;
     }

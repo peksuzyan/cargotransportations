@@ -7,12 +7,15 @@ import com.tsystems.cargotransportations.presentation.grids.Grid;
 import com.tsystems.cargotransportations.presentation.grids.GridUtil;
 import com.tsystems.cargotransportations.service.interfaces.DriverService;
 import com.tsystems.cargotransportations.presentation.messages.Message;
+import com.tsystems.cargotransportations.service.interfaces.TruckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -36,6 +39,12 @@ public class DriverController {
      */
     @Autowired
     private DriverService driverService;
+
+    /**
+     * Injected instance of service class for entities management.
+     */
+    @Autowired
+    private TruckService truckService;
 
     /**
      * Takes a message with internalization supporting from a request.
@@ -123,6 +132,7 @@ public class DriverController {
             uiModel.addAttribute(DRIVER_PARAM, driver);
             return DRIVER_EDIT_PATH;
         }
+        driver.setTruck(truckService.getByNumber(driver.getTruck().getNumber()));
         try {
             driverService.checkAndUpdate(driver);
         } catch (ServiceException e) {
