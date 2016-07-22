@@ -1,6 +1,6 @@
 package com.tsystems.cargotransportations.presentation.controllers;
 
-import com.tsystems.cargotransportations.presentation.messages.Message;
+import com.tsystems.cargotransportations.presentation.grids.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;

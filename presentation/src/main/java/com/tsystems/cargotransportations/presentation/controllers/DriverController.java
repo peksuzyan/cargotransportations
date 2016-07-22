@@ -2,21 +2,16 @@ package com.tsystems.cargotransportations.presentation.controllers;
 
 import com.tsystems.cargotransportations.entity.Driver;
 import com.tsystems.cargotransportations.exception.ServiceException;
-import com.tsystems.cargotransportations.presentation.formatters.TruckFormatter;
 import com.tsystems.cargotransportations.presentation.grids.Grid;
 import com.tsystems.cargotransportations.presentation.grids.GridUtil;
 import com.tsystems.cargotransportations.service.interfaces.DriverService;
-import com.tsystems.cargotransportations.presentation.messages.Message;
+import com.tsystems.cargotransportations.presentation.grids.Message;
 import com.tsystems.cargotransportations.service.interfaces.TruckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 

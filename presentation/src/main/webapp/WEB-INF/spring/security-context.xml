@@ -36,7 +36,7 @@
     </authentication-manager>
 
     <beans:bean id="redirectRoleStrategy"
-                class="com.tsystems.cargotransportations.presentation.security.RoleBasedAuthenticationSuccessHandler">
+                class="com.tsystems.cargotransportations.presentation.security.RoleAuthenticationSuccessHandler">
         <beans:property name="roleUrlMap">
             <beans:map>
                 <beans:entry key="ROLE_ADMIN" value="/admin/cargoes"/>

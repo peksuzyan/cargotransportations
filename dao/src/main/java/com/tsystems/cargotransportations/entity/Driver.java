@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import javax.validation.Valid;
 import java.io.Serializable;
+import java.util.Date;
 
 import static com.tsystems.cargotransportations.constants.FieldsMapping.*;
 import static com.tsystems.cargotransportations.constants.ValidationCodes.*;
@@ -46,12 +47,6 @@ public class Driver implements Serializable {
     @Column(name = LAST_NAME)
     private String lastName;
 
-/*    *//**
-     * Concat first and last names for convenience representation.
-     *//*
-    @Transient
-    private String name;*/
-
     /**
      * Represents how many time driver has worked already.
      */
@@ -78,6 +73,12 @@ public class Driver implements Serializable {
     @ManyToOne
     @JoinColumn(name = TRUCK_ID)
     private Truck truck;
+
+    /**
+     * The date of beginning shift.
+    */
+    @Column(name = SHIFT_START)
+    private Date shiftStart;
 
     /**
      * Default constructor.
@@ -243,5 +244,23 @@ public class Driver implements Serializable {
      */
     public void setTruck(Truck truck) {
         this.truck = truck;
+    }
+
+    /**
+     * Gets shiftStart.
+     *
+     * @return shiftStart shiftStart
+     */
+    public Date getShiftStart() {
+        return shiftStart;
+    }
+
+    /**
+     * Sets shiftStart.
+     *
+     * @param shiftStart shiftStart
+     */
+    public void setShiftStart(Date shiftStart) {
+        this.shiftStart = shiftStart;
     }
 }

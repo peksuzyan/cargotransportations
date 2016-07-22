@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.presentation.messages;
+package com.tsystems.cargotransportations.presentation.grids;
 
 import org.springframework.context.MessageSource;
 

@@ -116,6 +116,11 @@ public class FieldsMapping {
     public static final String DURATION = "duration";
 
     /**
+     * Represents shift start.
+     */
+    public static final String SHIFT_START = "shift_start";
+
+    /**
      * Represents table name within database for order class.
      */
     public static final String ORDERS_TABLE = "Orders";

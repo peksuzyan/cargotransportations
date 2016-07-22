@@ -28,6 +28,10 @@ import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
 @Service(CARGO_SERVICE)
 public class CargoServiceImpl extends GenericServiceImpl<Cargo> implements CargoService {
 
+    /**
+     * Gets an instance of dao implementation in this service.
+     * @return an instance of dao implementation
+     */
     @Override
     GenericDao<Cargo> getDao() {
         return cargoDao;
@@ -45,6 +49,24 @@ public class CargoServiceImpl extends GenericServiceImpl<Cargo> implements Cargo
     @Autowired
     private OrderDao orderDao;
 
+    /**
+     * Changes cargo status by id.
+     * @param id cargo id.
+     * @return is changed or not
+     */
+    @Override
+    public boolean changeStatusById(int id) {
+        Cargo cargo = cargoDao.read(id);
+        if (cargo == null) return false;
+        cargo.setStatus(CargoStatus.DELIVERED);
+        cargoDao.update(cargo);
+        return true;
+    }
+
+    /**
+     * Checks whether cargo is ready to modifying or not in accordance to a business-logic.
+     * @param cargo cargo
+     */
     @Transactional(propagation = SUPPORTS)
     @Override
     public boolean isReadyToModifying(Cargo cargo) {
@@ -57,16 +79,28 @@ public class CargoServiceImpl extends GenericServiceImpl<Cargo> implements Cargo
         return true;
     }
 
+    /**
+     * Checks whether cargo is ready to deleting or not in accordance to a business-logic.
+     * @param cargo cargo
+     */
     @Override
     public void checkAndDelete(Cargo cargo) {
         if (isReadyToModifying(cargo)) getDao().delete(cargo);
     }
 
+    /**
+     * Checks whether cargo is ready to updating or not in accordance to a business-logic.
+     * @param cargo cargo
+     */
     @Override
     public void checkAndUpdate(Cargo cargo) {
         if (isReadyToModifying(cargo)) getDao().update(cargo);
     }
 
+    /**
+     * Gets all cargoes that have given status.
+     * @return cargoes list
+     */
     @Transactional(readOnly = true)
     @Override
     public List<Cargo> getSuitableCargoes() {

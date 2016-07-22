@@ -1,6 +1,7 @@
 package com.tsystems.cargotransportations.service.interfaces;
 
 import com.tsystems.cargotransportations.entity.Driver;
+import com.tsystems.cargotransportations.entity.DriverStatus;
 import com.tsystems.cargotransportations.entity.Order;
 
 import java.util.List;
@@ -41,5 +42,13 @@ public interface DriverService extends GenericService<Driver> {
      * @return drivers list
      */
     List<Driver> getSuitableDriversByOrder(Order order);
+
+    /**
+     * Changes driver on a given status.
+     * @param email driver email
+     * @param status a new status
+     * @return is changed or not
+     */
+    boolean changeStatusByEmail(String email, DriverStatus status);
 
 }

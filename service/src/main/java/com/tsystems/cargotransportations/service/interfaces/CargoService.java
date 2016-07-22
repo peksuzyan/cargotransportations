@@ -33,4 +33,11 @@ public interface CargoService extends GenericService<Cargo> {
      */
     List<Cargo> getSuitableCargoes();
 
+    /**
+     * Changes cargo status by id.
+     * @param id cargo id.
+     * @return is changed or not
+     */
+    boolean changeStatusById(int id);
+
 }
