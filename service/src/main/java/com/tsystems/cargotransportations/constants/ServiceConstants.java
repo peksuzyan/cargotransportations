@@ -24,4 +24,15 @@ public class ServiceConstants {
      * Localization code for processes when driver don't exist.
      */
     public static final String DRIVER_NOT_EXIST = "exception_driver_not_exist";
+
+    /**
+     * Localization code for processes when order is performing.
+     */
+    public static final String ORDER_IS_PERFORMING = "exception_order_performing";
+
+    /**
+     * Localization code for processes when order is done.
+     */
+    public static final String ORDER_IS_DONE = "exception_order_done";
+
 }

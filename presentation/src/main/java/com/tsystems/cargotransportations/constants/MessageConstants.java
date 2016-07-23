@@ -156,4 +156,27 @@ public class MessageConstants {
      */
     public static final String CODE_ROUTE_ADD_SUCCESS = "route_add_success";
 
+    /* ORDER */
+
+    /**
+     * Represents code of property-file when order editing is success.
+     */
+    public static final String CODE_ORDER_EDIT_SUCCESS = "order_edit_success";
+    /**
+     * Represents code of property-file when order editing is error.
+     */
+    public static final String CODE_ORDER_EDIT_ERROR = "order_edit_error";
+    /**
+     * Represents code of property-file when order adding is success.
+     */
+    public static final String CODE_ORDER_ADD_SUCCESS = "order_add_success";
+    /**
+     * Represents code of property-file when order adding is error.
+     */
+    public static final String CODE_ORDER_ADD_ERROR = "order_add_error";
+    /**
+     * Represents code of property-file when order deleting is success.
+     */
+    public static final String CODE_ORDER_DELETE_SUCCESS = "order_delete_success";
+
 }

@@ -4,17 +4,20 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
-<spring:message code="title_routes" var="title"/>
-<spring:message code="route_id" var="routeId" />
-<spring:message code="route_duration" var="routeDuration" />
-<spring:message code="route_distance" var="routeDistance" />
-<spring:message code="route_cities" var="routeCities" />
+<spring:message code="title_orders" var="title"/>
+<spring:message code="order_id" var="orderId"/>
+<spring:message code="order_status" var="orderStatus"/>
+<spring:message code="order_cargoes" var="orderCargoes"/>
+<spring:message code="order_truck" var="orderTruck"/>
+<spring:message code="order_drivers" var="orderDrivers"/>
+<spring:message code="order_route" var="orderRoute"/>
+<spring:message code="order_creation_date" var="orderCreationDate"/>
 <spring:message code="app_button_edit" var="appButtonEdit" />
 <spring:message code="app_button_create" var="appButtonCreate" />
 <spring:message code="app_button_refresh" var="appButtonRefresh" />
 
-<spring:url var="routesURL" value="/admin/routes"/>
-<spring:url var="listGridURL" value="${routesURL}/listgrid"/>
+<spring:url var="ordersURL" value="/admin/orders"/>
+<spring:url var="listGridURL" value="${ordersURL}/listgrid"/>
 
 <c:set var="localeCode" value="${pageContext.response.locale}" />
 
@@ -31,7 +34,7 @@
             <div class="btn-group">
                 <a class="btn btn-info" role="button"
                    data-toggle="modal" data-target="#creating">${appButtonCreate}</a>
-                <a class="btn btn-info" role="button" href="${routesURL}">${appButtonRefresh}</a>
+                <a class="btn btn-info" role="button" href="${ordersURL}">${appButtonRefresh}</a>
             </div>
         </div>
     </div>
@@ -39,12 +42,12 @@
 
 <div class="col-xs-12">
     <div id="creating" class="modal fade" role="dialog">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-xs-12">
-                            <tiles:insertAttribute name="modal_admin" />
+                            <tiles:insertAttribute name="modal_admin"/>
                         </div>
                     </div>
                 </div>
@@ -64,16 +67,18 @@
             url: '${listGridURL}',
             datatype: 'json',
             colNames: [
-                '${routeId}',
-                '${routeDistance}',
-                '${routeDuration}',
-                '${routeCities}'
+                '${orderId}}',
+                '${orderStatus}',
+                '${orderTruck}',
+                '${orderRoute}',
+                '${orderCreationDate}'
             ],
             colModel: [
                 {name:'id', key:true},
-                {name:'distance'},
-                {name:'duration'},
-                {name:'cities'}
+                {name:'status'},
+                {name:'truck.number'},
+                {name:'route.id'},
+                {name:'creationDate'}
             ],
             jsonReader: {
                 root: "data",
@@ -93,10 +98,23 @@
             width: 'auto',
             height: 'auto',
             regional:
-                    <c:if test="${empty lang}">'${localeCode}'</c:if>
-            <c:if test="${not empty lang}">'${lang}'</c:if>,
+                <c:if test="${empty lang}">'${localeCode}'</c:if>
+                <c:if test="${not empty lang}">'${lang}'</c:if>,
             gridview: true,
-            styleUI : "Bootstrap"
+            styleUI : "Bootstrap",
+            onSelectRow: function(id){
+                document.location.href = "${ordersURL}/" + id;
+            }
         });
     });
 </script>
+
+<c:if test="${message.type eq 'error'}">
+    <script>
+        $(document).ready(function(){
+            if ($('.alert-danger').length) {
+                $('a[data-target="#creating"]').click();
+            }
+        });
+    </script>
+</c:if>

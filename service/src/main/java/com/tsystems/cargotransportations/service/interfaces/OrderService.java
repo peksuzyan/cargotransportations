@@ -19,4 +19,16 @@ public interface OrderService extends GenericService<Order>  {
      */
     Order getByStatusAndTruck(OrderStatus status, Truck truck);
 
+    /**
+     * Checks whether order is ready to modifying or not in accordance to a business-logic.
+     * @param order order
+     */
+    boolean isReadyToModifying(Order order);
+
+    /**
+     * Checks whether order is ready to deleting or not in accordance to a business-logic.
+     * @param order order
+     */
+    void checkAndDelete(Order order);
+
 }

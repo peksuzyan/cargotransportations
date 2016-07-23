@@ -1,20 +1,18 @@
 package com.tsystems.cargotransportations.presentation.controllers;
 
 import com.tsystems.cargotransportations.entity.Route;
-import com.tsystems.cargotransportations.exception.ServiceException;
 import com.tsystems.cargotransportations.presentation.grids.Grid;
 import com.tsystems.cargotransportations.presentation.grids.GridUtil;
-import com.tsystems.cargotransportations.presentation.grids.Message;
 import com.tsystems.cargotransportations.presentation.grids.MessageUtil;
 import com.tsystems.cargotransportations.service.interfaces.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Locale;
 
 import static com.tsystems.cargotransportations.constants.GridConstants.*;
@@ -70,27 +68,28 @@ public class RouteController {
     }
 
     /**
-     * Gets requests to show edit form with specified entity by id.
-     * @param id entity id
+     * Gets requests to show add form.
      * @param uiModel UI model
-     * @return path to logic page of editing form
+     * @return path to logic page of adding form
      */
     @RequestMapping(value = ID_DIR, method = RequestMethod.GET)
-    public String editForm(@PathVariable(ID_PARAM) int id,
-                           Model uiModel) {
-        uiModel.addAttribute(ROUTE_PARAM, routeService.read(id));
+    public String addForm(Model uiModel) {
+        uiModel.addAttribute(ROUTE_PARAM, new Route());
         return ROUTE_EDIT_PATH;
     }
 
     /**
      * Gets requests to perform creating a specified entity.
-     * @param route entity
-     * @param uiModel UI model
-     * @return redirect path to logic page of editing form
+     * @param route route
+     * @param routePoints route points / cities
+     * @param uiModel uiModel
+     * @param redirectAttributes redirectAttributes
+     * @param locale locale
+     * @return redirect to routes list
      */
     @RequestMapping(method = RequestMethod.POST)
     public String add(@ModelAttribute(ROUTE_PARAM) Route route,
-                      BindingResult bindingResult,
+                      @RequestParam(name = ROUTE_POINTS_PARAM) List<String> routePoints,
                       Model uiModel,
                       RedirectAttributes redirectAttributes,
                       Locale locale) {
@@ -98,6 +97,7 @@ public class RouteController {
         redirectAttributes.addFlashAttribute(
                 MESSAGE_PARAM, MessageUtil.getMessage(
                         CODE_SUCCESS, CODE_ROUTE_ADD_SUCCESS, messageSource, locale));
+        route.setCities(routePoints);
         routeService.create(route);
         return ROUTE_REDIRECT_PATH;
     }

@@ -4,27 +4,26 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
-<spring:message code="title_passport_truck" var="titleTruckPassport"/>
-<spring:message code="truck_id" var="truckId"/>
-<spring:message code="truck_number" var="truckNumber"/>
-<spring:message code="truck_people" var="truckPeople"/>
-<spring:message code="truck_active" var="truckActive"/>
-<spring:message code="truck_capacity" var="truckCapacity"/>
-<spring:message code="truck_city" var="truckCity"/>
+<spring:message code="title_passport_order" var="titleOrderPassport"/>
+<spring:message code="order_id" var="orderId"/>
+<spring:message code="order_status" var="orderStatus"/>
+<spring:message code="order_cargoes" var="orderCargoes"/>
+<spring:message code="order_truck" var="orderTruck"/>
+<spring:message code="order_drivers" var="orderDrivers"/>
+<spring:message code="order_route" var="orderRoute"/>
+<spring:message code="order_creation_date" var="orderCreationDate"/>
 <spring:message code="app_button_save" var="appButtonSave"/>
 <spring:message code="app_button_cancel" var="appButtonCancel"/>
 <spring:message code="app_button_delete" var="appButtonDelete"/>
-<spring:message code="placeholder_number" var="placeholderNumber"/>
-<spring:message code="placeholder_capacity" var="placeholderCapacity"/>
-<spring:message code="placeholder_city" var="placeholderCity"/>
-<spring:message code="confirm_truck_deleting_text" var="confirmTruckDeletingText"/>
+<spring:message code="confirm_order_deleting_text" var="confirmOrderDeletingText"/>
 
 <c:set var="id" value="id"/>
-<c:set var="number" value="number"/>
-<c:set var="people" value="people"/>
-<c:set var="active" value="active"/>
-<c:set var="capacity" value="capacity"/>
-<c:set var="city" value="city"/>
+<c:set var="status" value="status"/>
+<c:set var="cargoes" value="cargoes"/>
+<c:set var="truck" value="truck.number"/>
+<c:set var="drivers" value="drivers"/>
+<c:set var="route" value="route.id"/>
+<c:set var="cDate" value="creationDate"/>
 
 <c:set var="formClass" value="form-horizontal"/>
 <c:set var="outerDivClass" value="row form-group"/>
@@ -54,10 +53,10 @@
                                   col-xs-12"/>
 <c:set var="buttonDivClass" value="col-xs-offset-4 col-xs-4"/>
 
-<spring:url var="trucksURL" value="/admin/trucks"/>
-<spring:url var="checkURL" value="${trucksURL}/${truck.id}?check"/>
-<spring:url var="deleteURL" value="${trucksURL}/${truck.id}?delete"/>
-<spring:url var="cancelURL" value="${trucksURL}"/>
+<spring:url var="ordersURL" value="/admin/orders"/>
+<spring:url var="checkURL" value="${ordersURL}/${order.id}?check"/>
+<spring:url var="deleteURL" value="${ordersURL}/${order.id}?delete"/>
+<spring:url var="cancelURL" value="${ordersURL}"/>
 
 <c:if test="${message.type eq 'error'}">
     <div class="alert alert-danger"><strong>${message.entry}</strong></div>
@@ -67,17 +66,17 @@
 
     <div class="${outerDivClass}">
         <label class="${headerClass}">
-            <h3>${titleTruckPassport}
-                <c:if test="${truck.id != 0}"> <kbd>#${truck.id}</kbd></c:if>
+            <h3>${titleOrderPassport}
+                <c:if test="${order.id != 0}"> <kbd>#${order.id}</kbd></c:if>
             </h3>
         </label>
     </div>
 
-    <c:if test="${truck.id != 0}">
+    <c:if test="${order.id != 0}">
         <div class="${outerDivClass}">
-            <form:label path="${id}" cssClass="${labelClass}">${truckId}:</form:label>
+            <form:label path="${id}" cssClass="${labelClass}">${orderId}:</form:label>
             <div class="${innerDivClass}">
-                <form:input path="${id}" cssClass="${inputClass}" value="${truck.id}" readonly="true"/>
+                <form:input path="${id}" cssClass="${inputClass}" value="${order.id}" readonly="true"/>
             </div>
             <div><form:errors path="${id}" cssClass="${errorsClass}"/></div>
         </div>

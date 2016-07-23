@@ -1,11 +1,17 @@
 package com.tsystems.cargotransportations.presentation.grids;
 
+import com.tsystems.cargotransportations.entity.Route;
 import com.tsystems.cargotransportations.service.interfaces.GenericService;
 
 /**
  * Util class in order to organize container with data to grid.
  */
 public final class GridUtil {
+
+    /**
+     * Default constructor.
+     */
+    private GridUtil() {}
 
     /**
      * Builds data grid by given parameters.
@@ -28,6 +34,10 @@ public final class GridUtil {
                         + (dataGrid.getTotalRecords() % records != 0 ? 1 : 0);
         dataGrid.setTotalPages(totalPages);
         return dataGrid;
+    }
+
+    public static Grid<Route> buildAsRoutesGrid() {
+
     }
 
 }

@@ -239,6 +239,11 @@ public class PresentationConstants {
     public static final String ORDER_REDIRECT_PATH = REDIRECT + ORDER_DIR;
 
     /**
+     * Path to entity edit page after redirect.
+     */
+    public static final String ORDER_REDIRECT_PATH_WITH = ORDER_REDIRECT_PATH + SLASH;
+
+    /**
      * Path to entity list page.
      */
     public static final String ORDER_LIST_PATH = ORDER_DIR + LIST_DIR;

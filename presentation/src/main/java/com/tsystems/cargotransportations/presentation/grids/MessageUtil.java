@@ -10,6 +10,11 @@ import java.util.Locale;
 public final class MessageUtil {
 
     /**
+     * Default constructor.
+     */
+    private MessageUtil() {}
+
+    /**
      * Converts message type, code and request locale to a Message object.
      * @param type type
      * @param messageCode message code

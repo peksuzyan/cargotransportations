@@ -127,7 +127,7 @@
         <label for="outputForm" class="${labelClass}">${routeCities}:</label>
         <div class="${innerDivClass}">
             <textarea id="outputForm" class="${inputClass}"
-                      rows="5" title="Route Points" name="routePoints" readonly></textarea>
+                      rows="5" title="Route Points" readonly></textarea>
         </div>
     </div>
 
@@ -137,8 +137,12 @@
                 <button class="${buttonClass}" type="submit"
                         id="saveButton" disabled>${appButtonSave}</button>
             </c:if>
-            <a class="${buttonClass}" type="button" href="${cancelURL}">${appButtonCancel}</a>
+            <button class="${buttonClass}" data-dismiss="modal">${appButtonCancel}</button>
         </div>
+    </div>
+
+    <div class="${outerDivClass}" hidden>
+        <table id="tableWithHiddenForms"><tr><td></td></tr></table>
     </div>
 
 </form:form>
@@ -156,11 +160,12 @@
     var durationForm = $('#durationForm');
     var inputForm = $('#inputForm');
     var outputForm = $('#outputForm');
+    var tableWithHiddenForms = $('#tableWithHiddenForms');
 
     function init(){
         myMap = new ymaps.Map ("map", {
             center: [59.94021058, 30.31381775],
-            zoom: 8
+            zoom: 7
         });
         myCollection = new ymaps.GeoObjectCollection();
         myMap.geoObjects.add(myCollection);
@@ -189,6 +194,7 @@
         routePoints.push(inputForm.val());
         createRoute(routePoints);
         outputForm.val(outputForm.val() + routePoints.length + '. ' + inputForm.val() + '\n');
+        addHiddenInputForm();
     }
 
     function clearRoutePoints() {
@@ -200,6 +206,21 @@
         inputForm.val('');
         distanceForm.val('');
         durationForm.val('');
+        clearHiddenInputForms();
+    }
+
+    function addHiddenInputForm() {
+        $('#tableWithHiddenForms tr:last').after(
+                '<tr><td><input ' +
+                'type="text" ' +
+                'name="route_points" ' +
+                'class="hiddenInputForm" ' +
+                'value="' + inputForm.val('') + '" />' +
+                '</td></tr>');
+    }
+
+    function clearHiddenInputForms() {
+        $('.routePoints').remove();
     }
 </script>
 

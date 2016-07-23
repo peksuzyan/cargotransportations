@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition extends="default_admin" name="/admin/orders/edit">
+        <put-attribute name="body_admin" value="/WEB-INF/views/admin/orders/show.jsp" />
+    </definition>
+    <definition extends="default_admin" name="/admin/orders/list">
+        <put-attribute name="body_admin" value="orders_list" />
+    </definition>
+    <definition name="orders_list" template="/WEB-INF/views/admin/orders/list.jsp" >
+        <put-attribute name="modal_admin" value="/WEB-INF/views/admin/orders/show.jsp" />
+    </definition>
+</tiles-definitions>
