@@ -116,6 +116,11 @@ public class FieldsMapping {
     public static final String DURATION = "duration";
 
     /**
+     * Represents distance.
+     */
+    public static final String DISTANCE = "distance";
+
+    /**
      * Represents shift start.
      */
     public static final String SHIFT_START = "shift_start";

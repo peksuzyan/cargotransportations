@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition extends="default_admin" name="/admin/routes/edit">
+        <put-attribute name="body_admin" value="/WEB-INF/views/admin/routes/show.jsp" />
+    </definition>
+    <definition extends="default_admin" name="/admin/routes/list">
+        <put-attribute name="body_admin" value="routes_list" />
+    </definition>
+    <definition name="routes_list" template="/WEB-INF/views/admin/routes/list.jsp" >
+        <put-attribute name="modal_admin" value="/WEB-INF/views/admin/routes/show.jsp" />
+    </definition>
+</tiles-definitions>

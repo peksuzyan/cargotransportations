@@ -145,4 +145,15 @@ public class MessageConstants {
      */
     public static final String CODE_USER_ADD_SUCCESS = "user_add_success";
 
+     /* ROUTE */
+
+    /**
+     * Represents code of property-file when route adding is error.
+     */
+    public static final String CODE_ROUTE_ADD_ERROR = "route_add_error";
+    /**
+     * Represents code of property-file when route adding is success.
+     */
+    public static final String CODE_ROUTE_ADD_SUCCESS = "route_add_success";
+
 }

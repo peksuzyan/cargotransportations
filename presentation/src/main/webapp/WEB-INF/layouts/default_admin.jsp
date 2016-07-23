@@ -25,6 +25,11 @@
 <spring:url value="/resources/jqgrid/js/i18n/grid.locale-ru.js" var="jqgrid_locale_ru_url" />
 <spring:url value="/resources/jqgrid/js/jquery.jqGrid.min.js" var="jqgrid_url" />
 <spring:url value="/resources/jqgrid/css/ui.jqgrid-bootstrap.css" var="jqgrid_css" />
+<spring:url value="/resources/styles/custom/jqgrid.css" var="custom_jqgrid_css" />
+
+<%-- Yandex.Maps --%>
+<spring:url value="/resources/styles/custom/ymaps.css" var="ymaps_css" />
+<spring:url value="https://api-maps.yandex.ru/2.0-stable/?load=package.full&lang=ru-RU" var="ymaps_url" />
 
 <html>
     <head>
@@ -35,7 +40,9 @@
         <link rel="stylesheet" type="text/css" media="screen" href="${jquery_ui_theme_css}" />
         <link rel="stylesheet" type="text/css" media="screen" href="${jquery_ui_structure_css}" />
         <link rel="stylesheet" type="text/css" media="screen" href="${bootstrap_css}"/>
+        <link rel="stylesheet" type="text/css" media="screen" href="${ymaps_css}" />
         <link rel="stylesheet" type="text/css" media="screen" href="${jqgrid_css}" />
+        <link rel="stylesheet" type="text/css" media="screen" href="${custom_jqgrid_css}" />
 
         <script src="${jquery_url}" type="text/javascript"></script>
         <script src="${jquery_ui_url}" type="text/javascript"></script>
@@ -44,6 +51,7 @@
         <script src="${jqgrid_url}" type="text/javascript"></script>
         <script src="${jqgrid_locale_ru_url}" type="text/javascript"></script>
         <script src="${jqgrid_locale_en_url}" type="text/javascript"></script>
+        <script src="${ymaps_url}" type="text/javascript"></script>
 
         <title>${appName}</title>
     </head>
@@ -57,21 +65,21 @@
             <div class="row">
                 <div class="
                     col-lg-2
-                    col-md-9
+                    col-md-2
                     col-sm-12
                     col-xs-12">
                     <tiles:insertAttribute name="menu_admin"/>
                 </div>
                 <div class="
                     col-lg-8
-                    col-md-12
+                    col-md-10
                     col-sm-12
                     col-xs-12">
                     <tiles:insertAttribute name="body_admin"/>
                 </div>
                 <div class="
                     col-lg-2
-                    col-md-3
+                    col-md-12
                     col-sm-12
                     col-xs-12">
                     <tiles:insertAttribute name="footer_admin"/>

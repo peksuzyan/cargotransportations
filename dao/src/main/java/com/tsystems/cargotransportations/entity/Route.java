@@ -4,9 +4,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
+import static com.tsystems.cargotransportations.constants.FieldsMapping.DISTANCE;
 import static com.tsystems.cargotransportations.constants.FieldsMapping.DURATION;
 import static com.tsystems.cargotransportations.constants.FieldsMapping.ID;
 
+/**
+ * Basic class that represents a route entity.
+ */
 @Entity
 public class Route implements Serializable {
 
@@ -25,10 +29,16 @@ public class Route implements Serializable {
     private List<String> cities;
 
     /**
-     * Route duration in time.
+     * Route duration in hours.
      */
     @Column(name = DURATION)
     private int duration;
+
+    /**
+     * Route distance in kilometers.
+     */
+    @Column(name = DISTANCE)
+    private int distance;
 
     /**
      * Default constructor.
@@ -87,5 +97,23 @@ public class Route implements Serializable {
      */
     public void setDuration(int duration) {
         this.duration = duration;
+    }
+
+    /**
+     * Gets distance.
+     *
+     * @return distance distance
+     */
+    public int getDistance() {
+        return distance;
+    }
+
+    /**
+     * Sets distance.
+     *
+     * @param distance distance
+     */
+    public void setDistance(int distance) {
+        this.distance = distance;
     }
 }

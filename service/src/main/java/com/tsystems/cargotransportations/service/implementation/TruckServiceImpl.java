@@ -120,8 +120,12 @@ public class TruckServiceImpl extends GenericServiceImpl<Truck> implements Truck
     @Transactional(propagation = SUPPORTS)
     private double getWeightDeltaByCity(String city, Cargo cargo) {
         double delta = MagicConstants.DOUBLE_ZERO;
-        delta += city.equalsIgnoreCase(cargo.getDepartureCity()) ? cargo.getWeight() : MagicConstants.DOUBLE_ZERO;
-        delta -= city.equalsIgnoreCase(cargo.getArrivalCity()) ? cargo.getWeight() : MagicConstants.DOUBLE_ZERO;
+        delta += city.equalsIgnoreCase(cargo.getDepartureCity())
+                ? cargo.getWeight()
+                : MagicConstants.DOUBLE_ZERO;
+        delta -= city.equalsIgnoreCase(cargo.getArrivalCity())
+                ? cargo.getWeight()
+                : MagicConstants.DOUBLE_ZERO;
         return delta;
     }
 

@@ -4,19 +4,17 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 
-<spring:message code="title_cargoes" var="title"/>
-<spring:message code="cargo_id" var="cargoId" />
-<spring:message code="cargo_name" var="cargoName" />
-<spring:message code="cargo_weight" var="cargoWeight" />
-<spring:message code="cargo_departure_city" var="cargoDepartureCity" />
-<spring:message code="cargo_arrival_city" var="cargoArrivalCity" />
-<spring:message code="cargo_status" var="cargoStatus" />
+<spring:message code="title_routes" var="title"/>
+<spring:message code="route_id" var="routeId" />
+<spring:message code="route_duration" var="routeDuration" />
+<spring:message code="route_distance" var="routeDistance" />
+<spring:message code="route_cities" var="routeCities" />
 <spring:message code="app_button_edit" var="appButtonEdit" />
 <spring:message code="app_button_create" var="appButtonCreate" />
 <spring:message code="app_button_refresh" var="appButtonRefresh" />
 
-<spring:url var="cargoesURL" value="/admin/cargoes"/>
-<spring:url var="listGridURL" value="${cargoesURL}/listgrid"/>
+<spring:url var="routesURL" value="/admin/routes"/>
+<spring:url var="listGridURL" value="${routesURL}/listgrid"/>
 
 <c:set var="localeCode" value="${pageContext.response.locale}" />
 
@@ -33,7 +31,7 @@
             <div class="btn-group">
                 <a class="btn btn-info" role="button"
                    data-toggle="modal" data-target="#creating">${appButtonCreate}</a>
-                <a class="btn btn-info" role="button" href="${cargoesURL}">${appButtonRefresh}</a>
+                <a class="btn btn-info" role="button" href="${routesURL}">${appButtonRefresh}</a>
             </div>
         </div>
     </div>
@@ -41,7 +39,7 @@
 
 <div class="col-xs-12">
     <div id="creating" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="row">
@@ -55,7 +53,7 @@
     </div>
 </div>
 
-<div class="col-xs-12 app-custom-jqgrid-fix">
+<div class="col-xs-12">
     <table id="jqGridList" class="table table-striped"></table>
     <div id="jqGridPager"></div>
 </div>
@@ -66,26 +64,16 @@
             url: '${listGridURL}',
             datatype: 'json',
             colNames: [
-                '${cargoId}',
-                '${cargoName}',
-                '${cargoWeight}',
-                '${cargoDepartureCity}',
-                '${cargoArrivalCity}',
-                '${cargoStatus}'
+                '${routeId}',
+                '${routeDistance}',
+                '${routeDuration}',
+                '${routeCities}'
             ],
             colModel: [
-                /*{name:'id', width:75, key:true},
-                {name:'name', width:150},
-                {name:'weight', width:75},
-                {name:'departureCity', width:150},
-                {name:'arrivalCity', width:150},
-                {name:'status', width:150}*/
                 {name:'id', key:true},
-                {name:'name'},
-                {name:'weight'},
-                {name:'departureCity'},
-                {name:'arrivalCity'},
-                {name:'status'}
+                {name:'distance'},
+                {name:'duration'},
+                {name:'cities'}
             ],
             jsonReader: {
                 root: "data",
@@ -105,12 +93,12 @@
             width: 'auto',
             height: 'auto',
             regional:
-                <c:if test="${empty lang}">'${localeCode}'</c:if>
-                <c:if test="${not empty lang}">'${lang}'</c:if>,
+                    <c:if test="${empty lang}">'${localeCode}'</c:if>
+            <c:if test="${not empty lang}">'${lang}'</c:if>,
             gridview: true,
             styleUI : "Bootstrap",
             onSelectRow: function(id){
-                document.location.href = "${cargoesURL}/" + id;
+                document.location.href = "${routesURL}/" + id;
             }
         });
     });
