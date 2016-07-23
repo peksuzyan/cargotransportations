@@ -71,6 +71,9 @@
         <div class="${mapDivClass} panel panel-default">
             <div id="map" class="YMaps-layer-container"></div>
         </div>
+        <div class="${buttonDivClass}">
+            <h3 id="yandexLabel" class="label label-warning" hidden></h3>
+        </div>
     </div>
 
     <c:if test="${route.id != 0}">
@@ -86,8 +89,8 @@
     <div class="${outerDivClass}">
         <form:label path="${distance}" cssClass="${labelClass}">${routeDistance}:</form:label>
         <div class="${innerDivClass}">
-            <form:input path="${distance}" cssClass="${inputClass}"
-                        value="${route.distance}" name="${distance}" readonly="true"/>
+            <form:input path="${distance}" cssClass="${inputClass}" name="${distance}"
+                        id="distanceForm" readonly="true"/>
         </div>
         <form:errors path="${distance}" cssClass="${errorsClass}" for="${distance}"/>
     </div>
@@ -95,33 +98,35 @@
     <div class="${outerDivClass}">
         <form:label path="${duration}" cssClass="${labelClass}">${routeDuration}:</form:label>
         <div class="${innerDivClass}">
-            <form:input path="${duration}" cssClass="${inputClass}"
-                        value="${route.duration}" name="${duration}" readonly="true"/>
+            <form:input path="${duration}" cssClass="${inputClass}" name="${duration}"
+                        id="durationForm" readonly="true"/>
         </div>
         <form:errors path="${duration}" cssClass="${errorsClass}" for="${duration}"/>
     </div>
 
     <c:if test="${route.id == 0}">
         <div class="${outerDivClass}">
-            <label for="point_input" class="${labelClass}">${nextRoutePoint}:</label>
+            <label for="inputForm" class="${labelClass}">${nextRoutePoint}:</label>
             <div class="${innerDivClass}">
-                <textarea id="point_input" class="${inputClass}"
+                <textarea id="inputForm" class="${inputClass}"
                           rows="1" title="Selected Point"></textarea>
             </div>
         </div>
 
         <div class="${outerDivClass}">
             <div class="${buttonDivClass}">
-                <button class="${buttonClass}" type="button">${appButtonAdd}</button>
-                <button class="${buttonClass}" type="button">${appButtonClear}</button>
+                <button class="${buttonClass}" id="add" onclick="addRoutePoint()"
+                        type="button">${appButtonAdd}</button>
+                <button class="${buttonClass}" id="clear" onclick="clearRoutePoints()"
+                        type="button">${appButtonClear}</button>
             </div>
         </div>
     </c:if>
 
     <div class="${outerDivClass}">
-        <label for="points_output" class="${labelClass}">${routeCities}:</label>
+        <label for="outputForm" class="${labelClass}">${routeCities}:</label>
         <div class="${innerDivClass}">
-            <textarea id="points_output" class="${inputClass}"
+            <textarea id="outputForm" class="${inputClass}"
                       rows="5" title="Route Points" name="routePoints" readonly></textarea>
         </div>
     </div>
@@ -129,7 +134,8 @@
     <div class="${outerDivClass}">
         <div class="${buttonDivClass}">
             <c:if test="${route.id == 0}">
-                <button class="${buttonClass}" type="submit">${appButtonSave}</button>
+                <button class="${buttonClass}" type="submit"
+                        id="saveButton" disabled>${appButtonSave}</button>
             </c:if>
             <a class="${buttonClass}" type="button" href="${cancelURL}">${appButtonCancel}</a>
         </div>
@@ -139,16 +145,62 @@
 
 <script>
     ymaps.ready(init);
+
     var myMap;
+    var myCollection;
+    var routePoints = [];
+
+    var saveButton = $('#saveButton');
+    var yandexLabel = $('#yandexLabel');
+    var distanceForm = $('#distanceForm');
+    var durationForm = $('#durationForm');
+    var inputForm = $('#inputForm');
+    var outputForm = $('#outputForm');
 
     function init(){
         myMap = new ymaps.Map ("map", {
-            center: [55.76, 37.64],
-            zoom: 7
+            center: [59.94021058, 30.31381775],
+            zoom: 8
         });
+        myCollection = new ymaps.GeoObjectCollection();
+        myMap.geoObjects.add(myCollection);
     }
 
+    function createRoute() {
+        ymaps.route(routePoints, { mapStateAutoApply: true }).then(
+                function (route) {
+                    saveButton.removeAttr('disabled');
+                    yandexLabel.hide();
+                    myCollection.add(route);
+                    distanceForm.val(Math.round(route.getLength() / 1000));
+                    durationForm.val(Math.round(route.getTime() / 3600));
+                    inputForm.val('');
+                },
+                function (error) {
+                    saveButton.prop('disabled', 'true');
+                    yandexLabel.text('Yandex.Map Error: ' + error.message);
+                    yandexLabel.show();
+                    inputForm.val('');
+                }
+        );
+    }
 
+    function addRoutePoint() {
+        routePoints.push(inputForm.val());
+        createRoute(routePoints);
+        outputForm.val(outputForm.val() + routePoints.length + '. ' + inputForm.val() + '\n');
+    }
+
+    function clearRoutePoints() {
+        saveButton.prop('disabled', 'true');
+        routePoints = [];
+        yandexLabel.hide();
+        myCollection.removeAll();
+        outputForm.val('');
+        inputForm.val('');
+        distanceForm.val('');
+        durationForm.val('');
+    }
 </script>
 
 <script>
