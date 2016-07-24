@@ -7,6 +7,7 @@ import com.tsystems.cargotransportations.presentation.grids.GridUtil;
 import com.tsystems.cargotransportations.presentation.grids.MessageUtil;
 import com.tsystems.cargotransportations.service.interfaces.CargoService;
 import com.tsystems.cargotransportations.presentation.grids.Message;
+import com.tsystems.cargotransportations.service.interfaces.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,9 @@ public class CargoController {
      */
     @Autowired
     private CargoService cargoService;
+
+    @Autowired
+    private OrderService orderService;
 
     /**
      * Takes a message with internalization supporting from a request.

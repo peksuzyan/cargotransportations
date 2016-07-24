@@ -34,17 +34,32 @@ public class OrderDaoImpl extends GenericDaoImpl<Order> implements OrderDao {
     @PersistenceContext
     private EntityManager entityManager;
 
+    /**
+     * Getter of the entity manager.
+     * @return entityManager
+     */
     @Override
     EntityManager getEntityManager() {
         return entityManager;
     }
 
+    /**
+     * Gets orders with given status.
+     * @param status status
+     * @return orders list
+     */
     @Override
     public List<Order> getAllByStatus(OrderStatus status) {
         String query = String.format("SELECT o FROM Order AS o WHERE o.status = '%s'", status);
         return getEntityManager().createQuery(query, Order.class).getResultList();
     }
 
+    /**
+     * Gets an order by given status and truck.
+     * @param status order status
+     * @param truck  truck
+     * @return order
+     */
     @Override
     public Order getByStatusAndTruck(OrderStatus status, Truck truck) {
         String query = String.format(

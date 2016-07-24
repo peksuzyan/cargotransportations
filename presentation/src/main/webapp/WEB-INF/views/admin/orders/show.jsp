@@ -62,12 +62,12 @@
     <div class="alert alert-danger"><strong>${message.entry}</strong></div>
 </c:if>
 
-<form:form method="post" modelAttribute="truck" cssClass="${formClass}" role="form" id="truckForm">
+<form:form method="post" modelAttribute="order" cssClass="${formClass}" role="form" id="truckForm">
 
     <div class="${outerDivClass}">
         <label class="${headerClass}">
             <h3>${titleOrderPassport}
-                <c:if test="${order.id != 0}"> <kbd>#${order.id}</kbd></c:if>
+                <c:if test="${order.id != 0}"> <kbd id="orderTitle">#${order.id}</kbd></c:if>
             </h3>
         </label>
     </div>
@@ -82,77 +82,9 @@
         </div>
     </c:if>
 
-    <div class="${outerDivClass}">
-        <form:label path="${number}" cssClass="${labelClass}">${truckNumber}:</form:label>
-        <div class="${innerDivClass}">
-            <form:input path="${number}" cssClass="${inputClass}"
-                        value="${truck.number}" placeholder="${placeholderNumber}"
-                        name="${number}"/>
-        </div>
-        <form:errors path="${number}" cssClass="${errorsClass}" for="${number}"/>
-    </div>
-
-    <div class="${outerDivClass}">
-        <form:label path="${people}" cssClass="${labelClass}">${truckPeople}:</form:label>
-        <div class="${innerDivClass}">
-            <form:select path="${people}" cssClass="${inputClass}" name="${people}">
-                <form:option value="1">1</form:option>
-                <form:option value="2">2</form:option>
-                <form:option value="3">3</form:option>
-            </form:select>
-        </div>
-        <form:errors path="${people}" cssClass="${errorsClass}" for="${people}"/>
-    </div>
-
-    <c:if test="${truck.id != 0}">
-        <div class="${outerDivClass}">
-            <form:label path="${active}" cssClass="${labelClass}">${truckActive}:</form:label>
-            <div class="${innerDivClass}">
-                <form:select path="${active}" cssClass="${inputClass}" name="${active}">
-                    <form:option value="true">Yes</form:option>
-                    <form:option value="false">No</form:option>
-                </form:select>
-            </div>
-            <form:errors path="${active}" cssClass="${errorsClass}" for="${active}"/>
-        </div>
-    </c:if>
-
-    <div class="${outerDivClass}">
-        <form:label path="${capacity}" cssClass="${labelClass}">${truckCapacity}:</form:label>
-        <div class="${innerDivClass}">
-            <form:input path="${capacity}" cssClass="${inputClass}"
-                        value="${truck.capacity}" placeholder="${placeholderCapacity}"
-                        name="${capacity}"/>
-        </div>
-        <form:errors path="${capacity}" cssClass="${errorsClass}" for="${capacity}"/>
-    </div>
-
-    <div class="${outerDivClass}">
-        <form:label path="${city}" cssClass="${labelClass}">${truckCity}:</form:label>
-        <div class="${innerDivClass}">
-            <form:input path="${city}" cssClass="${inputClass}" value="${truck.city}"/>
-        </div>
-        <form:errors path="${city}" cssClass="${errorsClass}"/>
-    </div>
-
-    <div class="${outerDivClass}">
-        <div class="${buttonDivClass}">
-            <button class="${buttonClass} ${truckCheckingButtons}" type="submit">${appButtonSave}</button>
-            <c:if test="${truck.id != 0}">
-                <a class="${buttonClass} ${truckCheckingButtons}" type="button"
-                    <%--id="delete_button"--%> data-toggle="modal" data-target="#deleting">${appButtonDelete}</a>
-                <a class="${buttonClass}" type="button"
-                   href="${cancelURL}">${appButtonCancel}</a>
-            </c:if>
-            <c:if test="${truck.id == 0}">
-                <button class="${buttonClass}" data-dismiss="modal">${appButtonCancel}</button>
-            </c:if>
-        </div>
-    </div>
-
 </form:form>
 
-<c:if test="${truck.id != 0}">
+<c:if test="${order.id != 0}">
     <div id="deleting" class="modal fade" role="dialog">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
@@ -164,7 +96,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <form method="post" action="${truck.id}?delete">
+                            <form method="post" action="${order.id}?delete">
                                 <button type="submit" class="${buttonWideClass}">${appButtonDelete}</button>
                                 <button type="button" class="${buttonWideClass}"
                                         data-dismiss="modal">${appButtonCancel}</button>

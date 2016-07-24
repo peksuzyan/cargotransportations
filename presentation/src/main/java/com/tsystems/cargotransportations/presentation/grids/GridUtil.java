@@ -2,6 +2,10 @@ package com.tsystems.cargotransportations.presentation.grids;
 
 import com.tsystems.cargotransportations.entity.Route;
 import com.tsystems.cargotransportations.service.interfaces.GenericService;
+import com.tsystems.cargotransportations.service.interfaces.RouteService;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Util class in order to organize container with data to grid.
@@ -36,8 +40,16 @@ public final class GridUtil {
         return dataGrid;
     }
 
-    public static Grid<Route> buildAsRoutesGrid() {
-
+    public static Grid<? extends Route> buildAsRouteGrid(RouteService routeService,
+                                                         int page, int records,
+                                                         String sortBy, String sortTo) {
+        Grid<Route> routeGrid = buildGrid(routeService, page, records, sortBy, sortTo);
+        List<RouteWrapper> routeWrappers = routeGrid.getData()
+                .stream()
+                .map(RouteWrapper::new)
+                .collect(Collectors.toList());
+        //routeGrid.setData(routeWrappers);
+        return routeGrid;
     }
 
 }

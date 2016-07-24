@@ -257,4 +257,29 @@ public class PresentationConstants {
      * Path to entity add page.
      */
     public static final String ORDER_ADD_PATH = ORDER_DIR + ADD_DIR;
+
+    /**
+     * Path to creating empty order.
+     */
+    public static final String ORDER_NEW_PATH = "/new";
+
+    /**
+     * Path to action performing over cargo within order.
+     */
+    public static final String ORDER_CARGO_PATH = "/cargo";
+
+    /**
+     * Path to action performing over truck within order.
+     */
+    public static final String ORDER_TRUCK_PATH = "/truck";
+
+    /**
+     * Path to action performing over driver within order.
+     */
+    public static final String ORDER_DRIVER_PATH = "/driver";
+
+    /**
+     * Path to action performing over route within order.
+     */
+    public static final String ORDER_ROUTE_PATH = "/route";
 }

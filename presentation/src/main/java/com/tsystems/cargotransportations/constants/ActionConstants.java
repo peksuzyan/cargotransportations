@@ -30,6 +30,16 @@ public class ActionConstants {
     public static final String CHECK_ACTION = "check";
 
     /**
+     * Provide verifying an entity.
+     */
+    public static final String VERIFY_ACTION = "verify";
+
+    /**
+     * Client needs to clear an entity.
+     */
+    public static final String CLEAR_ACTION = "clear";
+
+    /**
      * User needs to edit own profile.
      */
     public static final String USER_EDIT_ACTION = "user_edit";

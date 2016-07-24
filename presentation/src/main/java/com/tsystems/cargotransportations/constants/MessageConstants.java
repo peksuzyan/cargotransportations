@@ -40,6 +40,14 @@ public class MessageConstants {
      * Represents code of property-file when process is error.
      */
     public static final String CODE_ERROR = "error";
+    /**
+     * Represents code of property-file when process is success passed.
+     */
+    public static final String CODE_OPERATION_SUCCESS = "operation_success";
+    /**
+     * Represents code of property-file when process isn't passed.
+     */
+    public static final String CODE_OPERATION_ERROR = "operation_error";
 
     /* CARGO */
 
@@ -178,5 +186,23 @@ public class MessageConstants {
      * Represents code of property-file when order deleting is success.
      */
     public static final String CODE_ORDER_DELETE_SUCCESS = "order_delete_success";
+
+    /**
+     * Represents code of property-file when adding cargo to an order is passed successfully.
+     */
+    public static final String CODE_ORDER_ADD_CARGO_PASSED = "order_add_cargo_passed";
+    /**
+     * Represents code of property-file when adding cargo to an order is passed unsuccessfully.
+     */
+    public static final String CODE_ORDER_ADD_CARGO_FAILURE = "order_add_cargo_failure";
+    /**
+     * Represents code of property-file when clearing cargoes list of an order is passed successfully.
+     */
+    public static final String CODE_ORDER_CLEAR_CARGO_PASSED = "order_clear_cargo_passed";
+    /**
+     * Represents code of property-file when clearing cargoes list of an order is passed unsuccessfully.
+     */
+    public static final String CODE_ORDER_CLEAR_CARGO_FAILURE = "order_clear_cargo_failure";
+
 
 }
