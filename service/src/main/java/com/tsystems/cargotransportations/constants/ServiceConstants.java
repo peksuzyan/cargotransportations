@@ -74,4 +74,36 @@ public class ServiceConstants {
      * Localization code for processes when order has too many drivers.
      */
     public static final String ORDER_TOO_MANY_DRIVERS = "exception_too_many_drivers";
+
+    /**
+     * Localization code for processes when truck and start point of route have different locations.
+     */
+    public static final String ORDER_DIFFERENT_LOCATIONS_TRUCK_AND_ROUTE
+            = "exception_different_location_truck_and_route";
+
+    /**
+     * Localization code for processes when truck and at least one driver have different locations.
+     */
+    public static final String ORDER_DIFFERENT_LOCATIONS_TRUCK_AND_DRIVERS
+            = "exception_different_location_truck_and_drivers";
+
+    /**
+     * Localization code for processes when order has at least one cargo with wrong
+     * departure and arrival order in this route.
+     */
+    public static final String ORDER_WRONG_DEPARTURE_AND_ARRIVAL_ORDER
+            = "exception_wrong_departure_and_arrival_order";
+
+    /**
+     * Localization code for processes when order has truck with not enough capacity.
+     */
+    public static final String ORDER_TRUCK_WITH_NOT_ENOUGH_CAPACITY
+            = "exception_truck_with_not_enough_capacity";
+
+    /**
+     * Localization code for processes when order has drivers with not enough working time.
+     */
+    public static final String ORDER_DRIVERS_WITH_NOT_ENOUGH_WORKING_TIME
+            = "exception_drivers_with_not_enough_working_time";
+
 }

@@ -1,6 +1,7 @@
 package com.tsystems.cargotransportations.presentation.controllers;
 
 import com.tsystems.cargotransportations.entity.Order;
+import com.tsystems.cargotransportations.entity.OrderStatus;
 import com.tsystems.cargotransportations.exception.ServiceException;
 import com.tsystems.cargotransportations.presentation.grids.Grid;
 import com.tsystems.cargotransportations.presentation.grids.GridUtil;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import javax.ws.rs.core.MediaType;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -86,25 +89,6 @@ public class OrderController {
     }
 
     /**
-     * Gets requests to creating filled order.
-     *
-     * @return logic path to a redirect page
-     */
-    @RequestMapping(
-            value = ORDER_NEW_PATH,
-            method = RequestMethod.POST,
-            produces = REQUEST_JSON_TYPE)
-    public String createFilledOrder(Model uiModel,
-                                    RedirectAttributes redirectAttributes,
-                                    Locale locale) {
-        uiModel.asMap().clear();
-        redirectAttributes.addFlashAttribute(
-                MESSAGE_PARAM, MessageUtil.getMessage(
-                        CODE_SUCCESS, CODE_ORDER_ADD_SUCCESS, messageSource, locale));
-        return ORDER_REDIRECT_PATH;
-    }
-
-    /**
      * Gets requests to adding cargo to an order.
      *
      * @param orderId orderId
@@ -116,11 +100,10 @@ public class OrderController {
             value = ORDER_CARGO_PATH,
             method = RequestMethod.POST,
             params = ADD_ACTION,
-            produces = REQUEST_JSON_TYPE,
-            consumes = REQUEST_JSON_TYPE)
+            produces = MediaType.APPLICATION_JSON)
     @ResponseBody
-    public Message addCargo(@RequestParam(value = ORDER_PARAM) int orderId,
-                            @RequestParam(value = CARGO_PARAM) int cargoId,
+    public Message addCargo(@RequestParam int orderId,
+                            @RequestParam int cargoId,
                             Locale locale) {
         return orderService.addCargoById(orderId, cargoId)
                 ? MessageUtil.getMessage(CODE_PASSED, CODE_OPERATION_SUCCESS, messageSource, locale)
@@ -328,6 +311,10 @@ public class OrderController {
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model uiModel) {
         uiModel.addAttribute(ORDER_PARAM, new Order());
+        uiModel.addAttribute(SUITABLE_CARGOES_LIST_PARAM, orderService.getSuitableCargoes());
+        uiModel.addAttribute(SUITABLE_DRIVERS_LIST_PARAM, orderService.getSuitableDrivers());
+        uiModel.addAttribute(SUITABLE_TRUCKS_LIST_PARAM, orderService.getSuitableTrucks());
+        uiModel.addAttribute(SUITABLE_ROUTES_LIST_PARAM, orderService.getAll());
         return ORDER_LIST_PATH;
     }
 
@@ -341,8 +328,55 @@ public class OrderController {
     @RequestMapping(value = ID_DIR, method = RequestMethod.GET)
     public String editForm(@PathVariable(ID_PARAM) int id,
                            Model uiModel) {
-        uiModel.addAttribute(ORDER_PARAM, orderService.read(id));
+        Order order = orderService.read(id);
+        uiModel.addAttribute(ORDER_PARAM, order);
+        if (order.getStatus() == OrderStatus.OPEN) {
+            uiModel.addAttribute(SUITABLE_CARGOES_LIST_PARAM, orderService.getSuitableCargoes());
+            uiModel.addAttribute(SUITABLE_DRIVERS_LIST_PARAM, orderService.getSuitableDrivers());
+            uiModel.addAttribute(SUITABLE_TRUCKS_LIST_PARAM, orderService.getSuitableTrucks());
+            uiModel.addAttribute(SUITABLE_ROUTES_LIST_PARAM, orderService.getAll());
+        }
         return ORDER_EDIT_PATH;
+    }
+
+/*    *//**
+     * Gets requests to perform editing over a specified entity.
+     *
+     * @param orderId orderId
+     * @param uiModel UI model
+     * @return redirect path to logic page of editing form
+     *//*
+    @RequestMapping(method = RequestMethod.POST)
+    public String edit(@RequestParam(value = ORDER_PARAM) int orderId,
+                       Model uiModel,
+                       RedirectAttributes redirectAttributes,
+                       Locale locale) {
+        uiModel.asMap().clear();
+        redirectAttributes.addFlashAttribute(
+                MESSAGE_PARAM, MessageUtil.getMessage(
+                        CODE_SUCCESS, CODE_ORDER_ADD_SUCCESS, messageSource, locale));
+        orderService.createOrder(orderId);
+        return ORDER_REDIRECT_PATH;
+    }*/
+
+    /**
+     * Gets requests to perform creating a specified entity.
+     *
+     * @param orderId orderId
+     * @param uiModel UI model
+     * @return redirect path to logic page of editing form
+     */
+    @RequestMapping(method = RequestMethod.POST)
+    public String add(@RequestParam(value = ORDER_PARAM) int orderId,
+                      Model uiModel,
+                      RedirectAttributes redirectAttributes,
+                      Locale locale) {
+        uiModel.asMap().clear();
+        redirectAttributes.addFlashAttribute(
+                MESSAGE_PARAM, MessageUtil.getMessage(
+                        CODE_SUCCESS, CODE_ORDER_ADD_SUCCESS, messageSource, locale));
+        orderService.createOrder(orderId);
+        return ORDER_REDIRECT_PATH;
     }
 
     /**
@@ -372,26 +406,5 @@ public class OrderController {
                         CODE_SUCCESS, CODE_ORDER_DELETE_SUCCESS, messageSource, locale));
         return ORDER_REDIRECT_PATH;
     }
-
-    /**
-     * Gets requests to perform creating a specified entity.
-     *
-     * @param order   entity
-     * @param uiModel UI model
-     * @return redirect path to logic page of editing form
-     */
-    @RequestMapping(method = RequestMethod.POST)
-    public String add(@ModelAttribute(ORDER_PARAM) Order order,
-                      Model uiModel,
-                      RedirectAttributes redirectAttributes,
-                      Locale locale) {
-        uiModel.asMap().clear();
-        redirectAttributes.addFlashAttribute(
-                MESSAGE_PARAM, MessageUtil.getMessage(
-                        CODE_SUCCESS, CODE_ORDER_ADD_SUCCESS, messageSource, locale));
-        orderService.create(order);
-        return ORDER_REDIRECT_PATH;
-    }
-
 
 }

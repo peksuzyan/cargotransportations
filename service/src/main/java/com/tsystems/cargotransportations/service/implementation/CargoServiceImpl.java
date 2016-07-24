@@ -97,25 +97,4 @@ public class CargoServiceImpl extends GenericServiceImpl<Cargo> implements Cargo
         if (isReadyToModifying(cargo)) getDao().update(cargo);
     }
 
-    /**
-     * Gets all cargoes that have given status.
-     * @return cargoes list
-     */
-    @Transactional(readOnly = true)
-    @Override
-    public List<Cargo> getSuitableCargoes() {
-        List<Cargo> cargoes = cargoDao.getCargoesByStatus(CargoStatus.PREPARED);
-        List<Order> orders = orderDao.getAll();
-        Iterator<Cargo> cargoIterator = cargoes.iterator();
-        while (cargoIterator.hasNext()) {
-            Cargo cargo = cargoIterator.next();
-            for (Order order : orders) {
-                if (order.getCargoes().contains(cargo)) {
-                    cargoIterator.remove();
-                    break;
-                }
-            }
-        }
-        return cargoes;
-    }
 }

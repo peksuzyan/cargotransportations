@@ -1,8 +1,6 @@
 package com.tsystems.cargotransportations.service.interfaces;
 
-import com.tsystems.cargotransportations.entity.Order;
-import com.tsystems.cargotransportations.entity.OrderStatus;
-import com.tsystems.cargotransportations.entity.Truck;
+import com.tsystems.cargotransportations.entity.*;
 
 import java.util.List;
 
@@ -40,6 +38,13 @@ public interface OrderService extends GenericService<Order> {
      * @param order order
      */
     void checkAndDelete(Order order);
+
+    /**
+     * Creates order after filling all needed fields.
+     *
+     * @param orderId orderId
+     */
+    void createOrder(int orderId);
 
     /**
      * Adds cargo by id to a given order.
@@ -108,4 +113,24 @@ public interface OrderService extends GenericService<Order> {
      * @return is rejected or not
      */
     boolean rejectRoute(int orderId);
+
+    /**
+     * Returns a list of cargoes by suitable conditions.
+     *
+     * @return cargoes list
+     */
+    List<Cargo> getSuitableCargoes();
+
+    /**
+     * Returns a list of drivers by suitable conditions.
+     *
+     * @return drivers list
+     */
+    List<Driver> getSuitableDrivers();
+
+    /**
+     * Returns a list of trucks by suitable conditions.
+     * @return trucks list
+     */
+    List<Truck> getSuitableTrucks();
 }

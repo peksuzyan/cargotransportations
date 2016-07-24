@@ -107,6 +107,7 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
      * @param driver driver
      * @param status status
      */
+    @Transactional(propagation = SUPPORTS)
     private void registerWorkedHours(Driver driver, DriverStatus status) {
         if (isShiftStart(driver, status)) {
             driver.setShiftStart(new Date());
@@ -120,6 +121,7 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
      * Calculates hours count is worked in current month.
      * @param driver driver
      */
+    @Transactional(propagation = SUPPORTS)
     private void calculateWorkedHoursInCurrentMonth(Driver driver) {
         DateTime shiftStart = new DateTime(driver.getShiftStart());
         DateTime shiftEnd = DateTime.now();
@@ -139,8 +141,9 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
      * @param status status
      * @return is begun or not
      */
+    @Transactional(propagation = SUPPORTS)
     private boolean isShiftStart(Driver driver, DriverStatus status) {
-        return driver.getStatus() == DriverStatus.FREE
+        return driver.getStatus() == DriverStatus.ASSIGNED
                 && (status == DriverStatus.BUSY || status == DriverStatus.REST);
     }
 
@@ -150,6 +153,7 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
      * @param status status
      * @return is begun or not
      */
+    @Transactional(propagation = SUPPORTS)
     private boolean isShiftEnd(Driver driver, DriverStatus status) {
         return status == DriverStatus.RELAX &&
                 (driver.getStatus() == DriverStatus.REST
@@ -171,89 +175,6 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
             /* NOP */
         }
         return driver;
-    }
-
-    /**
-     * Gets all drivers that suitable for assigning of the order given order.
-     * @param order order
-     * @return drivers list
-     */
-    @Transactional(readOnly = true)
-    @Override
-    public List<Driver> getSuitableDriversByOrder(Order order) {
-        if (order.getTruck() == null)
-            return Collections.emptyList();
-        if (order.getRoute() == null)
-            return Collections.emptyList();
-        if (order.getRoute().getCities() == null)
-            return Collections.emptyList();
-        if (order.getDrivers() == null)
-            return Collections.emptyList();
-        if (order.getTruck().getPeople() <= order.getDrivers().size())
-            return Collections.emptyList();
-        List<Driver> drivers = driverDao.getDriversByStatus(DriverStatus.FREE);
-        List<Order> orders = orderDao.getAll();
-        Iterator<Driver> iterator = drivers.iterator();
-        while (iterator.hasNext()) {
-            Driver driver = iterator.next();
-            for (Order currentOrder : orders) {
-                if (currentOrder.getDrivers().contains(driver)) {
-                    iterator.remove();
-                    break;
-                }
-            }
-        }
-        int restHoursOfMonth = getRestHoursOfMonth();
-        int routeHoursInCurrentMonth =
-                getRouteHoursInCurrentMonth(
-                        order.getRoute().getDuration(), restHoursOfMonth);
-        Iterator<Driver> driverIterator = drivers.iterator();
-        while (driverIterator.hasNext()) {
-            Driver currentDriver = driverIterator.next();
-            int expectedTotalWorkingTime =
-                    routeHoursInCurrentMonth / order.getTruck().getPeople()
-                            + currentDriver.getHours();
-            if (expectedTotalWorkingTime > MagicConstants.WORKING_TIME_OF_MONTH
-                    || !isSameLocationCity(order.getTruck(), currentDriver)) {
-                driverIterator.remove();
-            }
-        }
-        return drivers;
-    }
-
-    /**
-     * Gets whole trip time if time to end of the month is more than trip time
-     * or time to the end in hours otherwise.
-     * @param routeTime route time
-     * @param restTime rest time to end of month in hours
-     * @return hours
-     */
-    @Transactional(propagation = SUPPORTS)
-    private int getRouteHoursInCurrentMonth(int routeTime, int restTime) {
-        return routeTime > restTime ? restTime : routeTime;
-    }
-
-    /**
-     * Gets hours rest of month from current date.
-     * @return hours
-     */
-    @Transactional(propagation = SUPPORTS)
-    private int getRestHoursOfMonth() {
-        int lastDayOfMonth = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
-        int currentDayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        int currentHourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        return (lastDayOfMonth - currentDayOfMonth) * 24 + currentHourOfDay;
-    }
-
-    /**
-     * Returns does driver location equals truck location or not.
-     * @param truck truck
-     * @param driver driver
-     * @return locations equals or not
-     */
-    @Transactional(propagation = SUPPORTS)
-    private boolean isSameLocationCity(Truck truck, Driver driver) {
-        return truck.getCity().equalsIgnoreCase(driver.getCity());
     }
 
 }

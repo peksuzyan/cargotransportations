@@ -32,7 +32,7 @@
         <div class="panel-heading">${title}</div>
         <div class="panel-body">
             <div class="btn-group">
-                <a class="btn btn-info" role="button"
+                <a class="btn btn-info" role="button" onclick="return sendToCreatingOrder()"
                    data-toggle="modal" data-target="#creating">${appButtonCreate}</a>
                 <a class="btn btn-info" role="button" href="${ordersURL}">${appButtonRefresh}</a>
             </div>
@@ -76,8 +76,8 @@
             colModel: [
                 {name:'id', key:true},
                 {name:'status'},
-                {name:'truck.number'},
-                {name:'route.id'},
+                {name:'truck'},
+                {name:'route'},
                 {name:'creationDate'}
             ],
             jsonReader: {

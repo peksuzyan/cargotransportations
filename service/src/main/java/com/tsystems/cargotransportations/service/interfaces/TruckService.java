@@ -11,13 +11,6 @@ import java.util.List;
 public interface TruckService extends GenericService<Truck> {
 
     /**
-     * Gets all trucks that suitable for assigning to the order.
-     * @param order order
-     * @return trucks list
-     */
-    List<Truck> getSuitableTrucksByOrder(Order order);
-
-    /**
      * Gets truck by given number.
      * @param number truck number
      * @return truck

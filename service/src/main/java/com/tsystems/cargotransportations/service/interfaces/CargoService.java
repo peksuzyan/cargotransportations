@@ -28,12 +28,6 @@ public interface CargoService extends GenericService<Cargo> {
     void checkAndUpdate(Cargo cargo);
 
     /**
-     * Gets all cargoes that have given status.
-     * @return cargoes list
-     */
-    List<Cargo> getSuitableCargoes();
-
-    /**
      * Changes cargo status by id.
      * @param id cargo id.
      * @return is changed or not

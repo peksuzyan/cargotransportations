@@ -37,13 +37,6 @@ public interface DriverService extends GenericService<Driver> {
     Driver getByEmail(String email);
 
     /**
-     * Gets all drivers that suitable for assigning of the order given order.
-     * @param order order
-     * @return drivers list
-     */
-    List<Driver> getSuitableDriversByOrder(Order order);
-
-    /**
      * Changes driver on a given status.
      * @param email driver email
      * @param status a new status

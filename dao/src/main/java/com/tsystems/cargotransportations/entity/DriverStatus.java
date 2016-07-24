@@ -11,6 +11,11 @@ public enum DriverStatus {
     FREE,
 
     /**
+     * Represents status when a driver is assigned to an order.
+     */
+    ASSIGNED,
+
+    /**
      * Represents status when a driver is performing an order and drives a truck.
      */
     BUSY,

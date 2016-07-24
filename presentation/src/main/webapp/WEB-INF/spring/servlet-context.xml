@@ -27,7 +27,7 @@
 
     <mvc:default-servlet-handler/>
 
-<!--    <mvc:annotation-driven conversion-service="conversionService"/>
+    <!--    <mvc:annotation-driven conversion-service="conversionService"/>
 
     &lt;!&ndash;<bean id="conversionService"
           class="org.springframework.context.support.ConversionServiceFactoryBean">
