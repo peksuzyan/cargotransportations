@@ -519,7 +519,6 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
         }
     }
 
-
     /**
      * Checks that all cargoes have status is PREPARED.
      *
@@ -590,7 +589,7 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      */
     @Transactional(propagation = SUPPORTS)
     private boolean hasDrivers(Order order) {
-        if (!order.getDrivers().isEmpty()) {
+        if (order.getDrivers() != null && !order.getDrivers().isEmpty()) {
             return true;
         } else {
             throw new DriversNotAddedServiceException(ORDER_WITHOUT_DRIVERS);
@@ -605,7 +604,7 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      */
     @Transactional(propagation = SUPPORTS)
     private boolean hasCargoes(Order order) {
-        if (!order.getCargoes().isEmpty()) {
+        if (order.getCargoes() != null && !order.getCargoes().isEmpty()) {
             return true;
         } else {
             throw new DriversNotAddedServiceException(ORDER_WITHOUT_CARGOES);

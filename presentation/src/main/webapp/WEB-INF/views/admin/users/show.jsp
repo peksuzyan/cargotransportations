@@ -95,7 +95,7 @@
         <div class="${innerDivClass}">
             <form:input path="${email}" cssClass="${inputClass}"
                         value="${user.email}" placeholder="${placeholderEmail}"
-                        name="${email}" />
+                        name="${email}" type="email" required="true"/>
         </div>
         <form:errors path="${email}" cssClass="${errorsClass}" for="${email}"/>
     </div>
@@ -104,7 +104,7 @@
         <form:label path="${password}" cssClass="${labelClass}">${userPassword}:</form:label>
         <div class="${innerDivClass}">
             <form:password path="${password}" cssClass="${inputClass}"
-                           value="${user.password}" name="${password}" />
+                           value="${user.password}" name="${password}" required="true"/>
         </div>
         <form:errors path="${password}" cssClass="${errorsClass}" for="${password}" />
     </div>
@@ -113,7 +113,8 @@
     <div class="${outerDivClass}">
         <form:label path="${cdate}" cssClass="${labelClass}">${userCreationDate}:</form:label>
         <div class="${innerDivClass}">
-            <form:input path="${cdate}" cssClass="${inputClass}" value="${user.creationDate}" readonly="true" />
+            <form:input path="${cdate}" cssClass="${inputClass}"
+                        value="${user.creationDate}" readonly="true" required="true" />
         </div>
         <div><form:errors path="${cdate}" cssClass="${errorsClass}" /></div>
     </div>
@@ -124,7 +125,7 @@
             <button class="${buttonClass} ${userCheckingButtons}" type="submit">${appButtonSave}</button>
             <c:if test="${user.id != 0}">
                 <a class="${buttonClass} ${userCheckingButtons}" type="button"
-                    <%--id="delete_button"--%> data-toggle="modal" data-target="#deleting">${appButtonDelete}</a>
+                   data-toggle="modal" data-target="#deleting">${appButtonDelete}</a>
                 <a class="${buttonClass}" type="button"
                    href="${cancelURL}">${appButtonCancel}</a>
             </c:if>
@@ -162,5 +163,5 @@
 </c:if>
 
 <script>
-    /*$('#userForm').validate();*/
+    $('#userForm').validate();
 </script>

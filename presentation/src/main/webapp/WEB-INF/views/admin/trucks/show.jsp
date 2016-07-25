@@ -88,7 +88,7 @@
         <div class="${innerDivClass}">
             <form:input path="${number}" cssClass="${inputClass}"
                         value="${truck.number}" placeholder="${placeholderNumber}"
-                        name="${number}"/>
+                        name="${number}" required="true"/>
         </div>
         <form:errors path="${number}" cssClass="${errorsClass}" for="${number}"/>
     </div>
@@ -123,7 +123,7 @@
         <div class="${innerDivClass}">
             <form:input path="${capacity}" cssClass="${inputClass}"
                         value="${truck.capacity}" placeholder="${placeholderCapacity}"
-                        name="${capacity}"/>
+                        name="${capacity}" required="true"/>
         </div>
         <form:errors path="${capacity}" cssClass="${errorsClass}" for="${capacity}"/>
     </div>
@@ -131,7 +131,8 @@
     <div class="${outerDivClass}">
         <form:label path="${city}" cssClass="${labelClass}">${truckCity}:</form:label>
         <div class="${innerDivClass}">
-            <form:input path="${city}" cssClass="${inputClass}" value="${truck.city}"/>
+            <form:input path="${city}" cssClass="${inputClass}"
+                        value="${truck.city}" required="true"/>
         </div>
         <form:errors path="${city}" cssClass="${errorsClass}"/>
     </div>
@@ -141,7 +142,7 @@
             <button class="${buttonClass} ${truckCheckingButtons}" type="submit">${appButtonSave}</button>
             <c:if test="${truck.id != 0}">
                 <a class="${buttonClass} ${truckCheckingButtons}" type="button"
-                    <%--id="delete_button"--%> data-toggle="modal" data-target="#deleting">${appButtonDelete}</a>
+                   data-toggle="modal" data-target="#deleting">${appButtonDelete}</a>
                 <a class="${buttonClass}" type="button"
                    href="${cancelURL}">${appButtonCancel}</a>
             </c:if>
@@ -179,5 +180,5 @@
 </c:if>
 
 <script>
-    /*$('#truckForm').validate();*/
+    $('#truckForm').validate();
 </script>

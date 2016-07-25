@@ -94,7 +94,7 @@
         <div class="${innerDivClass}">
             <form:input path="${fname}" cssClass="${inputClass}"
                         value="${driver.firstName}" placeholder="${placeholderFirstName}"
-                        name="${fname}"/>
+                        name="${fname}" required="true"/>
         </div>
         <form:errors path="${fname}" cssClass="${errorsClass}" for="${fname}"/>
     </div>
@@ -104,7 +104,7 @@
         <div class="${innerDivClass}">
             <form:input path="${lname}" cssClass="${inputClass}"
                         value="${driver.lastName}" placeholder="${placeholderLastName}"
-                        name="${lname}"/>
+                        name="${lname}" required="true"/>
         </div>
         <form:errors path="${lname}" cssClass="${errorsClass}" for="${lname}"/>
     </div>
@@ -114,7 +114,7 @@
         <div class="${innerDivClass}">
             <form:input path="${email}" cssClass="${inputClass}"
                         value="${driver.email}" placeholder="${placeholderEmail}"
-                        name="${email}"/>
+                        name="${email}" required="true" type="email"/>
         </div>
         <div><form:errors path="${email}" cssClass="${errorsClass}" for="${email}"/></div>
     </div>
@@ -124,7 +124,7 @@
         <div class="${innerDivClass}">
             <form:input path="${city}" cssClass="${inputClass}"
                         value="${driver.city}" placeholder="${placeholderCity}"
-                        name="${city}"/>
+                        name="${city}" required="true"/>
         </div>
         <div><form:errors path="${city}" cssClass="${errorsClass}" for="${city}"/></div>
     </div>
@@ -149,16 +149,6 @@
         </div>
     </c:if>
 
-<%--    <c:if test="${driver.id != 0 && not empty driver.truck}">
-        <div class="${outerDivClass}">
-            <label for="${truck}" class="${labelClass}">${driverTruck}:</label>
-            <div class="${innerDivClass}">
-                <input id="${truck}"
-                       class="${inputClass}" value="${driver.truck.number}"  readonly/>
-            </div>
-        </div>
-    </c:if>--%>
-
     <c:if test="${driver.id != 0 && not empty driver.truck}">
         <div class="${outerDivClass}">
             <form:label path="${truck}" cssClass="${labelClass}">${driverTruck}:</form:label>
@@ -175,7 +165,7 @@
             <button class="${buttonClass} ${driverCheckingButtons}" type="submit">${appButtonSave}</button>
             <c:if test="${driver.id != 0}">
                 <a class="${buttonClass} ${driverCheckingButtons}" type="button"
-                    <%--id="delete_button"--%> data-toggle="modal" data-target="#deleting">${appButtonDelete}</a>
+                   id="delete_button"--%> data-toggle="modal" data-target="#deleting">${appButtonDelete}</a>
                 <a class="${buttonClass}" type="button"
                    href="${cancelURL}">${appButtonCancel}</a>
             </c:if>
@@ -188,7 +178,6 @@
     <c:if test="${driver.id != 0}">
         <div class="${outerDivClass}">
             <div class="${buttonDivClass}">
-                    <%--<span id="checking_result" class="label label-danger" hidden></span>--%>
                 <h3 id="${driverCheckingResult}" class="label label-danger" hidden></h3>
             </div>
         </div>
@@ -249,5 +238,5 @@
 </c:if>
 
 <script>
-    /*$('#driverForm').validate();*/
+    $('#driverForm').validate();
 </script>

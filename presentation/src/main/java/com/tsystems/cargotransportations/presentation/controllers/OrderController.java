@@ -337,7 +337,7 @@ public class OrderController {
      * @param locale locale
      * @return redirect path to logic page of editing form
      */
-    @RequestMapping(value = ID_DIR, method = RequestMethod.POST)
+    @RequestMapping(value = ID_DIR, params = ADD_ACTION, method = RequestMethod.POST)
     public String add(@PathVariable(ID_PARAM) int orderId,
                       RedirectAttributes redirectAttributes,
                       Locale locale) {

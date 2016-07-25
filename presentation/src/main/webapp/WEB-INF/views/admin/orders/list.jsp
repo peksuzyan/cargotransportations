@@ -67,7 +67,7 @@
             url: '${listGridURL}',
             datatype: 'json',
             colNames: [
-                '${orderId}}',
+                '${orderId}',
                 '${orderStatus}',
                 '${orderTruck}',
                 '${orderRoute}',

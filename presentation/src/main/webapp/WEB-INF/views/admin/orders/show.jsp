@@ -239,8 +239,11 @@
 
     <div class="${outerDivClass}">
         <div class="${buttonDivClass}">
-            <button class="${buttonClass} ${orderVerifyingButtons}" type="submit">${appButtonSave}</button>
+            <c:if test="${order.id == 0}">
+                <button id="submitButton" class="${buttonClass} ${orderVerifyingButtons}" type="submit">${appButtonSave}</button>
+            </c:if>
             <c:if test="${order.id != 0}">
+                <button formaction="?add" class="${buttonClass} ${orderVerifyingButtons}" type="submit">${appButtonSave}</button>
                 <a class="${buttonClass} ${orderCheckingButtons}" type="button"
                    data-toggle="modal" data-target="#deleting">${appButtonDelete}</a>
                 <a class="${buttonClass}" type="button"
@@ -290,8 +293,6 @@
 <script>
     var isChecked_Check = false;
     var isLaunched_Check = false;
-    var isChecked_Verify = false;
-    var isLaunched_Verify = false;
 
     $('.${orderCheckingButtons}').click(function (event) {
         if (!isLaunched_Check) {
@@ -314,21 +315,35 @@
         }
         if (!isChecked_Check || !isLaunched_Check) event.stopPropagation();
     });
+</script>
+
+<script>
+    var isChecked_Verify = false;
+    var isLaunched_Verify = false;
 
     $('.${orderVerifyingButtons}').click(function (event) {
-        $.ajax({
-            url: '${verifyURL}',
-            type: 'GET',
-            dataType: 'json',
-            contentType: 'application/json'
-        }).done(function (response) {
-            if (response.type == 'passed') {
-                event.target.click();
-            } else {
-                $("#${orderVerifyingResult}").text(response.entry).show();
-            }
-        });
-        event.stopPropagation()
+        if (!isLaunched_Verify) {
+            $('.${orderVerifyingButtons}').attr("disabled", true);
+            $.ajax({
+                url: '${verifyURL}',
+                type: 'GET',
+                dataType: 'json',
+                contentType: 'application/json'
+            }).done(function (response) {
+                if (response.type == 'passed') {
+                    $('.${orderVerifyingButtons}').attr("disabled", false);
+                    isChecked_Verify = true;
+                    event.target.click();
+                } else {
+                    $("#${orderVerifyingResult}").text(response.entry).show();
+                }
+            });
+            isLaunched_Verify = true;
+        }
+        if (!isChecked_Verify || !isLaunched_Verify) {
+            $('.${orderVerifyingButtons}').removeAttr("disabled");
+            event.stopPropagation();
+        }
     });
 </script>
 
@@ -336,6 +351,7 @@
     var orderTitle = $('#orderTitle');
     var orderIdForm = $('#id.form-control');
     var allMessageLabels = $('.ajaxMessageShower');
+    var submitButton = $('#submitButton');
 
     function sendToCreatingOrder() {
         $.ajax({
@@ -346,6 +362,7 @@
         }).done(function (response) {
             orderIdForm.val(response);
             orderTitle.text('#' + response);
+            submitButton.attr("formaction", "orders/" + orderIdForm.val() + "?add");
             return true;
         })
     }
@@ -371,7 +388,7 @@
         }).done(function (response) {
             if (response.type == 'passed') {
                 var selectedInputRouteForm = $('#inputRouteForm option:selected');
-                outputRoutesForm.val($.trim(selectedInputRouteForm.text()));
+                outputRoutesForm.val(selectedInputRouteForm.text());
                 selectedInputRouteForm.prop('disabled', 'true');
                 lastAddedRouteId = inputRouteForm.val();
                 successInputRouteLabel.text(response.entry).show();
@@ -441,7 +458,7 @@
         }).done(function (response) {
             if (response.type == 'passed') {
                 var selectedInputTruckForm = $('#inputTruckForm option:selected');
-                outputTrucksForm.val($.trim(selectedInputTruckForm.text()));
+                outputTrucksForm.val(selectedInputTruckForm.text());
                 selectedInputTruckForm.prop('disabled', 'true');
                 lastAddedTruckId = inputTruckForm.val();
                 successInputTruckLabel.text(response.entry).show();
@@ -581,7 +598,7 @@
         }).done(function (response) {
             if (response.type == 'passed') {
                 var selectedInputCargoForm = $('#inputCargoForm option:selected');
-                outputCargoesForm.val($.trim(outputCargoesForm.val()) + ' ' + $.trim(selectedInputCargoForm.text()));
+                outputCargoesForm.val(outputCargoesForm.val() + selectedInputCargoForm.text() + '\n');
                 selectedInputCargoForm.prop('disabled', 'true');
                 lastAddedCargoId = inputCargoForm.val();
                 successInputCargoLabel.text(response.entry).show();
