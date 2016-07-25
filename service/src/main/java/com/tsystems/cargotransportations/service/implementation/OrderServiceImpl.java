@@ -96,6 +96,16 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
     }
 
     /**
+     * Returns a list of routes by suitable conditions.
+     *
+     * @return routes list
+     */
+    @Override
+    public List<Route> getSuitableRoutes() {
+        return routeDao.getAll();
+    }
+
+    /**
      * Creates order after filling of all needed fields.
      *
      * @param orderId orderId

@@ -12,20 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.validation.Valid;
 import javax.ws.rs.core.MediaType;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
 import static com.tsystems.cargotransportations.constants.ActionConstants.*;
 import static com.tsystems.cargotransportations.constants.GridConstants.*;
 import static com.tsystems.cargotransportations.constants.GridConstants.GRID_SORT_TO;
-import static com.tsystems.cargotransportations.constants.GridConstants.REQUEST_JSON_TYPE;
 import static com.tsystems.cargotransportations.constants.MessageConstants.*;
 import static com.tsystems.cargotransportations.constants.ParamConstants.*;
 import static com.tsystems.cargotransportations.constants.ParamConstants.MESSAGE_PARAM;
@@ -56,7 +51,7 @@ public class OrderController {
     @RequestMapping(
             value = ORDER_NEW_PATH,
             method = RequestMethod.GET,
-            produces = REQUEST_JSON_TYPE)
+            produces = MediaType.APPLICATION_JSON)
     @ResponseBody
     public int createEmptyOrder() {
         Order order = new Order();
@@ -75,8 +70,7 @@ public class OrderController {
             value = ID_DIR,
             method = RequestMethod.GET,
             params = VERIFY_ACTION,
-            produces = REQUEST_JSON_TYPE,
-            consumes = REQUEST_JSON_TYPE)
+            produces = MediaType.APPLICATION_JSON)
     @ResponseBody
     public Message verify(@PathVariable(ID_PARAM) int id,
                           Locale locale) {
@@ -121,10 +115,9 @@ public class OrderController {
             value = ORDER_CARGO_PATH,
             method = RequestMethod.POST,
             params = CLEAR_ACTION,
-            produces = REQUEST_JSON_TYPE,
-            consumes = REQUEST_JSON_TYPE)
+            produces = MediaType.APPLICATION_JSON)
     @ResponseBody
-    public Message clearCargoes(@RequestParam(value = ORDER_PARAM) int orderId,
+    public Message clearCargoes(@RequestParam int orderId,
                                 Locale locale) {
         return orderService.clearCargoes(orderId)
                 ? MessageUtil.getMessage(CODE_PASSED, CODE_OPERATION_SUCCESS, messageSource, locale)
@@ -143,11 +136,10 @@ public class OrderController {
             value = ORDER_TRUCK_PATH,
             method = RequestMethod.POST,
             params = ADD_ACTION,
-            produces = REQUEST_JSON_TYPE,
-            consumes = REQUEST_JSON_TYPE)
+            produces = MediaType.APPLICATION_JSON)
     @ResponseBody
-    public Message assignTruckById(@RequestParam(value = ORDER_PARAM) int orderId,
-                                   @RequestParam(value = TRUCK_PARAM) int truckId,
+    public Message assignTruckById(@RequestParam int orderId,
+                                   @RequestParam int truckId,
                                    Locale locale) {
         return orderService.assignCargoById(orderId, truckId)
                 ? MessageUtil.getMessage(CODE_PASSED, CODE_OPERATION_SUCCESS, messageSource, locale)
@@ -165,10 +157,9 @@ public class OrderController {
             value = ORDER_TRUCK_PATH,
             method = RequestMethod.POST,
             params = CLEAR_ACTION,
-            produces = REQUEST_JSON_TYPE,
-            consumes = REQUEST_JSON_TYPE)
+            produces = MediaType.APPLICATION_JSON)
     @ResponseBody
-    public Message rejectTruck(@RequestParam(value = ORDER_PARAM) int orderId,
+    public Message rejectTruck(@RequestParam int orderId,
                                Locale locale) {
         return orderService.rejectTruck(orderId)
                 ? MessageUtil.getMessage(CODE_PASSED, CODE_OPERATION_SUCCESS, messageSource, locale)
@@ -187,11 +178,10 @@ public class OrderController {
             value = ORDER_DRIVER_PATH,
             method = RequestMethod.POST,
             params = ADD_ACTION,
-            produces = REQUEST_JSON_TYPE,
-            consumes = REQUEST_JSON_TYPE)
+            produces = MediaType.APPLICATION_JSON)
     @ResponseBody
-    public Message addDriver(@RequestParam(value = ORDER_PARAM) int orderId,
-                             @RequestParam(value = DRIVER_PARAM) int driverId,
+    public Message addDriver(@RequestParam int orderId,
+                             @RequestParam int driverId,
                              Locale locale) {
         return orderService.addDriverById(orderId, driverId)
                 ? MessageUtil.getMessage(CODE_PASSED, CODE_OPERATION_SUCCESS, messageSource, locale)
@@ -209,10 +199,9 @@ public class OrderController {
             value = ORDER_DRIVER_PATH,
             method = RequestMethod.POST,
             params = CLEAR_ACTION,
-            produces = REQUEST_JSON_TYPE,
-            consumes = REQUEST_JSON_TYPE)
+            produces = MediaType.APPLICATION_JSON)
     @ResponseBody
-    public Message clearDrivers(@RequestParam(value = ORDER_PARAM) int orderId,
+    public Message clearDrivers(@RequestParam int orderId,
                                 Locale locale) {
         return orderService.clearDrivers(orderId)
                 ? MessageUtil.getMessage(CODE_PASSED, CODE_OPERATION_SUCCESS, messageSource, locale)
@@ -231,11 +220,10 @@ public class OrderController {
             value = ORDER_ROUTE_PATH,
             method = RequestMethod.POST,
             params = ADD_ACTION,
-            produces = REQUEST_JSON_TYPE,
-            consumes = REQUEST_JSON_TYPE)
+            produces = MediaType.APPLICATION_JSON)
     @ResponseBody
-    public Message assignRouteById(@RequestParam(value = ORDER_PARAM) int orderId,
-                                   @RequestParam(value = ROUTE_PARAM) int routeId,
+    public Message assignRouteById(@RequestParam int orderId,
+                                   @RequestParam int routeId,
                                    Locale locale) {
         return orderService.assignRoute(orderId, routeId)
                 ? MessageUtil.getMessage(CODE_PASSED, CODE_OPERATION_SUCCESS, messageSource, locale)
@@ -253,10 +241,9 @@ public class OrderController {
             value = ORDER_ROUTE_PATH,
             method = RequestMethod.POST,
             params = CLEAR_ACTION,
-            produces = REQUEST_JSON_TYPE,
-            consumes = REQUEST_JSON_TYPE)
+            produces = MediaType.APPLICATION_JSON)
     @ResponseBody
-    public Message rejectRoute(@RequestParam(value = ORDER_PARAM) int orderId,
+    public Message rejectRoute(@RequestParam int orderId,
                                Locale locale) {
         return orderService.rejectRoute(orderId)
                 ? MessageUtil.getMessage(CODE_PASSED, CODE_OPERATION_SUCCESS, messageSource, locale)
@@ -272,7 +259,7 @@ public class OrderController {
      * @param sortTo  sort direction
      * @return data container with entities
      */
-    @RequestMapping(value = LIST_GRID_DIR, method = RequestMethod.GET, produces = REQUEST_JSON_TYPE)
+    @RequestMapping(value = LIST_GRID_DIR, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
     @ResponseBody
     public Grid<Order> listGrid(@RequestParam(value = GRID_CURRENT_PAGE) int page,
                                 @RequestParam(value = GRID_RECORDS_ON_PAGE) int records,
@@ -289,8 +276,11 @@ public class OrderController {
      * @param locale client locale
      * @return message object
      */
-    @RequestMapping(value = ID_DIR, params = CHECK_ACTION,
-            method = RequestMethod.GET, produces = REQUEST_JSON_TYPE)
+    @RequestMapping(
+            value = ID_DIR,
+            method = RequestMethod.GET,
+            params = CHECK_ACTION,
+            produces = MediaType.APPLICATION_JSON)
     @ResponseBody
     public Message check(@PathVariable(ID_PARAM) int id,
                          Locale locale) {
@@ -314,7 +304,7 @@ public class OrderController {
         uiModel.addAttribute(SUITABLE_CARGOES_LIST_PARAM, orderService.getSuitableCargoes());
         uiModel.addAttribute(SUITABLE_DRIVERS_LIST_PARAM, orderService.getSuitableDrivers());
         uiModel.addAttribute(SUITABLE_TRUCKS_LIST_PARAM, orderService.getSuitableTrucks());
-        uiModel.addAttribute(SUITABLE_ROUTES_LIST_PARAM, orderService.getAll());
+        uiModel.addAttribute(SUITABLE_ROUTES_LIST_PARAM, orderService.getSuitableRoutes());
         return ORDER_LIST_PATH;
     }
 
@@ -334,44 +324,23 @@ public class OrderController {
             uiModel.addAttribute(SUITABLE_CARGOES_LIST_PARAM, orderService.getSuitableCargoes());
             uiModel.addAttribute(SUITABLE_DRIVERS_LIST_PARAM, orderService.getSuitableDrivers());
             uiModel.addAttribute(SUITABLE_TRUCKS_LIST_PARAM, orderService.getSuitableTrucks());
-            uiModel.addAttribute(SUITABLE_ROUTES_LIST_PARAM, orderService.getAll());
+            uiModel.addAttribute(SUITABLE_ROUTES_LIST_PARAM, orderService.getSuitableRoutes());
         }
         return ORDER_EDIT_PATH;
     }
-
-/*    *//**
-     * Gets requests to perform editing over a specified entity.
-     *
-     * @param orderId orderId
-     * @param uiModel UI model
-     * @return redirect path to logic page of editing form
-     *//*
-    @RequestMapping(method = RequestMethod.POST)
-    public String edit(@RequestParam(value = ORDER_PARAM) int orderId,
-                       Model uiModel,
-                       RedirectAttributes redirectAttributes,
-                       Locale locale) {
-        uiModel.asMap().clear();
-        redirectAttributes.addFlashAttribute(
-                MESSAGE_PARAM, MessageUtil.getMessage(
-                        CODE_SUCCESS, CODE_ORDER_ADD_SUCCESS, messageSource, locale));
-        orderService.createOrder(orderId);
-        return ORDER_REDIRECT_PATH;
-    }*/
 
     /**
      * Gets requests to perform creating a specified entity.
      *
      * @param orderId orderId
-     * @param uiModel UI model
+     * @param redirectAttributes redirectAttributes
+     * @param locale locale
      * @return redirect path to logic page of editing form
      */
-    @RequestMapping(method = RequestMethod.POST)
-    public String add(@RequestParam(value = ORDER_PARAM) int orderId,
-                      Model uiModel,
+    @RequestMapping(value = ID_DIR, method = RequestMethod.POST)
+    public String add(@PathVariable(ID_PARAM) int orderId,
                       RedirectAttributes redirectAttributes,
                       Locale locale) {
-        uiModel.asMap().clear();
         redirectAttributes.addFlashAttribute(
                 MESSAGE_PARAM, MessageUtil.getMessage(
                         CODE_SUCCESS, CODE_ORDER_ADD_SUCCESS, messageSource, locale));

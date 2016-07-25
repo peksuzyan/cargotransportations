@@ -3,7 +3,13 @@ package com.tsystems.cargotransportations.constants;
 /**
  * Contains all kinds of client operations given by action param.
  */
-public class ActionConstants {
+public final class ActionConstants {
+
+    /**
+     * Default private constructor.
+     */
+    private ActionConstants() {}
+
     /**
      * Client needs to refresh entities list.
      */

@@ -42,7 +42,7 @@
 
 <div class="col-xs-12">
     <div id="creating" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="row">
@@ -56,7 +56,7 @@
     </div>
 </div>
 
-<div class="col-xs-12">
+<div class="col-xs-12 app-custom-jqgrid-fix">
     <table id="jqGridList" class="table table-striped"></table>
     <div id="jqGridPager"></div>
 </div>
@@ -89,10 +89,10 @@
                 id: "id"
             },
             pager: '#jqGridPager',
-            rowNum: 15,
+            rowNum: 10,
             rowList: [10, 15, 25, 50],
             sortname: 'id',
-            sortorder: 'asc',
+            sortorder: 'desc',
             autowidth: true,
             shrinkToFit: true,
             width: 'auto',

@@ -74,18 +74,18 @@
                 '${cargoStatus}'
             ],
             colModel: [
-                /*{name:'id', width:75, key:true},
+                {name:'id', width:75, key:true},
                 {name:'name', width:150},
                 {name:'weight', width:75},
                 {name:'departureCity', width:150},
                 {name:'arrivalCity', width:150},
-                {name:'status', width:150}*/
-                {name:'id', key:true},
+                {name:'status', width:150}
+/*                {name:'id', key:true},
                 {name:'name'},
                 {name:'weight'},
                 {name:'departureCity'},
                 {name:'arrivalCity'},
-                {name:'status'}
+                {name:'status'}*/
             ],
             jsonReader: {
                 root: "data",
@@ -96,10 +96,10 @@
                 id: "id"
             },
             pager: '#jqGridPager',
-            rowNum: 15,
+            rowNum: 10,
             rowList: [10, 15, 25, 50],
             sortname: 'id',
-            sortorder: 'asc',
+            sortorder: 'desc',
             autowidth: true,
             shrinkToFit: true,
             width: 'auto',

@@ -41,8 +41,9 @@
 <c:set var="errorsClass" value="control-label text-danger"/>
 <c:set var="buttonClass" value="btn btn-default"/>
 <c:set var="buttonWideClass" value="btn btn-default btn-block"/>
-<c:set var="truckCheckingButtons" value="truck-checking-buttons"/>
-<c:set var="truckCheckingResult" value="truck-checking-result"/>
+<c:set var="orderCheckingButtons" value="order-checking-buttons"/>
+<c:set var="orderVerifyingButtons" value="order-verifying-buttons"/>
+<c:set var="orderVerifyingResult" value="order-verifying-result"/>
 
 <c:set var="headerClass" value="col-lg-offset-3 col-lg-6
                                 col-md-offset-3 col-md-6
@@ -61,17 +62,9 @@
 
 <spring:url var="ordersURL" value="/admin/orders"/>
 <spring:url var="checkURL" value="${ordersURL}/${order.id}?check"/>
+<spring:url var="verifyURL" value="${ordersURL}/${order.id}?verify"/>
 <spring:url var="deleteURL" value="${ordersURL}/${order.id}?delete"/>
 <spring:url var="cancelURL" value="${ordersURL}"/>
-
-<spring:url var="addCargoURL" value="${ordersURL}/cargo?add"/>
-<spring:url var="clearCargoesURL" value="${ordersURL}/cargo?clear"/>
-<spring:url var="addTruckURL" value="${ordersURL}/truck?add"/>
-<spring:url var="clearTruckURL" value="${ordersURL}/truck?clear"/>
-<spring:url var="addDriverURL" value="${ordersURL}/driver?add"/>
-<spring:url var="clearDriversURL" value="${ordersURL}/driver?clear"/>
-<spring:url var="addRouteURL" value="${ordersURL}/route?add"/>
-<spring:url var="clearRouteURL" value="${ordersURL}/route?clear"/>
 
 <c:if test="${message.type eq 'error'}">
     <div class="alert alert-danger"><strong>${message.entry}</strong></div>
@@ -88,7 +81,7 @@
     <div class="${outerDivClass}">
         <label for="${id}" class="${labelClass}">${orderId}:</label>
         <div class="${innerDivClass}">
-            <input id="${id}" class="${inputClass}" value="${order.id}" readonly/>
+            <input name="orderId" id="${id}" class="${inputClass}" value="${order.id}" readonly/>
         </div>
     </div>
 
@@ -114,11 +107,8 @@
             <label for="inputCargoForm" class="${labelClass}">${selectCargo}:</label>
             <div class="${innerDivClass}">
                 <select id="inputCargoForm" name="cargo" class="${inputClass}">
-                    <option id="cargoSelectDefault">${selectCargo}...</option>
                     <c:forEach items="${suitable_cargoes}" var="cargo">
-                        <option value="${cargo.id}">
-                            ${cargo.weight} ${cargo.departureCity} - ${cargo.arrivalCity}
-                        </option>
+                        <option value="${cargo.id}">${cargo.weight} ${cargo.departureCity} - ${cargo.arrivalCity}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -139,14 +129,136 @@
     <div class="${outerDivClass}">
         <label for="outputCargoesForm" class="${labelClass}">${orderCargoes}:</label>
         <div class="${innerDivClass}">
-            <textarea id="outputCargoesForm" class="${inputClass}" rows="3" readonly>
-                <c:forEach items="${order.cargoes}" var="order_cargo">
-                    ${order_cargo.weight}, ${order_cargo.departureCity} - ${order_cargo.arrivalCity} &#10
-                </c:forEach>
-            </textarea>
+            <textarea id="outputCargoesForm" class="${inputClass}" rows="3" readonly><c:forEach items="${order.cargoes}" var="order_cargo"><c:out value="${order_cargo.weight}, ${order_cargo.departureCity} - ${order_cargo.arrivalCity}"/></c:forEach></textarea>
         </div>
     </div>
     <%-- CARGO SELECTION --%>
+
+    <%-- TRUCK SELECTION --%>
+    <c:if test="${order.id == 0 || order.status eq 'OPEN'}">
+        <div class="${outerDivClass}">
+            <label for="inputTruckForm" class="${labelClass}">${selectTruck}:</label>
+            <div class="${innerDivClass}">
+                <select id="inputTruckForm" name="truck" class="${inputClass}">
+                    <c:forEach items="${suitable_trucks}" var="truck_">
+                        <option value="${truck_.id}">${truck_.number}, ${truck_.capacity}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+
+        <div class="${outerDivClass}">
+            <div class="${buttonDivClass}">
+                <button class="${buttonClass}" id="addTruckButton" onclick="addTruckToOrder()"
+                        type="button">${appButtonAdd}</button>
+                <button class="${buttonClass}" id="clearTrucksButton" onclick="clearTrucksOfOrder()"
+                        type="button">${appButtonClear}</button>
+                <h3 id="successInputTruckLabel" class="label label-success ajaxMessageShower" hidden></h3>
+                <h3 id="dangerInputTruckLabel" class="label label-danger ajaxMessageShower" hidden></h3>
+            </div>
+        </div>
+    </c:if>
+
+    <div class="${outerDivClass}">
+        <label for="outputTrucksForm" class="${labelClass}">${orderTruck}:</label>
+        <div class="${innerDivClass}">
+            <input id="outputTrucksForm" class="${inputClass}" type="text"
+                   <c:if test="${order.truck ne null}">value="${order.truck.number}, ${order.truck.capacity}"</c:if>
+                   readonly />
+        </div>
+    </div>
+    <%-- TRUCK SELECTION --%>
+
+    <%-- DRIVER SELECTION --%>
+    <c:if test="${order.id == 0 || order.status eq 'OPEN'}">
+        <div class="${outerDivClass}">
+            <label for="inputDriverForm" class="${labelClass}">${selectDriver}:</label>
+            <div class="${innerDivClass}">
+                <select id="inputDriverForm" name="driver" class="${inputClass}">
+                    <c:forEach items="${suitable_drivers}" var="driver">
+                        <option value="${driver.id}">${driver.firstName} ${driver.lastName}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+
+        <div class="${outerDivClass}">
+            <div class="${buttonDivClass}">
+                <button class="${buttonClass}" id="addDriverButton" onclick="addDriverToOrder()"
+                        type="button">${appButtonAdd}</button>
+                <button class="${buttonClass}" id="clearDriversButton" onclick="clearDriversOfOrder()"
+                        type="button">${appButtonClear}</button>
+                <h3 id="successInputDriverLabel" class="label label-success ajaxMessageShower" hidden></h3>
+                <h3 id="dangerInputDriverLabel" class="label label-danger ajaxMessageShower" hidden></h3>
+            </div>
+        </div>
+    </c:if>
+
+    <div class="${outerDivClass}">
+        <label for="outputDriversForm" class="${labelClass}">${orderDrivers}:</label>
+        <div class="${innerDivClass}">
+            <textarea id="outputDriversForm" class="${inputClass}" rows="3" readonly><c:forEach items="${order.drivers}" var="order_driver"><c:out value="${order_driver.firstName} ${order_driver.lastName}"/></c:forEach></textarea>
+        </div>
+    </div>
+    <%-- DRIVER SELECTION --%>
+
+    <%-- ROUTE SELECTION --%>
+    <c:if test="${order.id == 0 || order.status eq 'OPEN'}">
+        <div class="${outerDivClass}">
+            <label for="inputRouteForm" class="${labelClass}">${selectRoute}:</label>
+            <div class="${innerDivClass}">
+                <select id="inputRouteForm" name="route" class="${inputClass}">
+                    <c:forEach items="${suitable_routes}" var="routeTemp">
+                        <option value="${routeTemp.id}">${routeTemp.cities.get(0)} -> ${routeTemp.cities.get(routeTemp.cities.size() - 1)}</option>
+                    </c:forEach>
+                </select>
+            </div>
+        </div>
+
+        <div class="${outerDivClass}">
+            <div class="${buttonDivClass}">
+                <button class="${buttonClass}" id="addRouteButton" onclick="addRouteToOrder()"
+                        type="button">${appButtonAdd}</button>
+                <button class="${buttonClass}" id="clearRoutesButton" onclick="clearRoutesOfOrder()"
+                        type="button">${appButtonClear}</button>
+                <h3 id="successInputRouteLabel" class="label label-success ajaxMessageShower" hidden></h3>
+                <h3 id="dangerInputRouteLabel" class="label label-danger ajaxMessageShower" hidden></h3>
+            </div>
+        </div>
+    </c:if>
+
+    <div class="${outerDivClass}">
+        <label for="outputRoutesForm" class="${labelClass}">${orderRoute}:</label>
+        <div class="${innerDivClass}">
+            <input id="outputRoutesForm" class="${inputClass}" type="text"
+                   <c:if test="${order.route ne null}">value="${order.route.cities.get(0)} -> ${order.route.cities.get(order.route.cities.size() - 1)}"</c:if>
+                   readonly/>
+        </div>
+    </div>
+    <%-- ROUTE SELECTION --%>
+
+    <div class="${outerDivClass}">
+        <div class="${buttonDivClass}">
+            <button class="${buttonClass} ${orderVerifyingButtons}" type="submit">${appButtonSave}</button>
+            <c:if test="${order.id != 0}">
+                <a class="${buttonClass} ${orderCheckingButtons}" type="button"
+                   data-toggle="modal" data-target="#deleting">${appButtonDelete}</a>
+                <a class="${buttonClass}" type="button"
+                   href="${cancelURL}">${appButtonCancel}</a>
+            </c:if>
+            <c:if test="${order.id == 0}">
+                <button class="${buttonClass}" data-dismiss="modal">${appButtonCancel}</button>
+            </c:if>
+        </div>
+    </div>
+
+    <c:if test="${order.id != 0}">
+        <div class="${outerDivClass}">
+            <div class="${buttonDivClass}">
+                <h3 id="${orderVerifyingResult}" class="label label-danger" hidden></h3>
+            </div>
+        </div>
+    </c:if>
 
 </form>
 
@@ -157,7 +269,7 @@
                 <div class="modal-body" align="center">
                     <div class="row">
                         <div class="col-lg-12">
-                            <label></label>
+                            <label>${confirmOrderDeletingText}</label>
                         </div>
                     </div>
                     <div class="row">
@@ -176,17 +288,54 @@
 </c:if>
 
 <script>
-    var orderIdForm = $('#id.form-control');
-    var addCargoButton = $('#addCargoButton');
-    var clearCargoesButton = $('#clearCargoesButton');
-    var outputCargoesForm = $('#outputCargoesForm');
-    var inputCargoForm = $('#inputCargoForm');
-    var cargoSelectDefault = $('#cargoSelectDefault');
-    var successInputCargoLabel = $('#successInputCargoLabel');
-    var dangerInputCargoLabel = $('#dangerInputCargoLabel');
-    var allMessageLabels = $('.ajaxMessageShower');
+    var isChecked_Check = false;
+    var isLaunched_Check = false;
+    var isChecked_Verify = false;
+    var isLaunched_Verify = false;
+
+    $('.${orderCheckingButtons}').click(function (event) {
+        if (!isLaunched_Check) {
+            $('.${orderCheckingButtons}').attr("disabled", true);
+            $.ajax({
+                url: '${checkURL}',
+                type: 'GET',
+                dataType: 'json',
+                contentType: 'application/json'
+            }).done(function (response) {
+                if (response.type == 'passed') {
+                    $('.${orderCheckingButtons}').attr("disabled", false);
+                    isChecked_Check = true;
+                    event.target.click();
+                } else {
+                    $("#${orderVerifyingResult}").text(response.entry).show();
+                }
+            });
+            isLaunched_Check = true;
+        }
+        if (!isChecked_Check || !isLaunched_Check) event.stopPropagation();
+    });
+
+    $('.${orderVerifyingButtons}').click(function (event) {
+        $.ajax({
+            url: '${verifyURL}',
+            type: 'GET',
+            dataType: 'json',
+            contentType: 'application/json'
+        }).done(function (response) {
+            if (response.type == 'passed') {
+                event.target.click();
+            } else {
+                $("#${orderVerifyingResult}").text(response.entry).show();
+            }
+        });
+        event.stopPropagation()
+    });
+</script>
+
+<script>
     var orderTitle = $('#orderTitle');
-    var lastAddedCargoId;
+    var orderIdForm = $('#id.form-control');
+    var allMessageLabels = $('.ajaxMessageShower');
 
     function sendToCreatingOrder() {
         $.ajax({
@@ -201,6 +350,225 @@
         })
     }
 
+    /* ROUTE */
+    var addRouteButton = $('#addRouteButton');
+    var clearRoutesButton = $('#clearRoutesButton');
+    var outputRoutesForm = $('#outputRoutesForm');
+    var inputRouteForm = $('#inputRouteForm');
+    var successInputRouteLabel = $('#successInputRouteLabel');
+    var dangerInputRouteLabel = $('#dangerInputRouteLabel');
+    var lastAddedRouteId;
+
+    function sendRouteToAdding() {
+        $.ajax({
+            url: '/admin/orders/route?add',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                "orderId" : orderIdForm.val(),
+                "routeId" : inputRouteForm.val()
+            }
+        }).done(function (response) {
+            if (response.type == 'passed') {
+                var selectedInputRouteForm = $('#inputRouteForm option:selected');
+                outputRoutesForm.val($.trim(selectedInputRouteForm.text()));
+                selectedInputRouteForm.prop('disabled', 'true');
+                lastAddedRouteId = inputRouteForm.val();
+                successInputRouteLabel.text(response.entry).show();
+            } else {
+                dangerInputRouteLabel.text(response.entry).show();
+            }
+            addRouteButton.removeAttr('disabled');
+            clearRoutesButton.removeAttr('disabled');
+        })
+    }
+
+    function addRouteToOrder() {
+        allMessageLabels.hide();
+        if (inputRouteForm.val() != lastAddedRouteId) {
+            sendRouteToAdding();
+            addRouteButton.prop('disabled', 'true');
+            clearRoutesButton.prop('disabled', 'true');
+        }
+    }
+
+    function sendToClearingRoutes() {
+        $.ajax({
+            url: '/admin/orders/route?clear',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                "orderId" : orderIdForm.val()
+            }
+        }).done(function (response) {
+            if (response.type == 'passed') {
+                outputRoutesForm.val('');
+                successInputRouteLabel.text(response.entry).show();
+                $('#inputRouteForm option').removeAttr('disabled');
+            } else {
+                dangerInputRouteLabel.text(response.entry).show();
+            }
+            addRouteButton.removeAttr('disabled');
+            clearRoutesButton.removeAttr('disabled');
+        })
+    }
+
+    function clearRoutesOfOrder() {
+        allMessageLabels.hide();
+        sendToClearingRoutes();
+        addRouteButton.prop('disabled', 'true');
+        clearRoutesButton.prop('disabled', 'true');
+    }
+
+    /* TRUCK */
+    var addTruckButton = $('#addTruckButton');
+    var clearTrucksButton = $('#clearTrucksButton');
+    var outputTrucksForm = $('#outputTrucksForm');
+    var inputTruckForm = $('#inputTruckForm');
+    var successInputTruckLabel = $('#successInputTruckLabel');
+    var dangerInputTruckLabel = $('#dangerInputTruckLabel');
+    var lastAddedTruckId;
+
+    function sendTruckToAdding() {
+        $.ajax({
+            url: '/admin/orders/truck?add',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                "orderId" : orderIdForm.val(),
+                "truckId" : inputTruckForm.val()
+            }
+        }).done(function (response) {
+            if (response.type == 'passed') {
+                var selectedInputTruckForm = $('#inputTruckForm option:selected');
+                outputTrucksForm.val($.trim(selectedInputTruckForm.text()));
+                selectedInputTruckForm.prop('disabled', 'true');
+                lastAddedTruckId = inputTruckForm.val();
+                successInputTruckLabel.text(response.entry).show();
+            } else {
+                dangerInputTruckLabel.text(response.entry).show();
+            }
+            addTruckButton.removeAttr('disabled');
+            clearTrucksButton.removeAttr('disabled');
+        })
+    }
+
+    function addTruckToOrder() {
+        allMessageLabels.hide();
+        if (inputTruckForm.val() != lastAddedTruckId) {
+            sendTruckToAdding();
+            addTruckButton.prop('disabled', 'true');
+            clearTrucksButton.prop('disabled', 'true');
+        }
+    }
+
+    function sendToClearingTrucks() {
+        $.ajax({
+            url: '/admin/orders/truck?clear',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                "orderId" : orderIdForm.val()
+            }
+        }).done(function (response) {
+            if (response.type == 'passed') {
+                outputTrucksForm.val('');
+                successInputTruckLabel.text(response.entry).show();
+                $('#inputTruckForm option').removeAttr('disabled');
+            } else {
+                dangerInputTruckLabel.text(response.entry).show();
+            }
+            addTruckButton.removeAttr('disabled');
+            clearTrucksButton.removeAttr('disabled');
+        })
+    }
+
+    function clearTrucksOfOrder() {
+        allMessageLabels.hide();
+        sendToClearingTrucks();
+        addTruckButton.prop('disabled', 'true');
+        clearTrucksButton.prop('disabled', 'true');
+    }
+
+    /* DRIVER */
+    var addDriverButton = $('#addDriverButton');
+    var clearDriversButton = $('#clearDriversButton');
+    var outputDriversForm = $('#outputDriversForm');
+    var inputDriverForm = $('#inputDriverForm');
+    var successInputDriverLabel = $('#successInputDriverLabel');
+    var dangerInputDriverLabel = $('#dangerInputDriverLabel');
+    var lastAddedDriverId;
+
+    function sendDriverToAdding() {
+        $.ajax({
+            url: '/admin/orders/driver?add',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                "orderId" : orderIdForm.val(),
+                "driverId" : inputDriverForm.val()
+            }
+        }).done(function (response) {
+            if (response.type == 'passed') {
+                var selectedInputDriverForm = $('#inputDriverForm option:selected');
+                outputDriversForm.val(outputDriversForm.val() + selectedInputDriverForm.text() + '\n');
+                selectedInputDriverForm.prop('disabled', 'true');
+                lastAddedDriverId = inputDriverForm.val();
+                successInputDriverLabel.text(response.entry).show();
+            } else {
+                dangerInputDriverLabel.text(response.entry).show();
+            }
+            addDriverButton.removeAttr('disabled');
+            clearDriversButton.removeAttr('disabled');
+        })
+    }
+
+    function addDriverToOrder() {
+        allMessageLabels.hide();
+        if (inputDriverForm.val() != lastAddedDriverId) {
+            sendDriverToAdding();
+            addDriverButton.prop('disabled', 'true');
+            clearDriversButton.prop('disabled', 'true');
+        }
+    }
+
+    function sendToClearingDrivers() {
+        $.ajax({
+            url: '/admin/orders/driver?clear',
+            type: 'post',
+            dataType: 'json',
+            data: {
+                "orderId" : orderIdForm.val()
+            }
+        }).done(function (response) {
+            if (response.type == 'passed') {
+                outputDriversForm.val('');
+                successInputDriverLabel.text(response.entry).show();
+                $('#inputDriverForm option').removeAttr('disabled');
+            } else {
+                dangerInputDriverLabel.text(response.entry).show();
+            }
+            addDriverButton.removeAttr('disabled');
+            clearDriversButton.removeAttr('disabled');
+        })
+    }
+
+    function clearDriversOfOrder() {
+        allMessageLabels.hide();
+        sendToClearingDrivers();
+        addDriverButton.prop('disabled', 'true');
+        clearDriversButton.prop('disabled', 'true');
+    }
+
+    /* CARGO */
+    var addCargoButton = $('#addCargoButton');
+    var clearCargoesButton = $('#clearCargoesButton');
+    var outputCargoesForm = $('#outputCargoesForm');
+    var inputCargoForm = $('#inputCargoForm');
+    var successInputCargoLabel = $('#successInputCargoLabel');
+    var dangerInputCargoLabel = $('#dangerInputCargoLabel');
+    var lastAddedCargoId;
+
     function sendCargoToAdding() {
         $.ajax({
             url: '/admin/orders/cargo?add',
@@ -213,9 +581,9 @@
         }).done(function (response) {
             if (response.type == 'passed') {
                 var selectedInputCargoForm = $('#inputCargoForm option:selected');
-                outputCargoesForm.val(outputCargoesForm.val() + selectedInputCargoForm.text() + '\n');
+                outputCargoesForm.val($.trim(outputCargoesForm.val()) + ' ' + $.trim(selectedInputCargoForm.text()));
                 selectedInputCargoForm.prop('disabled', 'true');
-                lastAddedCargoId = outputCargoesForm.val();
+                lastAddedCargoId = inputCargoForm.val();
                 successInputCargoLabel.text(response.entry).show();
             } else {
                 dangerInputCargoLabel.text(response.entry).show();
@@ -227,13 +595,11 @@
 
     function addCargoToOrder() {
         allMessageLabels.hide();
-        if (outputCargoesForm.val() == lastAddedCargoId) {
-            addCargoButton.onblur();
-            return;
+        if (inputCargoForm.val() != lastAddedCargoId) {
+            sendCargoToAdding();
+            addCargoButton.prop('disabled', 'true');
+            clearCargoesButton.prop('disabled', 'true');
         }
-        sendCargoToAdding();
-        addCargoButton.prop('disabled', 'true');
-        clearCargoesButton.prop('disabled', 'true');
     }
 
     function sendToClearingCargoes() {
@@ -241,17 +607,14 @@
             url: '/admin/orders/cargo?clear',
             type: 'post',
             dataType: 'json',
-            contentType: 'application/json',
             data: {
-                order : orderIdForm.val()
+                "orderId" : orderIdForm.val()
             }
         }).done(function (response) {
             if (response.type == 'passed') {
-                var selectedInputCargoForm = $('#inputCargoForm option:selected');
                 outputCargoesForm.val('');
-                selectedInputCargoForm.removeAttr('selected');
-                cargoSelectDefault.prop('selected', 'true');
                 successInputCargoLabel.text(response.entry).show();
+                $('#inputCargoForm option').removeAttr('disabled');
             } else {
                 dangerInputCargoLabel.text(response.entry).show();
             }

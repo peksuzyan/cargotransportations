@@ -133,4 +133,10 @@ public interface OrderService extends GenericService<Order> {
      * @return trucks list
      */
     List<Truck> getSuitableTrucks();
+
+    /**
+     * Returns a list of routes by suitable conditions.
+     * @return routes list
+     */
+    List<Route> getSuitableRoutes();
 }

@@ -186,7 +186,6 @@ public class MessageConstants {
      * Represents code of property-file when order deleting is success.
      */
     public static final String CODE_ORDER_DELETE_SUCCESS = "order_delete_success";
-
     /**
      * Represents code of property-file when adding cargo to an order is passed successfully.
      */
