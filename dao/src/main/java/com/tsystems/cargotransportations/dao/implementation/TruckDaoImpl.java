@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-import static com.tsystems.cargotransportations.constants.DaoMapping.TRUCK_DAO;
+import static com.tsystems.cargotransportations.constants.DaoMapper.TRUCK_DAO;
 
 /**
  * Specific DAO implementation for trucks management.
@@ -63,4 +63,5 @@ public class TruckDaoImpl extends GenericDaoImpl<Truck> implements TruckDao {
                 "SELECT t FROM Truck t WHERE t.number = '%s'", number);
         return getEntityManager().createQuery(query, Truck.class).getSingleResult();
     }
+
 }

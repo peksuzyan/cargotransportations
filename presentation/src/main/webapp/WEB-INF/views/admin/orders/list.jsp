@@ -68,17 +68,14 @@
             datatype: 'json',
             colNames: [
                 '${orderId}',
-                '${orderStatus}',
-                '${orderTruck}',
-                '${orderRoute}',
-                '${orderCreationDate}'
+                '${orderStatus}'
             ],
             colModel: [
                 {name:'id', key:true},
-                {name:'status'},
-                {name:'truck'},
+                {name:'status'}
+                /*{name:'truck'},
                 {name:'route'},
-                {name:'creationDate'}
+                {name:'creationDate'}*/
             ],
             jsonReader: {
                 root: "data",
@@ -89,7 +86,7 @@
                 id: "id"
             },
             pager: '#jqGridPager',
-            rowNum: 10,
+            rowNum: 25,
             rowList: [10, 15, 25, 50],
             sortname: 'id',
             sortorder: 'desc',

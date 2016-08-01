@@ -20,7 +20,7 @@ public final class OrderDetailsUtil {
 
     /**
      * Builds from drivers list a map representation.
-     * @param drivers drivers list
+     * @param drivers drivers listi9
      * @return drivers map
      */
     public static Map<String, String> buildDriversMap(List<Driver> drivers) {

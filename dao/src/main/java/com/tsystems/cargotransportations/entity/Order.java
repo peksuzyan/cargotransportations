@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import static com.tsystems.cargotransportations.constants.FieldsMapping.*;
+import static com.tsystems.cargotransportations.constants.DatabaseMapper.*;
 
 /**
  * Basic class that represents an order entity.

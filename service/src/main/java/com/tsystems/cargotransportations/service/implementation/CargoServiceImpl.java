@@ -5,7 +5,6 @@ import com.tsystems.cargotransportations.dao.interfaces.GenericDao;
 import com.tsystems.cargotransportations.dao.interfaces.OrderDao;
 import com.tsystems.cargotransportations.entity.Cargo;
 import com.tsystems.cargotransportations.entity.CargoStatus;
-import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.exception.CargoIsDeliveredServiceException;
 import com.tsystems.cargotransportations.exception.CargoIsShippedServiceException;
 import com.tsystems.cargotransportations.service.interfaces.CargoService;
@@ -13,12 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Iterator;
-import java.util.List;
-
-import static com.tsystems.cargotransportations.constants.ServiceConstants.CARGO_ALREADY_DELIVERED;
-import static com.tsystems.cargotransportations.constants.ServiceConstants.CARGO_ALREADY_SHIPPED;
-import static com.tsystems.cargotransportations.constants.ServiceMapping.CARGO_SERVICE;
+import static com.tsystems.cargotransportations.constants.ExceptionCodes.CARGO_ALREADY_DELIVERED;
+import static com.tsystems.cargotransportations.constants.ExceptionCodes.CARGO_ALREADY_SHIPPED;
+import static com.tsystems.cargotransportations.constants.ServiceMapper.CARGO_SERVICE;
 import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
 
 /**

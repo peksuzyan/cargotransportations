@@ -1,6 +1,15 @@
 package com.tsystems.cargotransportations.constants;
 
-public class PresentationConstants {
+/**
+ * Contains all logic page names that are used by Spring controllers and actual pages.
+ */
+public final class PresentationMapper {
+
+    /**
+     * Default private constructor.
+     */
+    public PresentationMapper() {}
+
     /**
      * Keyword for redirect to given page.
      */
@@ -10,11 +19,6 @@ public class PresentationConstants {
      * Keyword for slash symbol.
      */
     public static final String SLASH = "/";
-
-    /**
-     * Root subdirectory.
-     */
-    public static final String ROOT_DIR = "/";
 
     /**
      * Represents page when some resource isn't found.
@@ -27,24 +31,9 @@ public class PresentationConstants {
     public static final String ADMIN = "/admin";
 
     /**
-     * User directory.
-     */
-    public static final String USER = "/user";
-
-    /**
-     * Subdirectory of personal entity page.
-     */
-    public static final String NUMBER_DIR = "/{number}";
-
-    /**
      * Subdirectory of personal entity page.
      */
     public static final String ID_DIR = "/{id_number}";
-
-    /**
-     * Subdirectory of personal entity page (only user).
-     */
-    public static final String NAME_DIR = "/{name}";
 
     /**
      * Subdirectory of entities list page.
@@ -55,11 +44,6 @@ public class PresentationConstants {
      * Subdirectory of entities list grid page.
      */
     public static final String LIST_GRID_DIR = "/listgrid";
-
-    /**
-     * Subdirectory of entities for check page.
-     */
-    public static final String CHECK_DIR = "/check";
 
     /**
      * Subdirectory of entity adding page.
@@ -140,11 +124,6 @@ public class PresentationConstants {
      */
     public static final String DRIVER_EDIT_PATH = DRIVER_DIR + EDIT_DIR;
 
-    /**
-     * Path to entity add page.
-     */
-    public static final String DRIVER_ADD_PATH = DRIVER_DIR + ADD_DIR;
-
     /* <---------- TRUCK ----------> */
 
     /**
@@ -166,11 +145,6 @@ public class PresentationConstants {
      * Path to entity edit page.
      */
     public static final String TRUCK_EDIT_PATH = TRUCK_DIR + EDIT_DIR;
-
-    /**
-     * Path to entity add page.
-     */
-    public static final String TRUCK_ADD_PATH = TRUCK_DIR + ADD_DIR;
 
     /* <---------- USER ----------> */
 
@@ -194,11 +168,6 @@ public class PresentationConstants {
      */
     public static final String USER_EDIT_PATH = USER_DIR + EDIT_DIR;
 
-    /**
-     * Path to entity add page.
-     */
-    public static final String USER_ADD_PATH = USER_DIR + ADD_DIR;
-
     /* <---------- ROUTE ----------> */
 
     /**
@@ -220,11 +189,6 @@ public class PresentationConstants {
      * Path to entity edit page.
      */
     public static final String ROUTE_EDIT_PATH = ROUTE_DIR + EDIT_DIR;
-
-    /**
-     * Path to entity add page.
-     */
-    public static final String ROUTE_ADD_PATH = ROUTE_DIR + ADD_DIR;
 
     /* <---------- ORDER ----------> */
 
@@ -252,11 +216,6 @@ public class PresentationConstants {
      * Path to entity edit page.
      */
     public static final String ORDER_EDIT_PATH = ORDER_DIR + EDIT_DIR;
-
-    /**
-     * Path to entity add page.
-     */
-    public static final String ORDER_ADD_PATH = ORDER_DIR + ADD_DIR;
 
     /**
      * Path to creating empty order.

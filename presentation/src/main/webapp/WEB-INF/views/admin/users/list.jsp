@@ -67,14 +67,13 @@
             colNames: [
                 '${userId}',
                 '${userEmail}',
-                '${userRole}',
-                '${userCreationDate}'
+                '${userRole}'
             ],
             colModel: [
                 {name:'id', key:true},
                 {name:'email'},
-                {name:'userRole'},
-                {name:'creationDate'}
+                {name:'userRole'}
+                /*{name:'creationDate'}*/
             ],
             jsonReader: {
                 root: "data",
@@ -104,3 +103,14 @@
         });
     });
 </script>
+
+
+<c:if test="${message.type eq 'error'}">
+    <script>
+        $(document).ready(function(){
+            if ($('.alert-danger').length) {
+                $('a[data-target="#creating"]').click();
+            }
+        });
+    </script>
+</c:if>

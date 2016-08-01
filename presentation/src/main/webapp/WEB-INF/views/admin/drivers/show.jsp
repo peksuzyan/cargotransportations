@@ -34,10 +34,6 @@
 
 <c:set var="formClass" value="form-horizontal"/>
 <c:set var="outerDivClass" value="row form-group"/>
-<%--<c:set var="innerDivClass" value="col-lg-4"/>
-<c:set var="buttonDivClass" value="col-lg-offset-3 col-lg-9"/>
-<c:set var="labelClass" value="control-label col-lg-3"/>
-<c:set var="headerClass" value="col-lg-offset-1 col-lg-11"/>--%>
 <c:set var="inputClass" value="form-control"/>
 <c:set var="errorsClass" value="control-label text-danger"/>
 <c:set var="buttonClass" value="btn btn-default"/>
@@ -45,9 +41,9 @@
 <c:set var="driverCheckingButtons" value="driver-checking-buttons"/>
 <c:set var="driverCheckingResult" value="driver-checking-result"/>
 
-<c:set var="headerClass" value="col-lg-offset-4 col-lg-4
-                                col-md-offset-4 col-md-4
-                                col-sm-offset-3 col-sm-6
+<c:set var="headerClass" value="col-lg-offset-3 col-lg-6
+                                col-md-offset-3 col-md-6
+                                col-sm-offset-2 col-sm-8
                                 col-xs-offset-2 col-sm-8"/>
 <c:set var="labelClass" value="control-label
                                col-lg-offset-1 col-lg-3
@@ -58,7 +54,7 @@
                                   col-md-4
                                   col-sm-4
                                   col-xs-12"/>
-<c:set var="buttonDivClass" value="col-xs-offset-4 col-xs-4"/>
+<c:set var="buttonDivClass" value="col-xs-offset-4 col-xs-5"/>
 
 <spring:url var="driversURL" value="/admin/drivers"/>
 <spring:url var="checkURL" value="${driversURL}/${driver.id}?check"/>
@@ -71,7 +67,7 @@
 
 <form:form method="post" modelAttribute="driver" cssClass="${formClass}" role="form" id="driverForm">
 
-    <div class="${outerDivClass}">
+    <div class="${outerDivClass}" align="center">
         <label class="${headerClass}">
             <h3>${titleDriverPassport}
                 <c:if test="${driver.id != 0}"> <kbd>#${driver.id}</kbd></c:if>
@@ -165,7 +161,7 @@
             <button class="${buttonClass} ${driverCheckingButtons}" type="submit">${appButtonSave}</button>
             <c:if test="${driver.id != 0}">
                 <a class="${buttonClass} ${driverCheckingButtons}" type="button"
-                   id="delete_button"--%> data-toggle="modal" data-target="#deleting">${appButtonDelete}</a>
+                   id="delete_button" data-toggle="modal" data-target="#deleting">${appButtonDelete}</a>
                 <a class="${buttonClass}" type="button"
                    href="${cancelURL}">${appButtonCancel}</a>
             </c:if>

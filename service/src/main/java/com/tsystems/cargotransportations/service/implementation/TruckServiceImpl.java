@@ -2,24 +2,16 @@ package com.tsystems.cargotransportations.service.implementation;
 
 import com.tsystems.cargotransportations.dao.interfaces.GenericDao;
 import com.tsystems.cargotransportations.dao.interfaces.TruckDao;
-import com.tsystems.cargotransportations.entity.Cargo;
-import com.tsystems.cargotransportations.entity.Order;
-import com.tsystems.cargotransportations.entity.Route;
 import com.tsystems.cargotransportations.entity.Truck;
 import com.tsystems.cargotransportations.service.interfaces.TruckService;
 
-import com.tsystems.cargotransportations.constants.MagicConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import static com.tsystems.cargotransportations.constants.ServiceMapping.TRUCK_SERVICE;
-import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
+import static com.tsystems.cargotransportations.constants.ServiceMapper.TRUCK_SERVICE;
 
 /**
  * Implements business-logic operations that bound with truck.

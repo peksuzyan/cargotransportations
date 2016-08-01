@@ -22,18 +22,14 @@
 
 <c:set var="formClass" value="form-horizontal"/>
 <c:set var="outerDivClass" value="row form-group"/>
-<%--<c:set var="innerDivClass" value="col-lg-4"/>--%>
-<%--<c:set var="buttonDivClass" value="col-lg-offset-3 col-lg-9"/>--%>
-<%--<c:set var="labelClass" value="control-label col-lg-3"/>--%>
-<%--<c:set var="headerClass" value="col-lg-offset-1 col-lg-11"/>--%>
 <c:set var="inputClass" value="form-control"/>
 <c:set var="errorsClass" value="control-label text-danger"/>
 <c:set var="buttonClass" value="btn btn-default"/>
 <c:set var="buttonWideClass" value="btn btn-default btn-block"/>
 
-<c:set var="headerClass" value="col-lg-offset-4 col-lg-4
-                                col-md-offset-4 col-md-4
-                                col-sm-offset-3 col-sm-6
+<c:set var="headerClass" value="col-lg-offset-3 col-lg-6
+                                col-md-offset-3 col-md-6
+                                col-sm-offset-2 col-sm-8
                                 col-xs-offset-2 col-sm-8"/>
 <c:set var="mapDivClass" value="col-lg-offset-1 col-lg-10
                                 col-md-12
@@ -48,7 +44,7 @@
                                   col-md-4
                                   col-sm-4
                                   col-xs-12"/>
-<c:set var="buttonDivClass" value="col-xs-offset-4 col-xs-4"/>
+<c:set var="buttonDivClass" value="col-xs-offset-4 col-xs-5"/>
 
 <spring:url var="routesURL" value="/admin/routes"/>
 <spring:url var="cancelURL" value="${routesURL}"/>
@@ -179,6 +175,7 @@
                     myCollection.add(route);
                     distanceForm.val(Math.round(route.getLength() / 1000));
                     durationForm.val(Math.round(route.getTime() / 3600));
+                    addHiddenInputForm();
                     inputForm.val('');
                 },
                 function (error) {
@@ -194,7 +191,6 @@
         routePoints.push(inputForm.val());
         createRoute(routePoints);
         outputForm.val(outputForm.val() + routePoints.length + '. ' + inputForm.val() + '\n');
-        addHiddenInputForm();
     }
 
     function clearRoutePoints() {

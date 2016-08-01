@@ -3,7 +3,12 @@ package com.tsystems.cargotransportations.constants;
 /**
  * Represents validation message codes for localization properties.
  */
-public class ValidationCodes {
+public final class ValidationCodes {
+
+    /**
+     * Default private constructor.
+     */
+    public ValidationCodes() {}
 
     /* CARGO ENTITY */
 
@@ -77,11 +82,6 @@ public class ValidationCodes {
     public static final String USER_PASSWORD_IS_EMPTY = "{validation_user_password_NotEmpty}";
 
     /* TRUCK ENTITY */
-
-    /**
-     * Represents validation code when truck number is empty.
-     */
-    public static final String TRUCK_NUMBER_IS_EMPTY = "{validation_truck_number_NotEmpty}";
 
     /**
      * Represents validation code when truck people is more max.

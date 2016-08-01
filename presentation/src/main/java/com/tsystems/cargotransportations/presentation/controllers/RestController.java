@@ -40,7 +40,7 @@ public class RestController {
         if (!userService.authenticate(email, password)) return orderDetails;
         Driver driver = driverService.getByEmail(email);
         if (driver == null) return orderDetails;
-        Truck truck = driver.getTruck();
+        Truck truck = orderService.getTruckByDriver(driver);
         if (truck == null) return orderDetails;
         orderDetails.setTruckNumber(truck.getNumber());
         Order order = orderService.getByStatusAndTruck(OrderStatus.PERFORMING, truck);

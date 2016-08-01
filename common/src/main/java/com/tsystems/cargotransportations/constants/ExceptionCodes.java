@@ -3,7 +3,12 @@ package com.tsystems.cargotransportations.constants;
 /**
  * Contains all localize properties codes for business-operations.
  */
-public class ServiceConstants {
+public final class ExceptionCodes {
+
+    /**
+     * Default private constructor.
+     */
+    public ExceptionCodes() {}
 
     /**
      * Localization code for processes when cargo is already shipped.
@@ -21,11 +26,6 @@ public class ServiceConstants {
     public static final String DRIVER_IS_BUSY = "exception_driver_busy";
 
     /**
-     * Localization code for processes when driver don't exist.
-     */
-    public static final String DRIVER_NOT_EXIST = "exception_driver_not_exist";
-
-    /**
      * Localization code for processes when order is performing.
      */
     public static final String ORDER_IS_PERFORMING = "exception_order_performing";
@@ -34,6 +34,16 @@ public class ServiceConstants {
      * Localization code for processes when order is done.
      */
     public static final String ORDER_IS_DONE = "exception_order_done";
+
+    /**
+     * Localization code for processes when order isn't exist.
+     */
+    public static final String ORDER_NOT_EXIST = "exception_order_not_exist";
+
+    /**
+     * Localization code for processes when order has null entity in one of him collections.
+     */
+    public static final String ORDER_HAS_NULL_ENTITY = "exception_order_has_null_entity";
 
     /**
      * Localization code for processes when order without assigned truck.

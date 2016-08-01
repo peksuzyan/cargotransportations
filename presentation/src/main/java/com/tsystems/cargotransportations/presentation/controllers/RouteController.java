@@ -4,7 +4,6 @@ import com.tsystems.cargotransportations.entity.Route;
 import com.tsystems.cargotransportations.presentation.grids.Grid;
 import com.tsystems.cargotransportations.presentation.grids.GridUtil;
 import com.tsystems.cargotransportations.presentation.grids.MessageUtil;
-import com.tsystems.cargotransportations.presentation.grids.RouteWrapper;
 import com.tsystems.cargotransportations.service.interfaces.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -13,16 +12,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.Locale;
 
-import static com.tsystems.cargotransportations.constants.GridConstants.*;
-import static com.tsystems.cargotransportations.constants.GridConstants.GRID_SORT_TO;
-import static com.tsystems.cargotransportations.constants.GridConstants.REQUEST_JSON_TYPE;
-import static com.tsystems.cargotransportations.constants.MessageConstants.*;
-import static com.tsystems.cargotransportations.constants.ParamConstants.*;
-import static com.tsystems.cargotransportations.constants.ParamConstants.MESSAGE_PARAM;
-import static com.tsystems.cargotransportations.constants.PresentationConstants.*;
+import static com.tsystems.cargotransportations.constants.GridMapper.*;
+import static com.tsystems.cargotransportations.constants.GridMapper.GRID_SORT_TO;
+import static com.tsystems.cargotransportations.constants.MessageCodes.*;
+import static com.tsystems.cargotransportations.constants.ParamMapper.*;
+import static com.tsystems.cargotransportations.constants.ParamMapper.MESSAGE_PARAM;
+import static com.tsystems.cargotransportations.constants.PresentationMapper.*;
 
 @RequestMapping(ROUTE_DIR)
 @Controller
@@ -48,7 +47,7 @@ public class RouteController {
      * @param sortTo sort direction
      * @return data container with entities
      */
-    @RequestMapping(value = LIST_GRID_DIR, method = RequestMethod.GET, produces = REQUEST_JSON_TYPE)
+    @RequestMapping(value = LIST_GRID_DIR, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
     @ResponseBody
     public Grid<Route> listGrid(@RequestParam(value = GRID_CURRENT_PAGE) int page,
                                 @RequestParam(value = GRID_RECORDS_ON_PAGE) int records,

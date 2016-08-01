@@ -4,11 +4,11 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
-import static com.tsystems.cargotransportations.constants.FieldsMapping.*;
+import static com.tsystems.cargotransportations.constants.DatabaseMapper.*;
 import static com.tsystems.cargotransportations.constants.ValidationCodes.*;
 
 /**
@@ -100,6 +100,19 @@ public class Driver implements Serializable {
      */
     public String getFullName() {
         return String.format("%s %s", this.firstName, this.lastName);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Driver driver = (Driver) o;
+        return id == driver.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     /**

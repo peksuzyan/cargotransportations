@@ -18,13 +18,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.ws.rs.core.MediaType;
 import java.util.Locale;
 
-import static com.tsystems.cargotransportations.constants.ActionConstants.*;
-import static com.tsystems.cargotransportations.constants.GridConstants.*;
-import static com.tsystems.cargotransportations.constants.GridConstants.GRID_SORT_TO;
-import static com.tsystems.cargotransportations.constants.MessageConstants.*;
-import static com.tsystems.cargotransportations.constants.ParamConstants.*;
-import static com.tsystems.cargotransportations.constants.ParamConstants.MESSAGE_PARAM;
-import static com.tsystems.cargotransportations.constants.PresentationConstants.*;
+import static com.tsystems.cargotransportations.constants.ActionMapper.*;
+import static com.tsystems.cargotransportations.constants.GridMapper.*;
+import static com.tsystems.cargotransportations.constants.GridMapper.GRID_SORT_TO;
+import static com.tsystems.cargotransportations.constants.MessageCodes.*;
+import static com.tsystems.cargotransportations.constants.ParamMapper.*;
+import static com.tsystems.cargotransportations.constants.ParamMapper.MESSAGE_PARAM;
+import static com.tsystems.cargotransportations.constants.PresentationMapper.*;
 
 @RequestMapping(ORDER_DIR)
 @Controller

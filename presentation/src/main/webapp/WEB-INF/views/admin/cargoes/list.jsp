@@ -115,3 +115,14 @@
         });
     });
 </script>
+
+
+<c:if test="${message.type eq 'error'}">
+    <script>
+        $(document).ready(function(){
+            if ($('.alert-danger').length) {
+                $('a[data-target="#creating"]').click();
+            }
+        });
+    </script>
+</c:if>

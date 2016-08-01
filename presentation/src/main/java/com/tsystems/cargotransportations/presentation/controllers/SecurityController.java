@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Locale;
 
-import static com.tsystems.cargotransportations.constants.MessageConstants.*;
-import static com.tsystems.cargotransportations.constants.ParamConstants.MESSAGE_PARAM;
+import static com.tsystems.cargotransportations.constants.MessageCodes.*;
+import static com.tsystems.cargotransportations.constants.ParamMapper.MESSAGE_PARAM;
 
 @Controller
 public class SecurityController {

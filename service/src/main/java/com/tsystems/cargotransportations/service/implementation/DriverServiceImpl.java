@@ -5,12 +5,9 @@ import com.tsystems.cargotransportations.dao.interfaces.GenericDao;
 import com.tsystems.cargotransportations.dao.interfaces.OrderDao;
 import com.tsystems.cargotransportations.entity.Driver;
 import com.tsystems.cargotransportations.entity.DriverStatus;
-import com.tsystems.cargotransportations.entity.Order;
-import com.tsystems.cargotransportations.entity.Truck;
 import com.tsystems.cargotransportations.exception.DriverIsBusyServiceException;
 import com.tsystems.cargotransportations.service.interfaces.DriverService;
 
-import com.tsystems.cargotransportations.constants.MagicConstants;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.PersistenceException;
 import java.util.*;
 
-import static com.tsystems.cargotransportations.constants.ServiceConstants.DRIVER_IS_BUSY;
-import static com.tsystems.cargotransportations.constants.ServiceMapping.DRIVER_SERVICE;
+import static com.tsystems.cargotransportations.constants.ExceptionCodes.DRIVER_IS_BUSY;
+import static com.tsystems.cargotransportations.constants.ServiceMapper.DRIVER_SERVICE;
 import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
 
 /**

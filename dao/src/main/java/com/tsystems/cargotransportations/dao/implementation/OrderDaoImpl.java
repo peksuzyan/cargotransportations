@@ -4,16 +4,13 @@ import com.tsystems.cargotransportations.dao.interfaces.OrderDao;
 import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.entity.OrderStatus;
 import com.tsystems.cargotransportations.entity.Truck;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-import static com.tsystems.cargotransportations.constants.DaoMapping.ORDER_DAO;
+import static com.tsystems.cargotransportations.constants.DaoMapper.ORDER_DAO;
 
 /**
  * Specific DAO implementation for orders management.

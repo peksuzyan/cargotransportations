@@ -3,7 +3,12 @@ package com.tsystems.cargotransportations.constants;
 /**
  * Represents mapping of dao classes within Spring.
  */
-public class DaoMapping {
+public final class DaoMapper {
+
+    /**
+     * Default private constructor.
+     */
+    public DaoMapper() {}
 
     /**
      * Represents cargo dao.

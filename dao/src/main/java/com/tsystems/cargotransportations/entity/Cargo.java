@@ -8,7 +8,7 @@ import javax.validation.constraints.DecimalMin;
 import java.io.Serializable;
 import java.util.Objects;
 
-import static com.tsystems.cargotransportations.constants.FieldsMapping.*;
+import static com.tsystems.cargotransportations.constants.DatabaseMapper.*;
 import static com.tsystems.cargotransportations.constants.ValidationCodes.*;
 import static com.tsystems.cargotransportations.constants.ValidationValues.CARGO_MAX_WEIGHT;
 import static com.tsystems.cargotransportations.constants.ValidationValues.CARGO_MIN_WEIGHT;

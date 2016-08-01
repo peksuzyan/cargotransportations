@@ -7,14 +7,13 @@ import com.tsystems.cargotransportations.entity.Order;
 import com.tsystems.cargotransportations.entity.Route;
 import com.tsystems.cargotransportations.service.interfaces.RouteService;
 
-import com.tsystems.cargotransportations.constants.MagicConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-import static com.tsystems.cargotransportations.constants.ServiceMapping.ROUTE_SERVICE;
+import static com.tsystems.cargotransportations.constants.ServiceMapper.ROUTE_SERVICE;
 import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
 
 /**

@@ -33,10 +33,6 @@
 
 <c:set var="formClass" value="form-horizontal"/>
 <c:set var="outerDivClass" value="row form-group"/>
-<%--<c:set var="innerDivClass" value="col-lg-4"/>
-<c:set var="buttonDivClass" value="col-lg-offset-3 col-lg-9"/>
-<c:set var="labelClass" value="control-label col-lg-3"/>
-<c:set var="headerClass" value="col-lg-offset-1 col-lg-11"/>--%>
 <c:set var="inputClass" value="form-control"/>
 <c:set var="errorsClass" value="control-label text-danger"/>
 <c:set var="buttonClass" value="btn btn-default"/>
@@ -58,7 +54,7 @@
                                   col-md-4
                                   col-sm-4
                                   col-xs-12"/>
-<c:set var="buttonDivClass" value="col-xs-offset-4 col-xs-4"/>
+<c:set var="buttonDivClass" value="col-xs-offset-4 col-xs-5"/>
 
 <spring:url var="ordersURL" value="/admin/orders"/>
 <spring:url var="checkURL" value="${ordersURL}/${order.id}?check"/>
@@ -209,7 +205,7 @@
             <div class="${innerDivClass}">
                 <select id="inputRouteForm" name="route" class="${inputClass}">
                     <c:forEach items="${suitable_routes}" var="routeTemp">
-                        <option value="${routeTemp.id}">${routeTemp.cities.get(0)} -> ${routeTemp.cities.get(routeTemp.cities.size() - 1)}</option>
+                        <option value="${routeTemp.id}">${order.route.id}</option>
                     </c:forEach>
                 </select>
             </div>
@@ -231,7 +227,7 @@
         <label for="outputRoutesForm" class="${labelClass}">${orderRoute}:</label>
         <div class="${innerDivClass}">
             <input id="outputRoutesForm" class="${inputClass}" type="text"
-                   <c:if test="${order.route ne null}">value="${order.route.cities.get(0)} -> ${order.route.cities.get(order.route.cities.size() - 1)}"</c:if>
+                   <c:if test="${order.route ne null}">value="${order.route.id}"</c:if>
                    readonly/>
         </div>
     </div>

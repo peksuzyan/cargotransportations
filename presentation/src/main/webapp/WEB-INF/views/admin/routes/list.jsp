@@ -66,14 +66,13 @@
             colNames: [
                 '${routeId}',
                 '${routeDistance}',
-                '${routeDuration}',
-                '${routeCities}'
+                '${routeDuration}'
             ],
             colModel: [
                 {name:'id', key:true},
                 {name:'distance'},
-                {name:'duration'},
-                {name:'cities'}
+                {name:'duration'}
+                /*{name:'cities'}*/
             ],
             jsonReader: {
                 root: "data",

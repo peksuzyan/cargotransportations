@@ -1,6 +1,6 @@
 package com.tsystems.cargotransportations.service.implementation;
 
-import com.tsystems.cargotransportations.constants.MagicConstants;
+import com.tsystems.cargotransportations.constants.MagicValues;
 import com.tsystems.cargotransportations.dao.interfaces.*;
 import com.tsystems.cargotransportations.entity.*;
 import com.tsystems.cargotransportations.exception.*;
@@ -14,8 +14,8 @@ import javax.persistence.PersistenceException;
 import java.util.Calendar;
 import java.util.List;
 
-import static com.tsystems.cargotransportations.constants.ServiceConstants.*;
-import static com.tsystems.cargotransportations.constants.ServiceMapping.ORDER_SERVICE;
+import static com.tsystems.cargotransportations.constants.ExceptionCodes.*;
+import static com.tsystems.cargotransportations.constants.ServiceMapper.ORDER_SERVICE;
 import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
 
 /**
@@ -103,6 +103,17 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
     @Override
     public List<Route> getSuitableRoutes() {
         return routeDao.getAll();
+    }
+
+    @Override
+    public Truck getTruckByDriver(Driver driver) {
+        List<Order> orders = orderDao.getAllByStatus(OrderStatus.PERFORMING);
+        for (Order order : orders) {
+            if (order.getDrivers().contains(driver)) {
+                return order.getTruck();
+            }
+        }
+        return null;
     }
 
     /**
@@ -334,7 +345,7 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
     @Transactional(propagation = SUPPORTS)
     private boolean isDriverWithEnoughWorkingTime(int routeHoursInCurrentMonthForOne, Driver driver) {
         int expectedTotalWorkingTime = routeHoursInCurrentMonthForOne + driver.getHours();
-        if (expectedTotalWorkingTime > MagicConstants.WORKING_TIME_OF_MONTH) {
+        if (expectedTotalWorkingTime > MagicValues.WORKING_TIME_OF_MONTH) {
             throw new DriversWithNotEnoughWorkingTimeServiceException(
                     ORDER_DRIVERS_WITH_NOT_ENOUGH_WORKING_TIME);
         } else {
@@ -377,7 +388,7 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      */
     @Transactional(propagation = SUPPORTS)
     private boolean hasTruckWithEnoughCapacity(Order order) {
-        double currentWeight = MagicConstants.DOUBLE_ZERO;
+        double currentWeight = MagicValues.DOUBLE_ZERO;
         for (String city : order.getRoute().getCities()) {
             for (Cargo cargo : order.getCargoes()) {
                 currentWeight += getWeightDeltaByCity(city, cargo);
@@ -399,13 +410,13 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      */
     @Transactional(propagation = SUPPORTS)
     private double getWeightDeltaByCity(String city, Cargo cargo) {
-        double delta = MagicConstants.DOUBLE_ZERO;
+        double delta = MagicValues.DOUBLE_ZERO;
         delta += city.equalsIgnoreCase(cargo.getDepartureCity())
                 ? cargo.getWeight()
-                : MagicConstants.DOUBLE_ZERO;
+                : MagicValues.DOUBLE_ZERO;
         delta -= city.equalsIgnoreCase(cargo.getArrivalCity())
                 ? cargo.getWeight()
-                : MagicConstants.DOUBLE_ZERO;
+                : MagicValues.DOUBLE_ZERO;
         return delta;
     }
 
@@ -510,7 +521,13 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      */
     @Transactional(propagation = SUPPORTS)
     private boolean isFreeDrivers(Order order) {
-        if (order.getDrivers()
+        if (order == null) {
+            throw new OrderNotExistServiceException(ORDER_NOT_EXIST);
+        } else if (order.getDrivers() == null) {
+            throw new DriversNotFreeServiceException(ORDER_DRIVERS_NOT_FREE);
+        } else if (order.getDrivers().contains(null)) {
+            throw new OrderHasNullEntityServiceException(ORDER_HAS_NULL_ENTITY);
+        } else if (order.getDrivers()
                 .stream()
                 .allMatch(driver -> driver.getStatus() == DriverStatus.FREE)) {
             return true;
@@ -526,8 +543,14 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      * @return all are prepare or not
      */
     @Transactional(propagation = SUPPORTS)
-    private boolean isPreparedCargoes(Order order) {
-        if (order.getCargoes()
+    public boolean isPreparedCargoes(Order order) {
+        if (order == null) {
+            throw new OrderNotExistServiceException(ORDER_NOT_EXIST);
+        } else if (order.getCargoes() == null) {
+            throw new CargoesNotAddedServiceException(ORDER_WITHOUT_CARGOES);
+        } else if (order.getCargoes().contains(null)) {
+            throw new OrderHasNullEntityServiceException(ORDER_HAS_NULL_ENTITY);
+        } else if (order.getCargoes()
                 .stream()
                 .allMatch(cargo -> cargo.getStatus() == CargoStatus.PREPARED)) {
             return true;
@@ -543,8 +566,12 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      * @return is active or not
      */
     @Transactional(propagation = SUPPORTS)
-    private boolean isActiveTruck(Order order) {
-        if (order.getTruck().isActive()) {
+    public boolean isActiveTruck(Order order) {
+        if (order == null) {
+            throw new OrderNotExistServiceException(ORDER_NOT_EXIST);
+        } else if (order.getTruck() == null) {
+            throw new TruckNotAssignedServiceException(ORDER_WITHOUT_TRUCK);
+        } else if (order.getTruck().isActive()) {
             return true;
         } else {
             throw new TruckNotActiveServiceException(ORDER_TRUCK_INACTIVE);
@@ -558,8 +585,10 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      * @return is assigned or not
      */
     @Transactional(propagation = SUPPORTS)
-    private boolean hasTruck(Order order) {
-        if (order.getTruck() != null) {
+    public boolean hasTruck(Order order) {
+        if (order == null) {
+            throw new OrderNotExistServiceException(ORDER_NOT_EXIST);
+        } else if (order.getTruck() != null) {
             return true;
         } else {
             throw new TruckNotAssignedServiceException(ORDER_WITHOUT_TRUCK);
@@ -573,8 +602,10 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      * @return is assigned or not
      */
     @Transactional(propagation = SUPPORTS)
-    private boolean hasRoute(Order order) {
-        if (order.getRoute() != null) {
+    public boolean hasRoute(Order order) {
+        if (order == null) {
+            throw new OrderNotExistServiceException(ORDER_NOT_EXIST);
+        } else if (order.getRoute() != null) {
             return true;
         } else {
             throw new RouteNotAssignedServiceException(ORDER_WITHOUT_ROUTE);
@@ -588,8 +619,10 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      * @return are added or not
      */
     @Transactional(propagation = SUPPORTS)
-    private boolean hasDrivers(Order order) {
-        if (order.getDrivers() != null && !order.getDrivers().isEmpty()) {
+    public boolean hasDrivers(Order order) {
+        if (order == null) {
+            throw new OrderNotExistServiceException(ORDER_NOT_EXIST);
+        } else if (order.getDrivers() != null && !order.getDrivers().isEmpty()) {
             return true;
         } else {
             throw new DriversNotAddedServiceException(ORDER_WITHOUT_DRIVERS);
@@ -603,11 +636,13 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      * @return are added or not
      */
     @Transactional(propagation = SUPPORTS)
-    private boolean hasCargoes(Order order) {
-        if (order.getCargoes() != null && !order.getCargoes().isEmpty()) {
+    public boolean hasCargoes(Order order) {
+        if (order == null) {
+            throw new OrderNotExistServiceException(ORDER_NOT_EXIST);
+        } else if (order.getCargoes() != null && !order.getCargoes().isEmpty()) {
             return true;
         } else {
-            throw new DriversNotAddedServiceException(ORDER_WITHOUT_CARGOES);
+            throw new CargoesNotAddedServiceException(ORDER_WITHOUT_CARGOES);
         }
     }
 

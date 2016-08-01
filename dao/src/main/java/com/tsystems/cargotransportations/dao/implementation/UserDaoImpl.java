@@ -7,10 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import java.util.List;
 
-import static com.tsystems.cargotransportations.constants.DaoMapping.USER_DAO;
+import static com.tsystems.cargotransportations.constants.DaoMapper.USER_DAO;
 
 /**
  * Specific DAO implementation for users management.

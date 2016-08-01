@@ -3,7 +3,12 @@ package com.tsystems.cargotransportations.constants;
 /**
  * Represents fields mapping, i.e. matching class fields and database columns.
  */
-public class FieldsMapping {
+public final class DatabaseMapper {
+
+    /**
+     * Default private constructor.
+     */
+    public DatabaseMapper() {}
 
     /**
      * Represents id.

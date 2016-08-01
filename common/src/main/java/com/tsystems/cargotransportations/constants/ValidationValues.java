@@ -3,7 +3,12 @@ package com.tsystems.cargotransportations.constants;
 /**
  * Represents validation values that met in a validation process.
  */
-public class ValidationValues {
+public final class ValidationValues {
+
+    /**
+     * Default private constructor.
+     */
+    public ValidationValues() {}
 
     /**
      * Represents cargo max weight.
@@ -39,6 +44,5 @@ public class ValidationValues {
      * Represents truck number pattern.
      */
     public static final String TRUCK_NUMBER_PATTERN = "[a-zA-Z]{2}[\\d]{5}";
-
 
 }

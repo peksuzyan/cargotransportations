@@ -4,17 +4,15 @@ import com.tsystems.cargotransportations.dao.interfaces.GenericDao;
 import com.tsystems.cargotransportations.dao.interfaces.UserDao;
 import com.tsystems.cargotransportations.entity.User;
 import com.tsystems.cargotransportations.entity.UserRole;
-import com.tsystems.cargotransportations.exception.IllegalAccessException;
 import com.tsystems.cargotransportations.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceException;
-import java.util.Date;
 import java.util.List;
 
-import static com.tsystems.cargotransportations.constants.ServiceMapping.USER_SERVICE;
+import static com.tsystems.cargotransportations.constants.ServiceMapper.USER_SERVICE;
 
 /**
  * Implements business-logic operations that bound with user.

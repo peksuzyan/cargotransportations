@@ -2,25 +2,34 @@ package com.tsystems.cargotransportations.aop;
 
 import org.apache.log4j.Logger;
 
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
+/**
+ * Logs all public invoking services.
+ */
 @Component
 @Aspect
 public class ServiceActionsLogger {
 
+    /**
+     * Classic log4j logger.
+     */
     private static final Logger logger = Logger.getLogger(ServiceActionsLogger.class);
 
-    @Before("execution(* com.tsystems.cargotransportations.service.interfaces.CargoService.*(..))")
-    public void logBeforeGetMethods() {
-        logger.debug("[BEFORE] Anything getMethod is starting...");
+    /**
+     * The log is before service invoking.
+     */
+    @Before("execution(public * com.tsystems.cargotransportations.service.interfaces.*.*(..))")
+    public void logBeforeInvoking() {
+        logger.info("Service method is starting.");
     }
 
-    @After("execution(* com.tsystems.cargotransportations.service.interfaces.CargoService.*(..))")
-    public void logAfterGetMethods() {
-        logger.debug("[AFTER] Anything getMethod is ending...");
+    /**
+     * The log is after service invoking.
+     */
+    @After("execution(public * com.tsystems.cargotransportations.service.interfaces.*.*(..))")
+    public void logAfterInvoking() {
+        logger.info("Service method is completing.");
     }
 }

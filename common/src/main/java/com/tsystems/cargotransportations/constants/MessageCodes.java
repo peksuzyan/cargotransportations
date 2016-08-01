@@ -3,7 +3,12 @@ package com.tsystems.cargotransportations.constants;
 /**
  * Contains all messages are performed by known reasons/exceptions.
  */
-public class MessageConstants {
+public final class MessageCodes {
+
+    /**
+     * Default private constructor.
+     */
+    public MessageCodes() {}
 
     /* <-----  Security Messages ----->*/
 

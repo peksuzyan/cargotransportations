@@ -1,5 +1,6 @@
 package com.tsystems.cargotransportations.dao.interfaces;
 
+import com.tsystems.cargotransportations.entity.Driver;
 import com.tsystems.cargotransportations.entity.Truck;
 
 import java.util.List;

@@ -16,14 +16,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import javax.ws.rs.core.MediaType;
 import java.util.Locale;
 
-import static com.tsystems.cargotransportations.constants.ActionConstants.CHECK_ACTION;
-import static com.tsystems.cargotransportations.constants.ActionConstants.DELETE_ACTION;
-import static com.tsystems.cargotransportations.constants.GridConstants.*;
-import static com.tsystems.cargotransportations.constants.MessageConstants.*;
-import static com.tsystems.cargotransportations.constants.ParamConstants.*;
-import static com.tsystems.cargotransportations.constants.PresentationConstants.*;
+import static com.tsystems.cargotransportations.constants.ActionMapper.CHECK_ACTION;
+import static com.tsystems.cargotransportations.constants.ActionMapper.DELETE_ACTION;
+import static com.tsystems.cargotransportations.constants.GridMapper.*;
+import static com.tsystems.cargotransportations.constants.MessageCodes.*;
+import static com.tsystems.cargotransportations.constants.ParamMapper.*;
+import static com.tsystems.cargotransportations.constants.PresentationMapper.*;
 
 @RequestMapping(DRIVER_DIR)
 @Controller
@@ -56,7 +57,7 @@ public class DriverController {
      * @param sortTo sort direction
      * @return data container with entities
      */
-    @RequestMapping(value = LIST_GRID_DIR, method = RequestMethod.GET, produces = REQUEST_JSON_TYPE)
+    @RequestMapping(value = LIST_GRID_DIR, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
     @ResponseBody
     public Grid<Driver> listGrid(@RequestParam(value = GRID_CURRENT_PAGE) int page,
                                 @RequestParam(value = GRID_RECORDS_ON_PAGE) int records,
@@ -73,7 +74,7 @@ public class DriverController {
      * @return message object
      */
     @RequestMapping(value = ID_DIR, params = CHECK_ACTION,
-            method = RequestMethod.GET, produces = REQUEST_JSON_TYPE)
+            method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
     @ResponseBody
     public Message check(@PathVariable(ID_PARAM) int id,
                          Locale locale) {

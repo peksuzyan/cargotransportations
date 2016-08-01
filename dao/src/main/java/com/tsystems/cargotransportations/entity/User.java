@@ -7,7 +7,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.util.Date;
 
-import static com.tsystems.cargotransportations.constants.FieldsMapping.*;
+import static com.tsystems.cargotransportations.constants.DatabaseMapper.*;
 import static com.tsystems.cargotransportations.constants.ValidationCodes.USER_EMAIL_IS_EMPTY;
 import static com.tsystems.cargotransportations.constants.ValidationCodes.USER_EMAIL_IS_NOT_EMAIL;
 import static com.tsystems.cargotransportations.constants.ValidationCodes.USER_PASSWORD_IS_EMPTY;
