@@ -10,7 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-import static com.tsystems.cargotransportations.constants.DaoMapper.ORDER_DAO;
+import static com.tsystems.cargotransportations.constants.mapping.DaoMapper.ORDER_DAO;
 
 /**
  * Specific DAO implementation for orders management.

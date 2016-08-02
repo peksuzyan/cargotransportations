@@ -4,9 +4,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-import static com.tsystems.cargotransportations.constants.DatabaseMapper.DISTANCE;
-import static com.tsystems.cargotransportations.constants.DatabaseMapper.DURATION;
-import static com.tsystems.cargotransportations.constants.DatabaseMapper.ID;
+import static com.tsystems.cargotransportations.constants.mapping.DatabaseMapper.DISTANCE;
+import static com.tsystems.cargotransportations.constants.mapping.DatabaseMapper.DURATION;
+import static com.tsystems.cargotransportations.constants.mapping.DatabaseMapper.ID;
 
 /**
  * Basic class that represents a route entity.

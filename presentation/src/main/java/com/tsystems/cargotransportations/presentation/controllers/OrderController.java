@@ -18,13 +18,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.ws.rs.core.MediaType;
 import java.util.Locale;
 
-import static com.tsystems.cargotransportations.constants.ActionMapper.*;
-import static com.tsystems.cargotransportations.constants.GridMapper.*;
-import static com.tsystems.cargotransportations.constants.GridMapper.GRID_SORT_TO;
-import static com.tsystems.cargotransportations.constants.MessageCodes.*;
-import static com.tsystems.cargotransportations.constants.ParamMapper.*;
-import static com.tsystems.cargotransportations.constants.ParamMapper.MESSAGE_PARAM;
-import static com.tsystems.cargotransportations.constants.PresentationMapper.*;
+import static com.tsystems.cargotransportations.constants.mapping.ActionMapper.*;
+import static com.tsystems.cargotransportations.constants.mapping.GridMapper.*;
+import static com.tsystems.cargotransportations.constants.mapping.GridMapper.GRID_SORT_TO;
+import static com.tsystems.cargotransportations.constants.codes.MessageCodes.*;
+import static com.tsystems.cargotransportations.constants.mapping.ParamMapper.*;
+import static com.tsystems.cargotransportations.constants.mapping.ParamMapper.MESSAGE_PARAM;
+import static com.tsystems.cargotransportations.constants.mapping.PresentationMapper.*;
 
 @RequestMapping(ORDER_DIR)
 @Controller
@@ -301,10 +301,10 @@ public class OrderController {
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model uiModel) {
         uiModel.addAttribute(ORDER_PARAM, new Order());
-        uiModel.addAttribute(SUITABLE_CARGOES_LIST_PARAM, orderService.getSuitableCargoes());
-        uiModel.addAttribute(SUITABLE_DRIVERS_LIST_PARAM, orderService.getSuitableDrivers());
-        uiModel.addAttribute(SUITABLE_TRUCKS_LIST_PARAM, orderService.getSuitableTrucks());
-        uiModel.addAttribute(SUITABLE_ROUTES_LIST_PARAM, orderService.getSuitableRoutes());
+        uiModel.addAttribute(SUITABLE_CARGOES_PARAM, orderService.getSuitableCargoes());
+        uiModel.addAttribute(SUITABLE_DRIVERS_PARAM, orderService.getSuitableDrivers());
+        uiModel.addAttribute(SUITABLE_TRUCKS_PARAM, orderService.getSuitableTrucks());
+        uiModel.addAttribute(SUITABLE_ROUTES_PARAM, orderService.getSuitableRoutes());
         return ORDER_LIST_PATH;
     }
 
@@ -321,10 +321,10 @@ public class OrderController {
         Order order = orderService.read(id);
         uiModel.addAttribute(ORDER_PARAM, order);
         if (order.getStatus() == OrderStatus.OPEN) {
-            uiModel.addAttribute(SUITABLE_CARGOES_LIST_PARAM, orderService.getSuitableCargoes());
-            uiModel.addAttribute(SUITABLE_DRIVERS_LIST_PARAM, orderService.getSuitableDrivers());
-            uiModel.addAttribute(SUITABLE_TRUCKS_LIST_PARAM, orderService.getSuitableTrucks());
-            uiModel.addAttribute(SUITABLE_ROUTES_LIST_PARAM, orderService.getSuitableRoutes());
+            uiModel.addAttribute(SUITABLE_CARGOES_PARAM, orderService.getSuitableCargoes());
+            uiModel.addAttribute(SUITABLE_DRIVERS_PARAM, orderService.getSuitableDrivers());
+            uiModel.addAttribute(SUITABLE_TRUCKS_PARAM, orderService.getSuitableTrucks());
+            uiModel.addAttribute(SUITABLE_ROUTES_PARAM, orderService.getSuitableRoutes());
         }
         return ORDER_EDIT_PATH;
     }

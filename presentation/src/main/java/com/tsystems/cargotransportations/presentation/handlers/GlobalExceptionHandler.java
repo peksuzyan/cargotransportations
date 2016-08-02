@@ -4,8 +4,8 @@ import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import static com.tsystems.cargotransportations.constants.PresentationMapper.PAGE_404;
-import static com.tsystems.cargotransportations.constants.PresentationMapper.REDIRECT;
+import static com.tsystems.cargotransportations.constants.mapping.PresentationMapper.PAGE_404;
+import static com.tsystems.cargotransportations.constants.mapping.PresentationMapper.REDIRECT;
 
 /**
  * Intercepts all undefined exceptions.

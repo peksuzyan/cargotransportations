@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.constants;
+package com.tsystems.cargotransportations.constants.codes;
 
 /**
  * Contains all messages are performed by known reasons/exceptions.
@@ -8,7 +8,7 @@ public final class MessageCodes {
     /**
      * Default private constructor.
      */
-    public MessageCodes() {}
+    private MessageCodes() {}
 
     /* <-----  Security Messages ----->*/
 

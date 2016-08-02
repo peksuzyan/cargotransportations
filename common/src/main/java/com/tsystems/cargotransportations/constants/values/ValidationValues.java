@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.constants;
+package com.tsystems.cargotransportations.constants.values;
 
 /**
  * Represents validation values that met in a validation process.
@@ -8,7 +8,7 @@ public final class ValidationValues {
     /**
      * Default private constructor.
      */
-    public ValidationValues() {}
+    private ValidationValues() {}
 
     /**
      * Represents cargo max weight.

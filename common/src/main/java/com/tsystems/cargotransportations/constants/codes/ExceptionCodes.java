@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.constants;
+package com.tsystems.cargotransportations.constants.codes;
 
 /**
  * Contains all localize properties codes for business-operations.
@@ -8,7 +8,7 @@ public final class ExceptionCodes {
     /**
      * Default private constructor.
      */
-    public ExceptionCodes() {}
+    private ExceptionCodes() {}
 
     /**
      * Localization code for processes when cargo is already shipped.
@@ -54,6 +54,11 @@ public final class ExceptionCodes {
      * Localization code for processes when order without assigned route.
      */
     public static final String ORDER_WITHOUT_ROUTE = "exception_order_without_route";
+
+    /**
+     * Localization code for processes when order has route is not full.
+     */
+    public static final String ORDER_ROUTE_NOT_FULL = "exception_order_route_not_full";
 
     /**
      * Localization code for processes when order without added cargoes.

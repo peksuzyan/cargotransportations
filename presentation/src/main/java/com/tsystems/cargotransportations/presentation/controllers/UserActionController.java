@@ -23,9 +23,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.validation.Valid;
 import java.util.Locale;
 
-import static com.tsystems.cargotransportations.constants.MessageCodes.*;
-import static com.tsystems.cargotransportations.constants.ParamMapper.MESSAGE_PARAM;
-import static com.tsystems.cargotransportations.constants.ParamMapper.USER_PARAM;
+import static com.tsystems.cargotransportations.constants.codes.MessageCodes.*;
+import static com.tsystems.cargotransportations.constants.mapping.ParamMapper.MESSAGE_PARAM;
+import static com.tsystems.cargotransportations.constants.mapping.ParamMapper.USER_PARAM;
 
 @Controller
 public class UserActionController {

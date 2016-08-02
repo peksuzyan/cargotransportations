@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.PersistenceException;
 
-import static com.tsystems.cargotransportations.constants.ServiceMapper.TRUCK_SERVICE;
+import static com.tsystems.cargotransportations.constants.mapping.ServiceMapper.TRUCK_SERVICE;
 
 /**
  * Implements business-logic operations that bound with truck.

@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.constants;
+package com.tsystems.cargotransportations.constants.mapping;
 
 /**
  * Contains all properties bound with grid-producer.
@@ -8,7 +8,7 @@ public final class GridMapper {
     /**
      * Default private constructor.
      */
-    public GridMapper() {}
+    private GridMapper() {}
 
     /**
      * Current page name within transfer container, i.e. JSON.

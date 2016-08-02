@@ -17,8 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.PersistenceException;
 import java.util.*;
 
-import static com.tsystems.cargotransportations.constants.ExceptionCodes.DRIVER_IS_BUSY;
-import static com.tsystems.cargotransportations.constants.ServiceMapper.DRIVER_SERVICE;
+import static com.tsystems.cargotransportations.constants.codes.ExceptionCodes.DRIVER_IS_BUSY;
+import static com.tsystems.cargotransportations.constants.mapping.ServiceMapper.DRIVER_SERVICE;
 import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
 
 /**

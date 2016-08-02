@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-import static com.tsystems.cargotransportations.constants.DaoMapper.DRIVER_DAO;
+import static com.tsystems.cargotransportations.constants.mapping.DaoMapper.DRIVER_DAO;
 
 /**
  * Specific DAO implementation for drivers management.

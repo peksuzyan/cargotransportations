@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.PersistenceException;
 import java.util.List;
 
-import static com.tsystems.cargotransportations.constants.ServiceMapper.USER_SERVICE;
+import static com.tsystems.cargotransportations.constants.mapping.ServiceMapper.USER_SERVICE;
 
 /**
  * Implements business-logic operations that bound with user.

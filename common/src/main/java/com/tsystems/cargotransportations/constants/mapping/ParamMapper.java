@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.constants;
+package com.tsystems.cargotransportations.constants.mapping;
 
 /**
  * Contains all params names that are used for parse client requests.
@@ -8,7 +8,7 @@ public final class ParamMapper {
     /**
      * Default private constructor.
      */
-    public ParamMapper() {}
+    private ParamMapper() {}
 
     /**
      * Necessary for setting or getting id by param name.
@@ -58,21 +58,21 @@ public final class ParamMapper {
     /**
      * Necessary for setting or getting suitable routes list by param name.
      */
-    public static final String SUITABLE_ROUTES_LIST_PARAM = "suitable_routes";
+    public static final String SUITABLE_ROUTES_PARAM = "suitable_routes";
 
     /**
      * Necessary for setting or getting suitable trucks list by param name.
      */
-    public static final String SUITABLE_TRUCKS_LIST_PARAM = "suitable_trucks";
+    public static final String SUITABLE_TRUCKS_PARAM = "suitable_trucks";
 
     /**
      * Necessary for setting or getting suitable trucks list by param name.
      */
-    public static final String SUITABLE_CARGOES_LIST_PARAM = "suitable_cargoes";
+    public static final String SUITABLE_CARGOES_PARAM = "suitable_cargoes";
 
     /**
      * Necessary for setting or getting suitable trucks list by param name.
      */
-    public static final String SUITABLE_DRIVERS_LIST_PARAM = "suitable_drivers";
+    public static final String SUITABLE_DRIVERS_PARAM = "suitable_drivers";
 
 }

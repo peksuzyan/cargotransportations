@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-import static com.tsystems.cargotransportations.constants.ServiceMapper.ROUTE_SERVICE;
+import static com.tsystems.cargotransportations.constants.mapping.ServiceMapper.ROUTE_SERVICE;
 import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
 
 /**

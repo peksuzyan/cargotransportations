@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.constants;
+package com.tsystems.cargotransportations.constants.mapping;
 
 /**
  * Represents fields mapping, i.e. matching class fields and database columns.
@@ -8,7 +8,7 @@ public final class DatabaseMapper {
     /**
      * Default private constructor.
      */
-    public DatabaseMapper() {}
+    private DatabaseMapper() {}
 
     /**
      * Represents id.

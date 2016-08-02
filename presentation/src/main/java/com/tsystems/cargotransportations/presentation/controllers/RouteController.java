@@ -16,12 +16,12 @@ import javax.ws.rs.core.MediaType;
 import java.util.List;
 import java.util.Locale;
 
-import static com.tsystems.cargotransportations.constants.GridMapper.*;
-import static com.tsystems.cargotransportations.constants.GridMapper.GRID_SORT_TO;
-import static com.tsystems.cargotransportations.constants.MessageCodes.*;
-import static com.tsystems.cargotransportations.constants.ParamMapper.*;
-import static com.tsystems.cargotransportations.constants.ParamMapper.MESSAGE_PARAM;
-import static com.tsystems.cargotransportations.constants.PresentationMapper.*;
+import static com.tsystems.cargotransportations.constants.mapping.GridMapper.*;
+import static com.tsystems.cargotransportations.constants.mapping.GridMapper.GRID_SORT_TO;
+import static com.tsystems.cargotransportations.constants.codes.MessageCodes.*;
+import static com.tsystems.cargotransportations.constants.mapping.ParamMapper.*;
+import static com.tsystems.cargotransportations.constants.mapping.ParamMapper.MESSAGE_PARAM;
+import static com.tsystems.cargotransportations.constants.mapping.PresentationMapper.*;
 
 @RequestMapping(ROUTE_DIR)
 @Controller

@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.constants;
+package com.tsystems.cargotransportations.constants.codes;
 
 /**
  * Represents validation message codes for localization properties.
@@ -8,7 +8,7 @@ public final class ValidationCodes {
     /**
      * Default private constructor.
      */
-    public ValidationCodes() {}
+    private ValidationCodes() {}
 
     /* CARGO ENTITY */
 

@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.constants;
+package com.tsystems.cargotransportations.constants.mapping;
 
 /**
  * Contains all logic page names that are used by Spring controllers and actual pages.
@@ -8,7 +8,7 @@ public final class PresentationMapper {
     /**
      * Default private constructor.
      */
-    public PresentationMapper() {}
+    private PresentationMapper() {}
 
     /**
      * Keyword for redirect to given page.

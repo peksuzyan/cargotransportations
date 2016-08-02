@@ -140,5 +140,10 @@ public interface OrderService extends GenericService<Order> {
      */
     List<Route> getSuitableRoutes();
 
+    /**
+     * Returns a truck of the order by a given driver.
+     * @param driver driver
+     * @return truck
+     */
     Truck getTruckByDriver(Driver driver);
 }

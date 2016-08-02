@@ -1,6 +1,6 @@
 package com.tsystems.cargotransportations.service.implementation;
 
-import com.tsystems.cargotransportations.constants.MagicValues;
+import com.tsystems.cargotransportations.constants.values.MagicValues;
 import com.tsystems.cargotransportations.dao.interfaces.*;
 import com.tsystems.cargotransportations.entity.*;
 import com.tsystems.cargotransportations.exception.*;
@@ -14,8 +14,11 @@ import javax.persistence.PersistenceException;
 import java.util.Calendar;
 import java.util.List;
 
-import static com.tsystems.cargotransportations.constants.ExceptionCodes.*;
-import static com.tsystems.cargotransportations.constants.ServiceMapper.ORDER_SERVICE;
+import static com.tsystems.cargotransportations.constants.codes.ExceptionCodes.*;
+import static com.tsystems.cargotransportations.constants.mapping.ServiceMapper.ORDER_SERVICE;
+import static com.tsystems.cargotransportations.constants.values.MagicValues.HOURS_IN_DAY;
+import static com.tsystems.cargotransportations.constants.values.MagicValues.INDEX_OF_ABSENT;
+import static com.tsystems.cargotransportations.constants.values.MagicValues.START_POINT_NUMBER;
 import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
 
 /**
@@ -105,15 +108,20 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
         return routeDao.getAll();
     }
 
+    /**
+     * Returns a truck of the order by a given driver.
+     *
+     * @param driver driver
+     * @return truck
+     */
     @Override
     public Truck getTruckByDriver(Driver driver) {
-        List<Order> orders = orderDao.getAllByStatus(OrderStatus.PERFORMING);
-        for (Order order : orders) {
-            if (order.getDrivers().contains(driver)) {
-                return order.getTruck();
-            }
-        }
-        return null;
+        return orderDao.getAllByStatus(OrderStatus.PERFORMING)
+                .stream()
+                .filter(order -> order.getDrivers().contains(driver))
+                .findFirst()
+                .orElseThrow(() -> new OrderNotExistServiceException(ORDER_NOT_EXIST))
+                .getTruck();
     }
 
     /**
@@ -124,14 +132,18 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
     @Override
     public void createOrder(int orderId) {
         Order order = orderDao.read(orderId);
-        for (Driver driver : order.getDrivers()) {
-            driver.setStatus(DriverStatus.ASSIGNED);
-            driverDao.update(driver);
-        }
-        for (Cargo cargo : order.getCargoes()) {
-            cargo.setStatus(CargoStatus.SHIPPED);
-            cargoDao.update(cargo);
-        }
+        order.getDrivers()
+                .stream()
+                .forEach(driver -> {
+                    driver.setStatus(DriverStatus.ASSIGNED);
+                    driverDao.update(driver);
+                });
+        order.getCargoes()
+                .stream()
+                .forEach(cargo -> {
+                    cargo.setStatus(CargoStatus.SHIPPED);
+                    cargoDao.update(cargo);
+                });
         order.setStatus(OrderStatus.PERFORMING);
         orderDao.update(order);
     }
@@ -301,13 +313,11 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
     @Transactional(readOnly = true)
     @Override
     public boolean isReadyToPerforming(Order order) {
-        return hasCargoes(order)
-                && hasTruck(order)
-                && hasDrivers(order)
-                && hasRoute(order)
-                && isActiveTruck(order)
-                && isPreparedCargoes(order)
-                && isFreeDrivers(order)
+        return isPresent(order)
+                && hasPreparedCargoes(order)
+                && hasActiveTruck(order)
+                && hasFreeDrivers(order)
+                && hasFullRoute(order)
                 && hasNotTooManyDrivers(order)
                 && hasSameLocationsTruckAndRoute(order)
                 && hasSameLocationsTruckAndDrivers(order)
@@ -323,14 +333,13 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      * @return have or not
      */
     @Transactional(propagation = SUPPORTS)
-    private boolean hasDriversWithEnoughWorkingTime(Order order) {
+    public boolean hasDriversWithEnoughWorkingTime(Order order) {
         int routeHoursInCurrentMonth =
                 getRouteHoursInCurrentMonth(
                         order.getRoute().getDuration(), getRestHoursOfMonth());
         int routeHoursInCurrentMonthForOne =
                 routeHoursInCurrentMonth / order.getDrivers().size();
-        return order.getDrivers()
-                .stream()
+        return order.getDrivers().stream()
                 .allMatch(driver -> isDriverWithEnoughWorkingTime(
                         routeHoursInCurrentMonthForOne, driver));
     }
@@ -345,12 +354,10 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
     @Transactional(propagation = SUPPORTS)
     private boolean isDriverWithEnoughWorkingTime(int routeHoursInCurrentMonthForOne, Driver driver) {
         int expectedTotalWorkingTime = routeHoursInCurrentMonthForOne + driver.getHours();
-        if (expectedTotalWorkingTime > MagicValues.WORKING_TIME_OF_MONTH) {
+        if (expectedTotalWorkingTime > MagicValues.WORKING_TIME_OF_MONTH)
             throw new DriversWithNotEnoughWorkingTimeServiceException(
                     ORDER_DRIVERS_WITH_NOT_ENOUGH_WORKING_TIME);
-        } else {
-            return true;
-        }
+        return true;
     }
 
 
@@ -377,7 +384,7 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
         int lastDayOfMonth = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
         int currentDayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         int currentHourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        return (lastDayOfMonth - currentDayOfMonth) * 24 + currentHourOfDay;
+        return (lastDayOfMonth - currentDayOfMonth) * HOURS_IN_DAY + currentHourOfDay;
     }
 
     /**
@@ -387,7 +394,7 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      * @return is suitable truck or not
      */
     @Transactional(propagation = SUPPORTS)
-    private boolean hasTruckWithEnoughCapacity(Order order) {
+    public boolean hasTruckWithEnoughCapacity(Order order) {
         double currentWeight = MagicValues.DOUBLE_ZERO;
         for (String city : order.getRoute().getCities()) {
             for (Cargo cargo : order.getCargoes()) {
@@ -427,16 +434,13 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      * @return order is right or not
      */
     @Transactional(propagation = SUPPORTS)
-    private boolean hasShippingAndDeliveringRightOrder(Order order) {
-        if (order.getCargoes()
-                .stream()
-                .allMatch(cargo -> isCargoWithShippingAndDeliveringRightOrder(
-                        cargo, order.getRoute().getCities()))) {
-            return true;
-        } else {
+    public boolean hasShippingAndDeliveringRightOrder(Order order) {
+        if (order.getCargoes().stream()
+                .anyMatch(cargo -> !isCargoWithShippingAndDeliveringRightOrder(
+                        cargo, order.getRoute().getCities())))
             throw new WrongOrderDepartureAndArrivalServiceException(
                     ORDER_WRONG_DEPARTURE_AND_ARRIVAL_ORDER);
-        }
+        return true;
     }
 
     /**
@@ -444,21 +448,14 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      *
      * @param cargo  cargo
      * @param cities route points
-     * @return match or not
+     * @return matched or not
      */
     @Transactional(propagation = SUPPORTS)
     private boolean isCargoWithShippingAndDeliveringRightOrder(Cargo cargo, List<String> cities) {
-        int departureRoutePointNumber = 0;
-        int arrivalRoutePointNumber = 0;
-        for (String city : cities) {
-            if (city.equalsIgnoreCase(cargo.getDepartureCity())) {
-                departureRoutePointNumber = cities.indexOf(cargo.getDepartureCity());
-            } else if (city.equalsIgnoreCase(cargo.getArrivalCity())) {
-                arrivalRoutePointNumber = cities.indexOf(cargo.getArrivalCity());
-            }
-        }
-        return departureRoutePointNumber != 0
-                && arrivalRoutePointNumber != 0
+        int departureRoutePointNumber = cities.indexOf(cargo.getDepartureCity());
+        int arrivalRoutePointNumber = cities.indexOf(cargo.getArrivalCity());
+        return departureRoutePointNumber != INDEX_OF_ABSENT
+                && arrivalRoutePointNumber != INDEX_OF_ABSENT
                 && departureRoutePointNumber < arrivalRoutePointNumber;
     }
 
@@ -469,15 +466,12 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      * @return have same locations or not
      */
     @Transactional(propagation = SUPPORTS)
-    private boolean hasSameLocationsTruckAndDrivers(Order order) {
-        if (order.getDrivers()
-                .stream()
-                .allMatch(driver -> driver.getCity().equalsIgnoreCase(order.getTruck().getCity()))) {
-            return true;
-        } else {
+    public boolean hasSameLocationsTruckAndDrivers(Order order) {
+        if (order.getDrivers().stream()
+                .anyMatch(driver -> !driver.getCity().equalsIgnoreCase(order.getTruck().getCity())))
             throw new DifferentLocationsTruckAndDriversServiceException(
                     ORDER_DIFFERENT_LOCATIONS_TRUCK_AND_DRIVERS);
-        }
+        return true;
     }
 
     /**
@@ -487,14 +481,12 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      * @return have same locations or not
      */
     @Transactional(propagation = SUPPORTS)
-    private boolean hasSameLocationsTruckAndRoute(Order order) {
-        if (order.getTruck().getCity()
-                .equalsIgnoreCase(order.getRoute().getCities().get(0))) {
-            return true;
-        } else {
+    public boolean hasSameLocationsTruckAndRoute(Order order) {
+        if (!order.getTruck().getCity()
+                .equalsIgnoreCase(order.getRoute().getCities().get(START_POINT_NUMBER)))
             throw new DifferentLocationsTruckAndRouteServiceException(
                     ORDER_DIFFERENT_LOCATIONS_TRUCK_AND_ROUTE);
-        }
+        return true;
     }
 
 
@@ -505,111 +497,40 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      * @return drivers count is less or not
      */
     @Transactional(propagation = SUPPORTS)
-    private boolean hasNotTooManyDrivers(Order order) {
-        if (order.getDrivers().size() <= order.getTruck().getPeople()) {
-            return true;
-        } else {
+    public boolean hasNotTooManyDrivers(Order order) {
+        if (order.getDrivers().size() > order.getTruck().getPeople())
             throw new TruckHasTooManyDriversServiceException(ORDER_TOO_MANY_DRIVERS);
-        }
+        return true;
     }
 
     /**
-     * Checks that all drivers have status is FREE.
+     * Checks that a truck is active and assigned to an order.
      *
      * @param order order
-     * @return all are free or not
+     * @return is assigned or not
      */
     @Transactional(propagation = SUPPORTS)
-    private boolean isFreeDrivers(Order order) {
-        if (order == null) {
-            throw new OrderNotExistServiceException(ORDER_NOT_EXIST);
-        } else if (order.getDrivers() == null) {
-            throw new DriversNotFreeServiceException(ORDER_DRIVERS_NOT_FREE);
-        } else if (order.getDrivers().contains(null)) {
-            throw new OrderHasNullEntityServiceException(ORDER_HAS_NULL_ENTITY);
-        } else if (order.getDrivers()
-                .stream()
-                .allMatch(driver -> driver.getStatus() == DriverStatus.FREE)) {
-            return true;
-        } else {
-            throw new DriversNotFreeServiceException(ORDER_DRIVERS_NOT_FREE);
-        }
-    }
-
-    /**
-     * Checks that all cargoes have status is PREPARED.
-     *
-     * @param order order
-     * @return all are prepare or not
-     */
-    @Transactional(propagation = SUPPORTS)
-    public boolean isPreparedCargoes(Order order) {
-        if (order == null) {
-            throw new OrderNotExistServiceException(ORDER_NOT_EXIST);
-        } else if (order.getCargoes() == null) {
-            throw new CargoesNotAddedServiceException(ORDER_WITHOUT_CARGOES);
-        } else if (order.getCargoes().contains(null)) {
-            throw new OrderHasNullEntityServiceException(ORDER_HAS_NULL_ENTITY);
-        } else if (order.getCargoes()
-                .stream()
-                .allMatch(cargo -> cargo.getStatus() == CargoStatus.PREPARED)) {
-            return true;
-        } else {
-            throw new CargoesNotPreparedServiceException(ORDER_CARGOES_NOT_PREPARE);
-        }
-    }
-
-    /**
-     * Checks that truck is active.
-     *
-     * @param order order
-     * @return is active or not
-     */
-    @Transactional(propagation = SUPPORTS)
-    public boolean isActiveTruck(Order order) {
-        if (order == null) {
-            throw new OrderNotExistServiceException(ORDER_NOT_EXIST);
-        } else if (order.getTruck() == null) {
+    public boolean hasActiveTruck(Order order) {
+        if (order.getTruck() == null)
             throw new TruckNotAssignedServiceException(ORDER_WITHOUT_TRUCK);
-        } else if (order.getTruck().isActive()) {
-            return true;
-        } else {
+        if (!order.getTruck().isActive())
             throw new TruckNotActiveServiceException(ORDER_TRUCK_INACTIVE);
-        }
+        return true;
     }
 
     /**
-     * Checks that truck is assigned to an order.
+     * Checks that route is full and assigned to an order.
      *
      * @param order order
      * @return is assigned or not
      */
     @Transactional(propagation = SUPPORTS)
-    public boolean hasTruck(Order order) {
-        if (order == null) {
-            throw new OrderNotExistServiceException(ORDER_NOT_EXIST);
-        } else if (order.getTruck() != null) {
-            return true;
-        } else {
-            throw new TruckNotAssignedServiceException(ORDER_WITHOUT_TRUCK);
-        }
-    }
-
-    /**
-     * Checks that route is assigned to an order.
-     *
-     * @param order order
-     * @return is assigned or not
-     */
-    @Transactional(propagation = SUPPORTS)
-    public boolean hasRoute(Order order) {
-        if (order == null) {
-            throw new OrderNotExistServiceException(ORDER_NOT_EXIST);
-        } else if (order.getRoute() != null) {
-            return true;
-        } else {
+    public boolean hasFullRoute(Order order) {
+        if (order.getRoute() == null)
             throw new RouteNotAssignedServiceException(ORDER_WITHOUT_ROUTE);
-        }
+        if (order.getRoute().getCities() == null || order.getRoute().getCities().size() < 2)
+            throw new RouteNotFullServiceException(ORDER_ROUTE_NOT_FULL);
+        return true;
     }
 
     /**
@@ -619,31 +540,42 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      * @return are added or not
      */
     @Transactional(propagation = SUPPORTS)
-    public boolean hasDrivers(Order order) {
-        if (order == null) {
-            throw new OrderNotExistServiceException(ORDER_NOT_EXIST);
-        } else if (order.getDrivers() != null && !order.getDrivers().isEmpty()) {
-            return true;
-        } else {
+    public boolean hasFreeDrivers(Order order) {
+        if (order.getDrivers() == null || order.getDrivers().isEmpty())
             throw new DriversNotAddedServiceException(ORDER_WITHOUT_DRIVERS);
-        }
+        if (order.getDrivers().stream()
+                .anyMatch(driver -> driver.getStatus() != DriverStatus.FREE))
+            throw new DriversNotFreeServiceException(ORDER_DRIVERS_NOT_FREE);
+        return true;
     }
 
     /**
-     * Checks that cargoes are added to an order.
+     * Checks that cargoes are prepared and added to an order.
      *
      * @param order order
      * @return are added or not
      */
     @Transactional(propagation = SUPPORTS)
-    public boolean hasCargoes(Order order) {
-        if (order == null) {
-            throw new OrderNotExistServiceException(ORDER_NOT_EXIST);
-        } else if (order.getCargoes() != null && !order.getCargoes().isEmpty()) {
-            return true;
-        } else {
+    public boolean hasPreparedCargoes(Order order) {
+        if (order.getCargoes() == null || order.getCargoes().isEmpty())
             throw new CargoesNotAddedServiceException(ORDER_WITHOUT_CARGOES);
-        }
+        if (order.getCargoes().stream()
+                .anyMatch(cargo -> cargo.getStatus() != CargoStatus.PREPARED))
+            throw new CargoesNotPreparedServiceException(ORDER_CARGOES_NOT_PREPARE);
+        return true;
+    }
+
+    /**
+     * Checks that order is present.
+     *
+     * @param order order
+     * @return is present or not
+     */
+    @Transactional(propagation = SUPPORTS)
+    public boolean isPresent(Order order) {
+        if (order == null)
+            throw new OrderNotExistServiceException(ORDER_NOT_EXIST);
+        return true;
     }
 
     /**

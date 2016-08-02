@@ -8,8 +8,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-import static com.tsystems.cargotransportations.constants.DatabaseMapper.*;
-import static com.tsystems.cargotransportations.constants.ValidationCodes.*;
+import static com.tsystems.cargotransportations.constants.mapping.DatabaseMapper.*;
+import static com.tsystems.cargotransportations.constants.codes.ValidationCodes.*;
 
 /**
  * Basic class that represents a driver entity.

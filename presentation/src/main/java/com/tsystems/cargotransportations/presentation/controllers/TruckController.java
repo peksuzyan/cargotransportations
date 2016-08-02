@@ -17,16 +17,16 @@ import javax.validation.Valid;
 import javax.ws.rs.core.MediaType;
 import java.util.Locale;
 
-import static com.tsystems.cargotransportations.constants.ActionMapper.DELETE_ACTION;
-import static com.tsystems.cargotransportations.constants.GridMapper.*;
-import static com.tsystems.cargotransportations.constants.GridMapper.GRID_SORT_TO;
-import static com.tsystems.cargotransportations.constants.MessageCodes.*;
-import static com.tsystems.cargotransportations.constants.MessageCodes.CODE_ERROR;
-import static com.tsystems.cargotransportations.constants.MessageCodes.CODE_SUCCESS;
-import static com.tsystems.cargotransportations.constants.ParamMapper.*;
-import static com.tsystems.cargotransportations.constants.ParamMapper.ID_PARAM;
-import static com.tsystems.cargotransportations.constants.ParamMapper.MESSAGE_PARAM;
-import static com.tsystems.cargotransportations.constants.PresentationMapper.*;
+import static com.tsystems.cargotransportations.constants.mapping.ActionMapper.DELETE_ACTION;
+import static com.tsystems.cargotransportations.constants.mapping.GridMapper.*;
+import static com.tsystems.cargotransportations.constants.mapping.GridMapper.GRID_SORT_TO;
+import static com.tsystems.cargotransportations.constants.codes.MessageCodes.*;
+import static com.tsystems.cargotransportations.constants.codes.MessageCodes.CODE_ERROR;
+import static com.tsystems.cargotransportations.constants.codes.MessageCodes.CODE_SUCCESS;
+import static com.tsystems.cargotransportations.constants.mapping.ParamMapper.*;
+import static com.tsystems.cargotransportations.constants.mapping.ParamMapper.ID_PARAM;
+import static com.tsystems.cargotransportations.constants.mapping.ParamMapper.MESSAGE_PARAM;
+import static com.tsystems.cargotransportations.constants.mapping.PresentationMapper.*;
 
 @RequestMapping(TRUCK_DIR)
 @Controller

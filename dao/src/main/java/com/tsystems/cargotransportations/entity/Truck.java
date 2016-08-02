@@ -6,9 +6,9 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 
-import static com.tsystems.cargotransportations.constants.DatabaseMapper.*;
-import static com.tsystems.cargotransportations.constants.ValidationCodes.*;
-import static com.tsystems.cargotransportations.constants.ValidationValues.*;
+import static com.tsystems.cargotransportations.constants.mapping.DatabaseMapper.*;
+import static com.tsystems.cargotransportations.constants.codes.ValidationCodes.*;
+import static com.tsystems.cargotransportations.constants.values.ValidationValues.*;
 
 /**
  * Basic class that represents a truck entity.

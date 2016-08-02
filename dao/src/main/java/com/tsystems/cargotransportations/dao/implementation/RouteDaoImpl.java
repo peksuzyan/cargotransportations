@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import static com.tsystems.cargotransportations.constants.DaoMapper.ROUTE_DAO;
+import static com.tsystems.cargotransportations.constants.mapping.DaoMapper.ROUTE_DAO;
 
 /**
  * Specific DAO implementation for routes management.

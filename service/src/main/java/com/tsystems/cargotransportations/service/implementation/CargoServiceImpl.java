@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.tsystems.cargotransportations.constants.ExceptionCodes.CARGO_ALREADY_DELIVERED;
-import static com.tsystems.cargotransportations.constants.ExceptionCodes.CARGO_ALREADY_SHIPPED;
-import static com.tsystems.cargotransportations.constants.ServiceMapper.CARGO_SERVICE;
+import static com.tsystems.cargotransportations.constants.codes.ExceptionCodes.CARGO_ALREADY_DELIVERED;
+import static com.tsystems.cargotransportations.constants.codes.ExceptionCodes.CARGO_ALREADY_SHIPPED;
+import static com.tsystems.cargotransportations.constants.mapping.ServiceMapper.CARGO_SERVICE;
 import static org.springframework.transaction.annotation.Propagation.SUPPORTS;
 
 /**

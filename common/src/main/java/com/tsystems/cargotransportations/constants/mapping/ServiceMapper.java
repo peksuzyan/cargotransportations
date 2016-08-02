@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.constants;
+package com.tsystems.cargotransportations.constants.mapping;
 
 /**
  * Represents mapping of service classes within Spring.
@@ -8,7 +8,7 @@ public final class ServiceMapper {
     /**
      * Default private constructor.
      */
-    public ServiceMapper() {}
+    private ServiceMapper() {}
 
     /**
      * Represents cargo service.
