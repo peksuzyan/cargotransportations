@@ -18,7 +18,8 @@
             base-package="
             com.tsystems.cargotransportations.service.implementation,
             com.tsystems.cargotransportations.service.interfaces,
-            com.tsystems.cargotransportations.aop" />
+            com.tsystems.cargotransportations.aop,
+            com.tsystems.cargotransportations.util" />
 
     <context:annotation-config />
 

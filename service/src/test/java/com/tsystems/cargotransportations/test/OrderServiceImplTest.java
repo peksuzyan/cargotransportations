@@ -1,20 +1,32 @@
-package com.tsystems.cargotransportations.service.implementation.implementation;
+package com.tsystems.cargotransportations.test;
 
 import com.tsystems.cargotransportations.entity.*;
 import com.tsystems.cargotransportations.exception.*;
 import com.tsystems.cargotransportations.service.implementation.OrderServiceImpl;
+import com.tsystems.cargotransportations.util.TimeCalculator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 
+import static org.mockito.Mockito.when;
+
+@SuppressWarnings("Duplicates")
 public class OrderServiceImplTest {
 
     /**
      * Service instance.
      */
-    private OrderServiceImpl orderService;
+    private OrderServiceImpl service;
+
+    /**
+     * Time calculator instance.
+     */
+    @Mock
+    private TimeCalculator timeCalculator;
 
     /**
      * Route cities.
@@ -28,20 +40,22 @@ public class OrderServiceImplTest {
 
     @Before
     public void setup() {
-        orderService = new OrderServiceImpl();
+        MockitoAnnotations.initMocks(this);
+        service = new OrderServiceImpl();
+        service.setTimeCalculator(timeCalculator);
     }
 
     /* order is present */
 
     @Test(expected = OrderNotExistServiceException.class)
     public void isPresent_ThrowsOnNullOrder() {
-        orderService.isPresent(null);
+        service.isPresent(null);
     }
 
     @Test
     public void isPresent_ReturnsTrue() {
         Order order = new Order();
-        boolean result = orderService.isPresent(order);
+        boolean result = service.isPresent(order);
         Assert.assertTrue(result);
     }
 
@@ -50,14 +64,14 @@ public class OrderServiceImplTest {
     @Test(expected = CargoesNotAddedServiceException.class)
     public void hasPreparedCargoes_ThrowsOnNullList() {
         Order order = new Order();
-        orderService.hasPreparedCargoes(order);
+        service.hasPreparedCargoes(order);
     }
 
     @Test(expected = CargoesNotAddedServiceException.class)
     public void hasPreparedCargoes_ThrowsOnEmptyList() {
         Order order = new Order();
         order.setCargoes(new ArrayList<>());
-        orderService.hasPreparedCargoes(order);
+        service.hasPreparedCargoes(order);
     }
 
     @Test(expected = CargoesNotPreparedServiceException.class)
@@ -73,7 +87,7 @@ public class OrderServiceImplTest {
         order.getCargoes().add(cargo1);
         order.getCargoes().add(cargo2);
         order.getCargoes().add(cargo3);
-        orderService.hasPreparedCargoes(order);
+        service.hasPreparedCargoes(order);
     }
 
     @Test
@@ -89,7 +103,7 @@ public class OrderServiceImplTest {
         order.getCargoes().add(cargo1);
         order.getCargoes().add(cargo2);
         order.getCargoes().add(cargo3);
-        boolean result = orderService.hasPreparedCargoes(order);
+        boolean result = service.hasPreparedCargoes(order);
         Assert.assertTrue(result);
     }
 
@@ -98,14 +112,14 @@ public class OrderServiceImplTest {
     @Test(expected = DriversNotAddedServiceException.class)
     public void hasFreeDrivers_ThrowsOnNullList() {
         Order order = new Order();
-        orderService.hasFreeDrivers(order);
+        service.hasFreeDrivers(order);
     }
 
     @Test(expected = DriversNotAddedServiceException.class)
     public void hasFreeDrivers_ThrowsOnEmptyList() {
         Order order = new Order();
         order.setDrivers(new ArrayList<>());
-        orderService.hasFreeDrivers(order);
+        service.hasFreeDrivers(order);
     }
 
     @Test(expected = DriversNotFreeServiceException.class)
@@ -121,7 +135,7 @@ public class OrderServiceImplTest {
         order.getDrivers().add(driver1);
         order.getDrivers().add(driver2);
         order.getDrivers().add(driver3);
-        orderService.hasFreeDrivers(order);
+        service.hasFreeDrivers(order);
     }
 
     @Test
@@ -137,7 +151,7 @@ public class OrderServiceImplTest {
         order.getDrivers().add(driver1);
         order.getDrivers().add(driver2);
         order.getDrivers().add(driver3);
-        boolean result = orderService.hasFreeDrivers(order);
+        boolean result = service.hasFreeDrivers(order);
         Assert.assertTrue(result);
     }
 
@@ -146,14 +160,14 @@ public class OrderServiceImplTest {
     @Test(expected = RouteNotAssignedServiceException.class)
     public void hasFullRoute_ThrowsOnNullEntity() {
         Order order = new Order();
-        orderService.hasFullRoute(order);
+        service.hasFullRoute(order);
     }
 
     @Test(expected = RouteNotFullServiceException.class)
     public void hasFullRoute_ThrowsOnNullCitiesList() {
         Order order = new Order();
         order.setRoute(new Route());
-        orderService.hasFullRoute(order);
+        service.hasFullRoute(order);
     }
 
     @Test(expected = RouteNotFullServiceException.class)
@@ -162,7 +176,7 @@ public class OrderServiceImplTest {
         order.setRoute(new Route());
         order.getRoute().setCities(new ArrayList<>());
         order.getRoute().getCities().add(PARIS);
-        orderService.hasFullRoute(order);
+        service.hasFullRoute(order);
     }
 
     @Test
@@ -172,7 +186,7 @@ public class OrderServiceImplTest {
         order.getRoute().setCities(new ArrayList<>());
         order.getRoute().getCities().add(PARIS);
         order.getRoute().getCities().add(MILAN);
-        boolean result = orderService.hasFullRoute(order);
+        boolean result = service.hasFullRoute(order);
         Assert.assertTrue(result);
     }
 
@@ -181,14 +195,14 @@ public class OrderServiceImplTest {
     @Test(expected = TruckNotAssignedServiceException.class)
     public void hasActiveTruck_ThrowsOnNullEntity() {
         Order order = new Order();
-        orderService.hasActiveTruck(order);
+        service.hasActiveTruck(order);
     }
 
     @Test(expected = TruckNotActiveServiceException.class)
     public void hasActiveTruck_ThrowsOnInactive() {
         Order order = new Order();
         order.setTruck(new Truck());
-        orderService.hasActiveTruck(order);
+        service.hasActiveTruck(order);
     }
 
     @Test
@@ -196,7 +210,7 @@ public class OrderServiceImplTest {
         Order order = new Order();
         order.setTruck(new Truck());
         order.getTruck().setActive(true);
-        boolean result = orderService.hasActiveTruck(order);
+        boolean result = service.hasActiveTruck(order);
         Assert.assertTrue(result);
     }
 
@@ -210,7 +224,7 @@ public class OrderServiceImplTest {
         order.setDrivers(new ArrayList<>());
         order.getDrivers().add(new Driver());
         order.getDrivers().add(new Driver());
-        orderService.hasNotTooManyDrivers(order);
+        service.hasNotTooManyDrivers(order);
     }
 
     @Test
@@ -221,7 +235,7 @@ public class OrderServiceImplTest {
         order.setDrivers(new ArrayList<>());
         order.getDrivers().add(new Driver());
         order.getDrivers().add(new Driver());
-        boolean result = orderService.hasNotTooManyDrivers(order);
+        boolean result = service.hasNotTooManyDrivers(order);
         Assert.assertTrue(result);
     }
 
@@ -236,7 +250,7 @@ public class OrderServiceImplTest {
         order.getRoute().setCities(new ArrayList<>());
         order.getRoute().getCities().add(MILAN);
         order.getRoute().getCities().add(ROME);
-        orderService.hasSameLocationsTruckAndRoute(order);
+        service.hasSameLocationsTruckAndRoute(order);
     }
 
     @Test
@@ -248,7 +262,7 @@ public class OrderServiceImplTest {
         order.getRoute().setCities(new ArrayList<>());
         order.getRoute().getCities().add(MILAN);
         order.getRoute().getCities().add(ROME);
-        boolean result = orderService.hasSameLocationsTruckAndRoute(order);
+        boolean result = service.hasSameLocationsTruckAndRoute(order);
         Assert.assertTrue(result);
     }
 
@@ -269,7 +283,7 @@ public class OrderServiceImplTest {
         order.getDrivers().add(driver1);
         order.getDrivers().add(driver2);
         order.getDrivers().add(driver3);
-        orderService.hasSameLocationsTruckAndDrivers(order);
+        service.hasSameLocationsTruckAndDrivers(order);
     }
 
     @Test
@@ -287,7 +301,7 @@ public class OrderServiceImplTest {
         order.getDrivers().add(driver1);
         order.getDrivers().add(driver2);
         order.getDrivers().add(driver3);
-        boolean result = orderService.hasSameLocationsTruckAndDrivers(order);
+        boolean result = service.hasSameLocationsTruckAndDrivers(order);
         Assert.assertTrue(result);
     }
 
@@ -299,7 +313,7 @@ public class OrderServiceImplTest {
         order.setCargoes(new ArrayList<>());
         initCargo(order, MILAN, RIGA);
         initRoute(order); // ROME -> BARCELONA -> MILAN -> WARSAW
-        orderService.hasShippingAndDeliveringRightOrder(order);
+        service.hasShippingAndDeliveringRightOrder(order);
     }
 
     @Test(expected = WrongOrderDepartureAndArrivalServiceException.class)
@@ -308,7 +322,7 @@ public class OrderServiceImplTest {
         order.setCargoes(new ArrayList<>());
         initCargo(order, RIGA, MILAN);
         initRoute(order); // ROME -> BARCELONA -> MILAN -> WARSAW
-        orderService.hasShippingAndDeliveringRightOrder(order);
+        service.hasShippingAndDeliveringRightOrder(order);
     }
 
     @Test(expected = WrongOrderDepartureAndArrivalServiceException.class)
@@ -317,7 +331,7 @@ public class OrderServiceImplTest {
         order.setCargoes(new ArrayList<>());
         initCargo(order, MILAN, BARCELONA);
         initRoute(order); // ROME -> BARCELONA -> MILAN -> WARSAW
-        orderService.hasShippingAndDeliveringRightOrder(order);
+        service.hasShippingAndDeliveringRightOrder(order);
     }
 
     @Test
@@ -327,7 +341,7 @@ public class OrderServiceImplTest {
         initCargo(order, ROME, WARSAW);
         initCargo(order, BARCELONA, MILAN);
         initRoute(order); // ROME -> BARCELONA -> MILAN -> WARSAW
-        boolean result = orderService.hasShippingAndDeliveringRightOrder(order);
+        boolean result = service.hasShippingAndDeliveringRightOrder(order);
         Assert.assertTrue(result);
     }
 
@@ -340,7 +354,7 @@ public class OrderServiceImplTest {
         initCargo(order, BARCELONA, MILAN, 11.0);
         initRoute(order); // ROME -> BARCELONA -> MILAN -> WARSAW
         initTruck(order); // capacity = 10.0
-        orderService.hasTruckWithEnoughCapacity(order);
+        service.hasTruckWithEnoughCapacity(order);
     }
 
     @Test(expected = TruckWithNotEnoughCapacityServiceException.class)
@@ -351,7 +365,7 @@ public class OrderServiceImplTest {
         initCargo(order, ROME, WARSAW, 8.0);
         initRoute(order); // ROME -> BARCELONA -> MILAN -> WARSAW
         initTruck(order); // capacity = 10.0
-        orderService.hasTruckWithEnoughCapacity(order);
+        service.hasTruckWithEnoughCapacity(order);
     }
 
     @Test(expected = TruckWithNotEnoughCapacityServiceException.class)
@@ -362,7 +376,7 @@ public class OrderServiceImplTest {
         initCargo(order, ROME, WARSAW, 8.0);
         initRoute(order); // ROME -> BARCELONA -> MILAN -> WARSAW
         initTruck(order); // capacity = 10.0
-        orderService.hasTruckWithEnoughCapacity(order);
+        service.hasTruckWithEnoughCapacity(order);
     }
 
     @Test(expected = TruckWithNotEnoughCapacityServiceException.class)
@@ -373,7 +387,7 @@ public class OrderServiceImplTest {
         initCargo(order, BARCELONA, WARSAW, 8.0);
         initRoute(order); // ROME -> BARCELONA -> MILAN -> WARSAW
         initTruck(order); // capacity = 10.0
-        orderService.hasTruckWithEnoughCapacity(order);
+        service.hasTruckWithEnoughCapacity(order);
     }
 
     @Test(expected = TruckWithNotEnoughCapacityServiceException.class)
@@ -384,7 +398,7 @@ public class OrderServiceImplTest {
         initCargo(order, ROME, MILAN, 8.0);
         initRoute(order); // ROME -> BARCELONA -> MILAN -> WARSAW
         initTruck(order); // capacity = 10.0
-        orderService.hasTruckWithEnoughCapacity(order);
+        service.hasTruckWithEnoughCapacity(order);
     }
 
     @Test
@@ -394,7 +408,7 @@ public class OrderServiceImplTest {
         initCargo(order, BARCELONA, MILAN, 3.0);
         initRoute(order); // ROME -> BARCELONA -> MILAN -> WARSAW
         initTruck(order); // capacity = 10.0
-        boolean result = orderService.hasTruckWithEnoughCapacity(order);
+        boolean result = service.hasTruckWithEnoughCapacity(order);
         Assert.assertTrue(result);
     }
 
@@ -406,7 +420,7 @@ public class OrderServiceImplTest {
         initCargo(order, BARCELONA, WARSAW, 6.0);
         initRoute(order); // ROME -> BARCELONA -> MILAN -> WARSAW
         initTruck(order); // capacity = 10.0
-        boolean result = orderService.hasTruckWithEnoughCapacity(order);
+        boolean result = service.hasTruckWithEnoughCapacity(order);
         Assert.assertTrue(result);
     }
 
@@ -418,7 +432,7 @@ public class OrderServiceImplTest {
         initCargo(order, BARCELONA, MILAN, 6.0);
         initRoute(order); // ROME -> BARCELONA -> MILAN -> WARSAW
         initTruck(order); // capacity = 10.0
-        boolean result = orderService.hasTruckWithEnoughCapacity(order);
+        boolean result = service.hasTruckWithEnoughCapacity(order);
         Assert.assertTrue(result);
     }
 
@@ -430,7 +444,7 @@ public class OrderServiceImplTest {
         initCargo(order, ROME, WARSAW, 6.0);
         initRoute(order); // ROME -> BARCELONA -> MILAN -> WARSAW
         initTruck(order); // capacity = 10.0
-        boolean result = orderService.hasTruckWithEnoughCapacity(order);
+        boolean result = service.hasTruckWithEnoughCapacity(order);
         Assert.assertTrue(result);
     }
 
@@ -442,7 +456,7 @@ public class OrderServiceImplTest {
         initCargo(order, ROME, MILAN, 6.0);
         initRoute(order); // ROME -> BARCELONA -> MILAN -> WARSAW
         initTruck(order); // capacity = 10.0
-        boolean result = orderService.hasTruckWithEnoughCapacity(order);
+        boolean result = service.hasTruckWithEnoughCapacity(order);
         Assert.assertTrue(result);
     }
 
@@ -454,11 +468,133 @@ public class OrderServiceImplTest {
         initCargo(order, ROME, BARCELONA, 6.0);
         initRoute(order); // ROME -> BARCELONA -> MILAN -> WARSAW
         initTruck(order); // capacity = 10.0
-        boolean result = orderService.hasTruckWithEnoughCapacity(order);
+        boolean result = service.hasTruckWithEnoughCapacity(order);
+        Assert.assertTrue(result);
+    }
+
+    /* has drivers with enough working time */
+
+    @Test(expected = DriversWithNotEnoughWorkingTimeServiceException.class)
+    public void hasDriversWithEnoughWorkingTime_ThrowsOnExceedingWorkingTimeForOneWhenMonthRestIsMore() {
+        when(timeCalculator.getRestHoursOfMonth()).thenReturn(100);
+        Order order = new Order();
+        order.setRoute(new Route());
+        order.getRoute().setDuration(50);
+        order.setDrivers(new ArrayList<>());
+        initDriver(order, 130);
+        service.hasDriversWithEnoughWorkingTime(order);
+    }
+
+    @Test
+    public void hasDriversWithEnoughWorkingTime_ReturnsTrueWhenOneAndMonthRestIsLess() {
+        when(timeCalculator.getRestHoursOfMonth()).thenReturn(35);
+        Order order = new Order();
+        order.setRoute(new Route());
+        order.getRoute().setDuration(50);
+        order.setDrivers(new ArrayList<>());
+        initDriver(order, 130);
+        boolean result = service.hasDriversWithEnoughWorkingTime(order);
+        Assert.assertTrue(result);
+    }
+
+    @Test(expected = DriversWithNotEnoughWorkingTimeServiceException.class)
+    public void hasDriversWithEnoughWorkingTime_ThrowsOnExceedingWorkingTimeForTwoWhenMonthRestIsMore() {
+        when(timeCalculator.getRestHoursOfMonth()).thenReturn(100);
+        Order order = new Order();
+        order.setRoute(new Route());
+        order.getRoute().setDuration(50);
+        order.setDrivers(new ArrayList<>());
+        initDriver(order, 110);
+        initDriver(order, 155);
+        service.hasDriversWithEnoughWorkingTime(order);
+    }
+
+    @Test
+    public void hasDriversWithEnoughWorkingTime_ReturnsTrueWhenTwoAndMonthRestIsLess() {
+        when(timeCalculator.getRestHoursOfMonth()).thenReturn(35);
+        Order order = new Order();
+        order.setRoute(new Route());
+        order.getRoute().setDuration(50);
+        order.setDrivers(new ArrayList<>());
+        initDriver(order, 110);
+        initDriver(order, 155);
+        boolean result = service.hasDriversWithEnoughWorkingTime(order);
+        Assert.assertTrue(result);
+    }
+
+    @Test(expected = DriversWithNotEnoughWorkingTimeServiceException.class)
+    public void hasDriversWithEnoughWorkingTime_ThrowsOnExceedingWorkingTimeForThreeWhenMonthRestIsMore() {
+        when(timeCalculator.getRestHoursOfMonth()).thenReturn(100);
+        Order order = new Order();
+        order.setRoute(new Route());
+        order.getRoute().setDuration(50);
+        order.setDrivers(new ArrayList<>());
+        initDriver(order, 110);
+        initDriver(order, 161);
+        initDriver(order, 85);
+        service.hasDriversWithEnoughWorkingTime(order);
+    }
+
+    @Test
+    public void hasDriversWithEnoughWorkingTime_ReturnsTrueWhenThreeAndMonthRestIsLess() {
+        when(timeCalculator.getRestHoursOfMonth()).thenReturn(35);
+        Order order = new Order();
+        order.setRoute(new Route());
+        order.getRoute().setDuration(50);
+        order.setDrivers(new ArrayList<>());
+        initDriver(order, 110);
+        initDriver(order, 161);
+        initDriver(order, 85);
+        boolean result = service.hasDriversWithEnoughWorkingTime(order);
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void hasDriversWithEnoughWorkingTime_ReturnsTrueWhenOneAndMonthRestIsMore() {
+        when(timeCalculator.getRestHoursOfMonth()).thenReturn(100);
+        Order order = new Order();
+        order.setRoute(new Route());
+        order.getRoute().setDuration(50);
+        order.setDrivers(new ArrayList<>());
+        initDriver(order, 110);
+        boolean result = service.hasDriversWithEnoughWorkingTime(order);
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void hasDriversWithEnoughWorkingTime_ReturnsTrueWhenTwoAndMonthRestIsMore() {
+        when(timeCalculator.getRestHoursOfMonth()).thenReturn(100);
+        Order order = new Order();
+        order.setRoute(new Route());
+        order.getRoute().setDuration(50);
+        order.setDrivers(new ArrayList<>());
+        initDriver(order, 110);
+        initDriver(order, 150);
+        boolean result = service.hasDriversWithEnoughWorkingTime(order);
+        Assert.assertTrue(result);
+    }
+
+    @Test
+    public void hasDriversWithEnoughWorkingTime_ReturnsTrueWhenThreeAndMonthRestIsMore() {
+        when(timeCalculator.getRestHoursOfMonth()).thenReturn(100);
+        Order order = new Order();
+        order.setRoute(new Route());
+        order.getRoute().setDuration(50);
+        order.setDrivers(new ArrayList<>());
+        initDriver(order, 110);
+        initDriver(order, 160);
+        initDriver(order, 85);
+        boolean result = service.hasDriversWithEnoughWorkingTime(order);
         Assert.assertTrue(result);
     }
 
     /* initializer-s */
+
+    private void initDriver(Order order, int hours) {
+        Driver driver = new Driver();
+        driver.setHours(hours);
+        order.getDrivers().add(driver);
+    }
 
     private void initRoute(Order order) {
         order.setRoute(new Route());

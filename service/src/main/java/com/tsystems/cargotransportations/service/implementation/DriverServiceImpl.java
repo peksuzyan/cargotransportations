@@ -30,6 +30,7 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
 
     /**
      * Gets an instance of dao implementation in this service.
+     *
      * @return an instance of dao implementation
      */
     @Override
@@ -44,13 +45,8 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
     private DriverDao driverDao;
 
     /**
-     * Instance of implementation of OrderDao class.
-     */
-    @Autowired
-    private OrderDao orderDao;
-
-    /**
      * Checks whether driver is ready to modifying or not in accordance to a business-logic.
+     *
      * @param driver driver
      */
     @Transactional(propagation = SUPPORTS)
@@ -64,6 +60,7 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
 
     /**
      * Checks whether driver is ready to deleting or not in accordance to a business-logic.
+     *
      * @param driver driver
      */
     @Override
@@ -75,6 +72,7 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
 
     /**
      * Checks whether driver is ready to updating or not in accordance to a business-logic.
+     *
      * @param driver driver
      */
     @Override
@@ -86,7 +84,8 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
 
     /**
      * Changes driver to a given status.
-     * @param email driver email
+     *
+     * @param email  driver email
      * @param status a new status
      */
     @Override
@@ -101,6 +100,7 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
 
     /**
      * Registers a start new shift or completes an early existing one.
+     *
      * @param driver driver
      * @param status status
      */
@@ -116,6 +116,7 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
 
     /**
      * Calculates hours count is worked in current month.
+     *
      * @param driver driver
      */
     @Transactional(propagation = SUPPORTS)
@@ -134,6 +135,7 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
 
     /**
      * Returns whether shift is begun.
+     *
      * @param driver driver
      * @param status status
      * @return is begun or not
@@ -146,6 +148,7 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
 
     /**
      * Returns whether shift is completed.
+     *
      * @param driver driver
      * @param status status
      * @return is begun or not
@@ -159,6 +162,7 @@ public class DriverServiceImpl extends GenericServiceImpl<Driver> implements Dri
 
     /**
      * Gets a driver by email.
+     *
      * @param email email
      * @return driver
      */

@@ -1,4 +1,4 @@
-package com.tsystems.cargotransportations.service.implementation.implementation;
+package com.tsystems.cargotransportations.test;
 
 import com.tsystems.cargotransportations.entity.Cargo;
 import com.tsystems.cargotransportations.entity.Order;

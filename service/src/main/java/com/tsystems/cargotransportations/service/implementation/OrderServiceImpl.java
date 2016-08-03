@@ -5,6 +5,7 @@ import com.tsystems.cargotransportations.dao.interfaces.*;
 import com.tsystems.cargotransportations.entity.*;
 import com.tsystems.cargotransportations.exception.*;
 import com.tsystems.cargotransportations.service.interfaces.OrderService;
+import com.tsystems.cargotransportations.util.TimeCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -67,6 +68,12 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
      */
     @Autowired
     private RouteDao routeDao;
+
+    /**
+     * Instance of a time calculator implementation.
+     */
+    @Autowired
+    private TimeCalculator timeCalculator;
 
     /**
      * Return a list of cargoes by suitable conditions.
@@ -296,12 +303,10 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
     @Transactional(propagation = SUPPORTS)
     @Override
     public boolean isReadyToModifying(Order order) {
-        if (order.getStatus() == OrderStatus.PERFORMING) {
+        if (order.getStatus() == OrderStatus.PERFORMING)
             throw new OrderIsPerformingServiceException(ORDER_IS_PERFORMING);
-        }
-        if (order.getStatus() == OrderStatus.DONE) {
+        if (order.getStatus() == OrderStatus.DONE)
             throw new OrderIsDoneServiceException(ORDER_IS_DONE);
-        }
         return true;
     }
 
@@ -336,7 +341,7 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
     public boolean hasDriversWithEnoughWorkingTime(Order order) {
         int routeHoursInCurrentMonth =
                 getRouteHoursInCurrentMonth(
-                        order.getRoute().getDuration(), getRestHoursOfMonth());
+                        order.getRoute().getDuration(), timeCalculator.getRestHoursOfMonth());
         int routeHoursInCurrentMonthForOne =
                 routeHoursInCurrentMonth / order.getDrivers().size();
         return order.getDrivers().stream()
@@ -372,19 +377,6 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
     @Transactional(propagation = SUPPORTS)
     private int getRouteHoursInCurrentMonth(int routeTime, int restTime) {
         return routeTime > restTime ? restTime : routeTime;
-    }
-
-    /**
-     * Gets rest hours of month from current date.
-     *
-     * @return hours
-     */
-    @Transactional(propagation = SUPPORTS)
-    private int getRestHoursOfMonth() {
-        int lastDayOfMonth = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
-        int currentDayOfMonth = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-        int currentHourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        return (lastDayOfMonth - currentDayOfMonth) * HOURS_IN_DAY + currentHourOfDay;
     }
 
     /**
@@ -606,5 +598,14 @@ public class OrderServiceImpl extends GenericServiceImpl<Order> implements Order
             /* NOP */
         }
         return order;
+    }
+
+    /**
+     * Sets timeCalculator.
+     *
+     * @param timeCalculator timeCalculator
+     */
+    public void setTimeCalculator(TimeCalculator timeCalculator) {
+        this.timeCalculator = timeCalculator;
     }
 }

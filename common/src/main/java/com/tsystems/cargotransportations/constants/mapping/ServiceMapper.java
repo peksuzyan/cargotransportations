@@ -40,4 +40,9 @@ public final class ServiceMapper {
      */
     public static final String ORDER_SERVICE = "orderService";
 
+    /**
+     * Represents time calculator.
+     */
+    public static final String TIME_CALCULATOR = "timeCalculator";
+
 }

@@ -10,10 +10,11 @@ import java.util.Set;
 /**
  * Contains business-logic operations that bound with route.
  */
-public interface RouteService extends GenericService<Route>  {
+public interface RouteService extends GenericService<Route> {
 
     /**
      * Gets routes for given order.
+     *
      * @param order order
      * @return routes list
      */
