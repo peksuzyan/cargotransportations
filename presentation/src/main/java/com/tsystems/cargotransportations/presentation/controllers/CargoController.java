@@ -38,9 +38,6 @@ public class CargoController {
     @Autowired
     private CargoService cargoService;
 
-    @Autowired
-    private OrderService orderService;
-
     /**
      * Takes a message with internalization supporting from a request.
      * Automatically has bound with controller through Spring context.
@@ -50,10 +47,11 @@ public class CargoController {
 
     /**
      * Gets requests to show a partial cargoes list.
-     * @param page current page number
+     *
+     * @param page    current page number
      * @param records count records on a page
-     * @param sortBy sort by any field of entity
-     * @param sortTo sort direction
+     * @param sortBy  sort by any field of entity
+     * @param sortTo  sort direction
      * @return data container with entities
      */
     @RequestMapping(value = LIST_GRID_DIR, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
@@ -68,12 +66,16 @@ public class CargoController {
     /**
      * Gets requests to check whether cargo is ready to modifying or not
      * in accordance to a business-logic.
-     * @param id cargo id
+     *
+     * @param id     cargo id
      * @param locale client locale
      * @return message object
      */
-    @RequestMapping(value = ID_DIR, params = CHECK_ACTION,
-            method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON)
+    @RequestMapping(
+            value = ID_DIR,
+            method = RequestMethod.GET,
+            params = CHECK_ACTION,
+            produces = MediaType.APPLICATION_JSON)
     @ResponseBody
     public Message check(@PathVariable(ID_PARAM) int id,
                          Locale locale) {
@@ -87,6 +89,7 @@ public class CargoController {
 
     /**
      * Gets requests to show a cargoes list.
+     *
      * @param uiModel UI model
      * @return path to logic page of entities list
      */
@@ -98,7 +101,8 @@ public class CargoController {
 
     /**
      * Gets requests to show edit form with specified entity by id.
-     * @param id entity id
+     *
+     * @param id      entity id
      * @param uiModel UI model
      * @return path to logic page of editing form
      */
@@ -111,7 +115,8 @@ public class CargoController {
 
     /**
      * Gets requests to perform editing a specified entity.
-     * @param cargo entity
+     *
+     * @param cargo   entity
      * @param uiModel UI model
      * @return redirect path to logic page of editing form
      */
@@ -145,7 +150,8 @@ public class CargoController {
 
     /**
      * Gets requests to delete specified entity by id.
-     * @param id id
+     *
+     * @param id      id
      * @param uiModel UI model
      * @return redirect path to logic page of entities list
      */
@@ -172,7 +178,8 @@ public class CargoController {
 
     /**
      * Gets requests to perform creating a specified entity.
-     * @param cargo entity
+     *
+     * @param cargo   entity
      * @param uiModel UI model
      * @return redirect path to logic page of editing form
      */

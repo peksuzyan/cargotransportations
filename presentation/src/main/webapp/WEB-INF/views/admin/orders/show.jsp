@@ -316,18 +316,19 @@
 <script>
     var isChecked_Verify = false;
     var isLaunched_Verify = false;
+    var verifyUrl = '${verifyURL}';
 
     $('.${orderVerifyingButtons}').click(function (event) {
         if (!isLaunched_Verify) {
             $('.${orderVerifyingButtons}').attr("disabled", true);
             $.ajax({
-                url: '${verifyURL}',
+                url: verifyUrl,
                 type: 'GET',
                 dataType: 'json',
                 contentType: 'application/json'
             }).done(function (response) {
                 if (response.type == 'passed') {
-                    $('.${orderVerifyingButtons}').attr("disabled", false);
+                    $('.${orderVerifyingButtons}').removeAttr("disabled");
                     isChecked_Verify = true;
                     event.target.click();
                 } else {
@@ -336,10 +337,7 @@
             });
             isLaunched_Verify = true;
         }
-        if (!isChecked_Verify || !isLaunched_Verify) {
-            $('.${orderVerifyingButtons}').removeAttr("disabled");
-            event.stopPropagation();
-        }
+        if (!isChecked_Verify || !isLaunched_Verify) event.stopPropagation();
     });
 </script>
 
@@ -357,8 +355,9 @@
             contentType: 'application/json'
         }).done(function (response) {
             orderIdForm.val(response);
-            orderTitle.text('#' + response);
-            submitButton.attr("formaction", "orders/" + orderIdForm.val() + "?add");
+            orderTitle.text('#' + orderIdForm.val());
+            submitButton.attr("formaction", "/admin/orders/" + orderIdForm.val() + "?add");
+            verifyUrl = '/admin/orders/' + orderIdForm.val() + '?verify';
             return true;
         })
     }
